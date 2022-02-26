@@ -25,6 +25,26 @@ class User extends Authenticatable {
         $this->attributes['password'] = bcrypt( $password );
     }
 
+    // get full name
+    public function getFullNameAttribute() {
+        return ucfirst( $this->first_name ) . ' ' . ucfirst( $this->last_name );
+    }
+
+    // get first char
+    public function getFirstCharAttribute() {
+        return ucfirst( substr( $this->first_name, 0, 1 ) );
+    }
+
+    // get first name
+    public function getFirstNameAttribute( $value ) {
+        return ucfirst( $value );
+    }
+
+    // get last name
+    public function getLastNameAttribute( $value ) {
+        return ucfirst( $value );
+    }
+
     /**
      * One to many relation with designation model
      * User has one designation
@@ -41,5 +61,14 @@ class User extends Authenticatable {
      */
     public function status() {
         return $this->belongsTo( UserStatus::class );
+    }
+
+    /**
+     * One to many relation with status model
+     * User has one status
+     *
+     */
+    public function projects() {
+        return $this->hasMany( Project::class );
     }
 }

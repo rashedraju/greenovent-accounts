@@ -56,12 +56,12 @@
                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                     <a href="#">
                                                         <div class="symbol-label fs-3 bg-light-danger text-danger">
-                                                            {{ ucfirst(substr($user->first_name, 0, 1)) }} </div>
+                                                            {{ $user->firstChar }} </div>
                                                     </a>
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     <a href="#"
-                                                        class="text-gray-800 text-hover-primary mb-1">{{ ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) }}</a>
+                                                        class="text-gray-800 text-hover-primary mb-1">{{ $user->fullName }}</a>
                                                     <span>{{ $user->email }}</span>
                                                 </div>
                                             </td>

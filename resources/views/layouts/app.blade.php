@@ -1237,6 +1237,7 @@
     <script src="{{ asset('/public/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
+    <script src="{{ asset('/public/assets/js/custom/apps/projects/list/list.js') }}"></script>
     <script src="{{ asset('/public/assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('/public/assets/js/custom/widgets.js') }}"></script>
     <script src="{{ asset('/public/assets/js/custom/apps/chat/chat.js') }}"></script>

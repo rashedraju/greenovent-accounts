@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::post( '/employees/create', [UsersController::class, 'store'] )->name( 'em
 Route::get( '/employees/{user}/edit', [UsersController::class, 'edit'] )->name( 'employees.edit' );
 Route::put( '/employees/{user}/edit', [UsersController::class, 'update'] )->name( 'employees.edit' );
 Route::delete( '/employees/{user}/delete', [UsersController::class, 'destroy'] )->name( 'employees.delete' );
+
+// Projects Routes
+Route::get( '/projects', [ProjectController::class, 'index'] )->name( 'projects' );
+Route::get( '/projects/create', [ProjectController::class, 'create'] )->name( 'projects.create' );
 
 // Authentication routes
 require __DIR__ . '/auth.php';
