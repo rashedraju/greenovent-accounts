@@ -2,26 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -30,15 +17,29 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
+    // set the bcrypt password by default whenever users create or update password
+    public function setPasswordAttribute( $password ) {
+        $this->attributes['password'] = bcrypt( $password );
+    }
+
     /**
-     * The attributes that should be cast.
+     * One to many relation with designation model
+     * User has one designation
      *
-     * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function designation() {
+        return $this->belongsTo( UserDesignation::class );
+    }
+
+    /**
+     * One to many relation with status model
+     * User has one status
+     *
+     */
+    public function status() {
+        return $this->belongsTo( UserStatus::class );
+    }
 }

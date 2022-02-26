@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +19,13 @@ Route::get( '/', function () {
     return view( 'dashboard' );
 } )->middleware( ['auth'] )->name( 'dashboard' );
 
+// Employees Routes
+Route::get( '/employees', [UsersController::class, 'index'] )->name( 'employees' );
+Route::get( '/employees/create', [UsersController::class, 'create'] )->name( 'employees.create' );
+Route::post( '/employees/create', [UsersController::class, 'store'] )->name( 'employees.create' );
+Route::get( '/employees/{user}/edit', [UsersController::class, 'edit'] )->name( 'employees.edit' );
+Route::put( '/employees/{user}/edit', [UsersController::class, 'update'] )->name( 'employees.edit' );
+Route::delete( '/employees/{user}/delete', [UsersController::class, 'destroy'] )->name( 'employees.delete' );
+
+// Authentication routes
 require __DIR__ . '/auth.php';
