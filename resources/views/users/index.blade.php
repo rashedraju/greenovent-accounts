@@ -27,26 +27,18 @@
                                 id="kt_table_users">
                                 <thead>
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                        <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users"
-                                            rowspan="1" colspan="1" aria-label="User: activate to sort column ascending"
-                                            style="width: 314.844px;">User</th>
-                                        <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users"
-                                            rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending"
-                                            style="width: 155.484px;">Role</th>
-                                        <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users"
-                                            rowspan="1" colspan="1"
-                                            aria-label="Last login: activate to sort column ascending"
-                                            style="width: 155.484px;">Last login</th>
-                                        <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users"
-                                            rowspan="1" colspan="1"
-                                            aria-label="Two-step: activate to sort column ascending"
-                                            style="width: 155.484px;">Two-step</th>
-                                        <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users"
-                                            rowspan="1" colspan="1"
-                                            aria-label="Joined Date: activate to sort column ascending"
-                                            style="width: 201.078px;">Joined Date</th>
-                                        <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="Actions" style="width: 124.875px;">Actions</th>
+                                        <th class="min-w-125px sorting" tabindex="0" style="width: 314.844px;">Employe
+                                        </th>
+                                        <th class="min-w-125px sorting" tabindex="1" style="width: 314.844px;">
+                                            Designation</th>
+                                        <th class="min-w-125px sorting" tabindex="3" style="width: 314.844px;">Phone
+                                        </th>
+                                        <th class="min-w-125px sorting" tabindex="4" style="width: 314.844px;">Joining
+                                            Date</th>
+                                        <th class="min-w-125px sorting" tabindex="5" style="width: 314.844px;">Current
+                                            Address</th>
+                                        <th class="min-w-125px sorting" tabindex="6" style="width: 314.844px;">Actions
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-bold">
@@ -54,26 +46,23 @@
                                         <tr class="even">
                                             <td class="d-flex align-items-center">
                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                    <a href="#">
+                                                    <a href="{{ route('employees.show', $user) }}">
                                                         <div class="symbol-label fs-3 bg-light-danger text-danger">
                                                             {{ $user->firstChar }} </div>
                                                     </a>
                                                 </div>
                                                 <div class="d-flex flex-column">
-                                                    <a href="#"
-                                                        class="text-gray-800 text-hover-primary mb-1">{{ $user->fullName }}</a>
+                                                    <a href="{{ route('employees.show', $user) }}"
+                                                        class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
                                                     <span>{{ $user->email }}</span>
                                                 </div>
                                             </td>
                                             <td>{{ $user->designation->name }}</td>
-                                            <td data-order="2022-02-26T11:17:33+06:00">
-                                                <div class="badge badge-light fw-bolder">20 mins ago</div>
-                                            </td>
+                                            <td>{{ $user->phone }}</td>
+                                            <td>{{ $user->joining_date }}</td>
+                                            <td>{{ $user->current_address }}</td>
+
                                             <td>
-                                                <div class="badge badge-light-success fw-bolder">Enabled</div>
-                                            </td>
-                                            <td data-order="2022-08-19T22:10:00+06:00">19 Aug 2022, 10:10 pm</td>
-                                            <td class="text-end">
                                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                                     data-kt-menu-trigger="click"
                                                     data-kt-menu-placement="bottom-end">Actions

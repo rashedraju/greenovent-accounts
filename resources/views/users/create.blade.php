@@ -8,7 +8,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="post"
-                        action="{{ route('employees.create') }}">
+                        action="{{ route('employees.store') }}">
                         @csrf
 
                         <div class="mb-10 text-center">
@@ -19,68 +19,88 @@
                             <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         </div>
-                        <div class="row fv-row mb-7">
-                            <div class="col-xl-6">
-                                <label class="form-label fw-bolder text-dark fs-6" for="first_name">First Name</label>
-                                <input class="form-control form-control-lg form-control-solid" type="text"
-                                    placeholder="" name="first_name" autocomplete="off" :value="old('first_name')" />
-                            </div>
-                            <div class="col-xl-6">
-                                <label class="form-label fw-bolder text-dark fs-6" for="last_name">Last Name</label>
-                                <input class="form-control form-control-lg form-control-solid" type="text"
-                                    placeholder="" name="last_name" autocomplete="off" :value="old('last_name')" />
-                            </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="name">Name <span
+                                    class="text-danger"> * </span></label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="name"
+                                :value="old('name')" />
                         </div>
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="email">Email</label>
-                            <input class="form-control form-control-lg form-control-solid" type="email" placeholder=""
-                                name="email" autocomplete="off" :value="old('email')" />
+                            <label class="form-label fw-bolder text-dark fs-6" for="email">Email <span
+                                    class="text-danger"> * </span></label>
+                            <input class="form-control form-control-lg form-control-solid" type="email" name="email"
+                                :value="old('email')" />
                         </div>
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Phone</label>
-                            <input class="form-control form-control-lg form-control-solid" type="phone" placeholder=""
-                                name="phone" autocomplete="off" :value="old('phone')" />
+                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Phone <span
+                                    class="text-danger"> * </span></label>
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="phone"
+                                :value="old('phone')" />
                         </div>
-
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Designation</label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Designation <span
+                                    class="text-danger"> * </span></label>
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
-                                data-control="select2" data-placeholder="Select Designation" data-hide-search="true"
-                                tabindex="-1" aria-hidden="true" name="designation_id">
+                                data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
+                                name="designation_id">
                                 @foreach ($designations as $designation)
-                                    <option value="{{ $designation->id }}" {{ $loop->last ? 'selected' : '' }}>
+                                    <option value="{{ $designation->id }}">
                                         {{ $designation->name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Account Status</label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date</label>
+                            <input class="form-control form-control-lg form-control-solid" type="datetime"
+                                name="joining_date" :value="old('joining_date')" />
+                        </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
+                                Address</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="current_address" :value="old('current_address')" />
+                        </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="permanent_address">Permanent
+                                Address</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="permanent_address" :value="old('permanent_address')" />
+                        </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_name">Name of
+                                Emergency Contact</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="emergency_contact_name" :value="old('emergency_contact_name')" />
+                        </div>
 
-                            <select class="form-select form-select-solid select2-hidden-accessible"
-                                data-control="select2" data-placeholder="Select Designation" data-hide-search="true"
-                                tabindex="-1" aria-hidden="true" name="status_id">
-                                @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}" {{ $loop->iteration == 1 ? 'selected' : '' }}>
-                                        {{ $status->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_no">Emergency
+                                Contact No.</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="emergency_contact_no" :value="old('emergency_contact_no')" />
+                        </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6"
+                                for="emergency_contact_relation">Relationship with Emergency Contact</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="emergency_contact_relation" :value="old('emergency_contact_relation')" />
                         </div>
 
                         <div class="fv-row mb-5">
-                            <label class="form-label fw-bolder text-dark fs-6" for="password">Password</label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="password">Password<span
+                                    class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="password"
-                                placeholder="" name="password" autocomplete="off" value="{{ old('password') }}" />
+                                name="password" value="{{ old('password') }}" />
                             <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp;
                                 symbols.</div>
                         </div>
                         <div class="fv-row mb-5">
                             <label class="form-label fw-bolder text-dark fs-6" for="password_confirmation">Confirm
-                                Password</label>
+                                Password<span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="password"
-                                placeholder="" name="password_confirmation" autocomplete="off"
-                                value="{{ old('password_confirmation') }}" />
+                                name="password_confirmation" value="{{ old('password_confirmation') }}" />
                         </div>
                         <div class="text-center">
                             <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">

@@ -2,18 +2,16 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class EmployeeAddRequest extends FormRequest
-{
+class EmployeeAddRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -22,16 +20,19 @@ class EmployeeAddRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'first_name'     => ['required', 'string', 'max:255'],
-            'last_name'      => ['required', 'string', 'max:255'],
-            'email'          => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone'          => ['required'],
-            'designation_id' => ['required', Rule::exists( 'user_designations', 'id' )],
-            'status_id'      => ['required', Rule::exists( 'user_statuses', 'id' )],
-            'password'       => ['required', 'confirmed', 'min:8', 'max:255']
+            'name'                       => ['required', 'string', 'max:255'],
+            'designation_id'             => ['required', Rule::exists( 'user_designations', 'id' )],
+            'email'                      => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone'                      => ['required'],
+            'password'                   => ['required', 'confirmed', 'min:8', 'max:255'],
+            'joining_date'               => 'string',
+            'current_address'            => 'string',
+            'permanent_address'          => 'string',
+            'emergency_contact_name'     => 'string',
+            'emergency_contact_no'       => 'string',
+            'emergency_contact_relation' => 'string'
         ];
     }
 }

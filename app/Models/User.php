@@ -26,23 +26,13 @@ class User extends Authenticatable {
     }
 
     // get full name
-    public function getFullNameAttribute() {
-        return ucfirst( $this->first_name ) . ' ' . ucfirst( $this->last_name );
+    public function getNameAttribute( $value ) {
+        return ucfirst( $value );
     }
 
     // get first char
     public function getFirstCharAttribute() {
-        return ucfirst( substr( $this->first_name, 0, 1 ) );
-    }
-
-    // get first name
-    public function getFirstNameAttribute( $value ) {
-        return ucfirst( $value );
-    }
-
-    // get last name
-    public function getLastNameAttribute( $value ) {
-        return ucfirst( $value );
+        return ucfirst( substr( $this->name, 0, 1 ) );
     }
 
     /**
@@ -52,6 +42,11 @@ class User extends Authenticatable {
      */
     public function designation() {
         return $this->belongsTo( UserDesignation::class );
+    }
+
+    // get readable joining date
+    public function getJoiningDateAttribute( $value ) {
+        return date( 'M d, Y', strtotime( $value ) );
     }
 
     /**

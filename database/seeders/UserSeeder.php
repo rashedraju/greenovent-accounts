@@ -14,27 +14,22 @@ class UserSeeder extends Seeder {
     public function run() {
         $data = [
             [
-                'first_name'     => 'Rashedul',
-                'last_name'      => 'Islam',
-                'email'          => 'rashed.greenovent@gmail.com',
-                'phone'          => '01626118847',
-                'designation_id' => 4,
-                'status_id'      => 1,
-                'password'       => '12345678'
-            ],
-            [
-                'first_name'     => 'Super',
-                'last_name'      => 'Admin',
-                'email'          => 'ceo@greenovent.com',
-                'phone'          => '01234567890',
-                'designation_id' => 1,
-                'status_id'      => 1,
-                'password'       => '12345678'
+                'name'                       => 'Rashedul Islam',
+                'designation_id'             => 4,
+                'email'                      => 'rashed.greenovent@gmail.com',
+                'phone'                      => '01626118847',
+                'joining_date'               => now(),
+                'current_address'            => 'Dhanmondi, Dhaka',
+                'permanent_address'          => 'Dhanmondi, Dhaka',
+                'emergency_contact_name'     => 'John Doe',
+                'emergency_contact_no'       => '01234567997',
+                'emergency_contact_relation' => 'brother',
+                'password'                   => '12345678'
             ]
         ];
 
-        foreach ($data as $user) {
-            User::create($user);
+        foreach ( $data as $user ) {
+            User::create( $user );
         }
     }
 }

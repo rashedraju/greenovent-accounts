@@ -6,18 +6,13 @@ use App\Http\Requests\EmployeeAddRequest;
 use App\Http\Requests\EmployeeEditRequest;
 use App\Models\User;
 use App\Models\UserDesignation;
-use App\Models\UserStatus;
 
 class UsersController extends Controller {
-    private $statuses = [];
     private $designations = [];
 
     public function __construct() {
         // Get all designations
         $this->designations = UserDesignation::all();
-
-        // Get all user statuses
-        $this->statuses = UserStatus::all();
     }
 
     // View all users
@@ -27,6 +22,11 @@ class UsersController extends Controller {
         return view( 'users.index', ['users' => $users] );
     }
 
+    // Show Employe Profile
+    public function show( User $user ) {
+        //
+    }
+
     /**
      * Display the registration view.
      *
@@ -34,7 +34,7 @@ class UsersController extends Controller {
      */
     public function create() {
 
-        return view( 'users.create', ['designations' => $this->designations, 'statuses' => $this->statuses] );
+        return view( 'users.create', ['designations' => $this->designations] );
     }
 
     /**
@@ -61,7 +61,7 @@ class UsersController extends Controller {
 
     // Edit user view
     public function edit( User $user ) {
-        return view( 'users.edit', ['user' => $user, 'designations' => $this->designations, 'statuses' => $this->statuses] );
+        return view( 'users.edit', ['user' => $user, 'designations' => $this->designations] );
     }
 
     /**

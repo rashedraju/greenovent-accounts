@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('short_description');
+            $table->foreignId('client_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->foreignId('manager_id')->constrained('users');
