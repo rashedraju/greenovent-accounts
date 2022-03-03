@@ -52,38 +52,40 @@
                         </div>
 
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date</label>
-                            <input class="form-control form-control-lg form-control-solid" type="datetime"
-                                name="joining_date" :value="old('joining_date')" />
+                            <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date <span
+                                    class="text-danger"> * </span></label>
+                            <input class="form-control form-control-solid" id="user_add_joining_date_picker"
+                                name="joining_date" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
-                                Address</label>
+                                Address<span class="text-danger"> * </span> </label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="current_address" :value="old('current_address')" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="permanent_address">Permanent
-                                Address</label>
+                                Address <span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="permanent_address" :value="old('permanent_address')" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_name">Name of
-                                Emergency Contact</label>
+                                Emergency Contact<span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="emergency_contact_name" :value="old('emergency_contact_name')" />
                         </div>
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_no">Emergency
-                                Contact No.</label>
+                                Contact No. <span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="emergency_contact_no" :value="old('emergency_contact_no')" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6"
-                                for="emergency_contact_relation">Relationship with Emergency Contact</label>
+                                for="emergency_contact_relation">Relationship with Emergency Contact<span
+                                    class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="emergency_contact_relation" :value="old('emergency_contact_relation')" />
                         </div>

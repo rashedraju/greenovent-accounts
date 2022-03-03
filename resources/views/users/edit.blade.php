@@ -21,7 +21,7 @@
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         </div>
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="email">Name</label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="name">Name</label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="name"
                                 value="{{ $user->name }}" />
                         </div>
@@ -49,11 +49,50 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date</label>
+                            <input class="form-control form-control-solid" id="user_edit_joining_date_picker"
+                                name="joining_date" value="{{ date('yy-m-d', strtotime($user->joining_date)) }}" />
+                        </div>
+
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
+                                Address</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="current_address" value="{{ $user->current_address }}" />
+                        </div>
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="permanent_address">Permanent
+                                Address</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="permanent_address" value="{{ $user->permanent_address }}" />
+                        </div>
+
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_name">Name of
+                                Emergency Contact</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="emergency_contact_name" value="{{ $user->emergency_contact_name }}" />
+                        </div>
+
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_no">Emergency
+                                Contact No.</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="emergency_contact_no" value="{{ $user->emergency_contact_no }}" />
+                        </div>
+
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6"
+                                for="emergency_contact_relation">Relationship with Emergency Contact</label>
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="emergency_contact_relation" value="{{ $user->emergency_contact_relation }}" />
+                        </div>
 
                         <div class="fv-row mb-5">
                             <label class="form-label fw-bolder text-dark fs-6" for="password">Password</label>
                             <input class="form-control form-control-lg form-control-solid" type="password"
-                                name="password" value="" />
+                                name="password" />
                             <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp;
                                 symbols.</div>
                         </div>
@@ -61,7 +100,7 @@
                             <label class="form-label fw-bolder text-dark fs-6" for="password_confirmation">Confirm
                                 Password</label>
                             <input class="form-control form-control-lg form-control-solid" type="password"
-                                name="password_confirmation" value="" />
+                                name="password_confirmation" />
                         </div>
                         <div class="text-center">
                             <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">

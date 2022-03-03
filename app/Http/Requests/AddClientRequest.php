@@ -3,16 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class AddClientRequest extends FormRequest
-{
+class AddClientRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,13 +20,17 @@ class AddClientRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'name' => 'required|string',
-            'email' => 'sometimes|email',
-            'phone' => 'sometimes',
-            'address' => 'sometimes'
+            'company_name'                               => 'required|string',
+            'office_address'                             => 'required|string',
+            'business_manager_id'                        => ['required', Rule::exists( 'users', 'id' )],
+            'client_contact_persons_input'               => 'required|array',
+            'client_contact_persons_input.*.name'        => 'required|string',
+            'client_contact_persons_input.*.designation' => 'string',
+            'client_contact_persons_input.*.dpartment'   => 'string',
+            'client_contact_persons_input.*.email'       => 'string',
+            'client_contact_persons_input.*.phone'       => 'string'
         ];
     }
 }

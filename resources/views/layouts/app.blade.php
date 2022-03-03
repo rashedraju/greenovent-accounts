@@ -1227,49 +1227,10 @@
         </div>
         <!--end::Messenger-->
     </div>
-    <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src="{{ asset('/public/assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Page Vendors Javascript(used by this page)-->
 
-    <script src="{{ asset('/public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-    <script src="{{ asset('/public/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <!--end::Page Vendors Javascript-->
-    <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="{{ asset('/public/assets/js/custom/apps/projects/list/list.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/custom/intro.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('/public/assets/js/custom/utilities/modals/users-search.js') }}"></script>
-    <!--end::Page Custom Javascript-->
-    <!--end::Javascript-->
+    {{-- Js scripts --}}
+    <x-script />
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if (session()->has('success'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 3000
-            });
-        </script>
-    @elseif (session()->has('failed'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: "{{ session('failed') }}",
-                showConfirmButton: false,
-                timer: 3000
-            });
-        </script>
-    @endif
 
 </body>
 <!--end::Body-->

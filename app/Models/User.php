@@ -58,6 +58,11 @@ class User extends Authenticatable {
         return $this->belongsTo( UserStatus::class );
     }
 
+    // a user has many client
+    public function clients() {
+        return $this->hasMany( Client::class );
+    }
+
     /**
      * One to many relation with status model
      * User has one status

@@ -1,0 +1,4 @@
+1. add employee profile picture
+
+2. filter bussiness manger designation users from user table and pass it to create client view in clientController@create
+

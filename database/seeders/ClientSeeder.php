@@ -16,9 +16,7 @@ class ClientSeeder extends Seeder {
             [
                 'company_name'        => "Anwar Landmark",
                 "office_address"      => "Baitul Hossain Building (13th floor), 27 Dilkusha C/A, Dhaka-1000",
-                'business_manager_id' => 1,
-                'email'               => "info@anwarlandmark.com",
-                "phone"               => "09666 773322"
+                'business_manager_id' => 1
             ]
         ];
 

@@ -25,14 +25,14 @@ class EmployeeAddRequest extends FormRequest {
             'name'                       => ['required', 'string', 'max:255'],
             'designation_id'             => ['required', Rule::exists( 'user_designations', 'id' )],
             'email'                      => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone'                      => ['required'],
+            'phone'                      => ['required', 'string'],
             'password'                   => ['required', 'confirmed', 'min:8', 'max:255'],
-            'joining_date'               => 'string',
-            'current_address'            => 'string',
-            'permanent_address'          => 'string',
-            'emergency_contact_name'     => 'string',
-            'emergency_contact_no'       => 'string',
-            'emergency_contact_relation' => 'string'
+            'joining_date'               => 'required|string',
+            'current_address'            => 'required|string',
+            'permanent_address'          => 'required|string',
+            'emergency_contact_name'     => 'required|string',
+            'emergency_contact_no'       => 'required|string',
+            'emergency_contact_relation' => 'required|string'
         ];
     }
 }

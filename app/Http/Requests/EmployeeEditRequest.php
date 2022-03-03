@@ -22,13 +22,17 @@ class EmployeeEditRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'first_name'     => ['sometimes', 'string', 'max:255'],
-            'last_name'      => ['sometimes', 'string', 'max:255'],
-            'email'          => ['sometimes', 'string', 'email', 'max:255', Rule::unique( 'users', 'email' )->ignore( $this->route( 'user' ) )],
-            'phone'          => ['sometimes'],
-            'designation_id' => ['sometimes', Rule::exists( 'user_designations', 'id' )],
-            'status_id'      => ['sometimes', Rule::exists( 'user_statuses', 'id' )],
-            'password'       => ['sometimes', 'confirmed', 'min:8', 'max:255']
+            'name'                       => ['sometimes', 'string', 'max:255'],
+            'designation_id'             => ['sometimes', Rule::exists( 'user_designations', 'id' )],
+            'email'                      => ['sometimes', 'string', 'email', 'max:255', Rule::unique( 'users', 'email' )->ignore( $this->route( 'user' ) )],
+            'phone'                      => ['sometimes', 'string'],
+            'password'                   => ['sometimes', 'confirmed', 'min:8', 'max:255'],
+            'joining_date'               => 'sometimes|string',
+            'current_address'            => 'sometimes|string',
+            'permanent_address'          => 'sometimes|string',
+            'emergency_contact_name'     => 'sometimes|string',
+            'emergency_contact_no'       => 'sometimes|string',
+            'emergency_contact_relation' => 'sometimes|string'
         ];
     }
 

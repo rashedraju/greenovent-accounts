@@ -27,4 +27,14 @@ class Client extends Model {
     public function totalSales() {
         return $this->projects->sum( 'budget' );
     }
+
+    // bussiness manager from company who responsible for this client
+    public function businessManager(){
+        return $this->belongsTo(User::class);
+    }
+
+    // A client has many contact person
+    public function contactPersons(){
+        return $this->hasMany( ClientContactPerson::class );
+    }
 }

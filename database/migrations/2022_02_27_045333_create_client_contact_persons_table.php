@@ -15,11 +15,12 @@ class CreateClientContactPersonsTable extends Migration
     {
         Schema::create('client_contact_persons', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id');
             $table->string('name');
             $table->string('designation')->default(null);
             $table->string('dpartment')->default(null);
-            $table->string('phone')->default(null);
             $table->string('email')->default(null);
+            $table->string('phone')->default(null);
             $table->timestamps();
         });
     }
@@ -34,3 +35,4 @@ class CreateClientContactPersonsTable extends Migration
         Schema::dropIfExists('client_contact_persons');
     }
 }
+

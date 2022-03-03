@@ -14,12 +14,13 @@
                             <div class="d-flex flex-center flex-column mb-5">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-100px symbol-circle mb-7">
-                                    <x-first-char title="{{ $client->name }}"
+                                    <x-first-char title="{{ $client->company_name }}"
                                         firstChar="{{ $client->firstChar }}" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Name-->
-                                <div class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">{{ $client->name }}
+                                <div class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">
+                                    {{ $client->company_name }}
                                 </div>
                                 <!--end::Name-->
 
@@ -51,21 +52,13 @@
                                     aria-controls="kt_customer_view_details">Details
                                     <span class="ms-2 rotate-180">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                        <span class="svg-icon svg-icon-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <path
-                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                    fill="black"></path>
-                                            </svg>
-                                        </span>
+                                        <x-utils.down-arrow />
                                         <!--end::Svg Icon-->
                                     </span>
                                 </div>
-                                <span data-bs-toggle="tooltip" data-bs-trigger="hover" title=""
-                                    data-bs-original-title="Edit customer details">
-                                    <a href="#" class="btn btn-sm btn-light-primary" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_update_customer">Edit</a>
+                                <span data-bs-toggle="tooltip" data-bs-trigger="hover">
+                                    <a href="{{ route('clients.edit', $client) }}"
+                                        class="btn btn-sm btn-light-primary">Edit</a>
                                 </span>
                             </div>
                             <!--end::Details toggle-->
@@ -73,18 +66,15 @@
                             <!--begin::Details content-->
                             <div id="kt_customer_view_details" class="collapse show">
                                 <div class="py-5 fs-6">
-                                    <div class="fw-bolder mt-5">Email</div>
+                                    <div class="fw-bolder mt-5">Office Address</div>
                                     <div class="text-gray-600">
-                                        <a href="#" class="text-gray-600 text-hover-primary">{{ $client->email }}</a>
+                                        <div class="text-gray-600 text-hover-primary">{{ $client->office_address }}
+                                        </div>
                                     </div>
-                                    <div class="fw-bolder mt-5">Phone</div>
+                                    <div class="fw-bolder mt-5">Business Manager</div>
                                     <div class="text-gray-600">
-                                        <a href="#" class="text-gray-600 text-hover-primary">{{ $client->phone }}</a>
-                                    </div>
-                                    <div class="fw-bolder mt-5">Address</div>
-                                    <div class="text-gray-600">
-                                        <a href="#"
-                                            class="text-gray-600 text-hover-primary">{{ $client->address }}</a>
+                                        <div class="text-gray-600 text-hover-primary">
+                                            {{ $client->businessManager->name }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +83,27 @@
                         <!--end::Card body-->
                     </div>
                     <!--end::Card-->
+                    <div class="card mb-5 mb-xl-8">
+                        <!--begin::Card header-->
+                        <div class="card-header border-0">
+                            <div class="card-title">
+                                <h3 class="fw-bolder m-0">Contact Persons</h3>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-2">
+                            @foreach ($client->contactPersons as $contactPerson)
+                                <div class="border p-2 my-2">
+                                    <h5>{{ $contactPerson->name }}</h5>
+                                    <div>{{ $contactPerson->designation }}</div>
+                                    <div>{{ $contactPerson->department }}</div>
+                                    <div>{{ $contactPerson->email }}</div>
+                                    <div>{{ $contactPerson->phone }}</div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="card mb-5 mb-xl-8">
                         <!--begin::Card header-->
                         <div class="card-header border-0">
@@ -169,99 +180,21 @@
                             <!--begin::Menu-->
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold py-4 w-250px fs-6"
                                 data-kt-menu="true">
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
-                                        Payments</div>
+                                <div class="menu-item px-3">
+                                    <a href="{{ route('clients.edit', $client) }}" class="menu-link px-5">Edit Client
+                                        Info</a>
                                 </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <a href="#" class="menu-link px-5">Create invoice</a>
+                                <div class="menu-item px-3">
+                                    <form method="post" action="{{ route('clients.destroy', $client) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit"
+                                            class="bg-transparent border-0  menu-link text-danger px-5">Remove
+                                            Client</a>
+                                    </form>
                                 </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <a href="#" class="menu-link flex-stack px-5">Create payments
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""
-                                            data-bs-original-title="Specify a target name for future usage and reference"
-                                            aria-label="Specify a target name for future usage and reference"></i></a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5" data-kt-menu-trigger="hover"
-                                    data-kt-menu-placement="left-start">
-                                    <a href="#" class="menu-link px-5">
-                                        <span class="menu-title">Subscription</span>
-                                        <span class="menu-arrow"></span>
-                                    </a>
-                                    <!--begin::Menu sub-->
-                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-5">Apps</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-5">Billing</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-5">Statements</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu separator-->
-                                        <div class="separator my-2"></div>
-                                        <!--end::Menu separator-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <div class="menu-content px-3">
-                                                <label
-                                                    class="form-check form-switch form-check-custom form-check-solid">
-                                                    <input class="form-check-input w-30px h-20px" type="checkbox"
-                                                        value="" name="notifications" checked="checked"
-                                                        id="kt_user_menu_notifications">
-                                                    <span class="form-check-label text-muted fs-6"
-                                                        for="kt_user_menu_notifications">Notifications</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu sub-->
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu separator-->
-                                <div class="separator my-3"></div>
-                                <!--end::Menu separator-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
-                                        Account</div>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <a href="#" class="menu-link px-5">Reports</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5 my-1">
-                                    <a href="#" class="menu-link px-5">Account Settings</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-5">
-                                    <a href="#" class="menu-link text-danger px-5">Delete customer</a>
-                                </div>
-                                <!--end::Menu item-->
                             </div>
-                            <!--end::Menu-->
-                            <!--end::Menu-->
                         </li>
-                        <!--end:::Tab item-->
                     </ul>
                     <!--end:::Tabs-->
                     <!--begin:::Tab content-->
