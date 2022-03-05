@@ -31,6 +31,7 @@ Route::delete( '/employees/{user}/delete', [UsersController::class, 'destroy'] )
 
 // Projects Routes
 Route::get( '/projects', [ProjectController::class, 'index'] )->name( 'projects' );
+Route::get( '/projects/create', [ProjectController::class, 'create'] )->name( 'projects.create' );
 
 // Clients Routes
 Route::get( '/clients', [ClientsController::class, 'index'] )->name( 'clients' );

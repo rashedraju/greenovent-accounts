@@ -15,14 +15,18 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('short_description');
+            $table->string('name');
+            $table->foreignId('business_manager_id')->constrained('users');
             $table->foreignId('client_id');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->foreignId('manager_id')->constrained('users');
-            $table->foreignId('status_id')->constrained('project_statuses');
-            $table->unsignedBigInteger('budget');
+            $table->foreignId('type_id')->constrained('project_types');
+            $table->unsignedBigInteger('po_number')->unique();
+            $table->unsignedBigInteger('po_value');
+            $table->dateTime('start_date');
+            $table->dateTime('closing_date');
+            $table->unsignedDouble('external')->default(0.00);
+            $table->unsignedDouble('internal')->default(0.00);
+            $table->unsignedDouble('advance_paid')->default(0.00);
+            $table->foreignId('status_id')->default(3)->constrained('project_statuses', 'id');
             $table->timestamps();
         });
     }

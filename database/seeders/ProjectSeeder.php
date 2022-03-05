@@ -13,14 +13,18 @@ class ProjectSeeder extends Seeder {
      */
     public function run() {
         $data = [
-            'title'             => 'Accounts Website',
-            'short_description' => 'Accounts Website to Bussiness Efficiency',
-            'client_id' => 1,
-            'start_date'        => now(),
-            'end_date'          => now()->addMonth(),
-            'manager_id'        => '1',
-            'status_id'         => 2,
-            'budget'            => 750000
+            'name'                => 'Accounts Website',
+            'business_manager_id' => '1',
+            'client_id'           => 1,
+            'type_id'             => 1,
+            'po_number'           => 101,
+            'po_value'            => 75000,
+            'start_date'          => now(),
+            'closing_date'        => now()->addMonth(),
+            'external'            => 75000,
+            'internal'            => 50000,
+            'advance_paid'        => 0,
+            'status_id'           => 2
         ];
 
         Project::create( $data );

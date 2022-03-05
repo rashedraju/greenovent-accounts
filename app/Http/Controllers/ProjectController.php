@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
+use App\Models\ProjectType;
+use App\Models\User;
 
 class ProjectController extends Controller {
     public function index() {
@@ -25,6 +27,12 @@ class ProjectController extends Controller {
     }
 
     public function create() {
-        //
+        // todo: get business manager role users only
+        $bussinessManagers = User::all();
+        $clients = Client::all();
+        $projectTypes = ProjectType::all();
+        $projectStatuses = ProjectStatus::all();
+
+        return view( 'projects.create', compact( ['bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
     }
 }

@@ -66,6 +66,8 @@
     // Date Picker
     $("#user_add_joining_date_picker").flatpickr();
     $("#user_edit_joining_date_picker").flatpickr();
+    $("#project_start_date_picker").flatpickr();
+    $("#project_closing_date_picker").flatpickr();
 
     // Contact person input repeater
     $('#client_contact_persons_input').repeater({

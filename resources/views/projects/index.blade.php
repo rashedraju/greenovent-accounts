@@ -152,6 +152,20 @@
                 <!--begin::Heading-->
                 <h2 class="fs-2 fw-bold my-2">Projects
                     <span class="fs-6 text-gray-400 ms-1">by Status</span>
+                    <span>
+
+                        <a href="{{ route('projects.create') }}" type="button" class="btn btn-sm btn-primary ml-2">
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1"
+                                        transform="rotate(-90 11.364 20.364)" fill="black"></rect>
+                                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
+                                </svg>
+                            </span>
+                            Add New Project
+                        </a>
+                    </span>
                 </h2>
                 <!--end::Heading-->
                 <!--begin::Controls-->
