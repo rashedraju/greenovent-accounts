@@ -22,11 +22,11 @@ class CreateClientContactPersonRequest extends FormRequest {
     public function rules() {
         return [
             'client_contact_persons_input'               => 'required|array',
-            'client_contact_persons_input.*.name'        => "required|string",
-            'client_contact_persons_input.*.designation' => "string",
-            'client_contact_persons_input.*.dpartment'   => "string",
-            'client_contact_persons_input.*.email'       => "string",
-            'client_contact_persons_input.*.phone'       => "string"
+            'client_contact_persons_input.*.name'        => "required",
+            'client_contact_persons_input.*.designation' => "sometimes",
+            'client_contact_persons_input.*.dpartment'   => "sometimes",
+            'client_contact_persons_input.*.email'       => "sometimes",
+            'client_contact_persons_input.*.phone'       => "sometimes"
         ];
     }
 }

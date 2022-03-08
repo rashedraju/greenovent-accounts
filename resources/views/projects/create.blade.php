@@ -6,7 +6,7 @@
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                <form class="form w-100" novalidate="novalidate" action="{{ route('clients.store') }}"
+                <form class="form w-100" novalidate="novalidate" action="{{ route('projects.store') }}"
                     method="post">
                     @csrf
 
@@ -187,7 +187,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
-                            Add Client
+                            Add Project
                         </button>
                     </div>
                 </form>

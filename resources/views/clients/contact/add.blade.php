@@ -6,8 +6,8 @@
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                <form class="form w-100" novalidate="novalidate" action="{{ route('clients.contact.add', $client) }}"
-                    method="post">
+                <form class="form w-100" novalidate="novalidate"
+                    action="{{ route('clients.contact.add', $client) }}" method="post">
                     @csrf
 
                     <div class="text-center mb-10">
@@ -25,25 +25,23 @@
                         <div data-repeater-list="client_contact_persons_input">
                             <div data-repeater-item>
                                 <label class="form-label">Name
-                                    <x-required />
+                                    <x-utils.required />
                                 </label>
-                                <input type="text" class="form-control mb-2" name="name" value="{{ old('name') }}" />
+                                <input type="text" class="form-control mb-2" name="name" :value="old('client_contact_persons_input.[0].name')" />
 
                                 <label class="form-label">Designation</label>
                                 <input type="text" class="form-control mb-2" name="designation"
-                                    value="{{ old('designation') }}" />
+                                    :value="old('designation')" />
 
                                 <label class="form-label">Dpartment</label>
                                 <input type="text" class="form-control mb-2" name="dpartment"
-                                    value="{{ old('dpartment') }}" />
+                                    :value="old('dpartment')" />
 
                                 <label class="form-label">Email</label>
-                                <input type="text" class="form-control mb-2" name="email"
-                                    value="{{ old('email') }}" />
+                                <input type="text" class="form-control mb-2" name="email" :value="old('email')" />
 
                                 <label class="form-label">Phone</label>
-                                <input type="text" class="form-control mb-2" name="phone"
-                                    value="{{ old('phone') }}" />
+                                <input type="text" class="form-control mb-2" name="phone" :value="old('phone')" />
 
                                 <div class="d-flex my-2 gap-3">
                                     <a href="javascript:;" data-repeater-delete class="btn btn-light-danger">

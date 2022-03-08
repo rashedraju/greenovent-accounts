@@ -122,10 +122,10 @@
                                         <div class="d-flex">
                                             <x-project.icon />
                                             <div class="d-flex flex-column">
-                                                <a href="#"
-                                                    class="fs-5 text-dark text-hover-primary fw-bolder">{{ $project->title }}</a>
+                                                <a href="{{ route('projects.show', $project) }}"
+                                                    class="fs-5 text-dark text-hover-primary fw-bolder">{{ $project->name }}</a>
                                                 <div class="text-muted">{{ $project->start_date }} -
-                                                    {{ $project->end_date }}</div>
+                                                    {{ $project->closing_date }}</div>
                                             </div>
                                         </div>
 

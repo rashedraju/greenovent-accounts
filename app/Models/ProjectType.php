@@ -10,4 +10,9 @@ class ProjectType extends Model
     use HasFactory;
 
     protected $table = 'project_types';
+
+    // get all project of particular type
+    public function projects(){
+        return $this->hasMany(Project::class);
+    }
 }

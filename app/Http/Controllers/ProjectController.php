@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProjectRequest;
+use App\Http\Requests\EditProjectRequest;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -26,6 +28,7 @@ class ProjectController extends Controller {
         return view( 'projects.index', compact( ['projects', 'projectStatuses', 'totalBudget', 'avgBudget', 'highestBudget', 'lowestBudget', 'clients'] ) );
     }
 
+    // create new project
     public function create() {
         // todo: get business manager role users only
         $bussinessManagers = User::all();
@@ -34,5 +37,44 @@ class ProjectController extends Controller {
         $projectStatuses = ProjectStatus::all();
 
         return view( 'projects.create', compact( ['bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
+    }
+
+    // store project
+    public function store( AddProjectRequest $request ) {
+        // fields
+        $attrs = $request->validated();
+
+        $project = Project::create( $attrs );
+
+        if ( $project ) {
+            return redirect()->route( 'projects' )->with( 'success', 'Project added successfully' );
+        }
+
+        return redirect()->route( 'projects' )->with( 'failed', 'Failed to add project' );
+
+    }
+
+    // porject dashboard
+    public function show( Project $project ) {
+        return view( 'projects.show', ['project' => $project] );
+    }
+
+    // edit project details
+    public function edit( Project $project ) {
+        $bussinessManagers = User::all();
+        $clients = Client::all();
+        $projectTypes = ProjectType::all();
+        $projectStatuses = ProjectStatus::all();
+
+        return view( 'projects.edit', compact( ['project', 'bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
+    }
+
+    // update project details
+    public function update( EditProjectRequest $request, Project $project ) {
+        $attrs = $request->validated();
+
+        $project->update( $attrs );
+
+        return redirect()->route( 'projects' )->with( 'success', 'Project updated successfully' );
     }
 }

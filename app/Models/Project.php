@@ -23,41 +23,46 @@ class Project extends Model {
      *
      */
     public function manager() {
-        return $this->belongsTo( User::class );
+        return $this->belongsTo( User::class, 'business_manager_id' );
     }
 
     // get total project budget amount
     public static function getTotalBudget() {
-        return Project::pluck( 'budget' )->sum( fn( $budget ) => $budget );
+        return Project::pluck( 'external' )->sum( fn( $budget ) => $budget );
     }
 
     // get average project budget amount
     public static function getAvgBudget() {
-        return Project::pluck( 'budget' )->average( fn( $budget ) => $budget );
+        return Project::pluck( 'external' )->average( fn( $budget ) => $budget );
     }
 
     // get highest project budget
     public static function getHighestBudget() {
-        return Project::max( 'budget' );
+        return Project::max( 'external' );
     }
 
     // get lowest project budget
     public static function getLowestBudget() {
-        return Project::min( 'budget' );
+        return Project::min( 'external' );
     }
 
     // project has client
-    public function client(){
-        return $this->belongsTo(Client::class);
+    public function client() {
+        return $this->belongsTo( Client::class );
     }
 
     // get project start formated date
-    public function getStartDateAttribute($value){
-        return date('M d, Y', strtotime($value));
+    public function getStartDateAttribute( $value ) {
+        return date( 'M d, Y', strtotime( $value ) );
     }
 
     // get project start formated date
-    public function getEndDateAttribute($value){
-        return date('M d, Y', strtotime($value));
+    public function getClosingDateAttribute( $value ) {
+        return date( 'M d, Y', strtotime( $value ) );
+    }
+
+    // get project type
+    public function type(){
+        return $this->belongsTo(ProjectType::class);
     }
 }
