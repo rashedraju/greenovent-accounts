@@ -49,7 +49,7 @@ class ProjectController extends Controller {
         $project = Project::create( $attrs );
 
         if ( $project ) {
-            return redirect()->route( 'clients.contact.create', $project->client )->with( 'success', 'Project added successfully' );
+            return redirect()->route( 'clients.contact.create', [$project->client, 'skipable' => true, 'skipto' => route( 'projects.show', $project )] )->with( 'success', 'Project added successfully' );
         }
 
         return redirect()->route( 'projects' )->with( 'failed', 'Failed to add project' );
@@ -88,18 +88,18 @@ class ProjectController extends Controller {
     }
 
     // Add internal cost
-    public function addInternalCost(Project $project){
-        return view('projects.internals.add', ['project' => $project]);
+    public function addInternalCost( Project $project ) {
+        return view( 'projects.internals.add', ['project' => $project] );
     }
 
     // Store internal cost
-    public function storeInternalCost(AddInternalCostRequest $request, Project $project){
+    public function storeInternalCost( AddInternalCostRequest $request, Project $project ) {
         $attrs = $request->validated();
 
-        $internalCost = InternalCost::create($attrs);
+        $internalCost = InternalCost::create( $attrs );
 
-        $project->intenalCosts->create($internalCost);
+        $project->intenalCosts()->save( $internalCost );
 
-        return redirect()->route('projects.show', $project)->with('success', 'Internal Cost Added');
+        return redirect()->route( 'projects.show', $project )->with( 'success', 'Internal Cost Added' );
     }
 }

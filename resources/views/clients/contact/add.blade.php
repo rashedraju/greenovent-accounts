@@ -61,7 +61,10 @@
                         <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                     </div>
-                    <div class="text-center">
+                    <div class="d-flex gap-3">
+                        @if (request()->skipable)
+                            <a href="{{ request()->skipto }}" class="btn btn-lg btn-secondary w-100 mb-5">Skip</a>
+                        @endif
                         <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                             Add Contact Person
                         </button>

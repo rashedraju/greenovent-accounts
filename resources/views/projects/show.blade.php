@@ -114,7 +114,13 @@
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                                href="#kt_customer_view_overview_tab">Overview</a>
+                                href="#overview">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pb-4" data-bs-toggle="tab" href="#internal_costs">Internal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pb-4" data-bs-toggle="tab" href="#external_costs">External</a>
                         </li>
                         <!--end:::Tab item-->
                         <!--begin:::Tab item-->
@@ -141,7 +147,8 @@
                                         Project Info</a>
                                 </div>
                                 <div class="menu-item px-3">
-                                    <a href="{{ route('projects.internal.add', $project) }}" class="menu-link px-5">Add Internal Cost</a>
+                                    <a href="{{ route('projects.internals.add', $project) }}"
+                                        class="menu-link px-5">Add Internal Cost</a>
                                 </div>
                                 <div class="menu-item px-3">
                                     <form method="post" action="{{ route('projects.delete', $project) }}">
@@ -159,8 +166,103 @@
                     <!--begin:::Tab content-->
                     <div class="tab-content" id="myTabContent">
                         <!--begin:::Tab pane-->
-                        <div class="tab-pane fade active show" id="kt_customer_view_overview_tab" role="tabpanel">
-                            Project Overview
+                        <div class="tab-pane fade active show" id="overview" role="tabpanel">
+                            <div class="table-responsive">
+                                // overview
+                            </div>
+                        </div>
+                        <div class="tab-pane fade border p-2" id="internal_costs" role="tabpanel">
+                            {{-- Add internal cost form --}}
+                            <form class="form w-100" action="{{ route('projects.internals.store', $project) }}"
+                                method="post">
+                                @csrf
+
+                                <input type="hidden" name="project_id" value="{{ $project->id }}">
+                                <div class="form-group row">
+                                    <div class="col-3">
+                                        <label class="form-label fs-6 fw-bolder text-dark">Title
+                                            <x-utils.required />
+                                        </label>
+                                        <input class="form-control form-control" type="text" name="title"
+                                            :value="old('title')" />
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label class="form-label fs-6 fw-bolder text-dark">Costs
+                                            <x-utils.required />
+                                        </label>
+                                        <input class="form-control form-control" type="number" name="costs"
+                                            :value="old('costs')" />
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
+                                            <x-utils.required />
+                                        </label>
+                                        <input class="form-control" id="date_picker" name="created_at"
+                                            value="{{ now() }}" />
+                                    </div>
+
+                                    <div class="col-3">
+                                        <label class="form-label fs-6 fw-bolder text-dark">Description</label>
+                                        <input class="form-control form-control" type="text" name="description"
+                                            :value="old('description')" />
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-light-primary mt-1">
+                                    <i class="fas fa-plus"></i>Add
+                                </button>
+                            </form>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-row-bordered">
+                                    <thead>
+                                        <tr class="fw-bold fs-6 text-gray-800">
+                                            <th>SL.</th>
+                                            <th>Head</th>
+                                            <th>Cost</th>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($project->intenalCosts->reverse() as $internal)
+                                            <tr>
+                                                <td>{{ $internal->id }}</td>
+                                                <td>{{ $internal->title }}</td>
+                                                <td>{{ number_format($internal->costs) }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($internal->created_at)) }}</td>
+                                                <td>{{ $internal->description }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="external_costs" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-striped gy-7 gs-7">
+                                    <thead>
+                                        <tr class="fw-bold fs-6 text-gray-800">
+                                            <th>SL.</th>
+                                            <th>Head</th>
+                                            <th>Cost</th>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($project->externalCosts->reverse() as $external)
+                                            <tr>
+                                                <td>{{ $external->id }}</td>
+                                                <td>{{ $external->title }}</td>
+                                                <td>{{ number_format($external->costs) }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($external->created_at)) }}</td>
+                                                <td>{{ $external->description }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!--end:::Tab content-->

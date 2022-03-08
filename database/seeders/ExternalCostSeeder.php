@@ -17,7 +17,7 @@ class ExternalCostSeeder extends Seeder
         ExternalCost::create([
             'project_id' => 1,
             'title' => 'Domain Buy',
-            'costs' => '8 dollar',
+            'costs' => 120000,
             'description' => 'Domain buy for example ltd.',
             'created_at' => now()
         ]);

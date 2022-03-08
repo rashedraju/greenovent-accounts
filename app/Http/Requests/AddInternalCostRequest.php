@@ -24,6 +24,7 @@ class AddInternalCostRequest extends FormRequest
     public function rules()
     {
         return [
+            'project_id' => 'required',
             'title' => 'required|string',
             'costs' => 'required|integer',
             'created_at' => 'required|date',

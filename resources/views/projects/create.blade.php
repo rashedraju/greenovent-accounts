@@ -86,7 +86,7 @@
                         <label class="form-label fs-6 fw-bolder text-dark">PO Value
                             <x-utils.required />
                         </label>
-                        <input class="form-control form-control-lg form-control-solid" type="text" name="po_value"
+                        <input class="form-control form-control-lg form-control-solid" type="number" name="po_value"
                             :value="old('po_value')" />
                     </div>
 
@@ -108,7 +108,7 @@
 
                     <div class="fv-row mb-10">
                         <label class="form-label fs-6 fw-bolder text-dark">Advance Paid</label>
-                        <input class="form-control form-control-lg form-control-solid" type="text" name="advance_paid"
+                        <input class="form-control form-control-lg form-control-solid" type="number" name="advance_paid"
                             :value="old('advance_paid')" />
                     </div>
 

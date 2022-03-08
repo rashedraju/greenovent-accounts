@@ -75,4 +75,9 @@ class Project extends Model {
     public function intenalCosts(){
         return $this->hasMany(InternalCost::class, 'project_id');
     }
+
+    // all external costs
+    public function externalCosts(){
+        return $this->hasMany(ExternalCost::class, 'project_id');
+    }
 }

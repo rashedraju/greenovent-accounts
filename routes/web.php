@@ -39,8 +39,8 @@ Route::put( '/projects/{project}', [ProjectController::class, 'update'] )->name(
 Route::delete( '/projects/{project}', [ProjectController::class, 'delete'] )->name( 'projects.delete' );
 
 // Project Internal Costs
-Route::get( '/projects/{project}/internal/add', [ProjectController::class, 'addInternalCost'] )->name( 'projects.internal.add' );
-Route::post( '/projects/{project}/internal', [ProjectController::class, 'storeInternalCost'] )->name( 'projects.internal.store' );
+Route::get( '/projects/{project}/internals/add', [ProjectController::class, 'addInternalCost'] )->name( 'projects.internals.add' );
+Route::post( '/projects/{project}/internals', [ProjectController::class, 'storeInternalCost'] )->name( 'projects.internals.store' );
 
 // Clients Routes
 Route::get( '/clients', [ClientsController::class, 'index'] )->name( 'clients' );

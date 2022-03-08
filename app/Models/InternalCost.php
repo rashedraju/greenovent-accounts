@@ -9,10 +9,6 @@ class InternalCost extends Model
 {
     use HasFactory;
 
-    // protected $attributes = [
-    //     'create_at' => now(),
-    // ];
-
     public function project(){
         return $this->belongsTo(Project::class);
     }

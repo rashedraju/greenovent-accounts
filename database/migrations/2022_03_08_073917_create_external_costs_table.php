@@ -17,7 +17,7 @@ class CreateExternalCostsTable extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained();
             $table->string('title');
-            $table->string('costs');
+            $table->unsignedBigInteger('costs');
             $table->string('description')->nullable();
             $table->timestamps();
         });
