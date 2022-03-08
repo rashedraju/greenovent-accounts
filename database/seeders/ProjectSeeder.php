@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder {
@@ -21,8 +22,6 @@ class ProjectSeeder extends Seeder {
             'po_value'            => 75000,
             'start_date'          => now(),
             'closing_date'        => now()->addMonth(),
-            'external'            => 75000,
-            'internal'            => 50000,
             'advance_paid'        => 0,
             'status_id'           => 2
         ];

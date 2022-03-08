@@ -64,6 +64,7 @@
 
 <script>
     // Date Picker
+    $("#date_picker").flatpickr();
     $("#user_add_joining_date_picker").flatpickr();
     $("#user_edit_joining_date_picker").flatpickr();
     $("#project_start_date_picker").flatpickr();

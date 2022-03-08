@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddInternalCostRequest;
 use App\Http\Requests\AddProjectRequest;
 use App\Http\Requests\EditProjectRequest;
 use App\Models\Client;
+use App\Models\InternalCost;
 use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\ProjectType;
@@ -47,7 +49,7 @@ class ProjectController extends Controller {
         $project = Project::create( $attrs );
 
         if ( $project ) {
-            return redirect()->route( 'projects' )->with( 'success', 'Project added successfully' );
+            return redirect()->route( 'clients.contact.create', $project->client )->with( 'success', 'Project added successfully' );
         }
 
         return redirect()->route( 'projects' )->with( 'failed', 'Failed to add project' );
@@ -76,5 +78,28 @@ class ProjectController extends Controller {
         $project->update( $attrs );
 
         return redirect()->route( 'projects' )->with( 'success', 'Project updated successfully' );
+    }
+
+    // delete project
+    public function delete( Project $project ) {
+        $project->delete();
+
+        return redirect()->route( 'projects' )->with( 'success', 'Project Deleted' );
+    }
+
+    // Add internal cost
+    public function addInternalCost(Project $project){
+        return view('projects.internals.add', ['project' => $project]);
+    }
+
+    // Store internal cost
+    public function storeInternalCost(AddInternalCostRequest $request, Project $project){
+        $attrs = $request->validated();
+
+        $internalCost = InternalCost::create($attrs);
+
+        $project->intenalCosts->create($internalCost);
+
+        return redirect()->route('projects.show', $project)->with('success', 'Internal Cost Added');
     }
 }

@@ -26,24 +26,29 @@ class Project extends Model {
         return $this->belongsTo( User::class, 'business_manager_id' );
     }
 
-    // get total project budget amount
+    // get total amount of all project
+    // calculated total amount by all project po value
     public static function getTotalBudget() {
-        return Project::pluck( 'external' )->sum( fn( $budget ) => $budget );
+        return Project::pluck( 'po_value' )->sum( fn( $budget ) => $budget );
     }
 
-    // get average project budget amount
+    /**
+     * get average project budget amount
+     * calculated total amount by all project po value
+     * total project po value / total project count
+     */
     public static function getAvgBudget() {
-        return Project::pluck( 'external' )->average( fn( $budget ) => $budget );
+        return Project::pluck( 'po_value' )->average( fn( $budget ) => $budget );
     }
 
     // get highest project budget
     public static function getHighestBudget() {
-        return Project::max( 'external' );
+        return Project::max( 'po_value' );
     }
 
     // get lowest project budget
     public static function getLowestBudget() {
-        return Project::min( 'external' );
+        return Project::min( 'po_value' );
     }
 
     // project has client
@@ -64,5 +69,10 @@ class Project extends Model {
     // get project type
     public function type(){
         return $this->belongsTo(ProjectType::class);
+    }
+
+    // all internal costs
+    public function intenalCosts(){
+        return $this->hasMany(InternalCost::class, 'project_id');
     }
 }

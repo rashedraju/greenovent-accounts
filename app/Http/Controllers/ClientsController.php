@@ -67,7 +67,7 @@ class ClientsController extends Controller {
     }
 
     // add contact person
-    public function createContactPerson( $client ) {
+    public function createContactPerson( Client $client ) {
         return view( 'clients.contact.add', ['client' => $client] );
     }
 

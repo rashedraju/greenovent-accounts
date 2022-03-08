@@ -70,8 +70,16 @@
                         <label class="form-label fs-6 fw-bolder text-dark">PO Number
                             <x-utils.required />
                         </label>
+                        @php
+                            $last_number =
+                                \App\Models\Project::latest()
+                                    ->pluck('id')
+                                    ->first() + 1;
+
+                            $po_number = $last_number + 100;
+                        @endphp
                         <input class="form-control form-control-lg form-control-solid" type="text" name="po_number"
-                            :value="old('po_number')" />
+                            value="{{ $po_number }}" />
                     </div>
 
                     <div class="fv-row mb-10">
@@ -99,22 +107,6 @@
                     </div>
 
                     <div class="fv-row mb-10">
-                        <label class="form-label fs-6 fw-bolder text-dark">Estimate
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control-lg form-control-solid" type="text" name="external"
-                            :value="old('external')" />
-                    </div>
-
-                    <div class="fv-row mb-10">
-                        <label class="form-label fs-6 fw-bolder text-dark">Internal
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control-lg form-control-solid" type="text" name="internal"
-                            :value="old('internal')" />
-                    </div>
-
-                    <div class="fv-row mb-10">
                         <label class="form-label fs-6 fw-bolder text-dark">Advance Paid</label>
                         <input class="form-control form-control-lg form-control-solid" type="text" name="advance_paid"
                             :value="old('advance_paid')" />
@@ -132,60 +124,13 @@
                         </select>
                     </div>
 
-                    <div class="text-center mb-2">
-                        <h5 class="text-dark">Contact Persons</h5>
-                    </div>
                     <div class="d-flex align-items-center mb-10">
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                     </div>
-
-                    {{-- Contact persons --}}
-                    <div id="client_contact_persons_input" class="my-2">
-                        <!--begin::Form group-->
-                        <div data-repeater-list="client_contact_persons_input">
-                            <div data-repeater-item>
-                                <label class="form-label">Name
-                                    <x-utils.required />
-                                </label>
-                                <input type="text" class="form-control mb-2" name="name" value="{{ old('name') }}" />
-
-                                <label class="form-label">Designation</label>
-                                <input type="text" class="form-control mb-2" name="designation"
-                                    value="{{ old('designation') }}" />
-
-                                <label class="form-label">Dpartment</label>
-                                <input type="text" class="form-control mb-2" name="dpartment"
-                                    value="{{ old('dpartment') }}" />
-
-                                <label class="form-label">Email</label>
-                                <input type="text" class="form-control mb-2" name="email"
-                                    value="{{ old('email') }}" />
-
-                                <label class="form-label">Phone</label>
-                                <input type="text" class="form-control mb-2" name="phone"
-                                    value="{{ old('phone') }}" />
-
-                                <div class="d-flex my-2 gap-3">
-                                    <a href="javascript:;" data-repeater-delete class="btn btn-light-danger">
-                                        Delete
-                                    </a>
-                                    <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
-                                        </i>Add
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Form group-->
-                    </div>
-
-                    <div class="d-flex align-items-center mb-10">
-                        <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                        <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
-                        <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                    </div>
-                    <div class="text-center">
+                    <div class="d-flex gap-3">
+                        <a href="{{ route('projects') }}" class="btn btn-lg btn-secondary w-100 mb-5">Go Back</a>
                         <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                             Add Project
                         </button>

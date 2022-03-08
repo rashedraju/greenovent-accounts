@@ -26,12 +26,10 @@ class EditProjectRequest extends FormRequest {
             'business_manager_id' => [Rule::exists( 'users', 'id' )],
             'client_id'           => [Rule::exists( 'clients', 'id' )],
             'type_id'             => [Rule::exists( 'project_types', 'id' )],
-            'po_number'           => ['sometimes'],
-            'po_value'            => ['sometimes'],
-            'start_date'          => 'sometimes',
-            'closing_date'        => 'sometimes',
-            'external'            => 'sometimes',
-            'internal'            => 'sometimes',
+            'po_number'           => ['sometimes', Rule::unique('projects', 'po_number')],
+            'po_value'            => ['sometimes', 'integer'],
+            'start_date'          => 'sometimes|date',
+            'closing_date'        => 'sometimes|date',
             'advance_paid'        => 'sometimes',
             'status_id'           => 'sometimes'
         ];

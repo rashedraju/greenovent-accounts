@@ -20,12 +20,12 @@ class Client extends Model {
 
     // get total sales amount of current year
     public function salesThisYear() {
-        return $this->projects()->whereYear( 'start_date', now()->year )->sum( 'external' );
+        return $this->projects()->whereYear( 'start_date', now()->year )->sum( 'po_value' );
     }
 
     // get total sales amount of all time
     public function totalSales() {
-        return $this->projects->sum( 'external' );
+        return $this->projects->sum( 'po_value' );
     }
 
     // bussiness manager from company who responsible for this client

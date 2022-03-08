@@ -36,6 +36,11 @@ Route::post( '/projects', [ProjectController::class, 'store'] )->name( 'projects
 Route::get( '/projects/{project}', [ProjectController::class, 'show'] )->name( 'projects.show' );
 Route::get( '/projects/{project}/edit', [ProjectController::class, 'edit'] )->name( 'projects.edit' );
 Route::put( '/projects/{project}', [ProjectController::class, 'update'] )->name( 'projects.update' );
+Route::delete( '/projects/{project}', [ProjectController::class, 'delete'] )->name( 'projects.delete' );
+
+// Project Internal Costs
+Route::get( '/projects/{project}/internal/add', [ProjectController::class, 'addInternalCost'] )->name( 'projects.internal.add' );
+Route::post( '/projects/{project}/internal', [ProjectController::class, 'storeInternalCost'] )->name( 'projects.internal.store' );
 
 // Clients Routes
 Route::get( '/clients', [ClientsController::class, 'index'] )->name( 'clients' );
@@ -45,6 +50,7 @@ Route::get( '/clients/{client}', [ClientsController::class, 'show'] )->name( 'cl
 Route::get( '/clients/{client}/edit', [ClientsController::class, 'edit'] )->name( 'clients.edit' );
 Route::put( '/clients/{client}', [ClientsController::class, 'update'] )->name( 'clients.update' );
 Route::delete( '/clients/{client}', [ClientsController::class, 'destroy'] )->name( 'clients.destroy' );
+
 // Add new Client Contact Person
 Route::get( '/clients/{client}/contact/add', [ClientsController::class, 'createContactPerson'] )->name( 'clients.contact.create' );
 Route::post( '/clients/{client}/contact', [ClientsController::class, 'storeContactPerson'] )->name( 'clients.contact.add' );

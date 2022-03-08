@@ -33,17 +33,16 @@
                                     <!--begin::Stats-->
                                     <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
                                         <div class="fs-4 fw-bolder text-gray-700 text-center">
-                                            <span
-                                                class="w-75px">{{ number_format($project->external) }}</span>
+                                            <span class="w-75px">{{ $project->po_number }}</span>
                                         </div>
-                                        <div class="fw-bold text-muted">External</div>
+                                        <div class="fw-bold text-muted">PO Number</div>
                                     </div>
                                     <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
                                         <div class="fs-4 fw-bolder text-gray-700 text-center">
                                             <span
-                                                class="w-75px">{{ number_format($project->internal) }}</span>
+                                                class="w-75px">{{ number_format($project->po_value) }}</span>
                                         </div>
-                                        <div class="fw-bold text-muted">Internal</div>
+                                        <div class="fw-bold text-muted">PO Value</div>
                                     </div>
                                 </div>
                                 <!--end::Info-->
@@ -116,6 +115,44 @@
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
                                 href="#kt_customer_view_overview_tab">Overview</a>
+                        </li>
+                        <!--end:::Tab item-->
+                        <!--begin:::Tab item-->
+                        <li class="nav-item ms-auto">
+                            <!--begin::Action menu-->
+                            <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click"
+                                data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">Actions
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                <span class="svg-icon svg-icon-2 me-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none">
+                                        <path
+                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                            fill="black"></path>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </a>
+                            <!--begin::Menu-->
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold py-4 w-250px fs-6"
+                                data-kt-menu="true" style="">
+                                <div class="menu-item px-3">
+                                    <a href="{{ route('projects.edit', $project) }}" class="menu-link px-5">Edit
+                                        Project Info</a>
+                                </div>
+                                <div class="menu-item px-3">
+                                    <a href="{{ route('projects.internal.add', $project) }}" class="menu-link px-5">Add Internal Cost</a>
+                                </div>
+                                <div class="menu-item px-3">
+                                    <form method="post" action="{{ route('projects.delete', $project) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit"
+                                            class="bg-transparent border-0  menu-link text-danger px-5">Delete Project
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                     <!--end:::Tabs-->

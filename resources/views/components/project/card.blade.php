@@ -47,14 +47,14 @@
             <div class="d-flex flex-wrap mb-5">
                 <!--begin::Project date-->
                 <div class="border border-gray-300 border-dashed rounded p-2 mb-3 mx-1">
-                    <div class="fs-6 text-gray-800 fw-bolder">{{ number_format($project->external) }}
+                    <div class="fs-6 text-gray-800 fw-bolder">{{ number_format($project->po_number) }}
                     </div>
-                    <div class="fw-bold text-gray-400">External</div>
+                    <div class="fw-bold text-gray-400">PO Number</div>
                 </div>
                 <div class="border border-gray-300 border-dashed rounded p-2 mb-3 mx-1">
-                    <div class="fs-6 text-gray-800 fw-bolder">{{ number_format($project->internal) }}
+                    <div class="fs-6 text-gray-800 fw-bolder">{{ number_format($project->po_value) }}
                     </div>
-                    <div class="fw-bold text-gray-400">Internal</div>
+                    <div class="fw-bold text-gray-400">PO Value</div>
                 </div>
                 <!--end::Budget-->
             </div>

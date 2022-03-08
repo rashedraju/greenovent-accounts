@@ -17,12 +17,10 @@ class CreateProjectsTable extends Migration {
             $table->foreignId( 'business_manager_id' )->constrained( 'users' );
             $table->foreignId( 'client_id' );
             $table->foreignId( 'type_id' )->constrained( 'project_types' );
-            $table->unsignedBigInteger( 'po_number' )->unique();
+            $table->uuid( 'po_number' );
             $table->unsignedBigInteger( 'po_value' );
             $table->dateTime( 'start_date' );
             $table->dateTime( 'closing_date' );
-            $table->unsignedDouble( 'external' )->default( 0.00 );
-            $table->unsignedDouble( 'internal' )->default( 0.00 );
             $table->unsignedDouble( 'advance_paid' )->default( 0.00 );
             $table->foreignId( 'status_id' )->default( 3 )->constrained( 'project_statuses', 'id' );
             $table->timestamps();

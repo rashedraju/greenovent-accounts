@@ -89,18 +89,6 @@
                     </div>
 
                     <div class="fv-row mb-10">
-                        <label class="form-label fs-6 fw-bolder text-dark">External Amount</label>
-                        <input class="form-control form-control-lg form-control-solid" type="text" name="external"
-                            value="{{ $project->external }}" />
-                    </div>
-
-                    <div class="fv-row mb-10">
-                        <label class="form-label fs-6 fw-bolder text-dark">Internal</label>
-                        <input class="form-control form-control-lg form-control-solid" type="text" name="internal"
-                            value="{{ $project->internal }}" />
-                    </div>
-
-                    <div class="fv-row mb-10">
                         <label class="form-label fs-6 fw-bolder text-dark">Advance Paid</label>
                         <input class="form-control form-control-lg form-control-solid" type="text" name="advance_paid"
                             value="{{ $project->advance_paid }}" />

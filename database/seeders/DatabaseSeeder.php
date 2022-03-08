@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\InternalCost;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder {
             ProjectTypeSeeder::class,
             ProjectStatusSeeder::class,
             ProjectSeeder::class,
+            InternalCostSeeder::class,
+            ExternalCostSeeder::class,
             ClientSeeder::class,
         ] );
     }
