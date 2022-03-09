@@ -25,10 +25,10 @@ $externalCosts = $project->externalCosts->transform(function ($item) {
 
 $costsCountMax = max($internalCosts->count(), $externalCosts->count());
 
-$costsCount = [];
+$costsCount = collect();
 
 for ($i = 1; $i <= $costsCountMax; $i++) {
-    array_push($costsCount, $i);
+    $costsCount->push($i);
 }
 
 @endphp
@@ -46,10 +46,10 @@ for ($i = 1; $i <= $costsCountMax; $i++) {
 
             var options = {
                 series: [{
-                    name: 'Net Profit',
+                    name: 'Internal',
                     data: {!! $internalCosts !!}
                 }, {
-                    name: 'Revenue',
+                    name: 'External',
                     data: {!! $externalCosts !!}
                 }],
                 chart: {
@@ -79,7 +79,7 @@ for ($i = 1; $i <= $costsCountMax; $i++) {
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['1', '2'],
+                    categories: {!! $costsCount !!},
                     axisBorder: {
                         show: false,
                     },
@@ -131,7 +131,7 @@ for ($i = 1; $i <= $costsCountMax; $i++) {
                     },
                     y: {
                         formatter: function(val) {
-                            return '$' + val + ' thousands'
+                            return `&#2547 ${val}`;
                         }
                     }
                 },

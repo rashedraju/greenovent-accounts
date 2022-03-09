@@ -17,7 +17,7 @@
                             <div class="d-flex flex-wrap">
                                 <!--begin::Chart-->
                                 <div class="d-flex flex-center h-100px w-100px me-9 mb-5">
-                                    <canvas id="kt_project_list_chart" width="100" height="100"
+                                    <canvas id="project_status_chart" width="100" height="100"
                                         style="display: block; box-sizing: border-box; height: 100px; width: 100px;"></canvas>
                                 </div>
                                 <!--end::Chart-->
@@ -197,4 +197,67 @@
         </div>
         <!--end::Container-->
     </div>
+
+    @php
+        $statuses = $projectStatuses->pluck('name');
+    @endphp
+
+    <x-slot name="script">
+        <script>
+            var t = document.getElementById("project_status_chart");
+            if (t) {
+                var e = t.getContext("2d");
+                new Chart(e, {
+                    type: "doughnut",
+                    data: {
+                        datasets: [{
+                            data: [1, 2, 3],
+                            backgroundColor: [
+                                "#00A3FF",
+                                "#50CD89",
+                                "#E4E6EF",
+                            ],
+                        }, ],
+                        labels: {!! $statuses !!},
+                    },
+                    options: {
+                        chart: {
+                            fontFamily: "inherit"
+                        },
+                        cutout: "75%",
+                        cutoutPercentage: 65,
+                        responsive: !0,
+                        maintainAspectRatio: !1,
+                        title: {
+                            display: !1
+                        },
+                        animation: {
+                            animateScale: !0,
+                            animateRotate: !0
+                        },
+                        tooltips: {
+                            enabled: !0,
+                            intersect: !1,
+                            mode: "nearest",
+                            bodySpacing: 5,
+                            yPadding: 10,
+                            xPadding: 10,
+                            caretPadding: 0,
+                            displayColors: !1,
+                            backgroundColor: "#20D489",
+                            titleFontColor: "#ffffff",
+                            cornerRadius: 4,
+                            footerSpacing: 0,
+                            titleSpacing: 0,
+                        },
+                        plugins: {
+                            legend: {
+                                display: !1
+                            }
+                        },
+                    },
+                });
+            }
+        </script>
+    </x-slot>
 </x-app-layout>
