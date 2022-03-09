@@ -64,11 +64,14 @@
 
 <script>
     // Date Picker
-    $("#date_picker").flatpickr();
     $("#user_add_joining_date_picker").flatpickr();
     $("#user_edit_joining_date_picker").flatpickr();
     $("#project_start_date_picker").flatpickr();
     $("#project_closing_date_picker").flatpickr();
+    $("#add_external_date_picker").flatpickr();
+    $("#edit_externals_date_picker").flatpickr();
+    $("#add_internal_date_picker").flatpickr();
+    $("#edit_internal_date_picker").flatpickr();
 
     // Contact person input repeater
     $('#client_contact_persons_input').repeater({
@@ -88,3 +91,4 @@
 
     });
 </script>
+

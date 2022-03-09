@@ -7,7 +7,7 @@
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                 <form class="form w-100" novalidate="novalidate"
-                    action="{{ route('projects.internal.store', $project) }}" method="post">
+                    action="{{ route('projects.internals.store', $project) }}" method="post">
                     @csrf
 
                     <div class="text-center mb-10">
@@ -27,6 +27,21 @@
                     </div>
 
                     <div class="fv-row mb-10">
+                        <label class="form-label fs-6 fw-bolder text-dark">Quantity
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control-lg form-control-solid" type="number" name="quantity"
+                            :value="old('quantity')" />
+                    </div>
+                    <div class="fv-row mb-10">
+                        <label class="form-label fs-6 fw-bolder text-dark">Rate
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control-lg form-control-solid" type="number" name="rate"
+                            :value="old('rate')" />
+                    </div>
+
+                    <div class="fv-row mb-10">
                         <label class="form-label fs-6 fw-bolder text-dark">Costs
                             <x-utils.required />
                         </label>
@@ -38,7 +53,7 @@
                         <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
                             <x-utils.required />
                         </label>
-                        <input class="form-control form-control-solid" id="date_picker" name="created_at"
+                        <input class="form-control form-control-solid" id="add_internal_date_picker" name="created_at"
                             value="{{ now() }}" />
                     </div>
 

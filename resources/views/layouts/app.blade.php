@@ -71,6 +71,9 @@
     {{-- Js scripts --}}
     <x-script />
 
+    {{-- Custom script for individual page --}}
+    {{ $script ?? '' }}
+
 
 </body>
 <!--end::Body-->

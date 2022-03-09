@@ -15,6 +15,8 @@ class InternalCostSeeder extends Seeder {
         InternalCost::create( [
             'project_id'  => 1,
             'title'       => 'Domain Buy',
+            'quantity' => 2,
+            'rate' => 5000,
             'costs'       => 10000,
             'description' => 'Domain buy for example ltd.',
             'created_at'  => now()

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddInternalCostRequest;
+use App\Http\Requests\AddCostRequest;
 use App\Http\Requests\AddProjectRequest;
+use App\Http\Requests\EditCostRequest;
 use App\Http\Requests\EditProjectRequest;
 use App\Models\Client;
+use App\Models\ExternalCost;
 use App\Models\InternalCost;
 use App\Models\Project;
 use App\Models\ProjectStatus;
@@ -87,19 +89,70 @@ class ProjectController extends Controller {
         return redirect()->route( 'projects' )->with( 'success', 'Project Deleted' );
     }
 
+    // show internal costs
+    public function internalCost( Project $project ) {
+        return view( 'projects.internals.index', ['project' => $project] );
+    }
+
     // Add internal cost
     public function addInternalCost( Project $project ) {
         return view( 'projects.internals.add', ['project' => $project] );
     }
 
     // Store internal cost
-    public function storeInternalCost( AddInternalCostRequest $request, Project $project ) {
+    public function storeInternalCost( AddCostRequest $request, Project $project ) {
         $attrs = $request->validated();
 
         $internalCost = InternalCost::create( $attrs );
 
         $project->intenalCosts()->save( $internalCost );
 
-        return redirect()->route( 'projects.show', $project )->with( 'success', 'Internal Cost Added' );
+        return redirect()->route( 'projects.internals', ['project' => $project] )->with( 'success', 'Internal Cost Added' );
+    }
+
+    // update internal cost
+    public function updateInternalCost( EditCostRequest $request, Project $project, InternalCost $internalCost ) {
+        $attrs = $request->validated();
+        $internalCost->update( $attrs );
+
+        return redirect()->route( 'projects.internals', ['project' => $project] )->with( 'success', 'Internal cost updated' );
+    }
+
+    // delete internal cost
+    public function deleteInternalCost( Project $project, InternalCost $internalCost ) {
+        $internalCost->delete();
+
+        return redirect()->route( 'projects.internals', ['project' => $project] )->with( 'success', 'Internal cost deleted' );
+    }
+
+    // show external costs
+    public function externalCost( Project $project ) {
+        return view( 'projects.externals.index', ['project' => $project] );
+    }
+
+    // Store external cost
+    public function storeExternalCost( AddCostRequest $request, Project $project ) {
+        $attrs = $request->validated();
+
+        $externalCost = ExternalCost::create( $attrs );
+
+        $project->externalCosts()->save( $externalCost );
+
+        return redirect()->route( 'projects.externals', $project )->with( 'success', 'External Cost Added' );
+    }
+
+    // update external cost
+    public function updateExternalCost( EditCostRequest $request, Project $project, ExternalCost $externalCost ) {
+        $attrs = $request->validated();
+        $externalCost->update( $attrs );
+
+        return redirect()->route( 'projects.externals', ['project' => $project] )->with( 'success', 'External cost updated' );
+    }
+
+    // delete external cost
+    public function deleteExternalCost( Project $project, ExternalCost $externalCost ) {
+        $externalCost->delete();
+
+        return redirect()->route( 'projects.externals', ['project' => $project] )->with( 'success', 'External cost deleted' );
     }
 }

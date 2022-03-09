@@ -67,17 +67,27 @@ class Project extends Model {
     }
 
     // get project type
-    public function type(){
-        return $this->belongsTo(ProjectType::class);
+    public function type() {
+        return $this->belongsTo( ProjectType::class );
     }
 
     // all internal costs
-    public function intenalCosts(){
-        return $this->hasMany(InternalCost::class, 'project_id');
+    public function intenalCosts() {
+        return $this->hasMany( InternalCost::class, 'project_id' );
     }
 
     // all external costs
-    public function externalCosts(){
-        return $this->hasMany(ExternalCost::class, 'project_id');
+    public function externalCosts() {
+        return $this->hasMany( ExternalCost::class, 'project_id' );
+    }
+
+    // get total internal costs
+    public function totalInternals() {
+        return $this->intenalCosts->sum( fn( $cost ) => $cost->costs );
+    }
+
+    // get total external costs
+    public function totalExternals() {
+        return $this->externalCosts->sum( fn( $cost ) => $cost->costs );
     }
 }

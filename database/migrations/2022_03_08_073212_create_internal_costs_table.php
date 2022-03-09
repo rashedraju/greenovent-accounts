@@ -15,6 +15,8 @@ class CreateInternalCostsTable extends Migration {
             $table->id();
             $table->foreignId( 'project_id' )->constrained( 'projects', 'id' );
             $table->string( 'title' );
+            $table->integer( 'quantity' );
+            $table->unsignedBigInteger( 'rate' );
             $table->unsignedBigInteger( 'costs' );
             $table->string( 'description' )->nullable();
             $table->timestamps();

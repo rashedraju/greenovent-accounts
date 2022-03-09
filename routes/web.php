@@ -39,8 +39,17 @@ Route::put( '/projects/{project}', [ProjectController::class, 'update'] )->name(
 Route::delete( '/projects/{project}', [ProjectController::class, 'delete'] )->name( 'projects.delete' );
 
 // Project Internal Costs
+Route::get( '/projects/{project}/internals', [ProjectController::class, 'internalCost'] )->name( 'projects.internals' );
 Route::get( '/projects/{project}/internals/add', [ProjectController::class, 'addInternalCost'] )->name( 'projects.internals.add' );
 Route::post( '/projects/{project}/internals', [ProjectController::class, 'storeInternalCost'] )->name( 'projects.internals.store' );
+Route::put( '/projects/{project}/internals/{internalCost}', [ProjectController::class, 'updateInternalCost'] )->name( 'projects.internals.update' );
+Route::delete( '/projects/{project}/internals/{internalCost}', [ProjectController::class, 'deleteInternalCost'] )->name( 'projects.internals.delete' );
+
+// Project External Costs
+Route::get( '/projects/{project}/externals', [ProjectController::class, 'externalCost'] )->name( 'projects.externals' );
+Route::post( '/projects/{project}/externals', [ProjectController::class, 'storeExternalCost'] )->name( 'projects.externals.store' );
+Route::put( '/projects/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'projects.externals.update' );
+Route::delete( '/projects/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'projects.externals.delete' );
 
 // Clients Routes
 Route::get( '/clients', [ClientsController::class, 'index'] )->name( 'clients' );

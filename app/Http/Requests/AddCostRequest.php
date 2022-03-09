@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddInternalCostRequest extends FormRequest
+class AddCostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,8 @@ class AddInternalCostRequest extends FormRequest
         return [
             'project_id' => 'required',
             'title' => 'required|string',
+            'quantity' => 'required|integer',
+            'rate' => 'required|integer',
             'costs' => 'required|integer',
             'created_at' => 'required|date',
             'description' => 'sometimes|string',
