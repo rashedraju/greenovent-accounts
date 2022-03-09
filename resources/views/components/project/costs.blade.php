@@ -18,9 +18,19 @@
 $internalCosts = $project->intenalCosts->transform(function ($item) {
     return $item->costs;
 });
+
 $externalCosts = $project->externalCosts->transform(function ($item) {
     return $item->costs;
 });
+
+$costsCountMax = max($internalCosts->count(), $externalCosts->count());
+
+$costsCount = [];
+
+for ($i = 1; $i <= $costsCountMax; $i++) {
+    array_push($costsCount, $i);
+}
+
 @endphp
 
 <x-slot name="script">
@@ -69,7 +79,7 @@ $externalCosts = $project->externalCosts->transform(function ($item) {
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    categories: ['1', '2'],
                     axisBorder: {
                         show: false,
                     },
