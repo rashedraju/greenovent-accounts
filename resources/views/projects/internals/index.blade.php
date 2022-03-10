@@ -18,11 +18,25 @@
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
                             <div class="form-group row">
                                 <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Title
+                                    <label class="form-label fs-6 fw-bolder text-dark">Head
                                         <x-utils.required />
                                     </label>
                                     <input class="form-control form-control" type="text" name="title"
-                                        :value="old('title')" />
+                                        :value="old('title')" list="internal_heads" />
+                                    <datalist id="internal_heads">
+                                        @foreach ($project->externalCosts as $externalCost)
+                                            <option value="{{ $externalCost->title }}">{{ $externalCost->title }}
+                                            </option>
+                                        @endforeach
+                                    </datalist>
+                                </div>
+
+                                <div class="col-3">
+                                    <label class="form-label fs-6 fw-bolder text-dark">Description
+                                        <x-utils.required />
+                                    </label>
+                                    <input class="form-control form-control" type="text" name="description"
+                                        :value="old('description')" />
                                 </div>
 
                                 <div class="col-3">
@@ -56,14 +70,8 @@
                                     <input class="form-control" id="add_internal_date_picker" name="created_at"
                                         value="{{ now() }}" />
                                 </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Description</label>
-                                    <input class="form-control form-control" type="text" name="description"
-                                        :value="old('description')" />
-                                </div>
                             </div>
-                            <button type="submit" class="btn btn-light-primary mt-1">
+                            <button type="submit" class="btn btn-primary mt-1">
                                 <i class="fas fa-plus"></i>Add
                             </button>
                         </form>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddCostRequest;
 use App\Http\Requests\AddProjectRequest;
+use App\Http\Requests\AddVendorCostRequest;
 use App\Http\Requests\EditCostRequest;
 use App\Http\Requests\EditProjectRequest;
+use App\Http\Requests\EditVendorCostRequest;
 use App\Models\Client;
 use App\Models\ExternalCost;
 use App\Models\InternalCost;
@@ -13,6 +15,7 @@ use App\Models\Project;
 use App\Models\ProjectStatus;
 use App\Models\ProjectType;
 use App\Models\User;
+use App\Models\VendorCost;
 
 class ProjectController extends Controller {
     public function index() {
@@ -154,5 +157,36 @@ class ProjectController extends Controller {
         $externalCost->delete();
 
         return redirect()->route( 'projects.externals', ['project' => $project] )->with( 'success', 'External cost deleted' );
+    }
+
+    // show vendor costs
+    public function vendorCosts( Project $project ) {
+        return view( 'projects.vendors.index', ['project' => $project] );
+    }
+
+    // Store vendor cost
+    public function storeVendorsCost( AddVendorCostRequest $request, Project $project ) {
+        $attrs = $request->validated();
+
+        $vendorCost = VendorCost::create( $attrs );
+
+        $project->vendorCosts()->save( $vendorCost );
+
+        return redirect()->route( 'projects.vendors', $project )->with( 'success', 'Vendor Cost Added' );
+    }
+
+    // update vendor cost
+    public function updateVendorCost( EditVendorCostRequest $request, Project $project, VendorCost $vendorCost ) {
+        $attrs = $request->validated();
+        $vendorCost->update( $attrs );
+
+        return redirect()->route( 'projects.vendors', ['project' => $project] )->with( 'success', 'Vendor cost updated' );
+    }
+
+    // delete external cost
+    public function deleteVendorCost( Project $project, VendorCost $vendorCost ) {
+        $vendorCost->delete();
+
+        return redirect()->route( 'projects.vendors', ['project' => $project] )->with( 'success', 'Vendor cost deleted' );
     }
 }

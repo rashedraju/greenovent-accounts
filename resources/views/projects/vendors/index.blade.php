@@ -7,11 +7,11 @@
                 <x-project.aside :project="$project" />
                 <!--begin::Content-->
                 <div class="flex-lg-row-fluid ms-lg-15">
-                    <x-project.navigation :project="$project" active="externals" />
+                    <x-project.navigation :project="$project" active="vendors" />
                     <!--begin:::Tab pane-->
                     <div>
                         {{-- Add internal cost form --}}
-                        <form class="form w-100" action="{{ route('projects.externals.store', $project) }}"
+                        <form class="form w-100" action="{{ route('projects.vendors.store', $project) }}"
                             method="post">
                             @csrf
 
@@ -32,42 +32,34 @@
                                 </div>
 
                                 <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Description
+                                    <label class="form-label fs-6 fw-bolder text-dark">Vendor Name
                                         <x-utils.required />
                                     </label>
-                                    <input class="form-control form-control" type="text" name="description"
-                                        :value="old('description')" />
+                                    <input class="form-control form-control" type="text" name="name"
+                                        :value="old('name')" />
                                 </div>
 
                                 <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Quantity
+                                    <label class="form-label fs-6 fw-bolder text-dark">Advance
                                         <x-utils.required />
                                     </label>
-                                    <input class="form-control form-control" type="number" name="quantity"
-                                        :value="old('quantity')" />
+                                    <input class="form-control form-control" type="number" name="advance"
+                                        :value="old('advance')" />
                                 </div>
 
                                 <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Rate
+                                    <label class="form-label fs-6 fw-bolder text-dark">Due
                                         <x-utils.required />
                                     </label>
-                                    <input class="form-control form-control" type="number" name="rate"
-                                        :value="old('rate')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Costs
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="number" name="costs"
-                                        :value="old('costs')" />
+                                    <input class="form-control form-control" type="number" name="due"
+                                        :value="old('due')" />
                                 </div>
 
                                 <div class="col-3">
                                     <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
                                         <x-utils.required />
                                     </label>
-                                    <input class="form-control" id="add_external_date_picker" name="created_at"
+                                    <input class="form-control" id="add_vendorcost_date_picker" name="created_at"
                                         value="{{ now() }}" />
                                 </div>
                             </div>
@@ -81,35 +73,33 @@
                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-500">
                                         <th>SL.</th>
                                         <th>Head</th>
-                                        <th>Quantity</th>
-                                        <th>Rate</th>
-                                        <th>Cost</th>
+                                        <th>Vendor Name</th>
+                                        <th>Advance</th>
+                                        <th>Due</th>
                                         <th>Date</th>
-                                        <th>Description</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($project->externalCosts->reverse() as $external)
+                                    @foreach ($project->vendorCosts->reverse() as $vendorCost)
                                         <tr class="border-bottom border-gray-500">
-                                            <td>{{ $external->id }}</td>
-                                            <td>{{ $external->title }}</td>
-                                            <td>{{ number_format($external->quantity) }}</td>
-                                            <td>{{ number_format($external->rate) }}</td>
-                                            <td>{{ number_format($external->costs) }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($external->created_at)) }}</td>
-                                            <td>{{ $external->description }}</td>
+                                            <td>{{ $vendorCost->id }}</td>
+                                            <td>{{ $vendorCost->title }}</td>
+                                            <td>{{ $vendorCost->name }}</td>
+                                            <td>{{ number_format($vendorCost->advance) }}</td>
+                                            <td>{{ number_format($vendorCost->due) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($vendorCost->created_at)) }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-light-dark"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#edit_external_modal_{{ $external->id }}">Edit</button>
+                                                    data-bs-target="#edit_vendor_modal_{{ $vendorCost->id }}">Edit</button>
                                                 <div class="modal fade" tabindex="-1"
-                                                    id="edit_external_modal_{{ $external->id }}">
+                                                    id="edit_vendor_modal_{{ $vendorCost->id }}">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Edit: #{{ $external->id }}
-                                                                    {{ $external->title }}</h5>
+                                                                <h5 class="modal-title">Edit:
+                                                                    #{{ $vendorCost->id }}
+                                                                    {{ $vendorCost->title }}</h5>
 
                                                                 <!--begin::Close-->
                                                                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
@@ -121,7 +111,7 @@
 
                                                             <div class="modal-body">
                                                                 <form class="form w-100"
-                                                                    action="{{ route('projects.externals.update', [$project, $external]) }}"
+                                                                    action="{{ route('projects.vendors.update', [$project, $vendorCost]) }}"
                                                                     method="post">
                                                                     @csrf
                                                                     @method('put')
@@ -132,34 +122,35 @@
                                                                         <input
                                                                             class="form-control form-control-lg form-control-solid"
                                                                             type="text" name="title"
-                                                                            value="{{ $external->title }}" />
+                                                                            value="{{ $vendorCost->title }}" />
                                                                     </div>
 
                                                                     <div class="fv-row mb-10">
                                                                         <label
-                                                                            class="form-label fs-6 fw-bolder text-dark">Quantity</label>
+                                                                            class="form-label fs-6 fw-bolder text-dark">Vendor
+                                                                            Name</label>
                                                                         <input
                                                                             class="form-control form-control-lg form-control-solid"
-                                                                            type="number" name="quantity"
-                                                                            value="{{ $external->quantity }}" />
+                                                                            type="text" name="name"
+                                                                            value="{{ $vendorCost->name }}" />
                                                                     </div>
 
                                                                     <div class="fv-row mb-10">
                                                                         <label
-                                                                            class="form-label fs-6 fw-bolder text-dark">Rate</label>
+                                                                            class="form-label fs-6 fw-bolder text-dark">Advance</label>
                                                                         <input
                                                                             class="form-control form-control-lg form-control-solid"
-                                                                            type="number" name="rate"
-                                                                            value="{{ $external->rate }}" />
+                                                                            type="number" name="advance"
+                                                                            value="{{ $vendorCost->advance }}" />
                                                                     </div>
 
                                                                     <div class="fv-row mb-10">
                                                                         <label
-                                                                            class="form-label fs-6 fw-bolder text-dark">Costs</label>
+                                                                            class="form-label fs-6 fw-bolder text-dark">Due</label>
                                                                         <input
                                                                             class="form-control form-control-lg form-control-solid"
-                                                                            type="number" name="costs"
-                                                                            value="{{ $external->costs }}" />
+                                                                            type="number" name="due"
+                                                                            value="{{ $vendorCost->due }}" />
                                                                     </div>
 
                                                                     <div class="fv-row mb-7">
@@ -167,19 +158,11 @@
                                                                             class="form-label fw-bolder text-dark fs-6"
                                                                             for="start_date">Date</label>
                                                                         <input class="form-control form-control-solid"
-                                                                            id="edit_externals_date_picker"
+                                                                            id="edit_vendorcost_date_picker"
                                                                             name="created_at"
-                                                                            value="{{ $external->created_at }}" />
+                                                                            value="{{ $vendorCost->created_at }}" />
                                                                     </div>
 
-                                                                    <div class="fv-row mb-10">
-                                                                        <label
-                                                                            class="form-label fs-6 fw-bolder text-dark">Description</label>
-                                                                        <input
-                                                                            class="form-control form-control-lg form-control-solid"
-                                                                            type="text" name="description"
-                                                                            value="{{ $external->description }}" />
-                                                                    </div>
                                                                     <div class="text-center">
                                                                         <button type="submit"
                                                                             class="btn btn-lg btn-primary w-100 mb-5">
@@ -194,7 +177,7 @@
                                             </td>
                                             <td>
                                                 <form
-                                                    action="{{ route('projects.externals.delete', [$project, $external]) }}"
+                                                    action="{{ route('projects.vendors.delete', [$project, $vendorCost]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('delete')
@@ -208,8 +191,11 @@
                             </table>
                             <div class="border-top border-gray-500 p-3">
                                 <div class="fs-4">
-                                    Total Externals:<strong>
-                                        <x-utils.currency />{{ number_format($project->totalExternals()) }}
+                                    Total Advance: <strong>
+                                        <x-utils.currency />{{ number_format($project->totalVendorAdvance()) }}
+                                    </strong><br />
+                                    Total Due: <strong>
+                                        <x-utils.currency />{{ number_format($project->totalVendorDue()) }}
                                     </strong>
                                 </div>
                             </div>
@@ -222,4 +208,12 @@
         </div>
         <!--end::Container-->
     </div>
+
+    <x-slot name="script">
+        <script>
+            // Date Picker
+            $("#add_vendorcost_date_picker").flatpickr();
+            $("#edit_vendorcost_date_picker").flatpickr();
+        </script>
+    </x-slot>
 </x-app-layout>

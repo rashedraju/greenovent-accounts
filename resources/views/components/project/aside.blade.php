@@ -35,7 +35,9 @@
                     </div>
                     <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
                         <div class="fs-4 fw-bolder text-gray-700 text-center">
-                            <span class="w-75px">{{ number_format($project->po_value) }}</span>
+                            <span class="w-75px">
+                                <x-utils.currency />{{ number_format($project->po_value) }}
+                            </span>
                         </div>
                         <div class="fw-bold text-muted">PO Value</div>
                     </div>

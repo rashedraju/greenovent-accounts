@@ -81,6 +81,11 @@ class Project extends Model {
         return $this->hasMany( ExternalCost::class, 'project_id' );
     }
 
+    // all vendor costs
+    public function vendorCosts() {
+        return $this->hasMany( VendorCost::class, 'project_id' );
+    }
+
     // get total internal costs
     public function totalInternals() {
         return $this->intenalCosts->sum( fn( $cost ) => $cost->costs );
@@ -89,5 +94,20 @@ class Project extends Model {
     // get total external costs
     public function totalExternals() {
         return $this->externalCosts->sum( fn( $cost ) => $cost->costs );
+    }
+
+    // get total advance vendor costs
+    public function totalVendorAdvance() {
+        return $this->vendorCosts->sum( fn( $cost ) => $cost->advance );
+    }
+
+    // get total advance vendor costs
+    public function totalVendorDue() {
+        return $this->vendorCosts->sum( fn( $cost ) => $cost->due );
+    }
+
+    // get total profit
+    public function profit() {
+        return $this->totalExternals() - $this->totalInternals();
     }
 }

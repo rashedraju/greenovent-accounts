@@ -51,6 +51,12 @@ Route::post( '/projects/{project}/externals', [ProjectController::class, 'storeE
 Route::put( '/projects/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'projects.externals.update' );
 Route::delete( '/projects/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'projects.externals.delete' );
 
+// Project Vendor Costs
+Route::get( '/projects/{project}/vendors', [ProjectController::class, 'vendorCosts'] )->name( 'projects.vendors' );
+Route::post( '/projects/{project}/vendors', [ProjectController::class, 'storeVendorsCost'] )->name( 'projects.vendors.store' );
+Route::put( '/projects/{project}/vendors/{vendorCost}', [ProjectController::class, 'updateVendorCost'] )->name( 'projects.vendors.update' );
+Route::delete( '/projects/{project}/vendors/{vendorCost}', [ProjectController::class, 'deleteVendorCost'] )->name( 'projects.vendors.delete' );
+
 // Clients Routes
 Route::get( '/clients', [ClientsController::class, 'index'] )->name( 'clients' );
 Route::get( '/clients/add', [ClientsController::class, 'create'] )->name( 'clients.create' );

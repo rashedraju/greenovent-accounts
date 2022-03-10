@@ -6,12 +6,17 @@
             href="{{ route('projects.show', $project) }}">Overview</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link pb-4 {{ $active == 'externals' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.externals', $project) }}">External</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link pb-4 {{ $active == 'internals' ? 'text-active-primary active' : '' }}"
             href="{{ route('projects.internals', $project) }}">Internal</a>
     </li>
+
     <li class="nav-item">
-        <a class="nav-link pb-4 {{ $active == 'externals' ? 'text-active-primary active' : '' }}"
-            href="{{ route('projects.externals', $project) }}">External</a>
+        <a class="nav-link pb-4 {{ $active == 'vendors' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.vendors', $project) }}">Vendor</a>
     </li>
     <!--end:::Tab item-->
     <!--begin:::Tab item-->

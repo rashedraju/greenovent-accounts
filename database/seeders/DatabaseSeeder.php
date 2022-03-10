@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
             ProjectSeeder::class,
             InternalCostSeeder::class,
             ExternalCostSeeder::class,
+            VendorCostSeeder::class,
             ClientSeeder::class,
         ] );
     }
