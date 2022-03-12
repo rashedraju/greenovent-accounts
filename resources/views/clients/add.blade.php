@@ -57,7 +57,7 @@
                         <div data-repeater-list="client_contact_persons_input">
                             <div data-repeater-item>
                                 <label class="form-label">Name
-                                    <x-required />
+                                    <x-utils.required />
                                 </label>
                                 <input type="text" class="form-control mb-2" name="name" value="{{ old('name') }}" />
 

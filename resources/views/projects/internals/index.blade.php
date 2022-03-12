@@ -10,71 +10,24 @@
                     <x-project.navigation :project="$project" active="internals" />
                     <!--begin:::Tab pane-->
                     <div>
-                        {{-- Add internal cost form --}}
-                        <form class="form w-100" action="{{ route('projects.internals.store', $project) }}"
-                            method="post">
-                            @csrf
-
-                            <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <div class="form-group row">
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Head
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="text" name="title"
-                                        :value="old('title')" list="internal_heads" />
-                                    <datalist id="internal_heads">
-                                        @foreach ($project->externalCosts as $externalCost)
-                                            <option value="{{ $externalCost->title }}">{{ $externalCost->title }}
-                                            </option>
-                                        @endforeach
-                                    </datalist>
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Description
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="text" name="description"
-                                        :value="old('description')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Quantity
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="number" name="quantity"
-                                        :value="old('quantity')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Rate
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="number" name="rate"
-                                        :value="old('rate')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Costs
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="number" name="costs"
-                                        :value="old('costs')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control" id="add_internal_date_picker" name="created_at"
-                                        value="{{ now() }}" />
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-1">
-                                <i class="fas fa-plus"></i>Add
+                        {{-- Import and Export internal costs as excel file --}}
+                        <div class="d-flex gap-3">
+                            <button type="button" class="btn btn-sm px-10 py-0 btn-primary my-2" data-bs-toggle="modal"
+                                data-bs-target="#add_internal_modal">
+                                <x-utils.form-icon /> add
                             </button>
-                        </form>
+                            <button type="button" class="btn btn-sm px-10 py-0 btn-success my-2" data-bs-toggle="modal"
+                                data-bs-target="#import_internal_modal">
+                                <x-utils.upload /> Import
+                            </button>
+                            <form action="{{ route('projects.internals.export', $project) }}" class="my-2"
+                                method="get">
+                                @csrf
+                                <button type="submit" class="btn btn-sm px-10 py-0 btn-danger">
+                                    <x-utils.download /> Export
+                                </button>
+                            </form>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -90,7 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($project->intenalCosts->reverse() as $internal)
+                                    @foreach ($project->intenalCosts as $internal)
                                         <tr class="border-bottom border-gray-500">
                                             <td>{{ $internal->id }}</td>
                                             <td>{{ $internal->title }}</td>
@@ -221,5 +174,84 @@
             </div>
         </div>
         <!--end::Container-->
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="import_internal_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload File</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('projects.internals.import', $project) }}" method="post"
+                        class="my-2" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="file" class="form-control" name="internal_file">
+
+                        <button type="submit" class="btn btn-primary mt-2">Import</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="add_internal_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Internal</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form w-100" action="{{ route('projects.internals.store', $project) }}"
+                        method="post">
+                        @csrf
+                        <input type="hidden" name="project_id" value="{{ $project->id }}">
+                        <label class="form-label fs-6 fw-bolder text-dark">Head
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="text" name="title" :value="old('title')"
+                            list="internal_heads" />
+                        <datalist id="internal_heads">
+                            @foreach ($project->externalCosts as $externalCost)
+                                <option value="{{ $externalCost->title }}">{{ $externalCost->title }}
+                                </option>
+                            @endforeach
+                        </datalist>
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Description
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="text" name="description"
+                            :value="old('description')" />
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Quantity
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="number" name="quantity"
+                            :value="old('quantity')" />
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Rate
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="number" name="rate" :value="old('rate')" />
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Costs
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="number" name="costs" :value="old('costs')" />
+
+                        <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control" id="add_internal_date_picker" name="created_at"
+                            value="{{ now() }}" />
+                        <button type="submit" class="btn btn-primary mt-1">
+                            <i class="fas fa-plus"></i>Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </x-app-layout>

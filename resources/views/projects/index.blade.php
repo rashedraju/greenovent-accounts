@@ -200,6 +200,12 @@
 
     @php
         $statuses = $projectStatuses->pluck('name');
+        $projectsCount = collect();
+
+        foreach ($projectStatuses as $projectStatus) {
+            $projectsCount->push($projectStatus->projects->count());
+        }
+
     @endphp
 
     <x-slot name="script">
@@ -211,7 +217,7 @@
                     type: "doughnut",
                     data: {
                         datasets: [{
-                            data: [1, 2, 3],
+                            data: {!! $projectsCount !!},
                             backgroundColor: [
                                 "#00A3FF",
                                 "#50CD89",

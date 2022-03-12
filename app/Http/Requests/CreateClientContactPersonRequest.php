@@ -29,4 +29,15 @@ class CreateClientContactPersonRequest extends FormRequest {
             'client_contact_persons_input.*.phone'       => "sometimes"
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() {
+        return [
+            'client_contact_persons_input.*.name.required' => 'Contact person name is required'
+        ];
+    }
 }

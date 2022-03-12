@@ -27,10 +27,21 @@ class AddClientRequest extends FormRequest {
             'business_manager_id'                        => ['required', Rule::exists( 'users', 'id' )],
             'client_contact_persons_input'               => 'required|array',
             'client_contact_persons_input.*.name'        => 'required|string',
-            'client_contact_persons_input.*.designation' => 'string',
-            'client_contact_persons_input.*.dpartment'   => 'string',
-            'client_contact_persons_input.*.email'       => 'string',
-            'client_contact_persons_input.*.phone'       => 'string'
+            'client_contact_persons_input.*.designation' => 'sometimes',
+            'client_contact_persons_input.*.dpartment'   => 'sometimes',
+            'client_contact_persons_input.*.email'       => 'sometimes',
+            'client_contact_persons_input.*.phone'       => 'sometimes'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() {
+        return [
+            'client_contact_persons_input.*.name.required' => 'Contact person name is required'
         ];
     }
 }

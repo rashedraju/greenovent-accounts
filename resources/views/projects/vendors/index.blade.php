@@ -10,63 +10,24 @@
                     <x-project.navigation :project="$project" active="vendors" />
                     <!--begin:::Tab pane-->
                     <div>
-                        {{-- Add internal cost form --}}
-                        <form class="form w-100" action="{{ route('projects.vendors.store', $project) }}"
-                            method="post">
-                            @csrf
-
-                            <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <div class="form-group row">
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Head
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="text" name="title"
-                                        :value="old('title')" list="external_heads" />
-                                    <datalist id="external_heads">
-                                        @foreach ($project->externalCosts as $externalCost)
-                                            <option value="{{ $externalCost->title }}">{{ $externalCost->title }}
-                                            </option>
-                                        @endforeach
-                                    </datalist>
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Vendor Name
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="text" name="name"
-                                        :value="old('name')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Advance
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="number" name="advance"
-                                        :value="old('advance')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fs-6 fw-bolder text-dark">Due
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control form-control" type="number" name="due"
-                                        :value="old('due')" />
-                                </div>
-
-                                <div class="col-3">
-                                    <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
-                                        <x-utils.required />
-                                    </label>
-                                    <input class="form-control" id="add_vendorcost_date_picker" name="created_at"
-                                        value="{{ now() }}" />
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-1">
-                                <i class="fas fa-plus"></i>Add
+                        {{-- Import and Export vendor costs as excel file --}}
+                        <div class="d-flex gap-3">
+                            <button type="button" class="btn btn-sm px-10 py-0 btn-primary my-2" data-bs-toggle="modal"
+                                data-bs-target="#add_vendor_modal">
+                                <x-utils.upload /> Add
                             </button>
-                        </form>
+                            <button type="button" class="btn btn-sm px-10 py-0 btn-success my-2" data-bs-toggle="modal"
+                                data-bs-target="#import_vendor_modal">
+                                <x-utils.upload /> Import
+                            </button>
+                            <form action="{{ route('projects.vendors.export', $project) }}" class="my-2"
+                                method="get">
+                                @csrf
+                                <button type="submit" class="btn btn-sm px-10 py-0 btn-danger">
+                                    <x-utils.download /> Export
+                                </button>
+                            </form>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped gs-7">
                                 <thead>
@@ -80,7 +41,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($project->vendorCosts->reverse() as $vendorCost)
+                                    @foreach ($project->vendorCosts as $vendorCost)
                                         <tr class="border-bottom border-gray-500">
                                             <td>{{ $vendorCost->id }}</td>
                                             <td>{{ $vendorCost->title }}</td>
@@ -216,4 +177,77 @@
             $("#edit_vendorcost_date_picker").flatpickr();
         </script>
     </x-slot>
+
+    <div class="modal fade" tabindex="-1" id="import_vendor_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload File</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('projects.vendors.import', $project) }}" method="post"
+                        class="my-2" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="file" class="form-control" name="vendor_file">
+
+                        <button type="submit" class="btn btn-primary mt-2">Import</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="add_vendor_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Vendor</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form w-100" action="{{ route('projects.vendors.store', $project) }}"
+                        method="post">
+                        @csrf
+
+                        <input type="hidden" name="project_id" value="{{ $project->id }}">
+                        <label class="form-label fs-6 fw-bolder text-dark">Head
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="text" name="title" :value="old('title')"
+                            list="external_heads" />
+                        <datalist id="external_heads">
+                            @foreach ($project->externalCosts as $externalCost)
+                                <option value="{{ $externalCost->title }}">{{ $externalCost->title }}
+                                </option>
+                            @endforeach
+                        </datalist>
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Vendor Name
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="text" name="name" :value="old('name')" />
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Advance
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="number" name="advance" :value="old('advance')" />
+
+                        <label class="form-label fs-6 fw-bolder text-dark">Due
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control form-control" type="number" name="due" :value="old('due')" />
+
+                        <label class="form-label fw-bolder text-dark fs-6" for="start_date">Date
+                            <x-utils.required />
+                        </label>
+                        <input class="form-control" id="add_vendorcost_date_picker" name="created_at"
+                            value="{{ now() }}" />
+                        <button type="submit" class="btn btn-primary mt-1">
+                            <i class="fas fa-plus"></i>Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

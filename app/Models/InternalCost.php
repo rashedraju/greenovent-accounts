@@ -9,6 +9,10 @@ class InternalCost extends Model
 {
     use HasFactory;
 
+    public function getCreatedAtAttribute( $value ) {
+        return date( 'Y-m-d', strtotime( $value ) );
+    }
+    
     public function project(){
         return $this->belongsTo(Project::class);
     }

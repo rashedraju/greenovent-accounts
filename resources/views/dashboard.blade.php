@@ -7,6 +7,9 @@
                 <!--begin::Row-->
                 <div class="row gy-5 g-xl-8">
                     <!--begin::Col-->
+                    <div class="alert alert-danger fs-6" role="alert">
+                        Dashboard is under maintenance! Please explore the others section.
+                    </div>
                     <div class="col-xl-4">
                         <!--begin::Mixed Widget 2-->
                         <div class="card card-xl-stretch">
@@ -803,8 +806,8 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder fs-3 mb-1">Members Statistics</span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">Over 500 members</span>
+                                    <span class="card-label fw-bolder fs-3 mb-1">Employee Statistics</span>
+                                    <span class="text-muted mt-1 fw-bold fs-7">Over 20 employees</span>
                                 </h3>
                                 <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top"
                                     data-bs-trigger="hover" title="Click to add a user">
@@ -842,9 +845,9 @@
                                                             data-kt-check-target=".widget-9-check" />
                                                     </div>
                                                 </th>
-                                                <th class="min-w-150px">Authors</th>
-                                                <th class="min-w-140px">Company</th>
-                                                <th class="min-w-120px">Progress</th>
+                                                <th class="min-w-150px">Name</th>
+                                                <th class="min-w-140px">Designation</th>
+                                                <th class="min-w-120px">Performance</th>
                                                 <th class="min-w-100px text-end">Actions</th>
                                             </tr>
                                         </thead>
@@ -1364,7 +1367,7 @@
                         <div class="card card-xl-stretch mb-xl-8">
                             <!--begin::Header-->
                             <div class="card-header border-0">
-                                <h3 class="card-title fw-bolder text-dark">Authors</h3>
+                                <h3 class="card-title fw-bolder text-dark">Clients</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
                                     <button type="button"
@@ -1467,8 +1470,7 @@
                                 <div class="d-flex align-items-center mb-7">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('/public/assets/media/avatars/300-6.jpg') }}"
-                                            class="" alt="" />
+                                        <x-project.icon />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Text-->
@@ -1484,8 +1486,7 @@
                                 <div class="d-flex align-items-center mb-7">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('/public/assets/media/avatars/300-5.jpg') }}"
-                                            class="" alt="" />
+                                        <x-project.icon />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Text-->
@@ -1502,8 +1503,7 @@
                                 <div class="d-flex align-items-center mb-7">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('/public/assets/media/avatars/300-11.jpg') }}"
-                                            class="" alt="" />
+                                        <x-project.icon />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Text-->
@@ -1520,8 +1520,7 @@
                                 <div class="d-flex align-items-center mb-7">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('/public/assets/media/avatars/300-9.jpg') }}"
-                                            class="" alt="" />
+                                        <x-project.icon />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Text-->
@@ -1538,8 +1537,7 @@
                                 <div class="d-flex align-items-center">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('/public/assets/media/avatars/300-23.jpg') }}"
-                                            class="" alt="" />
+                                        <x-project.icon />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Text-->
@@ -2890,28 +2888,6 @@
                     <!--end::Col-->
                 </div>
                 <!--end::Row-->
-                <!--begin::Calendar Widget 1-->
-                <div class="card">
-                    <!--begin::Card header-->
-                    <div class="card-header">
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder text-dark">My Calendar</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Preview monthly events</span>
-                        </h3>
-                        <div class="card-toolbar">
-                            <a href="apps/calendar.html" class="btn btn-primary">Manage Calendar</a>
-                        </div>
-                    </div>
-                    <!--end::Card header-->
-                    <!--begin::Card body-->
-                    <div class="card-body">
-                        <!--begin::Calendar-->
-                        <div id="kt_calendar_widget_1"></div>
-                        <!--end::Calendar-->
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Calendar Widget 1-->
                 <!--begin::Modals-->
                 <!--begin::Modal - New Product-->
                 <div class="modal fade" id="kt_modal_add_event" tabindex="-1" aria-hidden="true">

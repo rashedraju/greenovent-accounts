@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExternalCostExport;
+use App\Exports\InternalCostExport;
+use App\Exports\VendorCostExport;
 use App\Http\Requests\AddCostRequest;
 use App\Http\Requests\AddProjectRequest;
 use App\Http\Requests\AddVendorCostRequest;
 use App\Http\Requests\EditCostRequest;
 use App\Http\Requests\EditProjectRequest;
 use App\Http\Requests\EditVendorCostRequest;
+use App\Imports\ExternalCostImport;
+use App\Imports\InternalCostImport;
+use App\Imports\VendorCostImport;
 use App\Models\Client;
 use App\Models\ExternalCost;
 use App\Models\InternalCost;
@@ -16,6 +22,8 @@ use App\Models\ProjectStatus;
 use App\Models\ProjectType;
 use App\Models\User;
 use App\Models\VendorCost;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjectController extends Controller {
     public function index() {
@@ -113,6 +121,21 @@ class ProjectController extends Controller {
         return redirect()->route( 'projects.internals', ['project' => $project] )->with( 'success', 'Internal Cost Added' );
     }
 
+    // import internal cost excel file
+    public function importInternalCosts( Request $request, Project $project ) {
+        $file = $request->file( 'internal_file' );
+        Excel::import( new InternalCostImport(), $file );
+
+        return redirect()->route( 'projects.internals', $project )->with( 'success', 'Internal Cost Added' );
+    }
+
+    // export internal cost to excel file
+    public function exportInternalCosts( Project $project ) {
+        $filename = $project->name . "_internal.xlsx";
+
+        return Excel::download( new InternalCostExport(), $filename );
+    }
+
     // update internal cost
     public function updateInternalCost( EditCostRequest $request, Project $project, InternalCost $internalCost ) {
         $attrs = $request->validated();
@@ -144,6 +167,21 @@ class ProjectController extends Controller {
         return redirect()->route( 'projects.externals', $project )->with( 'success', 'External Cost Added' );
     }
 
+    // import external cost excel file
+    public function importExternalCosts( Request $request, Project $project ) {
+        $file = $request->file( 'external_file' );
+        Excel::import( new ExternalCostImport(), $file );
+
+        return redirect()->route( 'projects.externals', $project )->with( 'success', 'External Cost Added' );
+    }
+
+    // export exter cost to excel file
+    public function exportExternalCosts( Project $project ) {
+        $filename = $project->name . "_external.xlsx";
+
+        return Excel::download( new ExternalCostExport(), $filename );
+    }
+
     // update external cost
     public function updateExternalCost( EditCostRequest $request, Project $project, ExternalCost $externalCost ) {
         $attrs = $request->validated();
@@ -173,6 +211,21 @@ class ProjectController extends Controller {
         $project->vendorCosts()->save( $vendorCost );
 
         return redirect()->route( 'projects.vendors', $project )->with( 'success', 'Vendor Cost Added' );
+    }
+
+    // import vendor cost excel file
+    public function importVendorCosts( Request $request, Project $project ) {
+        $file = $request->file( 'vendor_file' );
+        Excel::import( new VendorCostImport(), $file );
+
+        return redirect()->route( 'projects.vendors', $project )->with( 'success', 'Vendor Cost Added' );
+    }
+
+    // export vendor cost to excel file
+    public function exportVendorCosts( Project $project ) {
+        $filename = $project->name . "_vendor.xlsx";
+
+        return Excel::download( new VendorCostExport(), $filename );
     }
 
     // update vendor cost

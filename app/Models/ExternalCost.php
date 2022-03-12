@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExternalCost extends Model
-{
+class ExternalCost extends Model {
     use HasFactory;
 
-    public function project(){
-        return $this->belongsTo(Project::class);
+    public function getCreatedAtAttribute( $value ) {
+        return date( 'Y-m-d', strtotime( $value ) );
+    }
+
+    public function project() {
+        return $this->belongsTo( Project::class );
     }
 }
