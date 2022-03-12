@@ -5,7 +5,7 @@
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
                 <div class="text-center">
                     <a href="{{ route('dashboard') }}">
-                        <img alt="Logo" src="{{ asset('/public/assets/media/logos/greenovent.png') }}"
+                        <img alt="Logo" src="{{ asset('/assets/media/logos/greenovent.png') }}"
                             class="w-100 w-sm-25" />
                     </a>
                 </div>
