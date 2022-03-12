@@ -3,6 +3,9 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
             <!--begin::Layout-->
+            <div class="alert alert-danger fs-6" role="alert">
+                Client Dashboard is under maintenance! Please explore the others section.
+            </div>
             <div class="d-flex flex-column flex-xl-row">
                 <!--begin::Sidebar-->
                 <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">

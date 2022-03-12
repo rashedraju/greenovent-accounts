@@ -494,7 +494,6 @@
             "time": "2020-12-29T14:50:06+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "ezyang/htmlpurifier",
             "version": "v4.14.0",
             "source": {
@@ -555,17 +554,6 @@
             },
             "dist": {
                 "type": "zip",
-=======
-            "name": "fruitcake/laravel-cors",
-            "version": "v2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fruitcake/laravel-cors.git",
-                "reference": "783a74f5e3431d7b9805be8afb60fd0a8f743534"
-            },
-            "dist": {
-                "type": "zip",
->>>>>>> prod
                 "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/783a74f5e3431d7b9805be8afb60fd0a8f743534",
                 "reference": "783a74f5e3431d7b9805be8afb60fd0a8f743534",
                 "shasum": ""
@@ -2076,7 +2064,6 @@
             "time": "2021-10-01T21:08:31+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "myclabs/php-enum",
             "version": "1.8.3",
             "source": {
@@ -2146,17 +2133,6 @@
             },
             "dist": {
                 "type": "zip",
-=======
-            "name": "nesbot/carbon",
-            "version": "2.57.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4a54375c21eea4811dbd1149fe6b246517554e78"
-            },
-            "dist": {
-                "type": "zip",
->>>>>>> prod
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4a54375c21eea4811dbd1149fe6b246517554e78",
                 "reference": "4a54375c21eea4811dbd1149fe6b246517554e78",
                 "shasum": ""
