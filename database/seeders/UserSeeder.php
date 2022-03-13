@@ -14,15 +14,15 @@ class UserSeeder extends Seeder {
     public function run() {
         $data = [
             [
-                'name'                       => 'Rashedul Islam',
+                'name'                       => 'Admin',
                 'designation_id'             => 4,
-                'email'                      => 'rashed.greenovent@gmail.com',
-                'phone'                      => '01626118847',
+                'email'                      => 'admin@greenovent.com',
+                'phone'                      => '01234567891',
                 'joining_date'               => now(),
                 'current_address'            => 'Dhanmondi, Dhaka',
                 'permanent_address'          => 'Dhanmondi, Dhaka',
                 'emergency_contact_name'     => 'John Doe',
-                'emergency_contact_no'       => '01234567997',
+                'emergency_contact_no'       => '01234567891',
                 'emergency_contact_relation' => 'brother',
                 'password'                   => '12345678'
             ]
