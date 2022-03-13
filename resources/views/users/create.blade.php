@@ -8,7 +8,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="post"
-                        action="{{ route('employees.store') }}">
+                        action="{{ route('employees.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-10 text-center">
@@ -19,23 +19,31 @@
                             <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         </div>
+
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6"
+                                for="emergency_contact_relation">Image<span class="text-danger"> * </span></label>
+                            <input class="form-control form-control-lg form-control-solid" type="file"
+                                name="profile_image" value="{{ old('profile_image') }}" />
+                        </div>
+
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="name">Name <span
                                     class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="name"
-                                :value="old('name')" />
+                                value="{{ old('name') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="email">Email <span
                                     class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="email" name="email"
-                                :value="old('email')" />
+                                value="{{ old('email') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Phone <span
                                     class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="phone"
-                                :value="old('phone')" />
+                                value="{{ old('phone') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Designation <span
@@ -43,7 +51,7 @@
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
                                 data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
-                                name="designation_id">
+                                name="designation_id" value="{{ old('designation_id') }}">
                                 @foreach ($designations as $designation)
                                     <option value="{{ $designation->id }}">
                                         {{ $designation->name }}</option>
@@ -55,39 +63,39 @@
                             <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date <span
                                     class="text-danger"> * </span></label>
                             <input class="form-control form-control-solid" id="user_add_joining_date_picker"
-                                name="joining_date" />
+                                name="joining_date" value="{{ old('joining_date') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
                                 Address<span class="text-danger"> * </span> </label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="current_address" :value="old('current_address')" />
+                                name="current_address" value="{{ old('current_address') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="permanent_address">Permanent
                                 Address <span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="permanent_address" :value="old('permanent_address')" />
+                                name="permanent_address" value="{{ old('permanent_address') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_name">Name of
                                 Emergency Contact<span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="emergency_contact_name" :value="old('emergency_contact_name')" />
+                                name="emergency_contact_name" value="{{ old('emergency_contact_name') }}" />
                         </div>
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_no">Emergency
                                 Contact No. <span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="emergency_contact_no" :value="old('emergency_contact_no')" />
+                                name="emergency_contact_no" value="{{ old('emergency_contact_no') }}" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6"
                                 for="emergency_contact_relation">Relationship with Emergency Contact<span
                                     class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="emergency_contact_relation" :value="old('emergency_contact_relation')" />
+                                name="emergency_contact_relation" value="{{ old('emergency_contact_relation') }}" />
                         </div>
 
                         <div class="fv-row mb-5">

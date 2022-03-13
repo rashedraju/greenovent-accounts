@@ -69,6 +69,21 @@ class User extends Authenticatable {
      *
      */
     public function projects() {
-        return $this->hasMany( Project::class);
+        return $this->hasMany( Project::class, 'business_manager_id' );
+    }
+
+    // user completed projects
+    public function completedProjects(){
+        return $this->projects->where('status_id', 1);
+    }
+
+    // user in progress projects
+    public function inProgressProjects(){
+        return $this->projects->where('status_id', 2);
+    }
+
+    // user in pending projects
+    public function pendingProjects(){
+        return $this->projects->where('status_id', 3);
     }
 }

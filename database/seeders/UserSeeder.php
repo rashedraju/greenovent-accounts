@@ -15,6 +15,7 @@ class UserSeeder extends Seeder {
         $data = [
             [
                 'name'                       => 'Admin',
+                'profile_image'              => 'profile_images/user.jpg',
                 'designation_id'             => 4,
                 'email'                      => 'admin@greenovent.com',
                 'phone'                      => '01234567891',

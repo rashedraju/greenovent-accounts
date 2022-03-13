@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeAddRequest;
 use App\Http\Requests\EmployeeEditRequest;
+use App\Models\ProjectStatus;
 use App\Models\User;
 use App\Models\UserDesignation;
 
@@ -24,7 +25,7 @@ class UsersController extends Controller {
 
     // Show Employe Profile
     public function show( User $user ) {
-        //
+        return view( 'users.show', ['user' => $user] );
     }
 
     /**
@@ -48,6 +49,17 @@ class UsersController extends Controller {
     public function store( EmployeeAddRequest $request ) {
         // Validate Register Request and Validated Attributes
         $attrs = $request->validated();
+
+        // store profile image
+        if ( $request->has( 'profile_image' ) ) {
+            $fname = time() . $request->profile_image->getClientOriginalName();
+            $profileImagePath = $request->file( 'profile_image' )->storeAs( 'profile_images', $fname, 'uploads' );
+
+            // replace profile image file to image path
+            $attrs = array_merge( $attrs, [
+                'profile_image' => $profileImagePath
+            ] );
+        }
 
         // Create User
         $user = User::create( $attrs );

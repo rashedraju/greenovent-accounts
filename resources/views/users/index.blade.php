@@ -1,6 +1,9 @@
 <x-app-layout>
     <div class="post d-flex flex-column-fluid" id="kt_post">
-        <div id="kt_content_container" class="container-xxl">
+        <div id="kt_content_container" class="">
+            <div class="p-2 py-5">
+                <h1 class="text-center">Employees</h1>
+            </div>
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <div class="card-toolbar">
@@ -47,8 +50,14 @@
                                             <td class="d-flex align-items-center">
                                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                     <a href="{{ route('employees.show', $user) }}">
-                                                        <div class="symbol-label fs-3 bg-light-danger text-danger">
-                                                            {{ $user->firstChar }} </div>
+                                                        @if ($user->profile_image)
+                                                            <img src="{{ asset("/public/uploads/{$user->profile_image}") }}"
+                                                                style="width: 50px; height: 50px" />
+                                                        @else
+                                                            <div class="symbol-label fs-3 bg-light-danger text-danger">
+                                                                {{ $user->firstChar }} </div>
+                                                        @endif
+
                                                     </a>
                                                 </div>
                                                 <div class="d-flex flex-column">
