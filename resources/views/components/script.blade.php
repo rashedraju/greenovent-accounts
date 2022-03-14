@@ -1,4 +1,5 @@
 <!--begin::Global Javascript Bundle(used by all pages)-->
+<script src="{{ asset('/public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
 <script src="{{ asset('/public/assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('/public/assets/js/scripts.bundle.js') }}"></script>
 <!--end::Global Javascript Bundle-->
@@ -72,6 +73,7 @@
     $("#edit_externals_date_picker").flatpickr();
     $("#add_internal_date_picker").flatpickr();
     $("#edit_internal_date_picker").flatpickr();
+    $("#employee_performance_datepicker").flatpickr();
 
     // Contact person input repeater
     $('#client_contact_persons_input').repeater({

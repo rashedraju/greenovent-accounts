@@ -1,9 +1,8 @@
 <x-app-layout>
-    <div class="d-flex flex-column flex-root">
-        <div
-            class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed">
-            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-                <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+    <div class="row">
+        <div class="col-12 col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
                     <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -25,29 +24,34 @@
                                 for="emergency_contact_relation">Image<span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="file"
                                 name="profile_image" value="{{ old('profile_image') }}" />
+                            <div class="text-muted"> use jpg/jpeg/png image with max 5MB file size.</div>
                         </div>
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="name">Name <span
-                                    class="text-danger"> * </span></label>
+                                    class="text-danger"> *
+                                </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="name"
-                                value="{{ old('name') }}" />
+                                value="{{ old('name') }}" placeholder="Ex. John Doe" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="email">Email <span
-                                    class="text-danger"> * </span></label>
+                                    class="text-danger"> *
+                                </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="email" name="email"
-                                value="{{ old('email') }}" />
+                                value="{{ old('email') }}" placeholder="Ex. john@exmaple.com" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Phone <span
-                                    class="text-danger"> * </span></label>
+                                    class="text-danger"> *
+                                </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="phone"
-                                value="{{ old('phone') }}" />
+                                value="{{ old('phone') }}" placeholder="Ex. 01xxxxxxxxx" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Designation <span
-                                    class="text-danger"> * </span></label>
+                                    class="text-danger"> *
+                                </span></label>
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
                                 data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
@@ -63,44 +67,52 @@
                             <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date <span
                                     class="text-danger"> * </span></label>
                             <input class="form-control form-control-solid" id="user_add_joining_date_picker"
-                                name="joining_date" value="{{ old('joining_date') }}" />
+                                name="joining_date" value="{{ old('joining_date') }}"
+                                placeholder="Select joining date" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
                                 Address<span class="text-danger"> * </span> </label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="current_address" value="{{ old('current_address') }}" />
+                                name="current_address" value="{{ old('current_address') }}"
+                                placeholder="Ex. Dhanmondi, Dhaka-1209" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="permanent_address">Permanent
                                 Address <span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="permanent_address" value="{{ old('permanent_address') }}" />
+                                name="permanent_address" value="{{ old('permanent_address') }}"
+                                placeholder="Ex. Dhanmondi, Dhaka-1209" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_name">Name of
                                 Emergency Contact<span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="emergency_contact_name" value="{{ old('emergency_contact_name') }}" />
+                                name="emergency_contact_name" value="{{ old('emergency_contact_name') }}"
+                                placeholder="Ex. John Doe" />
                         </div>
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_no">Emergency
                                 Contact No. <span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="emergency_contact_no" value="{{ old('emergency_contact_no') }}" />
+                                name="emergency_contact_no" value="{{ old('emergency_contact_no') }}"
+                                placeholder="Ex. 01xxxxxxxxx" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6"
-                                for="emergency_contact_relation">Relationship with Emergency Contact<span
-                                    class="text-danger"> * </span></label>
+                                for="emergency_contact_relation">Relationship
+                                with
+                                Emergency Contact<span class="text-danger"> * </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="emergency_contact_relation" value="{{ old('emergency_contact_relation') }}" />
+                                name="emergency_contact_relation" value="{{ old('emergency_contact_relation') }}"
+                                placeholder="Ex. Brother" />
                         </div>
 
                         <div class="fv-row mb-5">
                             <label class="form-label fw-bolder text-dark fs-6" for="password">Password<span
-                                    class="text-danger"> * </span></label>
+                                    class="text-danger"> *
+                                </span></label>
                             <input class="form-control form-control-lg form-control-solid" type="password"
                                 name="password" value="{{ old('password') }}" />
                             <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp;

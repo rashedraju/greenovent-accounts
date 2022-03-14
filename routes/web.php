@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::middleware( 'auth' )->group( function () {
     Route::get( '/employees/{user}/edit', [UsersController::class, 'edit'] )->name( 'employees.edit' );
     Route::put( '/employees/{user}', [UsersController::class, 'update'] )->name( 'employees.update' );
     Route::delete( '/employees/{user}/delete', [UsersController::class, 'destroy'] )->name( 'employees.delete' );
+    // Employee performance
+    Route::post( '/employees/{user}/performances', [EmployeePerformanceController::class, 'store'] )->name( 'employees.performances.store' );
 
     // Projects Routes
     Route::get( '/projects', [ProjectController::class, 'index'] )->name( 'projects' );

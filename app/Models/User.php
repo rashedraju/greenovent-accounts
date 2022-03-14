@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable {
@@ -73,17 +74,28 @@ class User extends Authenticatable {
     }
 
     // user completed projects
-    public function completedProjects(){
-        return $this->projects->where('status_id', 1);
+    public function completedProjects() {
+        return $this->projects->where( 'status_id', 1 );
     }
 
     // user in progress projects
-    public function inProgressProjects(){
-        return $this->projects->where('status_id', 2);
+    public function inProgressProjects() {
+        return $this->projects->where( 'status_id', 2 );
     }
 
     // user in pending projects
-    public function pendingProjects(){
-        return $this->projects->where('status_id', 3);
+    public function pendingProjects() {
+        return $this->projects->where( 'status_id', 3 );
+    }
+
+    // Employee performances
+    public function performances() {
+        return $this->hasMany( EmployeePerformance::class );
+    }
+
+    public function performancesByGroup() {
+        return $this->performances->groupby( function ( $performance ) {
+            return Carbon::parse( $performance->created_at )->format( 'F, Y' );
+        } );
     }
 }
