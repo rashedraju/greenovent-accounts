@@ -176,7 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // excel service provider
-        Maatwebsite\Excel\ExcelServiceProvider::class
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class
 
     ],
 
