@@ -28,7 +28,7 @@
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">Email</label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="email"
-                                autocomplete="off" :value="old('email')" required />
+                                autocomplete="off" value="{{ old('email') }}" required />
                         </div>
                         <div class="fv-row mb-10">
                             <div class="d-flex flex-stack mb-2">
@@ -37,7 +37,7 @@
                                     Password ?</a>
                             </div>
                             <input class="form-control form-control-lg form-control-solid" type="password"
-                                name="password" autocomplete="off" :value="old('password')" required />
+                                name="password" autocomplete="off" required />
                         </div>
 
                         <div class="form-check fv-row mb-10">

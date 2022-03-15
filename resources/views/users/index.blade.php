@@ -66,7 +66,7 @@
                                                     <span>{{ $user->email }}</span>
                                                 </div>
                                             </td>
-                                            <td>{{ $user->designation->name }}</td>
+                                            <td>{{ $user->designation() }}</td>
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->joining_date }}</td>
                                             <td>{{ $user->current_address }}</td>

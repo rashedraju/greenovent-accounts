@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -43,21 +43,12 @@ class User extends Authenticatable {
      *
      */
     public function designation() {
-        return $this->belongsTo( UserDesignation::class );
+        return $this->getRoleNames()->first();
     }
 
     // get readable joining date
     public function getJoiningDateAttribute( $value ) {
         return date( 'M d, Y', strtotime( $value ) );
-    }
-
-    /**
-     * One to many relation with status model
-     * User has one status
-     *
-     */
-    public function status() {
-        return $this->belongsTo( UserStatus::class );
     }
 
     // a user has many client

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

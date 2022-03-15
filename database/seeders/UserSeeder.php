@@ -13,10 +13,8 @@ class UserSeeder extends Seeder {
      */
     public function run() {
         $data = [
-            [
                 'name'                       => 'Admin',
                 'profile_image'              => 'profile_images/user.jpg',
-                'designation_id'             => 4,
                 'email'                      => 'admin@greenovent.com',
                 'phone'                      => '01234567891',
                 'joining_date'               => now(),
@@ -26,11 +24,11 @@ class UserSeeder extends Seeder {
                 'emergency_contact_no'       => '01234567891',
                 'emergency_contact_relation' => 'brother',
                 'password'                   => '12345678'
-            ]
         ];
 
-        foreach ( $data as $user ) {
-            User::create( $user );
-        }
+
+        $user = User::create( $data );
+
+        $user->assignRole('CEO');
     }
 }

@@ -22,23 +22,32 @@ class EmployeeEditRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'name'                       => ['sometimes', 'string', 'max:255'],
-            'designation_id'             => ['sometimes', Rule::exists( 'user_designations', 'id' )],
-            'email'                      => ['sometimes', 'string', 'email', 'max:255', Rule::unique( 'users', 'email' )->ignore( $this->route( 'user' ) )],
-            'phone'                      => ['sometimes', 'string'],
+            'name'                       => ['required', 'string', 'max:255'],
+            'profile_image'              => ['sometimes|image'],
+            'designation'                => ['required'],
+            'email'                      => [
+                'required',
+                'email',
+                Rule::unique( 'users' )->ignore( $this->user->id, 'id' )
+            ],
+            'phone'                      => ['required', 'string'],
             'password'                   => ['sometimes', 'confirmed', 'min:8', 'max:255'],
-            'joining_date'               => 'sometimes|string',
-            'current_address'            => 'sometimes|string',
-            'permanent_address'          => 'sometimes|string',
-            'emergency_contact_name'     => 'sometimes|string',
-            'emergency_contact_no'       => 'sometimes|string',
-            'emergency_contact_relation' => 'sometimes|string'
+            'joining_date'               => 'required|string',
+            'current_address'            => 'required|string',
+            'permanent_address'          => 'required|string',
+            'emergency_contact_name'     => 'required|string',
+            'emergency_contact_no'       => 'required|string',
+            'emergency_contact_relation' => 'required|string'
         ];
     }
 
     protected function prepareForValidation() {
         if ( $this->password === null ) {
             $this->request->remove( 'password' );
+        }
+
+        if ( $this->profile_image === null ) {
+            $this->request->remove( 'profile_image' );
         }
     }
 }

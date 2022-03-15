@@ -20,6 +20,15 @@
                             <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         </div>
+
+                        <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6"
+                                for="emergency_contact_relation">Image</label>
+                            <input class="form-control form-control-lg form-control-solid" type="file"
+                                name="profile_image" />
+                            <div class="text-muted"> use jpg/jpeg/png image with max 5MB file size.</div>
+                        </div>
+
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="name">Name</label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="name"
@@ -41,11 +50,11 @@
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
                                 data-control="select2" data-placeholder="Select Designation" data-hide-search="true"
-                                tabindex="-1" aria-hidden="true" name="designation_id">
+                                tabindex="-1" aria-hidden="true" name="designation">
                                 @foreach ($designations as $designation)
-                                    <option value="{{ $designation->id }}"
-                                        {{ $designation->id == $user->designation->id ? 'selected' : '' }}>
-                                        {{ $designation->name }}</option>
+                                    <option value="{{ $designation }}"
+                                        {{ $designation == $user->designation() ? 'selected' : '' }}>
+                                        {{ $designation }}</option>
                                 @endforeach
                             </select>
                         </div>

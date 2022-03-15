@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RolesAndPermissionsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +20,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware( 'auth' )->group( function () {
-    Route::get( '/', function () {
-        return view( 'dashboard' );
-    } )->name( 'dashboard' );
+    Route::get( '/', [DashboardController::class, 'index'] )->name( 'dashboard' );
 
     // Employees Routes
     Route::get( '/employees', [UsersController::class, 'index'] )->name( 'employees' );
@@ -84,6 +84,8 @@ Route::middleware( 'auth' )->group( function () {
     Route::get( '/clients/{client}/client_contact_persons/{clientContactPerson}/edit', [ClientsController::class, 'editContactPerson'] )->name( 'clients.contact.edit' );
     Route::put( '/clients/{client}/client_contact_persons/{clientContactPerson}', [ClientsController::class, 'updateContactPerson'] )->name( 'clients.contact.update' );
 
+    // Route access permissions
+    Route::get('/permissions', [RolesAndPermissionsController::class, 'index'])->name('permissions');
 } );
 
 Route::fallback( function () {

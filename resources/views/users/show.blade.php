@@ -14,7 +14,7 @@
                         <img src="{{ asset("/public/uploads/{$user->profile_image}") }}" alt="" srcset=""
                             style="width: 200px; height: 200px;">
                         <div class="py-3">Name: <br /><strong>{{ $user->name }} </strong></div>
-                        <div class="py-3">Designation:<br /> <strong>{{ $user->designation->name }}</strong>
+                        <div class="py-3">Designation:<br /> <strong>{{ $user->designation() }}</strong>
                         </div>
                         <div class="py-3">Email:<br /> <strong>{{ $user->email }}</strong></div>
                         <div class="py-3">Phone: <br /><strong>{{ $user->phone }}</strong></div>

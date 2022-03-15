@@ -65,6 +65,12 @@
                                 {{-- <span class="menu-arrow d-lg-none"></span> --}}
                             </a>
                         </div>
+                        <div class="menu-item me-lg-1">
+                            <a href="{{ route('permissions') }}" class="menu-link py-3">
+                                <span class="menu-title">Permissions</span>
+                                {{-- <span class="menu-arrow d-lg-none"></span> --}}
+                            </a>
+                        </div>
                     </div>
                     <!--end::Menu-->
                 </div>
@@ -99,7 +105,7 @@
                                         {{ ucfirst(auth()->user()->name) }}
                                     </div>
                                     <div class="fw-bold text-muted text-hover-primary fs-7">
-                                        {{ auth()->user()->designation->name }}</div>
+                                        {{ auth()->user()->designation() }}</div>
                                 </div>
                                 <!--end::Username-->
                             </div>

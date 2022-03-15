@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration {
             $table->id();
             $table->string( 'name' );
             $table->string('profile_image');
-            $table->foreignId( 'designation_id' );
             $table->string( 'email' )->unique();
             $table->string( 'phone' );
             $table->date('joining_date')->nullable();

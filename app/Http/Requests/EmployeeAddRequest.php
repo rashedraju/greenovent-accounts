@@ -24,7 +24,7 @@ class EmployeeAddRequest extends FormRequest {
         return [
             'name'                       => ['required', 'string', 'max:255'],
             'profile_image'              => ['required'],
-            'designation_id'             => ['required', Rule::exists( 'user_designations', 'id' )],
+            'designation'                => ['required'],
             'email'                      => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone'                      => ['required', 'string'],
             'password'                   => ['required', 'confirmed', 'min:8', 'max:255'],
