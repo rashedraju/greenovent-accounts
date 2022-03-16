@@ -86,6 +86,7 @@ Route::middleware( 'auth' )->group( function () {
 
     // Route access permissions
     Route::get('/permissions', [RolesAndPermissionsController::class, 'index'])->name('permissions');
+    Route::put('/permissions/{permission}', [RolesAndPermissionsController::class, 'update'])->name('permissions.update');
 } );
 
 Route::fallback( function () {
