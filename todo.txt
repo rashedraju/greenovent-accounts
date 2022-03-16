@@ -3,3 +3,10 @@
 2. filter bussiness manger designation users from user table and pass it to create client view in clientController@create
 3. filter bussiness manger designation users from user table and pass it to create client view in projectController@create
 
+### table structure for daily conveyance
+
+1. title -> string
+2. description -> string
+3. billing person -> forign_id -> users table
+4. project/event -> forign_id -> projects/event table
+ 
