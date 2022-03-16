@@ -9,16 +9,29 @@
                     <button class="btn btn-light w-100 text-start" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseExample{{ $loop->iteration }}" aria-expanded="false"
                         aria-controls="collapseExample" style="border-radius: 0!important">
-                        {{ ucfirst($permission) }}
+                        {{ ucfirst($permission->name) }}
                         <x-utils.down-arrow />
                     </button>
                     <div class="collapse" id="collapseExample{{ $loop->iteration }}">
                         <div class="card card-body">
-                            <ul>
-                                @foreach ($rules as $rule)
-                                    <li> {{ $rule }} </li>
+                            <form action="{{ route('permissions.update', $permission) }}" method="post">
+                                @csrf
+                                @method('put')
+                                @foreach ($roles as $role)
+                                    <div class="form-check form-switch py-2">
+                                        <input type="checkbox" name="{{ $role->name }}"
+                                            id="{{ $role->name . $loop->iteration }}"
+                                            {{ $role->hasPermissionTo($permission) ? 'checked' : '' }}
+                                            class="form-check-input" />
+
+                                        <label class="form-check-label" for="{{ $role->name . $loop->iteration }}">
+                                            {{ $role->name }}</label>
+
+                                    </div>
                                 @endforeach
-                            </ul>
+
+                                <button type="submit" class="btn btn-sm btn-primary mt-5">Save Permissions</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach
