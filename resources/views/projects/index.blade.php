@@ -128,7 +128,7 @@
                                 @endforeach
 
                                 @if ($remainingClientsCount > 0)
-                                    <a href="{{ route('clients') }}" class="symbol symbol-35px symbol-circle">
+                                    <a href="{{ route('clients.index') }}" class="symbol symbol-35px symbol-circle">
                                         <span
                                             class="symbol-label bg-dark text-gray-300 fs-8 fw-bolder">+{{ $remainingClientsCount }}</span>
                                     </a>
@@ -137,7 +137,8 @@
                             <!--end::Users group-->
                             <!--begin::Actions-->
                             <div class="d-flex">
-                                <a href="{{ route('clients') }}" class="btn btn-primary btn-sm me-3">All Clients</a>
+                                <a href="{{ route('clients.index') }}" class="btn btn-primary btn-sm me-3">All
+                                    Clients</a>
                                 <a href="{{ route('clients.create') }}" class="btn btn-light btn-sm">Add New</a>
                             </div>
                             <!--end::Actions-->

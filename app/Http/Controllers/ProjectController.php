@@ -65,7 +65,7 @@ class ProjectController extends Controller {
             return redirect()->route( 'clients.contact.create', [$project->client, 'skipable' => true, 'skipto' => route( 'projects.show', $project )] )->with( 'success', 'Project added successfully' );
         }
 
-        return redirect()->route( 'projects' )->with( 'failed', 'Failed to add project' );
+        return redirect()->route( 'projects.index' )->with( 'failed', 'Failed to add project' );
 
     }
 
@@ -90,14 +90,14 @@ class ProjectController extends Controller {
 
         $project->update( $attrs );
 
-        return redirect()->route( 'projects' )->with( 'success', 'Project updated successfully' );
+        return redirect()->route( 'projects.index' )->with( 'success', 'Project updated successfully' );
     }
 
     // delete project
     public function delete( Project $project ) {
         $project->delete();
 
-        return redirect()->route( 'projects' )->with( 'success', 'Project Deleted' );
+        return redirect()->route( 'projects.index' )->with( 'success', 'Project Deleted' );
     }
 
     // show internal costs

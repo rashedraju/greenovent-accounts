@@ -117,7 +117,7 @@
                                                     class="badge badge-primary">{{ $project->status->name }}</span>
                                             </td>
                                             <td><a
-                                                    href="{{ route('clients', $project->client) }}">{{ $project->client->company_name }}</a>
+                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>
@@ -164,7 +164,7 @@
                                                     class="badge badge-primary">{{ $project->status->name }}</span>
                                             </td>
                                             <td><a
-                                                    href="{{ route('clients', $project->client) }}">{{ $project->client->company_name }}</a>
+                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>
@@ -211,7 +211,7 @@
                                                     class="badge badge-primary">{{ $project->status->name }}</span>
                                             </td>
                                             <td><a
-                                                    href="{{ route('clients', $project->client) }}">{{ $project->client->company_name }}</a>
+                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>

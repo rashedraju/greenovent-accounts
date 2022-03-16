@@ -54,15 +54,15 @@ class ClientsController extends Controller {
         // create contact persons
         $client->contactPersons()->createMany( $contactPersons );
 
-        return redirect()->route( 'clients' )->with( 'success', 'Client Added Successfully' );
+        return redirect()->route( 'clients.index' )->with( 'success', 'Client Added Successfully' );
     }
 
     // delete client
     public function destroy( Client $client ) {
         if ( $client->delete() ) {
-            return redirect()->route( 'clients' )->with( 'success', 'Client Removed' );
+            return redirect()->route( 'clients.index' )->with( 'success', 'Client Removed' );
         } else {
-            return redirect()->route( 'clients' )->with( 'failed', 'Failed to Client Removed' );
+            return redirect()->route( 'clients.index' )->with( 'failed', 'Failed to Client Removed' );
         }
     }
 

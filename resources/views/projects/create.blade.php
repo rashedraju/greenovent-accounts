@@ -130,7 +130,8 @@
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                     </div>
                     <div class="d-flex gap-3">
-                        <a href="{{ route('projects') }}" class="btn btn-lg btn-secondary w-100 mb-5">Go Back</a>
+                        <a href="{{ route('projects.index') }}" class="btn btn-lg btn-secondary w-100 mb-5">Go
+                            Back</a>
                         <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                             Add Project
                         </button>

@@ -20,6 +20,6 @@ class RolesAndPermissionsController extends Controller {
         $roles = array_keys( $attrs );
         $permission->syncRoles( $roles );
 
-        return redirect()->route( 'permissions' )->with( 'success', 'Permission updated!' );
+        return redirect()->route( 'permissions.index' )->with( 'success', 'Permission updated!' );
     }
 }

@@ -42,33 +42,39 @@
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('dashboard') }}" class="menu-link py-3">
+                            <a href="{{ route('dashboard') }}"
+                                class="menu-link py-3 {{ request()->routeIs('dashboard.*') ? 'active' : '' }}">
                                 <span class="menu-title">Dashboard</span>
-                                {{-- <span class="menu-arrow d-lg-none"></span> --}}
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('clients') }}" class="menu-link py-3">
+                            <a href="{{ route('clients.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('clients.*') ? 'active' : '' }}">
                                 <span class="menu-title">Clients</span>
-                                {{-- <span class="menu-arrow d-lg-none"></span> --}}
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('projects') }}" class="menu-link py-3">
+                            <a href="{{ route('projects.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
                                 <span class="menu-title">Projects</span>
-                                {{-- <span class="menu-arrow d-lg-none"></span> --}}
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('employees') }}" class="menu-link py-3">
+                            <a href="{{ route('employees.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                                 <span class="menu-title">Employees</span>
-                                {{-- <span class="menu-arrow d-lg-none"></span> --}}
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('permissions') }}" class="menu-link py-3">
+                            <a href="{{ route('accounts.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('accounts.*') ? 'active' : '' }}">
+                                <span class="menu-title">Accounts</span>
+                            </a>
+                        </div>
+                        <div class="menu-item me-lg-1">
+                            <a href="{{ route('permissions.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('permissions.*') ? 'active' : '' }}">
                                 <span class="menu-title">Permissions</span>
-                                {{-- <span class="menu-arrow d-lg-none"></span> --}}
                             </a>
                         </div>
                     </div>

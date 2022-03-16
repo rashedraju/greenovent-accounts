@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeePerformanceController;
@@ -23,70 +24,79 @@ Route::middleware( 'auth' )->group( function () {
     Route::get( '/', [DashboardController::class, 'index'] )->name( 'dashboard' );
 
     // Employees Routes
-    Route::get( '/employees', [UsersController::class, 'index'] )->name( 'employees' );
-    Route::get( '/employees/create', [UsersController::class, 'create'] )->name( 'employees.create' );
-    Route::post( '/employees', [UsersController::class, 'store'] )->name( 'employees.store' );
-    Route::get( '/employees/{user}', [UsersController::class, 'show'] )->name( 'employees.show' );
-    Route::get( '/employees/{user}/edit', [UsersController::class, 'edit'] )->name( 'employees.edit' );
-    Route::put( '/employees/{user}', [UsersController::class, 'update'] )->name( 'employees.update' );
-    Route::delete( '/employees/{user}/delete', [UsersController::class, 'destroy'] )->name( 'employees.delete' );
-    // Employee performance
-    Route::post( '/employees/{user}/performances', [EmployeePerformanceController::class, 'store'] )->name( 'employees.performances.store' );
+    Route::name( 'employees.' )->prefix( 'employees' )->group( function () {
+        Route::get( '/', [UsersController::class, 'index'] )->name( 'index' );
+        Route::get( '/create', [UsersController::class, 'create'] )->name( 'create' );
+        Route::post( '/', [UsersController::class, 'store'] )->name( 'store' );
+        Route::get( '/{user}', [UsersController::class, 'show'] )->name( 'show' );
+        Route::get( '/{user}/edit', [UsersController::class, 'edit'] )->name( 'edit' );
+        Route::put( '/{user}', [UsersController::class, 'update'] )->name( 'update' );
+        Route::delete( '/{user}/delete', [UsersController::class, 'destroy'] )->name( 'delete' );
+        // Employee performance
+        Route::post( '/{user}/performances', [EmployeePerformanceController::class, 'store'] )->name( 'performances.store' );
+    } );
 
     // Projects Routes
-    Route::get( '/projects', [ProjectController::class, 'index'] )->name( 'projects' );
-    Route::get( '/projects/create', [ProjectController::class, 'create'] )->name( 'projects.create' );
-    Route::post( '/projects', [ProjectController::class, 'store'] )->name( 'projects.store' );
-    Route::get( '/projects/{project}', [ProjectController::class, 'show'] )->name( 'projects.show' );
-    Route::get( '/projects/{project}/edit', [ProjectController::class, 'edit'] )->name( 'projects.edit' );
-    Route::put( '/projects/{project}', [ProjectController::class, 'update'] )->name( 'projects.update' );
-    Route::delete( '/projects/{project}', [ProjectController::class, 'delete'] )->name( 'projects.delete' );
+    Route::name( 'projects.' )->prefix( 'projects' )->group( function () {
+        Route::get( '/', [ProjectController::class, 'index'] )->name( 'index' );
+        Route::get( '/create', [ProjectController::class, 'create'] )->name( 'create' );
+        Route::post( '/', [ProjectController::class, 'store'] )->name( 'store' );
+        Route::get( '/{project}', [ProjectController::class, 'show'] )->name( 'show' );
+        Route::get( '/{project}/edit', [ProjectController::class, 'edit'] )->name( 'edit' );
+        Route::put( '/{project}', [ProjectController::class, 'update'] )->name( 'update' );
+        Route::delete( '/{project}', [ProjectController::class, 'delete'] )->name( 'delete' );
 
-    // Project Internal Costs
-    Route::get( '/projects/{project}/internals', [ProjectController::class, 'internalCost'] )->name( 'projects.internals' );
-    Route::get( '/projects/{project}/internals/add', [ProjectController::class, 'addInternalCost'] )->name( 'projects.internals.add' );
-    Route::post( '/projects/{project}/internals', [ProjectController::class, 'storeInternalCost'] )->name( 'projects.internals.store' );
-    Route::post( '/projects/{project}/internals/import', [ProjectController::class, 'importInternalCosts'] )->name( 'projects.internals.import' );
-    Route::get( '/projects/{project}/internals/export', [ProjectController::class, 'exportInternalCosts'] )->name( 'projects.internals.export' );
-    Route::put( '/projects/{project}/internals/{internalCost}', [ProjectController::class, 'updateInternalCost'] )->name( 'projects.internals.update' );
-    Route::delete( '/projects/{project}/internals/{internalCost}', [ProjectController::class, 'deleteInternalCost'] )->name( 'projects.internals.delete' );
+        // Project Internal Costs
+        Route::get( '/{project}/internals', [ProjectController::class, 'internalCost'] )->name( 'internals' );
+        Route::get( '/{project}/internals/add', [ProjectController::class, 'addInternalCost'] )->name( 'internals.add' );
+        Route::post( '/{project}/internals', [ProjectController::class, 'storeInternalCost'] )->name( 'internals.store' );
+        Route::post( '/{project}/internals/import', [ProjectController::class, 'importInternalCosts'] )->name( 'internals.import' );
+        Route::get( '/{project}/internals/export', [ProjectController::class, 'exportInternalCosts'] )->name( 'internals.export' );
+        Route::put( '/{project}/internals/{internalCost}', [ProjectController::class, 'updateInternalCost'] )->name( 'internals.update' );
+        Route::delete( '/{project}/internals/{internalCost}', [ProjectController::class, 'deleteInternalCost'] )->name( 'internals.delete' );
 
-    // Project External Costs
-    Route::get( '/projects/{project}/externals', [ProjectController::class, 'externalCost'] )->name( 'projects.externals' );
-    Route::post( '/projects/{project}/externals', [ProjectController::class, 'storeExternalCost'] )->name( 'projects.externals.store' );
-    Route::post( '/projects/{project}/externals/import', [ProjectController::class, 'importExternalCosts'] )->name( 'projects.externals.import' );
-    Route::get( '/projects/{project}/externals/export', [ProjectController::class, 'exportExternalCosts'] )->name( 'projects.externals.export' );
-    Route::put( '/projects/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'projects.externals.update' );
-    Route::delete( '/projects/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'projects.externals.delete' );
+        // Project External Costs
+        Route::get( '/{project}/externals', [ProjectController::class, 'externalCost'] )->name( 'externals' );
+        Route::post( '/{project}/externals', [ProjectController::class, 'storeExternalCost'] )->name( 'externals.store' );
+        Route::post( '/{project}/externals/import', [ProjectController::class, 'importExternalCosts'] )->name( 'externals.import' );
+        Route::get( '/{project}/externals/export', [ProjectController::class, 'exportExternalCosts'] )->name( 'externals.export' );
+        Route::put( '/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'externals.update' );
+        Route::delete( '/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'externals.delete' );
 
-    // Project Vendor Costs
-    Route::get( '/projects/{project}/vendors', [ProjectController::class, 'vendorCosts'] )->name( 'projects.vendors' );
-    Route::post( '/projects/{project}/vendors', [ProjectController::class, 'storeVendorsCost'] )->name( 'projects.vendors.store' );
-    Route::post( '/projects/{project}/vendors/import', [ProjectController::class, 'importVendorCosts'] )->name( 'projects.vendors.import' );
-    Route::get( '/projects/{project}/vendors/export', [ProjectController::class, 'exportVendorCosts'] )->name( 'projects.vendors.export' );
-    Route::put( '/projects/{project}/vendors/{vendorCost}', [ProjectController::class, 'updateVendorCost'] )->name( 'projects.vendors.update' );
-    Route::delete( '/projects/{project}/vendors/{vendorCost}', [ProjectController::class, 'deleteVendorCost'] )->name( 'projects.vendors.delete' );
+        // Project Vendor Costs
+        Route::get( '/{project}/vendors', [ProjectController::class, 'vendorCosts'] )->name( 'vendors' );
+        Route::post( '/{project}/vendors', [ProjectController::class, 'storeVendorsCost'] )->name( 'vendors.store' );
+        Route::post( '/{project}/vendors/import', [ProjectController::class, 'importVendorCosts'] )->name( 'vendors.import' );
+        Route::get( '/{project}/vendors/export', [ProjectController::class, 'exportVendorCosts'] )->name( 'vendors.export' );
+        Route::put( '/{project}/vendors/{vendorCost}', [ProjectController::class, 'updateVendorCost'] )->name( 'vendors.update' );
+        Route::delete( '/{project}/vendors/{vendorCost}', [ProjectController::class, 'deleteVendorCost'] )->name( 'vendors.delete' );
+    } );
 
     // Clients Routes
-    Route::get( '/clients', [ClientsController::class, 'index'] )->name( 'clients' );
-    Route::get( '/clients/add', [ClientsController::class, 'create'] )->name( 'clients.create' );
-    Route::post( '/clients', [ClientsController::class, 'store'] )->name( 'clients.store' );
-    Route::get( '/clients/{client}', [ClientsController::class, 'show'] )->name( 'clients.show' );
-    Route::get( '/clients/{client}/edit', [ClientsController::class, 'edit'] )->name( 'clients.edit' );
-    Route::put( '/clients/{client}', [ClientsController::class, 'update'] )->name( 'clients.update' );
-    Route::delete( '/clients/{client}', [ClientsController::class, 'destroy'] )->name( 'clients.destroy' );
+    Route::name( 'clients.' )->prefix( 'clients' )->group( function () {
+        Route::get( '/', [ClientsController::class, 'index'] )->name( 'index' );
+        Route::get( '/add', [ClientsController::class, 'create'] )->name( 'create' );
+        Route::post( '/', [ClientsController::class, 'store'] )->name( 'store' );
+        Route::get( '/{client}', [ClientsController::class, 'show'] )->name( 'show' );
+        Route::get( '/{client}/edit', [ClientsController::class, 'edit'] )->name( 'edit' );
+        Route::put( '/{client}', [ClientsController::class, 'update'] )->name( 'update' );
+        Route::delete( '/{client}', [ClientsController::class, 'destroy'] )->name( 'destroy' );
 
-    // Add new Client Contact Person
-    Route::get( '/clients/{client}/contact/add', [ClientsController::class, 'createContactPerson'] )->name( 'clients.contact.create' );
-    Route::post( '/clients/{client}/contact', [ClientsController::class, 'storeContactPerson'] )->name( 'clients.contact.add' );
+        // Add new Client Contact Person
+        Route::get( '/{client}/contact/add', [ClientsController::class, 'createContactPerson'] )->name( 'contact.create' );
+        Route::post( '/{client}/contact', [ClientsController::class, 'storeContactPerson'] )->name( 'contact.add' );
 
-    // Edit Client Contact Person
-    Route::get( '/clients/{client}/client_contact_persons/{clientContactPerson}/edit', [ClientsController::class, 'editContactPerson'] )->name( 'clients.contact.edit' );
-    Route::put( '/clients/{client}/client_contact_persons/{clientContactPerson}', [ClientsController::class, 'updateContactPerson'] )->name( 'clients.contact.update' );
+        // Edit Client Contact Person
+        Route::get( '/{client}/client_contact_persons/{clientContactPerson}/edit', [ClientsController::class, 'editContactPerson'] )->name( 'contact.edit' );
+        Route::put( '/{client}/client_contact_persons/{clientContactPerson}', [ClientsController::class, 'updateContactPerson'] )->name( 'contact.update' );
+    } );
+
+    // Accounts
+    Route::get( '/accounts', [AccountsController::class, 'index'] )->name( 'accounts.index' );
 
     // Route access permissions
-    Route::get('/permissions', [RolesAndPermissionsController::class, 'index'])->name('permissions');
-    Route::put('/permissions/{permission}', [RolesAndPermissionsController::class, 'update'])->name('permissions.update');
+    Route::get( '/permissions', [RolesAndPermissionsController::class, 'index'] )->name( 'permissions.index' );
+    Route::put( '/permissions/{permission}', [RolesAndPermissionsController::class, 'update'] )->name( 'permissions.update' );
 } );
 
 Route::fallback( function () {

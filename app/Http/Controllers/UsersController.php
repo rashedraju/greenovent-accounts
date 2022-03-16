@@ -71,7 +71,7 @@ class UsersController extends Controller {
         $user->assignRole( $designation );
 
         if ( $user ) {
-            return redirect()->route( 'employees' )->with( 'success', 'Employee addedd sccessfully' );
+            return redirect()->route( 'employees.index' )->with( 'success', 'Employee addedd sccessfully' );
         }
 
         return redirect()->route( 'employees.create' )->with( 'failed', 'Failed to add Employee' );
@@ -120,9 +120,9 @@ class UsersController extends Controller {
     // Delete User
     public function destroy( User $user ) {
         if ( $user->delete() ) {
-            return redirect()->route( 'employees' )->with( 'success', 'Employee Removed Successfully' );
+            return redirect()->route( 'employees.index' )->with( 'success', 'Employee Removed Successfully' );
         }
 
-        return redirect()->route( 'employees' )->with( 'failed', 'Failed to Remove Employee' );
+        return redirect()->route( 'employees.index' )->with( 'failed', 'Failed to Remove Employee' );
     }
 }
