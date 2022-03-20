@@ -9,4 +9,68 @@
 2. description -> string
 3. billing person -> forign_id -> users table
 4. project/event -> forign_id -> projects/event table
- 
+
+// db design
+Company Finance
+—————————
+cash
+bank
++
+--------
+= Total
+__________________
+
+transaction types table
+Type(string)
+------
+Seeder
+Cash
+Bank
+------
+
+aproval_types
+name
+Seeder-->
+pending
+aproved
+rejected
+recheck
+
+aprovals(polymorphic one to one)
+----------
+type_id(foreing -> aproval_types)
+Note
+aprovalable_id
+aprovalable_type
+------------
+__________________
+Withdrawal
+—————————
+Date
+Amount
+Withdrawal by
+    ForeignId(users)
+transaction type
+    Cash
+    Bank
+---------
+
+Expense type
+Selary
+Daily conveyance
+Project/Event
+___________________
+Expenses
+—————————
+Date
+Billing person
+Project name
+Description
+Expense type
+    ForeignId
+transaction type
+    foreingId
+Amount
+Note
+___________________
+
