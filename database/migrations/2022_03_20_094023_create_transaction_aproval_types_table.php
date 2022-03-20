@@ -16,6 +16,7 @@ class CreateTransactionAprovalTypesTable extends Migration
         Schema::create('transaction_aproval_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('color');
             $table->timestamps();
         });
     }

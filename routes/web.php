@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\DailyConveyanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeePerformanceController;
+use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RolesAndPermissionsController;
 use App\Http\Controllers\UsersController;
@@ -93,13 +93,13 @@ Route::middleware( 'auth' )->group( function () {
     } );
 
     // Accounts
-    Route::name('accounts.')->prefix('accounts')->group(function(){
+    Route::name( 'accounts.' )->prefix( 'accounts' )->group( function () {
         Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
 
-        Route::name('daily_conveyance.')->prefix('daily-conveyance')->group(function(){
-            Route::get('/', [DailyConveyanceController::class, 'index'])->name('index');
-        });
-    });
+        Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
+            Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
+        } );
+    } );
 
     // Route access permissions
     Route::get( '/permissions', [RolesAndPermissionsController::class, 'index'] )->name( 'permissions.index' );

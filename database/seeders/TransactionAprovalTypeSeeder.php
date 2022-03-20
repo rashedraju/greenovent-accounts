@@ -13,14 +13,26 @@ class TransactionAprovalTypeSeeder extends Seeder {
      */
     public function run() {
         $types = [
-            'pending',
-            'aproved',
-            'rejected',
-            'recheck'
+            [
+                'name' => 'pending',
+                'color' => '#FFC107',
+            ],
+            [
+                'name' => 'aproved',
+                'color' => '#28A745',
+            ],
+            [
+                'name' => 'rejected',
+                'color' => '#DC3545',
+            ],
+            [
+                'name' => 'recheck',
+                'color' => '#007BFF',
+            ],
         ];
 
         foreach ( $types as $type ) {
-            TransactionAprovalType::create( ['name' => $type] );
+            TransactionAprovalType::create( $type );
         }
     }
 }

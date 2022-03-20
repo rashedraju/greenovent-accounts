@@ -38,7 +38,7 @@ class User extends Authenticatable {
     }
 
     /**
-     * One to many relation with designation model
+     * getRoleNames method from laravel-permission HasRoles trait
      * User has one designation
      *
      */
