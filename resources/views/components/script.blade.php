@@ -31,7 +31,7 @@
                 <div>Notification</div>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body text-success">
                 {{ session('success') }}
             </div>
         </div>
@@ -42,13 +42,13 @@
         toast.show();
     </script>
 @elseif (session()->has('failed'))
-    <div class="position-fixed top-0 end-0 p-3 z-index-3" style="z-index: 101">
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 101">
         <div id="failed_notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <div>Notification</div>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body text-danger">
                 {{ session('failed') }}
             </div>
         </div>

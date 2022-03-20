@@ -98,6 +98,7 @@ Route::middleware( 'auth' )->group( function () {
 
         Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
             Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
+            Route::get( '/{date}', [ExpensesController::class, 'show'] )->name( 'show' );
         } );
     } );
 

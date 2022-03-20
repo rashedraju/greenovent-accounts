@@ -15,6 +15,7 @@ class CreateExpensesTable extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
+            $table->string('head');
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->foreignId('project_id')->nullable()->constrained('projects', 'id');
             $table->string('description')->nullable();
@@ -22,7 +23,8 @@ class CreateExpensesTable extends Migration
             $table->foreignId('transaction_type_id')->constrained('transaction_types', 'id');
             $table->unsignedBigInteger('amount');
             $table->string('note')->nullable();
-            $table->timestamps();
+            $table->date('date');
+            $table->date('modified');
         });
     }
 

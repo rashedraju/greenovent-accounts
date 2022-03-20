@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Expense extends Model {
     use HasFactory;
 
+    public $timestamps = false;
+
     const PENDING_TRANSACTION_APROVAL_TYPE = 1;
 
     public static function boot() {
@@ -21,12 +23,12 @@ class Expense extends Model {
     }
 
     // format created at date
-    public function getCreatedAtAttribute( $value ) {
+    public function getDateAttribute( $value ) {
         return date( 'M d, Y', strtotime( $value ) );
     }
 
     // format created at date
-    public function getUpdatedAtAttribute( $value ) {
+    public function getModifiedAttribute( $value ) {
         return date( 'M d, Y', strtotime( $value ) );
     }
 
