@@ -15,11 +15,12 @@ class WithdrawalSeeder extends Seeder
     public function run()
     {
         Withdrawal::create([
-            'amount' => 10000,
+            'date' => now(),
             'user_id' => 1,
-            'transaction_type_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'amount' => 1000,
+            'bank_name' => 'EBL',
+            'slip_number' => '24571369875',
+            'note' => 'First withdrawal'
         ]);
     }
 }

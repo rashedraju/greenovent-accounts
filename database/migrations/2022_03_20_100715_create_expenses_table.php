@@ -24,7 +24,7 @@ class CreateExpensesTable extends Migration
             $table->unsignedBigInteger('amount');
             $table->string('note')->nullable();
             $table->date('date');
-            $table->date('modified');
+            $table->date('modified')->nullable();
         });
     }
 

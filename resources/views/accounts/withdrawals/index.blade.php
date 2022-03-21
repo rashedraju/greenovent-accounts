@@ -17,12 +17,12 @@
 
     <div class="card mt-3">
         <div class="card-body py-4">
-            <h3 class="border-bottom border-dark pb-5 text-center">Expense Records of This Year - {{ now()->year }}
+            <h3 class="border-bottom border-dark pb-5 text-center">Withdrawals Records of This Year - {{ now()->year }}
             </h3>
             <ul class="list-unstyled">
                 @for ($i = now()->month; $i >= 1; $i--)
                     <li class="p-3 bg-gray-300 m-3">
-                        <a href="{{ route('accounts.expenses.show', [now()->year, $i]) }}"> Expense
+                        <a href="{{ route('accounts.withdrawals.show', [now()->year, $i]) }}"> Withdrawals
                             Record Month
                             of {{ now()->month($i)->format('F') }} -
                             {{ now()->year }}</a>

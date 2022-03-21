@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RolesAndPermissionsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WithdrawalsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -98,7 +99,18 @@ Route::middleware( 'auth' )->group( function () {
 
         Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
             Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
-            Route::get( '/{date}', [ExpensesController::class, 'show'] )->name( 'show' );
+            Route::get( '/{year}/{month}', [ExpensesController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [ExpensesController::class, 'store'] )->name( 'store' );
+            Route::put( '/{expense}', [ExpensesController::class, 'update'] )->name( 'update' );
+            Route::delete( '/{expense}', [ExpensesController::class, 'destory'] )->name( 'delete' );
+        } );
+
+        Route::name( 'withdrawals.' )->prefix( 'withdrawals' )->group( function () {
+            Route::get( '/', [WithdrawalsController::class, 'index'] )->name( 'index' );
+            Route::get( '/{year}/{month}', [WithdrawalsController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [WithdrawalsController::class, 'store'] )->name( 'store' );
+            Route::put( '/{withdrawal}', [WithdrawalsController::class, 'update'] )->name( 'update' );
+            Route::delete( '/{withdrawal}', [WithdrawalsController::class, 'destory'] )->name( 'delete' );
         } );
     } );
 

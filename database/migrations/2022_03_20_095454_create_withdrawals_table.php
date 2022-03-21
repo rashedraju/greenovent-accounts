@@ -15,10 +15,12 @@ class CreateWithdrawalsTable extends Migration
     {
         Schema::create('withdrawals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('amount');
+            $table->date('date');
             $table->foreignId('user_id')->constrained('users', 'id');
-            $table->foreignId('transaction_type_id')->constrained('transaction_types', 'id');
-            $table->timestamps();
+            $table->unsignedBigInteger('amount');
+            $table->string('bank_name');
+            $table->string('slip_number');
+            $table->string('note')->nullable();
         });
     }
 

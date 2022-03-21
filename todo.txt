@@ -20,22 +20,6 @@ bank
 = Total
 __________________
 
-transaction types table
-Type(string)
-------
-Seeder
-Cash
-Bank
-------
-
-aproval_types
-name
-Seeder-->
-pending
-aproved
-rejected
-recheck
-
 aprovals(polymorphic one to one)
 ----------
 type_id(foreing -> aproval_types)
@@ -47,30 +31,11 @@ __________________
 Withdrawal
 —————————
 Date
-Amount
-Withdrawal by
+user_id
     ForeignId(users)
-transaction type
-    Cash
-    Bank
----------
-
-Expense type
-Selary
-Daily conveyance
-Project/Event
-___________________
-Expenses
-—————————
-Date
-Billing person
-Project name
-Description
-Expense type
-    ForeignId
-transaction type
-    foreingId
 Amount
-Note
+bank_name
+slip_number
+---------
 ___________________
 

@@ -12,6 +12,8 @@ class Expense extends Model {
 
     const PENDING_TRANSACTION_APROVAL_TYPE = 1;
 
+    protected $with = ['billingPerson', 'project', 'expenseType', 'transactionType', 'aproval'];
+
     public static function boot() {
         parent::boot();
 
@@ -22,14 +24,50 @@ class Expense extends Model {
         } );
     }
 
+    // filter expense data
+    public function scopeFilter( $query, array $filters ) {
+
+        $query->when( $filters['year'] ?? false, fn( $query, $year ) => $query->where( 'date', fn( $query ) => $query->whereYear( 'date', $year ) ) );
+
+        $query->when( $filters['month'] ?? false, fn( $query, $month ) => $query->where( 'date', fn( $query ) => $query->whereYear( 'date', $month ) ) );
+
+        $query->when( $filters['head'] ?? false, fn( $query, $head ) => $query
+                ->where( 'head', 'like', '%' . $head . '%' )
+        );
+
+        $query->when( $filters['user_id'] ?? false, fn( $query, $userId ) => $query
+                ->whereHas( 'billingPerson', fn( $query ) => $query
+                        ->where( 'user_id', $userId )
+                )
+        );
+
+        $query->when( $filters['project_id'] ?? false, fn( $query, $projectId ) => $query
+                ->whereHas( 'project', fn( $query ) => $query
+                        ->where( 'project_id', $projectId )
+                )
+        );
+
+        $query->when( $filters['expense_type_id'] ?? false, fn( $query, $expenseTypeId ) => $query
+                ->whereHas( 'expenseType', fn( $query ) => $query
+                        ->where( 'expense_type_id', $expenseTypeId )
+                )
+        );
+
+        $query->when( $filters['transaction_type_id'] ?? false, fn( $query, $transactionTypeId ) => $query
+                ->whereHas( 'transactionType', fn( $query ) => $query
+                        ->where( 'transaction_type_id', $transactionTypeId )
+                )
+        );
+    }
+
     // format created at date
     public function getDateAttribute( $value ) {
-        return date( 'M d, Y', strtotime( $value ) );
+        return date( 'Y-m-d', strtotime( $value ) );
     }
 
     // format created at date
     public function getModifiedAttribute( $value ) {
-        return date( 'M d, Y', strtotime( $value ) );
+        return date( 'Y-m-d', strtotime( $value ) );
     }
 
     // expense billing person
