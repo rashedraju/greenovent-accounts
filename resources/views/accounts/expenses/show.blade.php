@@ -19,6 +19,15 @@
         <div class="card-body py-4">
             <h3 class="pb-5 text-center">Expense Records Month of {{ now()->year($year)->month($month)->format('F') }}
                 - {{ $year }} </h3>
+
+            {{-- Import and Export excel file --}}
+            <div class="d-flex gap-3 justify-content-end">
+                <a href="{{ route('accounts.expenses.export', [$year, $month]) }}"
+                    class="btn btn-sm my-2 px-10 py-0 btn-danger">
+                    <x-utils.download /> Export
+                </a>
+            </div>
+
             <table class="table table-bordered table-responsive">
                 <thead>
                     <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
@@ -30,7 +39,9 @@
                         <th class="px-2">Description</th>
                         <th class="px-2">Expense Type</th>
                         <th class="px-2">Transaction Type</th>
-                        <th class="px-2">Amount</th>
+                        <th class="px-2">Amount(
+                            <x-utils.currency />)
+                        </th>
                         <th class="px-2">Aproval</th>
                         <th class="px-2">Last Edited</th>
                         <th class="px-2">Note</th>
@@ -190,7 +201,7 @@
 
                             </td>
                             <td>
-                                
+
                             </td>
                             <td>
                                 <select class="form-select" name="user_id" data-control="select2"

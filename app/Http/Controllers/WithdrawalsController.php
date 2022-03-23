@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\WithdrawalsExport;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\WithdrawalAddRequest;
 
 class WithdrawalsController extends Controller {
     public function index() {
@@ -18,7 +21,7 @@ class WithdrawalsController extends Controller {
             $month = $request->month;
 
             // get withdrawal records
-            $withdrawalRecords = Withdrawal::filter( request( ['year', 'month', 'user_id', 'bank_name'] ) )->get();
+            $withdrawalRecords = Withdrawal::filter( array_merge( ['year' => $year, 'month' => $month], request( ['user_id', 'bank_name'] ) ) )->get();
 
             // get withdrawal persons
             $withdrawalPersons = User::pluck( 'name', 'id' );
@@ -39,8 +42,12 @@ class WithdrawalsController extends Controller {
     }
 
     // store withdrawal
-    public function store( Request $request ) {
+    public function store( WithdrawalAddRequest $request ) {
         $attributes = $request->validated();
+
+        $attributes = array_merge( $attributes, [
+            'modified' => now()
+        ] );
 
         $withdrawal = Withdrawal::create( $attributes );
 
@@ -52,7 +59,7 @@ class WithdrawalsController extends Controller {
     }
 
     // update withdrawal to db
-    public function update( withdrawal $withdrawal, Request $request ) {
+    public function update( withdrawal $withdrawal, WithdrawalAddRequest $request ) {
         $attributes = $request->validated();
 
         $attributes = array_merge( $attributes, [
@@ -67,12 +74,26 @@ class WithdrawalsController extends Controller {
 
     }
 
-    // delete expense
+    // delete withdrawal
     public function destory( Withdrawal $withdrawal ) {
         if ( $withdrawal->delete() ) {
             return redirect()->back()->with( 'success', "withdrawal No:{$withdrawal->id} deleted." );
         }
 
         return redirect()->back()->with( 'failed', "withdrawal No:{$withdrawal->id} Failed to delete." );
+    }
+
+    // download withdrawal records by year and month
+    public function export( Request $request ) {
+        if ( $request->year && $request->month ) {
+            $year = $request->year;
+            $month = $request->month;
+
+            $fname = now()->month( $month )->format( 'F' ) . "_" . $year . "_withdrawal_records.xlsx";
+
+            return Excel::download( new WithdrawalsExport( $year, $month ), $fname );
+        }
+
+        return redirect()->route( 'accounts.withdrawals.index' )->with( 'failed', 'Withdrawal records not found!' );
     }
 }

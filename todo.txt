@@ -1,41 +1,22 @@
-1. add employee profile picture
-
 2. filter bussiness manger designation users from user table and pass it to create client view in clientController@create
 3. filter bussiness manger designation users from user table and pass it to create client view in projectController@create
 
-### table structure for daily conveyance
+* credit by project/client/loan
+* load profile
+    person name/company name
+    contact
+    address
 
-1. title -> string
-2. description -> string
-3. billing person -> forign_id -> users table
-4. project/event -> forign_id -> projects/event table
-
-// db design
-Company Finance
-—————————
-cash
-bank
-+
---------
-= Total
-__________________
-
-aprovals(polymorphic one to one)
-----------
-type_id(foreing -> aproval_types)
-Note
-aprovalable_id
-aprovalable_type
-------------
-__________________
-Withdrawal
-—————————
-Date
-user_id
-    ForeignId(users)
-Amount
-bank_name
-slip_number
----------
-___________________
+-------------------------------
+credit_category
+    bill
+        project_id
+    loan
+        person/bank name
+        peroson/bank contact
+        person/bank address
+    investment
+        person_name
+        perosn_contact
+        person_address
 

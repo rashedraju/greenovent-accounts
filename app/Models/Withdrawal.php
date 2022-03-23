@@ -27,9 +27,7 @@ class Withdrawal extends Model {
     // filter withdrawal data
     public function scopeFilter( $query, array $filters ) {
 
-        $query->when( $filters['year'] ?? false, fn( $query, $year ) => $query->where( 'date', fn( $query ) => $query->whereYear( 'date', $year ) ) );
-
-        $query->when( $filters['month'] ?? false, fn( $query, $month ) => $query->where( 'date', fn( $query ) => $query->whereYear( 'date', $month ) ) );
+        $query->when( $filters['year'] ?? false, fn( $query, $year ) => $query->when( $filters['month'] ?? false, fn( $query, $month ) => $query->whereYear( 'date', $year )->whereMonth( 'date', $month ) ) );
 
         $query->when( $filters['bank_name'] ?? false, fn( $query, $bankName ) => $query
                 ->where( 'bank_name', 'like', '%' . $bankName . '%' )

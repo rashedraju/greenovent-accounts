@@ -66,7 +66,7 @@
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('accounts.index') }}"
+                            <a href="{{ route('accounts.finances.index') }}"
                                 class="menu-link py-3 {{ request()->routeIs('accounts.*') ? 'active' : '' }}">
                                 <span class="menu-title">Accounts</span>
                             </a>

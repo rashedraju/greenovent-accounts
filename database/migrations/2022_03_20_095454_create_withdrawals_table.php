@@ -16,6 +16,7 @@ class CreateWithdrawalsTable extends Migration
         Schema::create('withdrawals', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->date('modified')->nullable();
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->unsignedBigInteger('amount');
             $table->string('bank_name');

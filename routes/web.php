@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
@@ -95,23 +96,48 @@ Route::middleware( 'auth' )->group( function () {
 
     // Accounts
     Route::name( 'accounts.' )->prefix( 'accounts' )->group( function () {
-        Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
+        // finances
+        Route::name('finances.')->prefix('finances')->group(function(){
+            Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
+            Route::get( '{year}', [AccountsController::class, 'show'] )->name( 'show' );
+        });
 
+        // debit
         Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
             Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
             Route::get( '/{year}/{month}', [ExpensesController::class, 'show'] )->name( 'show' );
             Route::post( '/', [ExpensesController::class, 'store'] )->name( 'store' );
             Route::put( '/{expense}', [ExpensesController::class, 'update'] )->name( 'update' );
             Route::delete( '/{expense}', [ExpensesController::class, 'destory'] )->name( 'delete' );
+
+            // data import/export
+            Route::get('/{year}/{month}/export', [ExpensesController::class, 'export'])->name('export');
         } );
 
+        // withdrawal
         Route::name( 'withdrawals.' )->prefix( 'withdrawals' )->group( function () {
             Route::get( '/', [WithdrawalsController::class, 'index'] )->name( 'index' );
             Route::get( '/{year}/{month}', [WithdrawalsController::class, 'show'] )->name( 'show' );
             Route::post( '/', [WithdrawalsController::class, 'store'] )->name( 'store' );
             Route::put( '/{withdrawal}', [WithdrawalsController::class, 'update'] )->name( 'update' );
             Route::delete( '/{withdrawal}', [WithdrawalsController::class, 'destory'] )->name( 'delete' );
+
+            // data import/export
+            Route::get('/{year}/{month}/export', [WithdrawalsController::class, 'export'])->name('export');
         } );
+
+        // credit
+        Route::name( 'credits.' )->prefix( 'credits' )->group( function () {
+            Route::get( '/', [CreditController::class, 'index'] )->name( 'index' );
+            Route::get( '/{year}/{month}', [CreditController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [CreditController::class, 'store'] )->name( 'store' );
+            Route::put( '/{credit}', [CreditController::class, 'update'] )->name( 'update' );
+            Route::delete( '/{credit}', [CreditController::class, 'destory'] )->name( 'delete' );
+
+            // data import/export
+            Route::get('/{year}/{month}/export', [CreditController::class, 'export'])->name('export');
+        } );
+
     } );
 
     // Route access permissions

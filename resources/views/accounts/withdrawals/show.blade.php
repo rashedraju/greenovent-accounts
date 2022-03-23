@@ -20,6 +20,14 @@
             <h3 class="pb-5 text-center">Withdrawal Records Month of
                 {{ now()->year($year)->month($month)->format('F') }}
                 - {{ $year }} </h3>
+
+            {{-- Import and Export excel file --}}
+            <div class="d-flex gap-3 justify-content-end">
+                <a href="{{ route('accounts.withdrawals.export', [$year, $month]) }}"
+                    class="btn btn-sm my-2 px-10 py-0 btn-danger">
+                    <x-utils.download /> Export
+                </a>
+            </div>
             <table class="table table-bordered table-responsive">
                 <thead>
                     <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
@@ -28,7 +36,9 @@
                         <th class="px-2">Withdrawal By</th>
                         <th class="px-2">Bank Name</th>
                         <th class="px-2">Slip Number</th>
-                        <th class="px-2">Amount</th>
+                        <th class="px-2">Amount(
+                            <x-utils.currency />)
+                        </th>
                         <th class="px-2">Aproval</th>
                         <th class="px-2">Last Edited</th>
                         <th class="px-2">Note</th>
@@ -165,6 +175,11 @@
                                     @endforeach
                                 </datalist>
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td class="p-2 text-center">
                                 @if (request()->hasAny(['user_id', 'bank_name']))
                                     <a href="{{ route('accounts.withdrawals.show', [$year, $month]) }}"
@@ -174,11 +189,6 @@
                                 @endif
 
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                         </form>
                     </tr>
 
@@ -201,15 +211,15 @@
                             </td>
 
                             <td class="p-2">
-                                <input type="number" class="form-control" name="amount">
-                            </td>
-
-                            <td class="p-2">
                                 <input type="text" class="form-control" name="bank_name">
                             </td>
 
                             <td class="p-2">
                                 <input type="text" class="form-control" name="slip_number">
+                            </td>
+
+                            <td class="p-2">
+                                <input type="number" class="form-control" name="amount">
                             </td>
 
                             <td class="p-2">

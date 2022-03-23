@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ExpenseAddRequest;
-use App\Models\Expense;
-use App\Models\ExpenseType;
-use App\Models\Project;
-use App\Models\TransactionType;
+use App\Exports\ExpensesExport;
 use App\Models\User;
+use App\Models\Expense;
+use App\Models\Project;
+use App\Models\ExpenseType;
 use Illuminate\Http\Request;
+use App\Models\TransactionType;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\ExpenseAddRequest;
 
 class ExpensesController extends Controller {
     public function index() {
@@ -23,7 +25,7 @@ class ExpensesController extends Controller {
 
             // get records
             // $expenseRecords = Expense::whereYear( 'date', '=', $year )->whereMonth( 'date', '=', $month )->get();
-            $expenseRecords = Expense::filter( request( ['year', 'month', 'head', 'user_id', 'project_id', 'expense_type_id', 'transaction_type_id'] ) )->get();
+            $expenseRecords = Expense::filter( array_merge( ['year' => $year, 'month' => $month], request( ['head', 'user_id', 'project_id', 'expense_type_id', 'transaction_type_id'] ) ) )->get();
 
             // get billing persons
             $billingPersons = User::pluck( 'name', 'id' );
@@ -58,6 +60,10 @@ class ExpensesController extends Controller {
     public function store( ExpenseAddRequest $request ) {
         $attributes = $request->validated();
 
+        $attributes = array_merge( $attributes, [
+            'modified' => now()
+        ] );
+
         $expense = Expense::create( $attributes );
 
         if ( $expense ) {
@@ -89,5 +95,19 @@ class ExpensesController extends Controller {
         }
 
         return redirect()->back()->with( 'failed', "Expense No:{$expense->id} Failed to delete." );
+    }
+
+    // download expense records by year and month
+    public function export( Request $request ) {
+        if ( $request->year && $request->month ) {
+            $year = $request->year;
+            $month = $request->month;
+
+            $fname = now()->month( $month )->format( 'F' ) . "_" . $year . "_expense_records.xlsx";
+
+            return Excel::download( new ExpensesExport( $year, $month ), $fname );
+        }
+
+        return redirect()->route( 'accounts.expenses.index' )->with( 'failed', 'Expense records not found!' );
     }
 }

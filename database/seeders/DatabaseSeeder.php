@@ -32,7 +32,11 @@ class DatabaseSeeder extends Seeder {
             TransactionAprovalTypeSeeder::class,
             WithdrawalSeeder::class,
             ExpenseTypeSeeder::class,
-            ExpenseSeeder::class
+            ExpenseSeeder::class,
+            CreditCategorySeeder::class,
+            CreditSeeder::class,
+            CompanyLoanLenderSeeder::class,
+            CompanyInvestorSeeder::class
         ] );
     }
 }
