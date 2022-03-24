@@ -64,8 +64,7 @@ class CreditController extends Controller {
     }
 
     // store credit record
-    public function store( Request $request ) {
-        dd( $request->all() );
+    public function store( CreditAddRequest $request ) {
         $attributes = $request->validated();
 
         $attributes = array_merge( $attributes, [

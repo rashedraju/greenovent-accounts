@@ -22,6 +22,10 @@
 
             {{-- Import and Export excel file --}}
             <div class="d-flex gap-3 justify-content-end">
+                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" data-bs-toggle="modal"
+                    data-bs-target="#add_credit">
+                    <x-utils.add-icon /> Add
+                </button>
                 <a href="{{ route('accounts.credits.export', [$year, $month]) }}"
                     class="btn btn-sm my-2 px-10 py-0 btn-danger">
                     <x-utils.download /> Export
@@ -44,7 +48,7 @@
                         <th class="px-2">Aproval</th>
                         <th class="px-2">Last Edited</th>
                         <th class="px-2">Note</th>
-                        <th class="px-2">Action</th>
+                        <th class="px-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="border border-dark">
@@ -66,33 +70,52 @@
                             <td class="px-2">{{ $credit->note }}</td>
 
                             <td>
-                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm d-flex"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                    <x-utils.down-arrow />
-                                </a>
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                    data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <button type="submit" class="menu-link px-3 border-0 w-100 bg-transparent"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#edit_credit_{{ $credit->id }}">Edit</button>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <form action="{{ route('accounts.credits.delete', $credit) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="menu-link px-3 border-0 w-100 bg-transparent">Delete</button>
-                                        </form>
-                                    </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-sm bg-transparent text-warning p-0 m-0"
+                                        data-bs-toggle="modal" data-bs-target="#edit_credit_{{ $credit->id }}">
+                                        <x-utils.edit-icon />
+                                    </button>
+
+                                    <button type="submit" class="btn btn-sm bg-transparent p-0 m-0"
+                                        data-bs-toggle="modal" data-bs-target="#delete_credit_{{ $credit->id }}">
+                                        <x-utils.delete-icon />
+                                    </button>
                                 </div>
                             </td>
+
+                            <div class="modal fade" tabindex="-1" id="delete_credit_{{ $credit->id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Are you sure?</h5>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form action="{{ route('accounts.credits.delete', $credit) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+
+                                                <p>Are you sure you want to delete this credit record? You can not get
+                                                    back this data if you delete.</p>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="modal fade" tabindex="-1" id="edit_credit_{{ $credit->id }}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Edit: #{{ $credit->id }}
+                                            <h5 class="modal-title">Edit: #{{ $loop->iteration }}
                                             </h5>
                                         </div>
 
@@ -115,14 +138,35 @@
                                                     @endforeach
                                                 </select>
 
-                                                <label class="form-label mt-2 mb-0">Project Name</label>
-                                                <select class="form-select" name="project_id">
-                                                    @foreach ($projects as $projectId => $projectName)
-                                                        <option value="{{ $projectId }}"
-                                                            {{ $projectId == $credit->project_id ? 'selected' : '' }}>
-                                                            {{ $projectName }}</option>
-                                                    @endforeach
-                                                </select>
+                                                @if ($credit->category_id == 1)
+                                                    <label class="form-label mt-2 mb-0">Project Name</label>
+                                                    <select class="form-select" name="project_id">
+                                                        @foreach ($projects as $projectId => $projectName)
+                                                            <option value="{{ $projectId }}"
+                                                                {{ $projectId == $credit->project_id ? 'selected' : '' }}>
+                                                                {{ $projectName }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @elseif ($credit->category_id == 2)
+                                                    <label class="form-label mt-2 mb-0">Loan Lender</label>
+                                                    <select class="form-select" name="loan_lender_id">
+                                                        @foreach ($loanLenders as $loanLenderId => $loanLenderName)
+                                                            <option value="{{ $loanLenderId }}"
+                                                                {{ $credit->loan_lender_id == $loanLenderId ? 'selected' : '' }}>
+                                                                {{ $loanLenderName }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @elseif ($credit->category_id == 3)
+                                                    <label class="form-label mt-2 mb-0">Investor</label>
+                                                    <select class="form-select" name="project_id">
+                                                        @foreach ($companyInvestors as $companyInvestorId => $companyInvestorName)
+                                                            <option value="{{ $companyInvestorId }}"
+                                                                {{ $credit->investor_id == $credit->investor_id ? 'selected' : '' }}>
+                                                                {{ $companyInvestorName }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
 
                                                 <label class="form-label mt-2 mb-0">Transaction Type</label>
                                                 <select class="form-select" name="transaction_type_id">
@@ -253,15 +297,46 @@
                             </td>
                         </form>
                     </tr>
+                </tbody>
+            </table>
 
-                    <tr>
-                        <form action="{{ route('accounts.credits.store') }}" method="post" class="d-flex gap-1">
-                            @csrf
-                            <td class="p-2"></td>
-                            <td class="p-2">
+            <x-validation-error />
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="add_credit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add new credit record</h5>
+                </div>
+
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab" aria-controls="home" aria-selected="true">Bill</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                                aria-selected="false">Loan</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                                data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
+                                aria-selected="false">Investment</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <form action="{{ route('accounts.credits.store') }}" method="post">
+                                @csrf
+
+                                <label class="form-label mt-2 mb-0">Date</label>
                                 <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
-                            </td>
-                            <td class="p-2">
+
+                                <label class="form-label mt-2 mb-0">Received by</label>
                                 <select class="form-select" name="user_id" data-control="select2"
                                     data-placeholder="Select">
                                     <option></option>
@@ -270,64 +345,19 @@
                                             {{ $receivedPersonName }}</option>
                                     @endforeach
                                 </select>
-                            </td>
-                            <td class="p-2">
-                                <select class="form-select" name="category_id" data-control="select2"
-                                    data-placeholder="Select" onChange="creditCategoryChangeHandler(event)">
+                                <input type="hidden" name="category_id" value="1">
+
+                                <label class="form-label mt-2 mb-0">Project Name</label>
+                                <select class="form-select" name="project_id" data-control="select2"
+                                    data-placeholder="Select">
                                     <option></option>
-                                    @foreach ($creditCategories as $creditCategoryId => $creditCategoryName)
-                                        <option value="{{ $creditCategoryId }}">
-                                            {{ $creditCategoryName }}</option>
+                                    @foreach ($projects as $projectId => $projectName)
+                                        <option value="{{ $projectId }}">
+                                            {{ $projectName }}</option>
                                     @endforeach
                                 </select>
-                            </td>
-                            <td class="p-2">
-                                <div id="projectSelectWrapper">
-                                    <div id="projectSelect">
-                                        <select class="form-select" name="project_id" data-control="select2"
-                                            data-placeholder="Select">
-                                            <option></option>
-                                            @foreach ($projects as $projectId => $projectName)
-                                                <option value="{{ $projectId }}">
-                                                    {{ $projectName }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                            
-                            <td>
-                                <div id="loanLenderSelectWrapper">
-                                    <div id="loanLenderSelect">
-                                        <select name="loan_lender_id" class="form-select" data-control="select2"
-                                            data-placeholder="Select">
-                                            <option></option>
 
-                                            @foreach ($loanLenders as $loanLenderId => $loanLenderName)
-                                                <option value="{{ $loanLenderId }}">
-                                                    {{ $loanLenderName }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div id="investorSelectWrapper">
-                                    <div id="investorSelect">
-                                        <select name="investor_id" class="form-select" data-control="select2"
-                                            data-placeholder="Select">
-                                            <option></option>
-
-                                            @foreach ($companyInvestors as $companyInvestorId => $companyInvestorName)
-                                                <option value="{{ $companyInvestorId }}">
-                                                    {{ $companyInvestorName }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-2">
+                                <label class="form-label mt-2 mb-0">Transaction Type</label>
                                 <select name="transaction_type_id" class="form-select" data-control="select2"
                                     data-placeholder="Select">
                                     <option></option>
@@ -336,80 +366,126 @@
                                             {{ $transactionTypeName }}</option>
                                     @endforeach
                                 </select>
-                            </td>
 
-                            <td class="p-2">
+                                <label class="form-label mt-2 mb-0">Amount</label>
                                 <input type="number" class="form-control" name="amount">
-                            </td>
-                            <td class="p-2">
-                                --
-                            </td>
-                            <td class="p-2">
-                                --
-                            </td>
-                            <td class="p-2">
+
+                                <label class="form-label mt-2 mb-0">Note</label>
                                 <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
-                            </td>
 
-                            <td class="p-2 text-center">
-                                <button type="submit" class="btn btn-success px-10 py-3">Add</button>
-                            </td>
-                        </form>
-                    </tr>
-                </tbody>
-            </table>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <form action="{{ route('accounts.credits.store') }}" method="post">
+                                @csrf
 
-            <x-validation-error />
+                                <label class="form-label mt-2 mb-0">Date</label>
+                                <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+
+                                <label class="form-label mt-2 mb-0">Received by</label>
+                                <select class="form-select" name="user_id" data-control="select2"
+                                    data-placeholder="Select">
+                                    <option></option>
+                                    @foreach ($receivedPersons as $receivedPersonId => $receivedPersonName)
+                                        <option value="{{ $receivedPersonId }}">
+                                            {{ $receivedPersonName }}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" name="category_id" value="2">
+
+                                <label class="form-label mt-2 mb-0">Loan Lender</label>
+                                <select name="loan_lender_id" class="form-select" data-control="select2"
+                                    data-placeholder="Select">
+                                    <option></option>
+
+                                    @foreach ($loanLenders as $loanLenderId => $loanLenderName)
+                                        <option value="{{ $loanLenderId }}">
+                                            {{ $loanLenderName }}</option>
+                                    @endforeach
+                                </select>
+
+                                <label class="form-label mt-2 mb-0">Transaction Type</label>
+                                <select name="transaction_type_id" class="form-select" data-control="select2"
+                                    data-placeholder="Select">
+                                    <option></option>
+                                    @foreach ($transactionTypes as $transactionTypeId => $transactionTypeName)
+                                        <option value="{{ $transactionTypeId }}">
+                                            {{ $transactionTypeName }}</option>
+                                    @endforeach
+                                </select>
+
+                                <label class="form-label mt-2 mb-0">Amount</label>
+                                <input type="number" class="form-control" name="amount">
+
+                                <label class="form-label mt-2 mb-0">Note</label>
+                                <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <form action="{{ route('accounts.credits.store') }}" method="post">
+                                @csrf
+
+                                <label class="form-label mt-2 mb-0">Date</label>
+                                <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+
+                                <label class="form-label mt-2 mb-0">Received by</label>
+                                <select class="form-select" name="user_id" data-control="select2"
+                                    data-placeholder="Select">
+                                    <option></option>
+                                    @foreach ($receivedPersons as $receivedPersonId => $receivedPersonName)
+                                        <option value="{{ $receivedPersonId }}">
+                                            {{ $receivedPersonName }}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" name="category_id" value="3">
+
+                                <label class="form-label mt-2 mb-0">Investor</label>
+                                <select name="investor_id" class="form-select" data-control="select2"
+                                    data-placeholder="Select">
+                                    <option></option>
+
+                                    @foreach ($companyInvestors as $companyInvestorId => $companyInvestorName)
+                                        <option value="{{ $companyInvestorId }}">
+                                            {{ $companyInvestorName }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <label class="form-label mt-2 mb-0">Transaction Type</label>
+                                <select name="transaction_type_id" class="form-select" data-control="select2"
+                                    data-placeholder="Select">
+                                    <option></option>
+                                    @foreach ($transactionTypes as $transactionTypeId => $transactionTypeName)
+                                        <option value="{{ $transactionTypeId }}">
+                                            {{ $transactionTypeName }}</option>
+                                    @endforeach
+                                </select>
+
+                                <label class="form-label mt-2 mb-0">Amount</label>
+                                <input type="number" class="form-control" name="amount">
+
+                                <label class="form-label mt-2 mb-0">Note</label>
+                                <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-
-    <x-slot name="script">
-        <script>
-            // change project/loan lender/investor based on selected category
-            var projectSelectWrapper = document.getElementById("projectSelectWrapper");
-            var loanLenderSelectWrapper = document.getElementById("loanLenderSelectWrapper");
-            var investorSelectWrapper = document.getElementById("investorSelectWrapper");
-
-            var projectSelect = document.getElementById("projectSelect");
-            var loanLenderSelect = document.getElementById("loanLenderSelect");
-            var investorSelect = document.getElementById("investorSelect");
-
-            // replace selector wrapper child with empty div
-            // create empty node
-            var emptyNode1 = document.createElement('div');
-            emptyNode1.innerHTML = '--';
-            var emptyNode2 = document.createElement('div');
-            emptyNode2.innerHTML = '--';
-            var emptyNode3 = document.createElement('div');
-            emptyNode3.innerHTML = '--';
-
-            // replace with new child
-            projectSelectWrapper.replaceChildren(emptyNode1);
-            loanLenderSelectWrapper.replaceChildren(emptyNode2);
-            investorSelectWrapper.replaceChildren(emptyNode3);
-
-            // change slected wrapper child when category change
-            function creditCategoryChangeHandler(event) {
-                var value = event.target.options[event.target.selectedIndex].value;
-
-                if (value == 1) {
-                    // show project list
-                    projectSelectWrapper.replaceChildren(projectSelect);
-                    loanLenderSelectWrapper.replaceChildren(emptyNode2);
-                    investorSelectWrapper.replaceChildren(emptyNode3);
-
-                } else if (value == 2) {
-                    // show loan lenders
-                    projectSelectWrapper.replaceChildren(emptyNode1);
-                    loanLenderSelectWrapper.replaceChildren(loanLenderSelect);
-                    investorSelectWrapper.replaceChildren(emptyNode3);
-                } else if (value == 3) {
-                    // show investors
-                    projectSelectWrapper.replaceChildren(emptyNode1);
-                    loanLenderSelectWrapper.replaceChildren(emptyNode2);
-                    investorSelectWrapper.replaceChildren(investorSelect);
-                }
-            }
-        </script>
-    </x-slot>
 </x-app-layout>
