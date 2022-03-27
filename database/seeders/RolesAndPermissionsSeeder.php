@@ -24,6 +24,7 @@ class RolesAndPermissionsSeeder extends Seeder {
         $roleCOO = Role::create( ['name' => 'COO'] );
         $roleExecutiveDirector = Role::create( ['name' => 'Executive Director'] );
         $roleGeneralManager = Role::create( ['name' => 'General Manager'] );
+        $roleGeneralManager = Role::create( ['name' => 'Bussiness Manager'] );
         $roleHeadofOperations = Role::create( ['name' => 'Head of Operations'] );
         $roleHR = Role::create( ['name' => 'HR'] );
         $roleAccounts = Role::create( ['name' => 'Accounts'] );

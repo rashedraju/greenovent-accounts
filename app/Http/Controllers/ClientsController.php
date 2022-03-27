@@ -22,8 +22,8 @@ class ClientsController extends Controller {
 
     // edit client info
     public function edit( Client $client ) {
-        // todo :: filter bussiness manger designation users from user table
-        $bussinessManagers = User::all();
+        // get all bussiness managers
+        $bussinessManagers = User::role('Bussiness Manager')->get();
         return view( 'clients.edit', ['client' => $client, 'bussinessManagers' => $bussinessManagers] );
     }
 
@@ -36,9 +36,8 @@ class ClientsController extends Controller {
 
     // add new client view
     public function create() {
-        // bussiness managers
-        // todo :: filter bussiness manger designation users from user table
-        $bussinessManagers = User::all();
+        // get all bussiness managers
+        $bussinessManagers = User::role('Bussiness Manager')->get();
 
         return view( 'clients.add', compact( ['bussinessManagers'] ) );
     }

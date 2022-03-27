@@ -21,7 +21,12 @@
                 - {{ $year }} </h3>
 
             {{-- Import and Export excel file --}}
+
             <div class="d-flex gap-3 justify-content-end">
+                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" data-bs-toggle="modal"
+                    data-bs-target="#add_debit">
+                    <x-utils.add-icon /> Add
+                </button>
                 <a href="{{ route('accounts.expenses.export', [$year, $month]) }}"
                     class="btn btn-sm my-2 px-10 py-0 btn-danger">
                     <x-utils.download /> Export
@@ -67,26 +72,16 @@
                             <td class="px-2">{{ $expense->note }}</td>
 
                             <td>
-                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm d-flex"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                    <x-utils.down-arrow />
-                                </a>
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                    data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <button type="submit" class="menu-link px-3 border-0 w-100 bg-transparent"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#edit_expense_{{ $expense->id }}">Edit</button>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <form action="{{ route('accounts.expenses.delete', $expense) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="menu-link px-3 border-0 w-100 bg-transparent">Delete</button>
-                                        </form>
-                                    </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-sm bg-transparent text-warning p-0 m-0"
+                                        data-bs-toggle="modal" data-bs-target="#edit_expense_{{ $expense->id }}">
+                                        <x-utils.edit-icon />
+                                    </button>
+
+                                    <button type="submit" class="btn btn-sm bg-transparent p-0 m-0"
+                                        data-bs-toggle="modal" data-bs-target="#delete_expense_{{ $expense->id }}">
+                                        <x-utils.delete-icon />
+                                    </button>
                                 </div>
                             </td>
 
@@ -164,6 +159,35 @@
                                                         data-bs-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary">Save
                                                         changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" tabindex="-1" id="delete_expense_{{ $expense->id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Are you sure?</h5>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form action="{{ route('accounts.expenses.delete', $expense) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+
+                                                <p>Are you sure you want to delete this expense record? You can not
+                                                    get
+                                                    back this data if you delete.</p>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Delete</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -261,80 +285,85 @@
                             </td>
                         </form>
                     </tr>
-
-                    <tr>
-                        <form action="{{ route('accounts.expenses.store') }}" method="post" class="d-flex gap-1">
-                            @csrf
-                            <td class="p-2"></td>
-                            <td class="p-2">
-                                <input type="text" class="form-control" name="head">
-                            </td>
-                            <td class="p-2">
-                                <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
-                            </td>
-                            <td class="p-2">
-                                <select class="form-select" name="user_id">
-                                    <option value="0" disabled selected>Select</option>
-                                    @foreach ($billingPersons as $billingPersonId => $billingPersonName)
-                                        <option value="{{ $billingPersonId }}">
-                                            {{ $billingPersonName }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td class="p-2">
-                                <select class="form-select" name="project_id">
-                                    <option value="0" disabled selected>Select</option>
-                                    @foreach ($projects as $projectId => $projectName)
-                                        <option value="{{ $projectId }}">
-                                            {{ $projectName }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td class="p-2">
-                                <input type="text" class="form-control" name="description">
-                            </td>
-                            <td class="p-2">
-                                <select class="form-select" name="expense_type_id">
-                                    <option value="0" disabled selected>Select</option>
-                                    @foreach ($expenseTypes as $expenseTypeId => $expenseTypeName)
-                                        <option value="{{ $expenseTypeId }}">
-                                            {{ $expenseTypeName }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-
-                            <td class="p-2">
-                                <select class="form-select" name="transaction_type_id">
-                                    <option value="0" disabled selected>Select</option>
-                                    @foreach ($transactionTypes as $transactionTypeId => $transactionTypeName)
-                                        <option value="{{ $transactionTypeId }}">
-                                            {{ $transactionTypeName }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-
-                            <td class="p-2">
-                                <input type="number" class="form-control" name="amount">
-                            </td>
-                            <td class="p-2">
-                                --
-                            </td>
-                            <td class="p-2">
-                                --
-                            </td>
-                            <td class="p-2">
-                                <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
-                            </td>
-
-                            <td class="p-2 text-center">
-                                <button type="submit" class="btn btn-success px-10 py-3">Add</button>
-                            </td>
-                        </form>
-                    </tr>
                 </tbody>
             </table>
 
             <x-validation-error />
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" id="add_debit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add new expense record</h5>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{ route('accounts.expenses.store') }}" method="post">
+                        @csrf
+
+                        <label class="form-label mt-2 mb-0">Date</label>
+                        <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+
+                        <label class="form-label mt-2 mb-0">Head</label>
+                        <input type="text" class="form-control" name="head">
+
+                        <label class="form-label mt-2 mb-0">Billing Person</label>
+                        <select class="form-select" name="user_id">
+                            <option value="0" disabled selected>Select</option>
+                            @foreach ($billingPersons as $billingPersonId => $billingPersonName)
+                                <option value="{{ $billingPersonId }}">
+                                    {{ $billingPersonName }}</option>
+                            @endforeach
+                        </select>
+
+                        <label class="form-label mt-2 mb-0">Project Name</label>
+                        <select class="form-select" name="project_id">
+                            <option value="0" disabled selected>Select</option>
+                            @foreach ($projects as $projectId => $projectName)
+                                <option value="{{ $projectId }}">
+                                    {{ $projectName }}</option>
+                            @endforeach
+                        </select>
+
+                        <label class="form-label mt-2 mb-0">Description</label>
+                        <input type="text" class="form-control" name="description">
+
+                        <label class="form-label mt-2 mb-0">Expense Type</label>
+                        <select class="form-select" name="expense_type_id">
+                            <option value="0" disabled selected>Select</option>
+                            @foreach ($expenseTypes as $expenseTypeId => $expenseTypeName)
+                                <option value="{{ $expenseTypeId }}">
+                                    {{ $expenseTypeName }}</option>
+                            @endforeach
+                        </select>
+
+                        <label class="form-label mt-2 mb-0">Transaction Type</label>
+                        <select class="form-select" name="transaction_type_id">
+                            <option value="0" disabled selected>Select</option>
+                            @foreach ($transactionTypes as $transactionTypeId => $transactionTypeName)
+                                <option value="{{ $transactionTypeId }}">
+                                    {{ $transactionTypeName }}</option>
+                            @endforeach
+                        </select>
+
+                        <label class="form-label mt-2 mb-0">Amount</label>
+                        <input type="number" class="form-control" name="amount">
+
+                        <label class="form-label mt-2 mb-0">Note</label>
+                        <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </x-app-layout>

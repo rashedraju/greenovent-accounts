@@ -14,18 +14,26 @@ class DatabaseSeeder extends Seeder {
 
         // Call all seeders
         $this->call( [
+            // employees
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
             EmployeePerformanceStatusSeeder::class,
             PerformanceNameSeeder::class,
             EmployeePerformanceSeeder::class,
+
+            // clients
+            ClientSeeder::class,
+
+            // bills
+            BillStatusSeeder::class,
+
+            // projects
             ProjectTypeSeeder::class,
             ProjectStatusSeeder::class,
             ProjectSeeder::class,
             InternalCostSeeder::class,
             ExternalCostSeeder::class,
             VendorCostSeeder::class,
-            ClientSeeder::class,
 
             // accounts
             TransactionTypeSeeder::class,

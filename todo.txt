@@ -2,21 +2,3 @@
 3. filter bussiness manger designation users from user table and pass it to create client view in projectController@create
 
 * credit by project/client/loan
-* load profile
-    person name/company name
-    contact
-    address
-
--------------------------------
-credit_category
-    bill
-        project_id
-    loan
-        person/bank name
-        peroson/bank contact
-        person/bank address
-    investment
-        person_name
-        perosn_contact
-        person_address
-

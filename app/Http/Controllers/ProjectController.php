@@ -45,10 +45,16 @@ class ProjectController extends Controller {
 
     // create new project
     public function create() {
-        // todo: get business manager role users only
-        $bussinessManagers = User::all();
+        // get bussiness managers
+        $bussinessManagers = User::role( 'Bussiness Manager' )->get();
+
+        // get clients
         $clients = Client::all();
+
+        // get project types
         $projectTypes = ProjectType::all();
+
+        // get project statuses
         $projectStatuses = ProjectStatus::all();
 
         return view( 'projects.create', compact( ['bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
@@ -76,9 +82,16 @@ class ProjectController extends Controller {
 
     // edit project details
     public function edit( Project $project ) {
-        $bussinessManagers = User::all();
+        // get bussiness managers
+        $bussinessManagers = User::role( 'Bussiness Manager' )->get();
+
+        // get clients
         $clients = Client::all();
+
+        // get project types
         $projectTypes = ProjectType::all();
+
+        // get project statuses 
         $projectStatuses = ProjectStatus::all();
 
         return view( 'projects.edit', compact( ['project', 'bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
