@@ -97,10 +97,10 @@ Route::middleware( 'auth' )->group( function () {
     // Accounts
     Route::name( 'accounts.' )->prefix( 'accounts' )->group( function () {
         // finances
-        Route::name('finances.')->prefix('finances')->group(function(){
+        Route::name( 'finances.' )->prefix( 'finances' )->group( function () {
             Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
             Route::get( '{year}', [AccountsController::class, 'show'] )->name( 'show' );
-        });
+        } );
 
         // debit
         Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
@@ -111,7 +111,7 @@ Route::middleware( 'auth' )->group( function () {
             Route::delete( '/{expense}', [ExpensesController::class, 'destory'] )->name( 'delete' );
 
             // data import/export
-            Route::get('/{year}/{month}/export', [ExpensesController::class, 'export'])->name('export');
+            Route::get( '/{year}/{month}/export', [ExpensesController::class, 'export'] )->name( 'export' );
         } );
 
         // withdrawal
@@ -123,7 +123,7 @@ Route::middleware( 'auth' )->group( function () {
             Route::delete( '/{withdrawal}', [WithdrawalsController::class, 'destory'] )->name( 'delete' );
 
             // data import/export
-            Route::get('/{year}/{month}/export', [WithdrawalsController::class, 'export'])->name('export');
+            Route::get( '/{year}/{month}/export', [WithdrawalsController::class, 'export'] )->name( 'export' );
         } );
 
         // credit
@@ -135,7 +135,7 @@ Route::middleware( 'auth' )->group( function () {
             Route::delete( '/{credit}', [CreditController::class, 'destory'] )->name( 'delete' );
 
             // data import/export
-            Route::get('/{year}/{month}/export', [CreditController::class, 'export'])->name('export');
+            Route::get( '/{year}/{month}/export', [CreditController::class, 'export'] )->name( 'export' );
         } );
 
     } );
