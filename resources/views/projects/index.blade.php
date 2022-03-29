@@ -152,56 +152,56 @@
         </a>
     </div>
 
-
-    <table class="table table-bordered table-responsive">
-        <thead>
-            <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
-                <th class="px-2 py-5">SI</th>
-                <th class="px-2 py-5">Porject Name</th>
-                <th class="px-2 py-5">Client Name</th>
-                <th class="px-2 py-5">Bussiness Manger</th>
-                <th class="px-2 py-5">Project Type</th>
-                <th class="px-2 py-5">PO Number</th>
-                <th class="px-2 py-5">Po Value</th>
-                <th class="px-2 py-5">Starting Date</th>
-                <th class="px-2 py-5">Closing Date</th>
-                <th class="px-2 py-5">Status</th>
-                <th class="px-2 py-5">Edit</th>
-            </tr>
-        </thead>
-        <tbody class="border border-dark">
-            @foreach ($projects as $project)
-                <tr class="border border-dark fw-bold">
-                    <td class="px-2 py-5">{{ $loop->iteration }}</td>
-                    <td class="px-2 py-5"><a
-                            href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
-                    <td class="px-2 py-5">
-                        <a href="{{ route('clients.show', $project->client) }}">
-                            {{ $project->client->company_name }}
-                        </a>
-                    </td>
-                    <td class="px-2 py-5"><a
-                            href="{{ route('employees.show', $project->manager) }}">{{ $project->manager->name }}</a>
-                    </td>
-                    <td class="px-2 py-5">{{ $project->type->name }}</td>
-                    <td class="px-2 py-5">{{ $project->po_number }}</td>
-                    <td class="px-2 py-5">{{ $project->po_value }}</td>
-                    <td class="px-2 py-5">{{ $project->start_date }}</td>
-                    <td class="px-2 py-5">{{ $project->closing_date }}</td>
-                    <td class="px-2 py-5">
-                        <span class="text-white p-2 rounded" style="background: {{ $project->status->color }}">
-                            {{ $project->status->name }}
-                    </td>
-                    </span>
-                    <td class="px-2 py-5">
-                        <a href="{{ route('projects.edit', $project) }}">
-                            <x-utils.edit-icon />
-                        </a>
-                    </td>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
+                    <th class="px-2 py-5">SI</th>
+                    <th class="px-2 py-5">Porject Name</th>
+                    <th class="px-2 py-5">Client Name</th>
+                    <th class="px-2 py-5">Bussiness Manger</th>
+                    <th class="px-2 py-5">Project Type</th>
+                    <th class="px-2 py-5">Po Value</th>
+                    <th class="px-2 py-5">Starting Date</th>
+                    <th class="px-2 py-5">Closing Date</th>
+                    <th class="px-2 py-5">Status</th>
+                    <th class="px-2 py-5">Edit</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="border border-dark">
+                @foreach ($projects as $project)
+                    <tr class="border border-dark fw-bold">
+                        <td class="px-2 py-5">{{ $loop->iteration }}</td>
+                        <td class="px-2 py-5"><a
+                                href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
+                        <td class="px-2 py-5">
+                            <a href="{{ route('clients.show', $project->client) }}">
+                                {{ $project->client->company_name }}
+                            </a>
+                        </td>
+                        <td class="px-2 py-5"><a
+                                href="{{ route('employees.show', $project->manager) }}">{{ $project->manager->name }}</a>
+                        </td>
+                        <td class="px-2 py-5">{{ $project->type->name }}</td>
+                        <td class="px-2 py-5">{{ $project->po_value }}</td>
+                        <td class="px-2 py-5">{{ $project->start_date }}</td>
+                        <td class="px-2 py-5">{{ $project->closing_date }}</td>
+                        <td class="px-2 py-5">
+                            <span class="text-white p-2 rounded" style="background: {{ $project->status->color }}">
+                                {{ $project->status->name }}
+                        </td>
+                        </span>
+                        <td class="px-2 py-5">
+                            <a href="{{ route('projects.edit', $project) }}">
+                                <x-utils.edit-icon />
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
 
     @php
         $statuses = $projectStatuses->pluck('name');

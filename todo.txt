@@ -1,8 +1,31 @@
-bank
-    withdrawal
-    deposit
+project
+-------
+-------
+task 1
+------
+//create project bill status
+show task status in projects list
+highlight show in project dashboard
 
-debit -> transaction_type "bank" select withdrawal form bank
-credit -> transaction_type  "bank" select deposite from bank
+task 2
+------
+externals
+* show po value in externals
+* upload externals/internals
+    total
+    asf
+    subtotal
+    vat
+    grand total
+
+vendors excel with
+    total
+
+
+
+===============
+bill
+===============
+is every project has one bill?
 
 
