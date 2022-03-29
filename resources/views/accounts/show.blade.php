@@ -1,14 +1,4 @@
 <x-app-layout>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:nth-child(3) {
-            border: solid thin;
-        }
-
-    </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
@@ -18,34 +8,40 @@
             <h3 class="pb-5 text-center">
                 Finance Records Year of {{ $year }}
             </h3>
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-bordered table-responsive">
-                        <thead>
-                            <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
-                                <th class="px-2">Cash(
-                                    <x-utils.currency />)
-                                </th>
-                                <th class="px-2">Bank(
-                                    <x-utils.currency />)
-                                </th>
-                                <th class="px-2">Loan(
-                                    <x-utils.currency />)
-                                </th>
-                                <th class="px-2">Investment Income(
-                                    <x-utils.currency />)
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="border border-dark">
-                            <tr class="border border-dark fw-bold">
-                                <td class="px-2">{{ number_format($accountsCashFinanceByYear) }}</td>
-                                <td class="px-2">{{ number_format($accountsBankFinanceByYear) }}</td>
-                                <td class="px-2">{{ number_format($accountsLoanFinanceByYear) }}</td>
-                                <td class="px-2">{{ number_format($accountsInvestmentFinanceByYear) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="d-flex">
+                <div class="bg-primary p-5 record_card" style="min-width: 132px; border-radius: 2rem 0 0 0">
+                    <p class="text-white">Total</p>
+                    <h1 class="text-white">
+                        <x-utils.currency />{{ number_format($totalAmountByYear) }}
+                    </h1>
+                </div>
+
+                <div class="bg-success p-5 text-white" style="min-width: 132px">
+                    <p class="text-white">Bank</p>
+                    <h1 class="text-white">
+                        <x-utils.currency />{{ number_format($totalBankAmountByYear) }}
+                    </h1>
+                </div>
+
+                <div class="bg-info p-5 text-white" style="min-width: 132px">
+                    <p class="text-white">Cash</p>
+                    <h1 class="text-white">
+                        <x-utils.currency />{{ number_format($totalCashAmountByYear) }}
+                    </h1>
+                </div>
+
+                <div class="bg-light p-5 text-white border border-gray-300" style="min-width: 132px">
+                    <p class="text-gray-700">Loan</p>
+                    <h1 class="text-gray-700">
+                        <x-utils.currency />{{ number_format($totalLoanAmountByYear) }}
+                    </h1>
+                </div>
+
+                <div class="bg-light p-5 text-white border border-gray-300" style="min-width: 132px">
+                    <p class="text-gray-700">Investment</p>
+                    <h1 class="text-gray-700">
+                        <x-utils.currency />{{ number_format($totalInvestmentAmountByYear) }}
+                    </h1>
                 </div>
             </div>
         </div>

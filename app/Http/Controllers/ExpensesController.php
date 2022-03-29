@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExpensesExport;
-use App\Models\User;
-use App\Models\Expense;
-use App\Models\Project;
-use App\Models\ExpenseType;
-use Illuminate\Http\Request;
-use App\Models\TransactionType;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ExpenseAddRequest;
+use App\Models\Expense;
+use App\Models\ExpenseType;
+use App\Models\Project;
+use App\Models\TransactionType;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExpensesController extends Controller {
     public function index() {
-        return view( 'accounts.expenses.index' );
+        // total expenses of current year
+        $year = now()->year;
+
+        $totalExpenseOfByYear = Expense::whereYear( 'date', $year )->get()->sum( fn( $expense ) => $expense->amount );
+
+        $expenseTypes = ExpenseType::all();
+
+        return view( 'accounts.expenses.index', compact( ['totalExpenseOfByYear', 'expenseTypes'] ) );
     }
 
     public function show( Request $request ) {

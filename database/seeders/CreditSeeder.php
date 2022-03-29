@@ -20,8 +20,18 @@ class CreditSeeder extends Seeder
             'user_id' => 1,
             'category_id' => 1,
             'project_id' => 1,
-            'amount' => 1000,
+            'amount' => 10000,
             'transaction_type_id' => 1,
+            'note' => 'First withdrawal'
+        ]);
+        Credit::create([
+            'date' => now(),
+            'modified' => now(),
+            'user_id' => 1,
+            'category_id' => 1,
+            'project_id' => 1,
+            'amount' => 20000,
+            'transaction_type_id' => 2,
             'note' => 'First withdrawal'
         ]);
     }

@@ -19,20 +19,7 @@ class ExpenseSeeder extends Seeder {
             'description'         => 'description of first expense',
             'expense_type_id'     => 1,
             'transaction_type_id' => 1,
-            'amount'              => 10000,
-            'note'                => 'note of first expense history',
-            'date' => now()->toDateString(),
-            'modified' => now()->toDateString()
-        ] );
-
-        Expense::create( [
-            'head'                => 'First Expense',
-            'user_id'             => 1,
-            'project_id'          => 1,
-            'description'         => 'description of first expense',
-            'expense_type_id'     => 1,
-            'transaction_type_id' => 1,
-            'amount'              => 10000,
+            'amount'              => 5650,
             'note'                => 'note of first expense history',
             'date' => now()->toDateString(),
             'modified' => now()->toDateString()

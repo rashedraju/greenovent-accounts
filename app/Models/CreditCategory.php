@@ -10,4 +10,8 @@ class CreditCategory extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public function credits(){
+        return $this->hasMany(Credit::class, 'category_id');
+    }
 }

@@ -1,6 +1,8 @@
-2. filter bussiness manger designation users from user table and pass it to create client view in clientController@create
-3. filter bussiness manger designation users from user table and pass it to create client view in projectController@create
+bank
+    withdrawal
+    deposit
 
-* credit by project/client/loan
+debit -> transaction_type "bank" select withdrawal form bank
+credit -> transaction_type  "bank" select deposite from bank
 
-* p
+

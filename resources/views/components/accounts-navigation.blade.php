@@ -27,6 +27,12 @@
                             <span class="menu-title">Withdrawals</span>
                         </a>
                     </div>
+                    <div class="menu-item me-lg-1">
+                        <a href="{{ route('accounts.deposits.index') }}"
+                            class="menu-link py-3 {{ request()->routeIs('accounts.deposits.*') ? 'bg-primary text-white mx-1' : '' }}">
+                            <span class="menu-title">Deposits</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

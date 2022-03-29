@@ -16,7 +16,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CreditController extends Controller {
     public function index() {
-        return view( 'accounts.credits.index' );
+        // total credits of current year
+        $year = now()->year;
+
+        $totalCreditOfByYear = Credit::whereYear( 'date', $year )->get()->sum( fn( $credit ) => $credit->amount );
+
+        $creditCategories = CreditCategory::all();
+
+        return view( 'accounts.credits.index', compact(['totalCreditOfByYear', 'creditCategories']) );
     }
 
     public function show( Request $request ) {

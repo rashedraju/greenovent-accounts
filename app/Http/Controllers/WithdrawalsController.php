@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\WithdrawalsExport;
+use App\Http\Requests\WithdrawalAddRequest;
 use App\Models\User;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\WithdrawalAddRequest;
 
 class WithdrawalsController extends Controller {
     public function index() {
@@ -16,7 +16,7 @@ class WithdrawalsController extends Controller {
 
     public function show( Request $request ) {
         if ( $request->year && $request->month ) {
-            // find expenses of this date
+            // find withdrawals of this date
             $year = $request->year;
             $month = $request->month;
 

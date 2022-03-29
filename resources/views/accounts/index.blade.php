@@ -3,6 +3,7 @@
         <h1 class="text-center">Accounts</h1>
     </div>
     <x-accounts-navigation />
+
     <div class="card mt-3">
         <div class="card-body py-4">
             <div class="row">

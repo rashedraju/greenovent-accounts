@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder {
             TransactionTypeSeeder::class,
             TransactionAprovalTypeSeeder::class,
             WithdrawalSeeder::class,
+            DepositSeeder::class,
             ExpenseTypeSeeder::class,
             ExpenseSeeder::class,
             CreditCategorySeeder::class,

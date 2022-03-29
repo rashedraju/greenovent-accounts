@@ -18,7 +18,7 @@ class WithdrawalSeeder extends Seeder
             'date' => now(),
             'modified' => now(),
             'user_id' => 1,
-            'amount' => 1000,
+            'amount' => 3000,
             'bank_name' => 'EBL',
             'slip_number' => '24571369875',
             'note' => 'First withdrawal'

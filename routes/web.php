@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepositsController;
 use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ProjectController;
@@ -126,6 +127,18 @@ Route::middleware( 'auth' )->group( function () {
             Route::get( '/{year}/{month}/export', [WithdrawalsController::class, 'export'] )->name( 'export' );
         } );
 
+        // deposits
+        Route::name( 'deposits.' )->prefix( 'deposits' )->group( function () {
+            Route::get( '/', [DepositsController::class, 'index'] )->name( 'index' );
+            Route::get( '/{year}/{month}', [DepositsController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [DepositsController::class, 'store'] )->name( 'store' );
+            Route::put( '/{deposit}', [DepositsController::class, 'update'] )->name( 'update' );
+            Route::delete( '/{deposit}', [DepositsController::class, 'destory'] )->name( 'delete' );
+
+            // data import/export
+            Route::get( '/{year}/{month}/export', [DepositsController::class, 'export'] )->name( 'export' );
+        } );
+
         // credit
         Route::name( 'credits.' )->prefix( 'credits' )->group( function () {
             Route::get( '/', [CreditController::class, 'index'] )->name( 'index' );
@@ -137,7 +150,6 @@ Route::middleware( 'auth' )->group( function () {
             // data import/export
             Route::get( '/{year}/{month}/export', [CreditController::class, 'export'] )->name( 'export' );
         } );
-
     } );
 
     // Route access permissions

@@ -5,23 +5,24 @@ namespace Database\Seeders;
 use App\Models\ExpenseType;
 use Illuminate\Database\Seeder;
 
-class ExpenseTypeSeeder extends Seeder
-{
+class ExpenseTypeSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         $types = [
             'Selary',
             'Daily Conveyance',
-            'Project/Event'
+            'Project/Event',
+            'Loan',
+            'Invest',
+            'Others'
         ];
 
-        foreach ($types as $type) {
-            ExpenseType::create(['name' => $type]);
+        foreach ( $types as $type ) {
+            ExpenseType::create( ['name' => $type] );
         }
     }
 }
