@@ -28,10 +28,10 @@
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 101">
         <div id="success_notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <div>Notification</div>
+                <div class="fs-4">Notification</div>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body text-success">
+            <div class="toast-body text-success fs-5">
                 {{ session('success') }}
             </div>
         </div>

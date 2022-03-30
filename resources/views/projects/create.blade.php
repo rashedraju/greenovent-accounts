@@ -72,16 +72,8 @@
                             <label class="form-label fs-6 fw-bolder text-dark">PO Number
                                 <x-utils.required />
                             </label>
-                            @php
-                                $last_number =
-                                    \App\Models\Project::latest()
-                                        ->pluck('id')
-                                        ->first() + 1;
-
-                                $po_number = $last_number + 100;
-                            @endphp
-                            <input class="form-control form-control-lg form-control-solid" type="text" name="po_number"
-                                value="{{ $po_number }}" />
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="po_number" />
                         </div>
 
                         <div class="fv-row mb-10">
@@ -93,11 +85,26 @@
                         </div>
 
                         <div class="fv-row mb-7">
+                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Bill Type
+                                <x-utils.required />
+                            </label>
+
+                            <select class="form-select form-select-solid select2-hidden-accessible"
+                                data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
+                                name="bill_type">
+                                @foreach ($billTypes as $billType)
+                                    <option value="{{ $billType->id }}">
+                                        {{ $billType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="start_date">Start Date
                                 <x-utils.required />
                             </label>
                             <input class="form-control form-control-solid" id="project_start_date_picker"
-                                name="start_date" />
+                                name="start_date" placeholder="YYYY-MM-DD" />
                         </div>
 
                         <div class="fv-row mb-7">
@@ -105,13 +112,7 @@
                                 <x-utils.required />
                             </label>
                             <input class="form-control form-control-solid" id="project_closing_date_picker"
-                                name="closing_date" />
-                        </div>
-
-                        <div class="fv-row mb-10">
-                            <label class="form-label fs-6 fw-bolder text-dark">Advance Paid</label>
-                            <input class="form-control form-control-lg form-control-solid" type="number"
-                                name="advance_paid" :value="old('advance_paid')" />
+                                name="closing_date" placeholder="YYYY-MM-DD" />
                         </div>
 
                         <div class="fv-row mb-7">

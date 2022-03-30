@@ -26,6 +26,23 @@ vendors excel with
 ===============
 bill
 ===============
-is every project has one bill?
 
+// bill type
+
+1. one of
+2. monthly
+
+=========
+// project
+
+bill type
+
+    single project has one bill(one to one)
+    single bill has one bill (one to one - inverse)
+
+    single project has multiple bill(one to many)
+    every bill has only one project (many to one - inverse)
+
+    one to many
+    
 

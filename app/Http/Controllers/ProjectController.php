@@ -14,6 +14,7 @@ use App\Http\Requests\EditVendorCostRequest;
 use App\Imports\ExternalCostImport;
 use App\Imports\InternalCostImport;
 use App\Imports\VendorCostImport;
+use App\Models\BillType;
 use App\Models\Client;
 use App\Models\ExternalCost;
 use App\Models\InternalCost;
@@ -28,7 +29,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ProjectController extends Controller {
     public function index() {
         // Project Data
-        $projects = Project::orderBy( 'id', 'desc' )->paginate( 10 );
+        $projects = Project::orderBy( 'id', 'desc' )->get();
         $projectStatuses = ProjectStatus::all();
         $totalBudget = Project::getTotalBudget();
 
@@ -41,6 +42,11 @@ class ProjectController extends Controller {
         $clients = Client::orderBy( 'id', 'desc' )->get();
 
         return view( 'projects.index', compact( ['projects', 'projectStatuses', 'totalBudget', 'avgBudget', 'highestBudget', 'lowestBudget', 'clients'] ) );
+    }
+
+    // porject dashboard
+    public function show( Project $project ) {
+        return view( 'projects.show', ['project' => $project] );
     }
 
     // create new project
@@ -57,7 +63,10 @@ class ProjectController extends Controller {
         // get project statuses
         $projectStatuses = ProjectStatus::all();
 
-        return view( 'projects.create', compact( ['bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
+        // bill types
+        $billTypes = BillType::all();
+
+        return view( 'projects.create', compact( ['bussinessManagers', 'clients', 'projectTypes', 'projectStatuses', 'billTypes'] ) );
     }
 
     // store project
@@ -75,11 +84,6 @@ class ProjectController extends Controller {
 
     }
 
-    // porject dashboard
-    public function show( Project $project ) {
-        return view( 'projects.show', ['project' => $project] );
-    }
-
     // edit project details
     public function edit( Project $project ) {
         // get bussiness managers
@@ -91,10 +95,13 @@ class ProjectController extends Controller {
         // get project types
         $projectTypes = ProjectType::all();
 
-        // get project statuses 
+        // get project statuses
         $projectStatuses = ProjectStatus::all();
 
-        return view( 'projects.edit', compact( ['project', 'bussinessManagers', 'clients', 'projectTypes', 'projectStatuses'] ) );
+        // bill types
+        $billTypes = BillType::all();
+
+        return view( 'projects.edit', compact( ['project', 'bussinessManagers', 'clients', 'projectTypes', 'projectStatuses', 'billTypes'] ) );
     }
 
     // update project details

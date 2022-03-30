@@ -10,4 +10,14 @@ class BillStatus extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    /**
+     * Bills
+     * one to many relation with Bill model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bills() {
+        return $this->hasMany( Bill::class, 'bill_status_id' );
+    }
 }

@@ -162,9 +162,10 @@
                     <th class="px-2 py-5">Bussiness Manger</th>
                     <th class="px-2 py-5">Project Type</th>
                     <th class="px-2 py-5">Po Value</th>
+                    <th class="px-2 py-5">Bill Status</th>
                     <th class="px-2 py-5">Starting Date</th>
                     <th class="px-2 py-5">Closing Date</th>
-                    <th class="px-2 py-5">Status</th>
+                    <th class="px-2 py-5">Project Status</th>
                     <th class="px-2 py-5">Edit</th>
                 </tr>
             </thead>
@@ -184,10 +185,13 @@
                         </td>
                         <td class="px-2 py-5">{{ $project->type->name }}</td>
                         <td class="px-2 py-5">{{ $project->po_value }}</td>
+                        <td class="px-2 py-5"><span
+                                class="badge badge-primary">{{ $project->billStatus() }}</span></td>
                         <td class="px-2 py-5">{{ $project->start_date }}</td>
                         <td class="px-2 py-5">{{ $project->closing_date }}</td>
                         <td class="px-2 py-5">
-                            <span class="text-white p-2 rounded" style="background: {{ $project->status->color }}">
+                            <span class="text-white px-3 py-1 rounded"
+                                style="background: {{ $project->status->color }}">
                                 {{ $project->status->name }}
                         </td>
                         </span>

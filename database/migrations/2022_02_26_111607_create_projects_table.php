@@ -19,9 +19,9 @@ class CreateProjectsTable extends Migration {
             $table->foreignId( 'type_id' )->constrained( 'project_types' );
             $table->uuid( 'po_number' );
             $table->unsignedBigInteger( 'po_value' );
+            $table->foreignId('bill_type')->constrained('bill_types', 'id');
             $table->dateTime( 'start_date' );
             $table->dateTime( 'closing_date' );
-            $table->unsignedDouble( 'advance_paid' )->default( 0.00 );
             $table->foreignId( 'status_id' )->default( 3 )->constrained( 'project_statuses', 'id' );
             $table->timestamps();
         } );
