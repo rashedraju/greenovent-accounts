@@ -173,7 +173,7 @@ class ProjectController extends Controller {
 
     // show external costs
     public function externalCost( Project $project ) {
-        return view( 'projects.externals.index', ['project' => $project] );
+        return view( 'projects.external', ['project' => $project] );
     }
 
     // Store external cost

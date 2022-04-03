@@ -50,6 +50,14 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{project}', [ProjectController::class, 'update'] )->name( 'update' );
         Route::delete( '/{project}', [ProjectController::class, 'delete'] )->name( 'delete' );
 
+        // Project External Costs
+        Route::get( '/{project}/externals', [ProjectController::class, 'externalCost'] )->name( 'externals' );
+        Route::post( '/{project}/externals', [ProjectController::class, 'storeExternalCost'] )->name( 'externals.store' );
+        Route::post( '/{project}/externals/import', [ProjectController::class, 'importExternalCosts'] )->name( 'externals.import' );
+        Route::get( '/{project}/externals/export', [ProjectController::class, 'exportExternalCosts'] )->name( 'externals.export' );
+        Route::put( '/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'externals.update' );
+        Route::delete( '/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'externals.delete' );
+
         // Project Internal Costs
         Route::get( '/{project}/internals', [ProjectController::class, 'internalCost'] )->name( 'internals' );
         Route::get( '/{project}/internals/add', [ProjectController::class, 'addInternalCost'] )->name( 'internals.add' );
@@ -58,14 +66,6 @@ Route::middleware( 'auth' )->group( function () {
         Route::get( '/{project}/internals/export', [ProjectController::class, 'exportInternalCosts'] )->name( 'internals.export' );
         Route::put( '/{project}/internals/{internalCost}', [ProjectController::class, 'updateInternalCost'] )->name( 'internals.update' );
         Route::delete( '/{project}/internals/{internalCost}', [ProjectController::class, 'deleteInternalCost'] )->name( 'internals.delete' );
-
-        // Project External Costs
-        Route::get( '/{project}/externals', [ProjectController::class, 'externalCost'] )->name( 'externals' );
-        Route::post( '/{project}/externals', [ProjectController::class, 'storeExternalCost'] )->name( 'externals.store' );
-        Route::post( '/{project}/externals/import', [ProjectController::class, 'importExternalCosts'] )->name( 'externals.import' );
-        Route::get( '/{project}/externals/export', [ProjectController::class, 'exportExternalCosts'] )->name( 'externals.export' );
-        Route::put( '/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'externals.update' );
-        Route::delete( '/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'externals.delete' );
 
         // Project Vendor Costs
         Route::get( '/{project}/vendors', [ProjectController::class, 'vendorCosts'] )->name( 'vendors' );

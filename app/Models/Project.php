@@ -99,14 +99,14 @@ class Project extends Model {
         return $this->belongsTo( ProjectType::class );
     }
 
+    // all external costs
+    public function external() {
+        return $this->hasOne( ExternalCost::class, 'project_id' );
+    }
+
     // all internal costs
     public function intenalCosts() {
         return $this->hasMany( InternalCost::class, 'project_id' );
-    }
-
-    // all external costs
-    public function externalCosts() {
-        return $this->hasMany( ExternalCost::class, 'project_id' );
     }
 
     // all vendor costs

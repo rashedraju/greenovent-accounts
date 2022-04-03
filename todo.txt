@@ -44,5 +44,10 @@ bill type
     every bill has only one project (many to one - inverse)
 
     one to many
-    
 
+
+// externals
+1. date
+2. total
+3. asf (%)
+4. vat (%)
