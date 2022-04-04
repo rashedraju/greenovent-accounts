@@ -171,45 +171,6 @@ class ProjectController extends Controller {
         return redirect()->route( 'projects.internals', ['project' => $project] )->with( 'success', 'Internal cost deleted' );
     }
 
-    // show external costs
-    public function externalCost( Project $project ) {
-        return view( 'projects.external', ['project' => $project] );
-    }
-
-    // Store external cost
-    public function storeExternalCost( AddCostRequest $request, Project $project ) {
-        $attrs = $request->validated();
-
-        $externalCost = ExternalCost::create( $attrs );
-
-        $project->externalCosts()->save( $externalCost );
-
-        return redirect()->route( 'projects.externals', $project )->with( 'success', 'External Cost Added' );
-    }
-
-    // import external cost excel file
-    public function importExternalCosts( Request $request, Project $project ) {
-        $file = $request->file( 'external_file' );
-        Excel::import( new ExternalCostImport(), $file );
-
-        return redirect()->route( 'projects.externals', $project )->with( 'success', 'External Cost Added' );
-    }
-
-    // export exter cost to excel file
-    public function exportExternalCosts( Project $project ) {
-        $filename = $project->name . "_external.xlsx";
-
-        return Excel::download( new ExternalCostExport(), $filename );
-    }
-
-    // update external cost
-    public function updateExternalCost( EditCostRequest $request, Project $project, ExternalCost $externalCost ) {
-        $attrs = $request->validated();
-        $externalCost->update( $attrs );
-
-        return redirect()->route( 'projects.externals', ['project' => $project] )->with( 'success', 'External cost updated' );
-    }
-
     // delete external cost
     public function deleteExternalCost( Project $project, ExternalCost $externalCost ) {
         $externalCost->delete();

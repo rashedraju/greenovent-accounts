@@ -16,7 +16,6 @@ class ExternalCostSeeder extends Seeder
     {
         ExternalCost::create([
             'project_id' => 1,
-            'date' => now(),
             'total' => 150000,
             'asf' => 10,
             'vat' => 15,

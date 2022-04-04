@@ -4,15 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddCostRequest extends FormRequest
-{
+class AddCostRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,16 +19,13 @@ class AddCostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'project_id' => 'required',
-            'title' => 'required|string',
-            'quantity' => 'required|integer',
-            'rate' => 'required|integer',
-            'costs' => 'required|integer',
-            'created_at' => 'required|date',
-            'description' => 'sometimes|string',
+            'total'      => 'required|integer',
+            'asf'        => 'required|integer',
+            'vat'        => 'required|integer',
+            'file'       => 'required|file',
+            'note'       => 'sometimes'
         ];
     }
 }

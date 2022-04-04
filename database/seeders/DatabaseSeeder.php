@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder {
             ProjectStatusSeeder::class,
             ProjectSeeder::class,
             InternalCostSeeder::class,
-            ExternalCostSeeder::class,
+            // ExternalCostSeeder::class,
             VendorCostSeeder::class,
 
             // project bill

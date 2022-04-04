@@ -6,8 +6,8 @@
             href="{{ route('projects.show', $project) }}">Overview</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link pb-4 {{ $active == 'externals' ? 'text-active-primary active' : '' }}"
-            href="{{ route('projects.externals', $project) }}">External</a>
+        <a class="nav-link pb-4 {{ $active == 'external' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.external.index', $project) }}">External</a>
     </li>
     <li class="nav-item">
         <a class="nav-link pb-4 {{ $active == 'internals' ? 'text-active-primary active' : '' }}"

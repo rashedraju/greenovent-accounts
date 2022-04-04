@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class ExternalCost extends Model {
     use HasFactory;
 
-    public $timestamps = false;
-
     // get formated date string
     public function getCreatedAtAttribute( $value ) {
         return date( 'Y-m-d', strtotime( $value ) );

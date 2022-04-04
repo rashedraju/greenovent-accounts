@@ -14,11 +14,11 @@ class CreateExternalCostsTable extends Migration {
         Schema::create( 'external_costs', function ( Blueprint $table ) {
             $table->id();
             $table->foreignId( 'project_id' )->constrained();
-            $table->date( 'date' )->default( now() );
             $table->unsignedBigInteger( 'total' );
             $table->unsignedInteger( 'asf' );
             $table->unsignedInteger( 'vat' );
             $table->string( 'note' )->nullable();
+            $table->timestamps();
         } );
     }
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepositsController;
 use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\ExternalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RolesAndPermissionsController;
 use App\Http\Controllers\UsersController;
@@ -51,11 +52,9 @@ Route::middleware( 'auth' )->group( function () {
         Route::delete( '/{project}', [ProjectController::class, 'delete'] )->name( 'delete' );
 
         // Project External Costs
-        Route::get( '/{project}/externals', [ProjectController::class, 'externalCost'] )->name( 'externals' );
-        Route::post( '/{project}/externals', [ProjectController::class, 'storeExternalCost'] )->name( 'externals.store' );
-        Route::post( '/{project}/externals/import', [ProjectController::class, 'importExternalCosts'] )->name( 'externals.import' );
-        Route::get( '/{project}/externals/export', [ProjectController::class, 'exportExternalCosts'] )->name( 'externals.export' );
-        Route::put( '/{project}/externals/{externalCost}', [ProjectController::class, 'updateExternalCost'] )->name( 'externals.update' );
+        Route::get( '/{project}/external', [ExternalController::class, 'index'] )->name( 'external.index' );
+        Route::post( '/{project}/external', [ExternalController::class, 'store'] )->name( 'external.store' );
+        Route::put( '/{project}/external/{externalCost}', [ExternalController::class, 'update'] )->name( 'external.update' );
         Route::delete( '/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'externals.delete' );
 
         // Project Internal Costs

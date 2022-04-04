@@ -31,7 +31,7 @@
                 <div class="fs-4">Notification</div>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body text-success fs-5">
+            <div class="toast-body text-success fs-5 bg-white">
                 {{ session('success') }}
             </div>
         </div>
@@ -48,7 +48,7 @@
                 <div>Notification</div>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body text-danger">
+            <div class="toast-body text-danger bg-white">
                 {{ session('failed') }}
             </div>
         </div>
