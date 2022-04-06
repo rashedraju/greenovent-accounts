@@ -11,7 +11,7 @@
                     <div class="col-6">
                         <div class="my-1">
                             External: <strong>
-                                <x-utils.currency />{{ number_format($project->external->total) }}
+                                <x-utils.currency />{{ number_format($project->external) }}
                             </strong>
                         </div>
                         <div class="my-1">

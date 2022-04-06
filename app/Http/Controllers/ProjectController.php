@@ -171,13 +171,6 @@ class ProjectController extends Controller {
         return redirect()->route( 'projects.internals', ['project' => $project] )->with( 'success', 'Internal cost deleted' );
     }
 
-    // delete external cost
-    public function deleteExternalCost( Project $project, ExternalCost $externalCost ) {
-        $externalCost->delete();
-
-        return redirect()->route( 'projects.externals', ['project' => $project] )->with( 'success', 'External cost deleted' );
-    }
-
     // show vendor costs
     public function vendorCosts( Project $project ) {
         return view( 'projects.vendors.index', ['project' => $project] );

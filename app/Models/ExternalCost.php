@@ -11,7 +11,12 @@ class ExternalCost extends Model {
 
     // get formated date string
     public function getCreatedAtAttribute( $value ) {
-        return date( 'Y-m-d', strtotime( $value ) );
+        return date( 'd M, Y', strtotime( $value ) );
+    }
+
+    // get formated date string
+    public function getUpdatedAtAttribute( $value ) {
+        return date( 'd M, Y', strtotime( $value ) );
     }
 
     // external of project

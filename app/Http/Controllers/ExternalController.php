@@ -48,4 +48,11 @@ class ExternalController extends Controller {
 
         return redirect()->route( 'projects.external.index', ['project' => $project] )->with( 'success', 'External cost updated' );
     }
+
+    // delete external cost
+    public function delete( Project $project, ExternalCost $externalCost ) {
+        $externalCost->delete();
+
+        return redirect()->route( 'projects.external.index', ['project' => $project] )->with( 'success', 'External cost deleted' );
+    }
 }

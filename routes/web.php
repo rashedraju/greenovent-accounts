@@ -55,7 +55,7 @@ Route::middleware( 'auth' )->group( function () {
         Route::get( '/{project}/external', [ExternalController::class, 'index'] )->name( 'external.index' );
         Route::post( '/{project}/external', [ExternalController::class, 'store'] )->name( 'external.store' );
         Route::put( '/{project}/external/{externalCost}', [ExternalController::class, 'update'] )->name( 'external.update' );
-        Route::delete( '/{project}/externals/{externalCost}', [ProjectController::class, 'deleteExternalCost'] )->name( 'externals.delete' );
+        Route::delete( '/{project}/external/{externalCost}', [ExternalController::class, 'delete'] )->name( 'external.delete' );
 
         // Project Internal Costs
         Route::get( '/{project}/internals', [ProjectController::class, 'internalCost'] )->name( 'internals' );
