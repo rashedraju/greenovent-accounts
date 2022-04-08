@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder {
             ProjectTypeSeeder::class,
             ProjectStatusSeeder::class,
             ProjectSeeder::class,
-            InternalCostSeeder::class,
+            // InternalCostSeeder::class,
             // ExternalCostSeeder::class,
-            VendorCostSeeder::class,
+            // VendorCostSeeder::class,
 
             // project bill
             BillSeeder::class,

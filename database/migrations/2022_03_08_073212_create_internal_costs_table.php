@@ -13,12 +13,9 @@ class CreateInternalCostsTable extends Migration {
     public function up() {
         Schema::create( 'internal_costs', function ( Blueprint $table ) {
             $table->id();
-            $table->foreignId( 'project_id' )->constrained( 'projects', 'id' );
-            $table->string( 'title' );
-            $table->integer( 'quantity' );
-            $table->unsignedBigInteger( 'rate' );
-            $table->unsignedBigInteger( 'costs' );
-            $table->string( 'description' )->nullable();
+            $table->foreignId( 'project_id' )->constrained();
+            $table->unsignedBigInteger( 'total' );
+            $table->string( 'note' )->nullable();
             $table->timestamps();
         } );
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorCostsTable extends Migration
+class CreateProjectContactPersonTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateVendorCostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_costs', function (Blueprint $table) {
+        Schema::create('project_contact_person', function (Blueprint $table) {
             $table->id();
-            $table->foreignId( 'project_id' )->constrained();
-            $table->unsignedBigInteger( 'total' );
-            $table->string( 'note' )->nullable();
-            $table->timestamps();
+            $table->foreignId('project_id');
+            $table->string('name')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('contact')->nullable();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateVendorCostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_costs');
+        Schema::dropIfExists('project_contact_person');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ProjectContactPerson;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +25,10 @@ class Project extends Model {
      */
     public function manager() {
         return $this->belongsTo( User::class, 'business_manager_id' );
+    }
+
+    public function contactPersons() {
+        return $this->hasMany( ProjectContactPerson::class );
     }
 
     /**
@@ -105,37 +110,12 @@ class Project extends Model {
     }
 
     // all internal costs
-    public function intenalCosts() {
-        return $this->hasMany( InternalCost::class, 'project_id' );
+    public function internal() {
+        return $this->hasOne( InternalCost::class, 'project_id' );
     }
 
     // all vendor costs
-    public function vendorCosts() {
-        return $this->hasMany( VendorCost::class, 'project_id' );
-    }
-
-    // get total internal costs
-    public function totalInternals() {
-        return $this->intenalCosts->sum( fn( $cost ) => $cost->costs );
-    }
-
-    // get total external costs
-    public function totalExternals() {
-        return $this->externalCosts->sum( fn( $cost ) => $cost->costs );
-    }
-
-    // get total advance vendor costs
-    public function totalVendorAdvance() {
-        return $this->vendorCosts->sum( fn( $cost ) => $cost->advance );
-    }
-
-    // get total advance vendor costs
-    public function totalVendorDue() {
-        return $this->vendorCosts->sum( fn( $cost ) => $cost->due );
-    }
-
-    // get total profit
-    public function profit() {
-        return $this->totalExternals() - $this->totalInternals();
+    public function vendor() {
+        return $this->hasOne( VendorCost::class, 'project_id' );
     }
 }

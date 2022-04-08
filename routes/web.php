@@ -1,18 +1,22 @@
 <?php
 
-use App\Http\Controllers\AccountsController;
-use App\Http\Controllers\ClientsController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CreditController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\DepositsController;
-use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ExternalController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\RolesAndPermissionsController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\InternalController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WithdrawalsController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeePerformanceController;
+use App\Http\Controllers\ProjectContactPersonController;
+use App\Http\Controllers\RolesAndPermissionsController;
+use App\Http\Controllers\VendorController;
+use App\Models\ProjectContactPerson;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,28 +55,26 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{project}', [ProjectController::class, 'update'] )->name( 'update' );
         Route::delete( '/{project}', [ProjectController::class, 'delete'] )->name( 'delete' );
 
-        // Project External Costs
+        // Project External Cost
         Route::get( '/{project}/external', [ExternalController::class, 'index'] )->name( 'external.index' );
         Route::post( '/{project}/external', [ExternalController::class, 'store'] )->name( 'external.store' );
         Route::put( '/{project}/external/{externalCost}', [ExternalController::class, 'update'] )->name( 'external.update' );
         Route::delete( '/{project}/external/{externalCost}', [ExternalController::class, 'delete'] )->name( 'external.delete' );
 
-        // Project Internal Costs
-        Route::get( '/{project}/internals', [ProjectController::class, 'internalCost'] )->name( 'internals' );
-        Route::get( '/{project}/internals/add', [ProjectController::class, 'addInternalCost'] )->name( 'internals.add' );
-        Route::post( '/{project}/internals', [ProjectController::class, 'storeInternalCost'] )->name( 'internals.store' );
-        Route::post( '/{project}/internals/import', [ProjectController::class, 'importInternalCosts'] )->name( 'internals.import' );
-        Route::get( '/{project}/internals/export', [ProjectController::class, 'exportInternalCosts'] )->name( 'internals.export' );
-        Route::put( '/{project}/internals/{internalCost}', [ProjectController::class, 'updateInternalCost'] )->name( 'internals.update' );
-        Route::delete( '/{project}/internals/{internalCost}', [ProjectController::class, 'deleteInternalCost'] )->name( 'internals.delete' );
+        // Project Internal Cost
+        Route::get( '/{project}/internal', [InternalController::class, 'index'] )->name( 'internal.index' );
+        Route::post( '/{project}/internal', [InternalController::class, 'store'] )->name( 'internal.store' );
+        Route::put( '/{project}/internal/{internalCost}', [InternalController::class, 'update'] )->name( 'internal.update' );
+        Route::delete( '/{project}/internal/{internalCost}', [InternalController::class, 'delete'] )->name( 'internal.delete' );
 
-        // Project Vendor Costs
-        Route::get( '/{project}/vendors', [ProjectController::class, 'vendorCosts'] )->name( 'vendors' );
-        Route::post( '/{project}/vendors', [ProjectController::class, 'storeVendorsCost'] )->name( 'vendors.store' );
-        Route::post( '/{project}/vendors/import', [ProjectController::class, 'importVendorCosts'] )->name( 'vendors.import' );
-        Route::get( '/{project}/vendors/export', [ProjectController::class, 'exportVendorCosts'] )->name( 'vendors.export' );
-        Route::put( '/{project}/vendors/{vendorCost}', [ProjectController::class, 'updateVendorCost'] )->name( 'vendors.update' );
-        Route::delete( '/{project}/vendors/{vendorCost}', [ProjectController::class, 'deleteVendorCost'] )->name( 'vendors.delete' );
+        // Project Internal Cost
+        Route::get( '/{project}/vendor', [VendorController::class, 'index'] )->name( 'vendor.index' );
+        Route::post( '/{project}/vendor', [VendorController::class, 'store'] )->name( 'vendor.store' );
+        Route::put( '/{project}/vendor/{vendorCost}', [VendorController::class, 'update'] )->name( 'vendor.update' );
+        Route::delete( '/{project}/vendor/{vendorCost}', [VendorController::class, 'delete'] )->name( 'vendor.delete' );
+
+        // Project Contact Person
+        Route::get('{project}/contact/create', [ProjectContactPersonController::class, 'create'])->name('contact.create');
     } );
 
     // Clients Routes

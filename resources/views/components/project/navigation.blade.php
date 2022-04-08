@@ -10,13 +10,13 @@
             href="{{ route('projects.external.index', $project) }}">External</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link pb-4 {{ $active == 'internals' ? 'text-active-primary active' : '' }}"
-            href="{{ route('projects.internals', $project) }}">Internal</a>
+        <a class="nav-link pb-4 {{ $active == 'internal' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.internal.index', $project) }}">Internal</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link pb-4 {{ $active == 'vendors' ? 'text-active-primary active' : '' }}"
-            href="{{ route('projects.vendors', $project) }}">Vendor</a>
+        <a class="nav-link pb-4 {{ $active == 'vendor' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.vendor.index', $project) }}">Vendor</a>
     </li>
     <!--end:::Tab item-->
     <!--begin:::Tab item-->
