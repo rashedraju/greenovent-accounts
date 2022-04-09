@@ -26,4 +26,28 @@ class Bill extends Model {
     public function status() {
         return $this->belongsTo( BillStatus::class, 'bill_status_id' );
     }
+
+    // get calculated asf
+    public function asfTotal() {
+        return ( $this->asf / 100 ) * $this->total;
+    }
+
+    // get asf sub total
+    public function asfSubTotal() {
+        return $this->total + $this->asfTotal();
+    }
+
+    // get calculated vat
+    public function vatTotal() {
+        return ( $this->vat / 100 ) * $this->asfSubTotal();
+    }
+
+    // get grand total
+    public function grandTotal() {
+        return $this->asfSubTotal() + $this->vatTotal();
+    }
+
+    public function getDateAttribute( $value ) {
+        return date( 'd M, Y', strtotime( $value ) );
+    }
 }

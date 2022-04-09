@@ -28,35 +28,7 @@ class Project extends Model {
     }
 
     public function contactPersons() {
-        return $this->hasMany( ProjectContactPerson::class );
-    }
-
-    /**
-     * Define project bill type
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function billType() {
-        return $this->belongsTo( BillType::class, 'bill_type' );
-    }
-
-    /**
-     * Bill Status
-     * latest bill status
-     */
-
-    public function billStatus() {
-        return $this->bills->first()?->status->name ?? 'Not Done';
-    }
-
-    /**
-     * Bills
-     * one to many relation with Bill model
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function bills() {
-        return $this->hasMany( Bill::class, 'project_id' );
+        return $this->hasMany( ProjectContactPerson::class, 'project_id' );
     }
 
     // get total amount of all project
@@ -117,5 +89,33 @@ class Project extends Model {
     // all vendor costs
     public function vendor() {
         return $this->hasOne( VendorCost::class, 'project_id' );
+    }
+
+    /**
+     * Define project bill type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function billType() {
+        return $this->belongsTo( BillType::class, 'bill_type' );
+    }
+
+    /**
+     * Bill Status
+     * latest bill status
+     */
+
+    public function billStatus() {
+        return $this->bills->first()?->status->name ?? 'Not Done';
+    }
+
+    /**
+     * Bills
+     * one to many relation with Bill model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bills() {
+        return $this->hasMany( Bill::class, 'project_id' );
     }
 }

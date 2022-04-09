@@ -6,6 +6,7 @@ use App\Http\Controllers\CreditController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DepositsController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ExternalController;
@@ -73,8 +74,14 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{project}/vendor/{vendorCost}', [VendorController::class, 'update'] )->name( 'vendor.update' );
         Route::delete( '/{project}/vendor/{vendorCost}', [VendorController::class, 'delete'] )->name( 'vendor.delete' );
 
+        // Project Bill
+        Route::get( '/{project}/bill', [BillController::class, 'index'] )->name( 'bill.index' );
+        Route::post( '/{project}/bill', [BillController::class, 'store'] )->name( 'bill.store' );
+        Route::put( '/{project}/bill/{bill}', [BillController::class, 'update'] )->name( 'bill.update' );
+        Route::delete( '/{project}/bill/{bill}', [BillController::class, 'delete'] )->name( 'bill.delete' );
+
         // Project Contact Person
-        Route::get('{project}/contact/create', [ProjectContactPersonController::class, 'create'])->name('contact.create');
+        Route::post('{project}/contact', [ProjectContactPersonController::class, 'store'])->name('contact.store');
     } );
 
     // Clients Routes

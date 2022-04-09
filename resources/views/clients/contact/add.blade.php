@@ -30,12 +30,10 @@
                                 <input type="text" class="form-control mb-2" name="name" :value="old('client_contact_persons_input.[0].name')" />
 
                                 <label class="form-label">Designation</label>
-                                <input type="text" class="form-control mb-2" name="designation"
-                                    :value="old('designation')" />
+                                <input type="text" class="form-control mb-2" name="designation" :value="old('designation')" />
 
                                 <label class="form-label">Dpartment</label>
-                                <input type="text" class="form-control mb-2" name="dpartment"
-                                    :value="old('dpartment')" />
+                                <input type="text" class="form-control mb-2" name="dpartment" :value="old('dpartment')" />
 
                                 <label class="form-label">Email</label>
                                 <input type="text" class="form-control mb-2" name="email" :value="old('email')" />
@@ -62,9 +60,6 @@
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                     </div>
                     <div class="d-flex gap-3">
-                        @if (request()->skipable)
-                            <a href="{{ request()->skipto }}" class="btn btn-lg btn-secondary w-100 mb-5">Skip</a>
-                        @endif
                         <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                             Add Contact Person
                         </button>

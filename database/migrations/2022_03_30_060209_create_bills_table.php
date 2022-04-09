@@ -16,7 +16,7 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id');
-            $table->date('date');
+            $table->string('date');
             $table->string('bill_no');
             $table->string('subject');
             $table->foreignId('bill_status_id')->constrained('bill_statuses', 'id');

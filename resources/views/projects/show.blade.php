@@ -38,18 +38,19 @@
                     <div>{{ $project->client->office_address }}</div>
                 </div>
                 <div>
-                    <h3 class="fw-bolder m-0">Contact Persons</h3>
-                    <div class="mb-5 border-bottom border-gray-500">
-                        <a href="{{ route('projects.contact.create', $project) }}">Add</a>
+                    <div class="mb-5 d-flex gap-3 align-items-center">
+                        <h3 class="fw-bolder m-0">Contact Persons</h3>
+                        <button type="button" class="btn btn-sm py-0 px-2 btn-light" data-bs-toggle="modal"
+                            data-bs-target="#add_contact_modal">
+                            <x-utils.add-icon /> Add
+                        </button>
                     </div>
                     <div>
                         @foreach ($project->contactPersons as $contactPerson)
                             <div class="border p-2 my-2">
                                 <h5>{{ $contactPerson->name }}</h5>
                                 <div>{{ $contactPerson->designation }}</div>
-                                <div>{{ $contactPerson->department }}</div>
-                                <div>{{ $contactPerson->email }}</div>
-                                <div>{{ $contactPerson->phone }}</div>
+                                <div>{{ $contactPerson->contact }}</div>
                             </div>
                         @endforeach
                     </div>
@@ -64,42 +65,63 @@
             <div class="card-body">
                 <div class="card card-bordered">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="my-1">
-                                    External: <strong>
-                                        {{-- <x-utils.currency />{{ number_format($project->external) }} --}}
-                                    </strong>
+                        <div class="fs-5 d-flex">
+                            <div class="d-flex flex-column gap-3 text-end">
+                                <div class="px-5">
+                                    <strong>External:</strong>
                                 </div>
-                                <div class="my-1">
-                                    Total Internal: <strong>
-                                        {{-- <x-utils.currency />{{ number_format($project->totalInternals()) }} --}}
-                                    </strong>
+                                <div class="px-5">
+                                    <strong>Internal:</strong>
                                 </div>
-
-                                <div class="my-1">
-                                    Profit: <strong>
-                                        {{-- <x-utils.currency />{{ number_format($project->profit()) }} --}}
-                                    </strong>
-                                </div>
-                                <hr>
-                                <div class="my-1">
-                                    Total Advance: <strong>
-                                        {{-- <x-utils.currency />{{ number_format($project->totalVendorAdvance()) }} --}}
-                                    </strong>
-                                </div>
-                                <div class="my-1">
-                                    Total Due: <strong>
-                                        {{-- <x-utils.currency />{{ number_format($project->totalVendorDue()) }} --}}
-                                    </strong>
+                                <div class="px-5">
+                                    <strong>Vendor: </strong>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <canvas id="project_overview_chart" width="100" height="100"
-                                    style="display: block; box-sizing: border-box; height: 100px; width: 100px;"></canvas>
+                            <div class="d-flex flex-column gap-3 text-end">
+                                <div class="px-5">
+                                    {{ number_format($project->external?->total) }}
+                                </div class="px-5">
+                                <div class="px-5">
+                                    {{ number_format($project->internal?->total) }}
+                                </div>
+                                <div class="px-5">
+                                    {{ number_format($project->vendor?->total) }}
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="add_contact_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add contact person</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('projects.contact.store', $project) }}" method="post"
+                        class="my-2" enctype="multipart/form-data">
+                        @csrf
+
+                        <label class="form-label fs-6 fw-bolder text-dark">
+                            Name
+                        </label>
+                        <input class="form-control form-control" type="text" name="name" />
+
+                        <label class="form-label fs-6 fw-bolder text-dark">
+                            Designation
+                        </label>
+                        <input class="form-control form-control" type="text" name="designation" />
+                        <label class="form-label fs-6 fw-bolder text-dark">
+                            Contact
+                        </label>
+                        <input class="form-control form-control" type="text" name="contact" />
+
+                        <button type="submit" class="btn btn-primary mt-2">Add</button>
+                    </form>
                 </div>
             </div>
         </div>

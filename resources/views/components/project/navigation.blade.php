@@ -18,6 +18,10 @@
         <a class="nav-link pb-4 {{ $active == 'vendor' ? 'text-active-primary active' : '' }}"
             href="{{ route('projects.vendor.index', $project) }}">Vendor</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link pb-4 {{ $active == 'bill' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.bill.index', $project) }}">Bill</a>
+    </li>
     <!--end:::Tab item-->
     <!--begin:::Tab item-->
     <li class="nav-item ms-auto">
@@ -42,13 +46,38 @@
                     Project Info</a>
             </div>
             <div class="menu-item px-3">
-                <form method="post" action="{{ route('projects.delete', $project) }}">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="bg-transparent border-0  menu-link text-danger px-5">Delete Project
-                    </button>
-                </form>
+                <button type="button" class="text-danger bg-transparent border-0 px-5" data-bs-toggle="modal"
+                    data-bs-target="#project_delete_modal"> Delete Project
+                </button>
             </div>
         </div>
     </li>
 </ul>
+
+{{-- delete project confirmation modal --}}
+<div class="modal fade" tabindex="-1" id="project_delete_modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure?</h5>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ route('projects.delete', $project) }}" method="post">
+                    @csrf
+                    @method('delete')
+
+                    <p>Are you sure you want to delete this project? After deletion, you can not
+                        access the project but it would not be deleted permanently.</p>
+                    <p class="text-warning"> Project deletion request will go to authorities for confirmation. </p>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete Project</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
