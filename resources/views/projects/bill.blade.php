@@ -13,16 +13,15 @@
                         @endphp
 
                         @if ($projectBill)
-                            <div class="p-3 m-3 mb-5 border-bottom border-gray-500">
+                            <div class="p-3 m-3 mb-5 border-bottom border-gray-500 d-flex flex-column gap-3">
                                 <div> <strong>Bill Type:</strong> {{ $project->billType->name }}</div>
                                 <div> <strong>Bill Status:</strong> {{ $project->billStatus() }}</div>
+                                <div> <strong>Subject:</strong> {{ $projectBill->subject }}</div>
+                                <div> <strong>Date:</strong> {{ $projectBill->date }} </div>
                             </div>
                             <div class="fs-5 d-flex">
                                 <div class="fs-5 d-flex">
                                     <div class="d-flex flex-column gap-3 text-end">
-                                        <div class="px-5">
-                                            <strong>Date:</strong>
-                                        </div>
                                         <div class="px-5">
                                             <strong>Total:</strong>
                                         </div>
@@ -40,9 +39,6 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column gap-3 text-end">
-                                        <div class="px-5">
-                                            {{ $projectBill->date }}
-                                        </div class="px-5">
                                         <div class="px-5">
                                             {{ number_format($projectBill->total) }}
                                         </div class="px-5">
