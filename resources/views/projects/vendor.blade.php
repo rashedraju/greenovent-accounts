@@ -39,10 +39,17 @@
 
             <div class="d-flex gap-3 mt-2">
                 @if ($project->vendor)
-                    <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
-                        data-bs-target="#edit_vendor_modal">
-                        <x-utils.upload /> Edit
-                    </button>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
+                            data-bs-target="#edit_vendor_modal">
+                            <x-utils.upload /> Edit
+                        </button>
+
+                        <a href="{{ asset("/public/uploads/{$project->vendor->file->file}") }}"
+                            class="btn btn-sm px-10 py-0 btn-danger">
+                            <x-utils.download /> Export
+                        </a>
+                    </div>
 
                     <div class="modal fade" tabindex="-1" id="edit_vendor_modal">
                         <div class="modal-dialog modal-dialog-centered">
@@ -83,10 +90,6 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{ asset("/public/uploads/{$project->vendor->file->file}") }}"
-                        class="btn btn-sm px-10 py-0 btn-danger">
-                        <x-utils.download /> Export
-                    </a>
                 @else
                     <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
                         data-bs-target="#import_vendor_modal">

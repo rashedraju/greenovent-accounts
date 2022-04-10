@@ -6,6 +6,7 @@ use App\Http\Requests\AddCostRequest;
 use App\Http\Requests\EditCostRequest;
 use App\Models\ExternalCost;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class ExternalController extends Controller {
     // show external costs
@@ -20,7 +21,7 @@ class ExternalController extends Controller {
         $external = $project->external()->create( $request->only( ['total', 'asf', 'vat', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . $request->file->getClientOriginalName();
+            $fname = time() . "_" . $request->file->getClientOriginalName();
             $filePath = $request->file( 'file' )->storeAs( 'external_files', $fname, 'uploads' );
 
             $external->file()->create( ['file' => $filePath] );
@@ -38,9 +39,17 @@ class ExternalController extends Controller {
         $externalCost->update( $request->only( ['total', 'asf', 'vat', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . $request->file->getClientOriginalName();
+            $fname = time() . "_" . $request->file->getClientOriginalName();
+
+            // store new file
             $filePath = $request->file( 'file' )->storeAs( 'external_files', $fname, 'uploads' );
 
+            // delete previous file
+            if ( isset( $externalCost->file->file ) && Storage::disk( 'uploads' )->exists( $externalCost->file->file ) ) {
+                Storage::disk( 'uploads' )->delete( $externalCost->file->file );
+            }
+
+            // update file path
             $externalCost->file()->update( ['file' => $filePath] );
         } else {
             return back()->with( 'failed', "External file did't fount" );

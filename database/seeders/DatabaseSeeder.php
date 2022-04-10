@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder {
             // VendorCostSeeder::class,
 
             // project bill
-            BillSeeder::class,
+            // BillSeeder::class,
 
             // accounts
             TransactionTypeSeeder::class,

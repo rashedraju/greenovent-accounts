@@ -51,7 +51,7 @@ class UsersController extends Controller {
 
         // store profile image
         if ( $request->has( 'profile_image' ) ) {
-            $fname = time() . $request->profile_image->getClientOriginalName();
+            $fname = time() . "_" . $request->profile_image->getClientOriginalName();
             $profileImagePath = $request->file( 'profile_image' )->storeAs( 'profile_images', $fname, 'uploads' );
 
             // replace profile image file to image path
@@ -96,7 +96,7 @@ class UsersController extends Controller {
 
         // store profile image
         if ( $request->has( 'profile_image' ) ) {
-            $fname = time() . $request->profile_image->getClientOriginalName();
+            $fname = time() . "_" . $request->profile_image->getClientOriginalName();
             $profileImagePath = $request->file( 'profile_image' )->storeAs( 'profile_images', $fname, 'uploads' );
 
             // replace profile image file to image path

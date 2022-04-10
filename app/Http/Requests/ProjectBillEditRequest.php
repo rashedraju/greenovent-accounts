@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectBillAddRequest extends FormRequest {
+class ProjectBillEditRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,7 +28,7 @@ class ProjectBillAddRequest extends FormRequest {
             'total'           => 'required',
             'asf'             => 'sometimes|integer',
             'vat'             => 'sometimes|integer',
-            'file'            => 'required|file',
+            'file'            => 'sometimes|file',
             'supporting_file' => 'sometimes|file'
         ];
     }

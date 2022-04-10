@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InternalCostRequest;
 use App\Models\InternalCost;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class InternalController extends Controller {
     // show internal costs
@@ -19,7 +20,7 @@ class InternalController extends Controller {
         $internal = $project->internal()->create( $request->only( ['total', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . $request->file->getClientOriginalName();
+            $fname = time() . "_" . $request->file->getClientOriginalName();
             $filePath = $request->file( 'file' )->storeAs( 'internal_files', $fname, 'uploads' );
 
             $internal->file()->create( ['file' => $filePath] );
@@ -37,9 +38,17 @@ class InternalController extends Controller {
         $internalCost->update( $request->only( ['total', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . $request->file->getClientOriginalName();
+            $fname = time() . "_" . $request->file->getClientOriginalName();
+
+            // store new file
             $filePath = $request->file( 'file' )->storeAs( 'internal_files', $fname, 'uploads' );
 
+            // delete previous file
+            if ( isset( $internalCost->file->file ) && Storage::disk( 'uploads' )->exists( $internalCost->file->file ) ) {
+                Storage::disk( 'uploads' )->delete( $internalCost->file->file );
+            }
+
+            // save file path
             $internalCost->file()->update( ['file' => $filePath] );
         }
 

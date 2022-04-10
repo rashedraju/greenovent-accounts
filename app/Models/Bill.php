@@ -18,6 +18,16 @@ class Bill extends Model {
         return $this->belongsTo( Project::class );
     }
 
+    // bill files
+    public function file() {
+        return $this->morphOne( File::class, 'fileable' );
+    }
+
+    // bill supporting files
+    public function supporting() {
+        return $this->hasOne( ProjectBillSupporting::class, 'bill_id' );
+    }
+
     /**
      * Project Status
      * one to many relation with BillStatus model
@@ -50,4 +60,5 @@ class Bill extends Model {
     public function getDateAttribute( $value ) {
         return date( 'd M, Y', strtotime( $value ) );
     }
+
 }

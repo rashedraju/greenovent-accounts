@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VendorCostRequest;
 use App\Models\Project;
 use App\Models\VendorCost;
+use Illuminate\Support\Facades\Storage;
 
 class VendorController extends Controller {
     // show vendor costs
@@ -19,7 +20,7 @@ class VendorController extends Controller {
         $vendor = $project->vendor()->create( $request->only( ['total', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . $request->file->getClientOriginalName();
+            $fname = time() . "_" . $request->file->getClientOriginalName();
             $filePath = $request->file( 'file' )->storeAs( 'vendor_files', $fname, 'uploads' );
 
             $vendor->file()->create( ['file' => $filePath] );
@@ -37,9 +38,17 @@ class VendorController extends Controller {
         $vendorCost->update( $request->only( ['total', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . $request->file->getClientOriginalName();
+            $fname = time() . "_" . $request->file->getClientOriginalName();
+
+            // store new file
             $filePath = $request->file( 'file' )->storeAs( 'vendor_files', $fname, 'uploads' );
 
+            // delete old file
+            if ( isset( $vendorCost->file->file ) && Storage::disk( 'uploads' )->exists( $vendorCost->file->file ) ) {
+                Storage::disk( 'uploads' )->delete( $vendorCost->file->file );
+            }
+
+            // save new file path
             $vendorCost->file()->update( ['file' => $filePath] );
         }
 
