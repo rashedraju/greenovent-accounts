@@ -4,8 +4,8 @@
     </div>
     <div class="card">
         <div class="card-body py-4">
-            <div class="my-2 border border-y">
-                @foreach ($permissions as $permission)
+            @foreach ($permissions as $permission)
+                <div class="my-2 border border-y">
                     <button class="btn btn-light w-100 text-start" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseExample{{ $loop->iteration }}" aria-expanded="false"
                         aria-controls="collapseExample" style="border-radius: 0!important">
@@ -34,8 +34,8 @@
                             </form>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>

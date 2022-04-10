@@ -52,11 +52,9 @@
                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                                         <th>Name</th>
                                         <th>Status</th>
+                                        <th>Client</th>
+                                        <th>Type</th>
                                         <th>PO Number</th>
-                                        <th>PO Value</th>
-                                        <th>Advance Paid</th>
-                                        <th>Revenue</th>
-                                        <th>Net Profit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,16 +65,15 @@
                                             <td> <span
                                                     class="badge badge-primary">{{ $project->status->name }}</span>
                                             </td>
+                                            <td><a
+                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
+                                            </td>
+                                            <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>
-                                            <td>{{ number_format($project->po_value) }}</td>
-                                            <td>{{ $project->advance_paid }}</td>
-                                            <td> <span class="bg-danger text-white py-2 px-3 rounded">
-                                                    <x-utils.currency />
-                                                    {{ number_format($project->totalExternals()) }}
-                                                </span></td>
-                                            <td><span class="bg-success text-white py-2 px-3 rounded">
-                                                    <x-utils.currency /> {{ number_format($project->profit()) }}
-                                                </span>
+                                            <td>
+                                                <a href="{{ route('projects.show', $project) }}"
+                                                    class="btn btn-secondary btn-sm">
+                                                    View </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -102,10 +99,6 @@
                                         <th>Client</th>
                                         <th>Type</th>
                                         <th>PO Number</th>
-                                        <th>PO Value</th>
-                                        <th>Start Date</th>
-                                        <th>Closing Date</th>
-                                        <th>Advance Paid</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -121,10 +114,11 @@
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>
-                                            <td>{{ number_format($project->po_value) }}</td>
-                                            <td>{{ $project->start_date }}</td>
-                                            <td>{{ $project->closing_date }}</td>
-                                            <td>{{ $project->advance_paid }}</td>
+                                            <td>
+                                                <a href="{{ route('projects.show', $project) }}"
+                                                    class="btn btn-secondary btn-sm">
+                                                    View </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -149,10 +143,6 @@
                                         <th>Client</th>
                                         <th>Type</th>
                                         <th>PO Number</th>
-                                        <th>PO Value</th>
-                                        <th>Start Date</th>
-                                        <th>Closing Date</th>
-                                        <th>Advance Paid</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -168,10 +158,11 @@
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>
-                                            <td>{{ number_format($project->po_value) }}</td>
-                                            <td>{{ $project->start_date }}</td>
-                                            <td>{{ $project->closing_date }}</td>
-                                            <td>{{ $project->advance_paid }}</td>
+                                            <td>
+                                                <a href="{{ route('projects.show', $project) }}"
+                                                    class="btn btn-secondary btn-sm">
+                                                    View </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -196,10 +187,6 @@
                                         <th>Client</th>
                                         <th>Type</th>
                                         <th>PO Number</th>
-                                        <th>PO Value</th>
-                                        <th>Start Date</th>
-                                        <th>Closing Date</th>
-                                        <th>Advance Paid</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -215,10 +202,11 @@
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>{{ $project->po_number }}</td>
-                                            <td>{{ number_format($project->po_value) }}</td>
-                                            <td>{{ $project->start_date }}</td>
-                                            <td>{{ $project->closing_date }}</td>
-                                            <td>{{ $project->advance_paid }}</td>
+                                            <td>
+                                                <a href="{{ route('projects.show', $project) }}"
+                                                    class="btn btn-secondary btn-sm">
+                                                    View </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -405,42 +393,42 @@
                 navLinks: true,
                 events: [{
                         title: "Event One",
-                        start: "2022-03-14",
+                        start: "2022-04-14",
                         extendedProps: {
                             longTitle: "Default title"
                         }
                     },
                     {
                         title: "Event Two",
-                        start: "2022-03-14",
+                        start: "2022-04-14",
                         extendedProps: {
                             longTitle: "<b>Custom Title</b>"
                         }
                     },
                     {
                         title: "Event Three",
-                        start: "2022-03-14",
+                        start: "2022-04-14",
                         extendedProps: {
                             longTitle: "Default title"
                         }
                     },
                     {
                         title: "Event Four",
-                        start: "2022-03-06",
+                        start: "2022-04-06",
                         extendedProps: {
                             longTitle: "<b>Custom Title</b>"
                         }
                     },
                     {
                         title: "Event Five",
-                        start: "2022-03-06",
+                        start: "2022-04-06",
                         extendedProps: {
                             longTitle: "Default title"
                         }
                     },
                     {
                         title: "Event Six",
-                        start: "2022-03-06",
+                        start: "2022-04-06",
                         extendedProps: {
                             longTitle: "<b>Custom Title</b>"
                         }

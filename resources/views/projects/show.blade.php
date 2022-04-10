@@ -76,6 +76,9 @@
                                 <div class="px-5">
                                     <strong>Vendor: </strong>
                                 </div>
+                                <div class="px-5">
+                                    <strong>Gross Profit: </strong>
+                                </div>
                             </div>
                             <div class="d-flex flex-column gap-3 text-end">
                                 <div class="px-5">
@@ -86,6 +89,9 @@
                                 </div>
                                 <div class="px-5">
                                     {{ number_format($project->vendor?->total) }}
+                                </div>
+                                <div class="px-5">
+                                    {{ number_format($project->grossProfit()) }}
                                 </div>
                             </div>
                         </div>

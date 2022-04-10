@@ -17,7 +17,12 @@ class RolesAndPermissionsSeeder extends Seeder {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create( ['name' => 'show dashboard'] );
+        Permission::create( ['name' => 'Dashboard'] );
+        Permission::create( ['name' => 'Clients'] );
+        Permission::create( ['name' => 'Projects'] );
+        Permission::create( ['name' => 'Employees'] );
+        Permission::create( ['name' => 'Accounts'] );
+        Permission::create( ['name' => 'Permissions'] );
 
         // create roles
         $roleCEO = Role::create( ['name' => 'CEO'] );
@@ -30,6 +35,12 @@ class RolesAndPermissionsSeeder extends Seeder {
         $roleAccounts = Role::create( ['name' => 'Accounts'] );
 
         // permissions for roleCEO
-        $roleCEO->givePermissionTo( 'show dashboard' );
+        $roleCEO->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
+        $roleCOO->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
+        $roleExecutiveDirector->givePermissionTo( ['Clients', 'Projects'] );
+        $roleGeneralManager->givePermissionTo( ['Clients', 'Projects'] );
+        $roleHeadofOperations->givePermissionTo( ['Clients', 'Projects'] );
+        $roleHR->givePermissionTo( ['Employees'] );
+        $roleAccounts->givePermissionTo( ['Accounts'] );
     }
 }

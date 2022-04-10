@@ -118,4 +118,14 @@ class Project extends Model {
     public function bills() {
         return $this->hasMany( Bill::class, 'project_id' );
     }
+
+    // gross profit
+    public function grossProfit() {
+        return $this->external - $this->internal;
+    }
+
+    // Cost incurred
+    public function costIncurred() {
+        return $this->external && $this->internal ? ( $this->internal / $this->external ) * 100 : 0;
+    }
 }
