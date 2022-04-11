@@ -12,6 +12,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ExternalController;
 use App\Http\Controllers\InternalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeLeaveController;
 use App\Http\Controllers\WithdrawalsController;
 use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ProjectContactPersonController;
@@ -45,6 +46,13 @@ Route::middleware( 'auth' )->group( function () {
         // Employee performance
         Route::post( '/{user}/performances', [EmployeePerformanceController::class, 'store'] )->name( 'performances.store' );
     } );
+
+    // Employee Leave
+    Route::name('leave.')->prefix('leave')->group(function(){
+        Route::get('/create', [EmployeeLeaveController::class, 'create'])->name('create');
+        Route::post('/', [EmployeeLeaveController::class, 'store'])->name('store');
+        Route::put('/{employeeLeave}', [EmployeeLeaveController::class, 'update'])->name('update');
+    });
 
     // Projects Routes
     Route::name( 'projects.' )->prefix( 'projects' )->group( function () {

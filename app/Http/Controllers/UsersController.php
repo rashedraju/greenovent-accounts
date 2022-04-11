@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeAddRequest;
 use App\Http\Requests\EmployeeEditRequest;
+use App\Models\EmployeeLeave;
+use App\Models\LeaveApproval;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -18,8 +20,11 @@ class UsersController extends Controller {
     // View all users
     public function index() {
         // Get all users from
-        $users = User::paginate( 10 );
-        return view( 'users.index', ['users' => $users] );
+        $users = User::orderBy( 'joining_date', 'asc' )->get();
+        $leaves = EmployeeLeave::orderBy( 'created_at', 'desc' )->get();
+        $leaveApprovals = LeaveApproval::all();
+
+        return view( 'users.index', ['users' => $users, 'leaves' => $leaves, 'leaveApprovals' => $leaveApprovals] );
     }
 
     // Show Employe Profile

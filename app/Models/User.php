@@ -46,6 +46,11 @@ class User extends Authenticatable {
         return $this->getRoleNames()->first();
     }
 
+    // employee leaves
+    public function leaves() {
+        return $this->hasMany( EmployeeLeave::class, 'user_id' );
+    }
+
     // get readable joining date
     public function getJoiningDateAttribute( $value ) {
         return date( 'M d, Y', strtotime( $value ) );

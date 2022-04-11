@@ -137,6 +137,12 @@
                                 Profile</a>
                         </div>
 
+                        <div class="menu-item px-5">
+                            <a href="{{ route('leave.create') }}" class="menu-link px-5">
+                                Leave Register
+                            </a>
+                        </div>
+
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
                             <a href="{{ route('logout') }}" class="menu-link px-5">Sign Out</a>

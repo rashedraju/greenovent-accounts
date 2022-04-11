@@ -38,6 +38,14 @@ class DashboardController extends Controller {
         $totalLoanAmountByYear = $this->accountService->getLoanAmountByYear( $year );
         $totalInvestmentAmountByYear = $this->accountService->getInvestmentAmountByYear( $year );
 
-        return view( 'dashboard', compact( ['clients', 'projects', 'users', 'year', 'totalAmountByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear'] ) );
+        // get gross and net profit by year
+        $grossProfit = $this->accountService->getGrossProfitByYear( $year );
+        $netProfit = $this->accountService->getNetProfitByYear( $year );
+
+        // project finance
+        $projectCredit = $this->accountService->getProjectCreditAmountByYear( $year );
+        $projectDebit = $this->accountService->getProjectDebitAmountByYear( $year );
+
+        return view( 'dashboard', compact( ['clients', 'projects', 'users', 'year', 'totalAmountByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear', 'grossProfit', 'netProfit', 'projectCredit', 'projectDebit'] ) );
     }
 }

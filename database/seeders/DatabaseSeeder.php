@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder {
             PerformanceNameSeeder::class,
             EmployeePerformanceSeeder::class,
 
+            // leave
+            LeaveApprovalSeeder::class,
+
             // clients
             ClientSeeder::class,
 
