@@ -8,7 +8,7 @@
                     </div>
                     <div class="separator separator-dashed"></div>
                     <h2 class="mt-3">
-                        &#2547; {{ number_format($client->salesThisYear()) }}</h2>
+                        &#2547; {{ number_format($client->salesByYear(now()->year)) }}</h2>
                     <div class="fs-4 fw-bold text-gray-400 mb-7">Sales this year</div>
                     <div class="fs-6 d-flex justify-content-between mb-4">
                         <div class="fw-bold">Total Sales</div>

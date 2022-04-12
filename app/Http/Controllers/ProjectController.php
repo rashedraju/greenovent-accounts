@@ -95,7 +95,7 @@ class ProjectController extends Controller {
 
         $project->update( $attrs );
 
-        return redirect()->route( 'projects.index' )->with( 'success', 'Project updated successfully' );
+        return redirect()->route( 'projects.show', $project )->with( 'success', 'Project updated successfully' );
     }
 
     // delete project

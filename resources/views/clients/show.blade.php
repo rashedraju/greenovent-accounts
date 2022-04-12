@@ -31,7 +31,7 @@
                             </div>
                             <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
                                 <div class="fs-4 fw-bolder text-gray-700 text-center">
-                                    <span class="w-75px">{{ number_format($client->salesThisYear()) }}</span>
+                                    <span class="w-75px">{{ number_format($client->salesByYear(now()->year)) }}</span>
                                 </div>
                                 <div class="fw-bold text-muted">Sales this Year</div>
                             </div>

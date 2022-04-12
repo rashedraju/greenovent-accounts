@@ -6,12 +6,21 @@ use App\Exports\WithdrawalsExport;
 use App\Http\Requests\WithdrawalAddRequest;
 use App\Models\User;
 use App\Models\Withdrawal;
+use App\Services\AccountService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class WithdrawalsController extends Controller {
+    public $accountService;
+
+    public function __construct( AccountService $accountService ) {
+        $this->accountService = $accountService;
+    }
+
     public function index() {
-        return view( 'accounts.withdrawals.index' );
+        $year = now()->year;
+        $totalWithdrawalAmountOfThisYear = $this->accountService->getTotalWithdrawalAmountByYear( $year );
+        return view( 'accounts.withdrawals.index', compact( ['year', 'totalWithdrawalAmountOfThisYear'] ) );
     }
 
     public function show( Request $request ) {

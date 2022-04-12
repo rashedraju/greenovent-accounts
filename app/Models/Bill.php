@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Bill extends Model {
     use HasFactory;
@@ -58,7 +59,15 @@ class Bill extends Model {
     }
 
     public function getDateAttribute( $value ) {
-        return date( 'd M, Y', strtotime( $value ) );
+        return date( 'd-m-Y', strtotime( $value ) );
+    }
+
+    public function billMonth() {
+        return Carbon::parse( $this->date )->format( 'F' );
+    }
+
+    public function billYear() {
+        return Carbon::parse( $this->date )->format( 'Y' );
     }
 
 }

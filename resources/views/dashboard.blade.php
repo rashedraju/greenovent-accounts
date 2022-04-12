@@ -13,16 +13,16 @@
                         </h1>
                     </div>
 
-                    <div class="bg-success p-5 text-white">
-                        <p class="text-white">Bank</p>
-                        <h1 class="text-white">
+                    <div class="bg-light p-5 text-white border border-gray-300">
+                        <p class="text-gray-700">Bank</p>
+                        <h1 class="text-gray-700">
                             <x-utils.currency />{{ number_format($totalBankAmountByYear) }}
                         </h1>
                     </div>
 
-                    <div class="bg-info p-5 text-white">
-                        <p class="text-white">Cash</p>
-                        <h1 class="text-white">
+                    <div class="bg-light p-5 text-white border border-gray-300">
+                        <p class="text-gray-700">Cash</p>
+                        <h1 class="text-gray-700">
                             <x-utils.currency />{{ number_format($totalCashAmountByYear) }}
                         </h1>
                     </div>
@@ -42,43 +42,22 @@
                     </div>
                 </div>
                 <div class="d-flex overflow-scroll">
-                    <div class="bg-primary p-5">
-                        <p class="text-white">Gross Profit</p>
+                    <div class="bg-info p-5">
+                        <p class="text-white">Revenue</p>
                         <h1 class="text-white">
-                            <x-utils.currency />{{ number_format($grossProfit) }}
+                            <x-utils.currency />{{ number_format($totalRevenueOfThisYear) }}
+                        </h1>
+                    </div>
+
+                    <div class="bg-light p-5">
+                        <p class="text-gray-700">Expense</p>
+                        <h1 class="text-gray-700">
+                            <x-utils.currency />{{ number_format($totalExpenseByYear) }}
                         </h1>
                     </div>
 
                     <div class="bg-success p-5 text-white" style="border-radius: 0 2rem 0 0">
                         <p class="text-white">Net Profit</p>
-                        <h1 class="text-white">
-                            <x-utils.currency />{{ number_format($netProfit) }}
-                        </h1>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-10">
-                <h3 class="pb-5">
-                    Project Finance
-                </h3>
-                <div class="d-flex overflow-scroll">
-                    <div class="bg-light p-5" style="border-radius: 2rem 0 0 0; border-right: 1px solid #ccc">
-                        <p class="text-gray-500">Credit Amount</p>
-                        <h1 class="text-dark">
-                            <x-utils.currency />{{ number_format($projectCredit) }}
-                        </h1>
-                    </div>
-
-                    <div class="bg-light p-5 text-white">
-                        <p class="text-gray-500">Debit Amount</p>
-                        <h1 class="text-dark">
-                            <x-utils.currency />{{ number_format($projectDebit) }}
-                        </h1>
-                    </div>
-
-                    <div class="bg-success p-5 text-white">
-                        <p class="text-white">Gross Profit</p>
                         <h1 class="text-white">
                             <x-utils.currency />{{ number_format($netProfit) }}
                         </h1>
@@ -93,40 +72,34 @@
             <h3> Clients</h3>
         </div>
         <div class="card-body">
-            <div class="d-flex flex-wrap gap-3">
-                @foreach ($clients as $client)
-                    <div class="border d-inline-block p-5">
-                        <div class="d-flex justify-content-center flex-column align-items-center gap-2">
-                            <div class="fs-1 fw-bolder mt-3">
-                                <a href="{{ route('clients.show', $client) }}">
-                                    {{ $client->company_name }}
-                                </a>
-                            </div>
-                        </div>
-                        <div class="separator separator-dashed"></div>
-                        <h2 class="mt-3">
-                            &#2547; {{ number_format($client->salesThisYear()) }}</h2>
-                        <div class="fs-4 fw-bold text-gray-400 mb-7">Sales this year</div>
-                        <div class="fs-6 d-flex justify-content-between mb-4">
-                            <div class="fw-bold">Total Sales</div>
-                            <div class="d-flex fw-bolder">
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr007.svg-->
-                                <span class="svg-icon svg-icon-3 me-1 svg-icon-success">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none">
-                                        <path
-                                            d="M13.4 10L5.3 18.1C4.9 18.5 4.9 19.1 5.3 19.5C5.7 19.9 6.29999 19.9 6.69999 19.5L14.8 11.4L13.4 10Z"
-                                            fill="black"></path>
-                                        <path opacity="0.3" d="M19.8 16.3L8.5 5H18.8C19.4 5 19.8 5.4 19.8 6V16.3Z"
-                                            fill="black">
-                                        </path>
-                                    </svg>
-                                </span>
-                                &#2547;{{ number_format($client->totalSales()) }}
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-light">
+                        <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
+                            <th class="px-2 py-5">SI</th>
+                            <th class="px-2 py-5">Client Name</th>
+                            <th class="px-2 py-5">Sales this year</th>
+                            <th class="px-2 py-5">Total Sales</th>
+                            <th class="px-2 py-5">Total Project</th>
+                            <th class="px-2 py-5">Completed Projects</th>
+                            <th class="px-2 py-5">Ongoing Projects</th>
+                        </tr>
+                    </thead>
+                    <tbody class="border border-dark">
+                        @foreach ($clients as $client)
+                            <tr
+                                class="border border-dark fw-bold {{ $loop->iteration <= 3 ? 'table-primary' : '' }}">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $client->company_name }}</td>
+                                <td>{{ $client->salesByYear(now()->year) }}</td>
+                                <td>{{ $client->totalSales() }}</td>
+                                <td>{{ $client->projects->count() }}</td>
+                                <td>{{ $client->completedProjects()->count() }}</td>
+                                <td>{{ $client->inProgressProjects()->count() }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

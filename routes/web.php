@@ -116,7 +116,7 @@ Route::middleware( 'auth' )->group( function () {
         // finances
         Route::name( 'finances.' )->prefix( 'finances' )->group( function () {
             Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
-            Route::get( '{year}', [AccountsController::class, 'show'] )->name( 'show' );
+            Route::get( '{year}/{month}', [AccountsController::class, 'show'] )->name( 'show' );
         } );
 
         // debit
