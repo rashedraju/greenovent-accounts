@@ -29,7 +29,9 @@ class UsersController extends Controller {
 
     // Show Employe Profile
     public function show( User $user ) {
-        return view( 'users.show', ['user' => $user] );
+        $leaves = $user->leaves()->orderBy('id', 'desc')->get();
+
+        return view( 'users.show', ['user' => $user, 'leaves' => $leaves] );
     }
 
     /**

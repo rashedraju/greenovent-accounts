@@ -1,9 +1,14 @@
 <x-app-layout>
-    <div class="row">
-        <div class="col-lg-6 mx-auto">
+    <div class="flex-lg-row-fluid ms-lg-15">
+        <x-project.navigation :project="$project" active="" />
+
+        <div class="col-12 col-lg-6 mx-auto">
             <div class="card">
+                <div class="card-header justify-content-center">
+                    <h3 class="mt-5">Edit Project</h3>
+                </div>
+                <!-- Validation Errors -->
                 <div class="card-body">
-                    <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <form class="form w-100" novalidate="novalidate"
@@ -11,14 +16,6 @@
                         @csrf
                         @method('put')
 
-                        <div class="text-center mb-10">
-                            <h1 class="text-dark mb-3">Edit Project</h1>
-                        </div>
-                        <div class="d-flex align-items-center mb-10">
-                            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                            <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
-                            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                        </div>
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">Project Name
                             </label>
@@ -136,5 +133,4 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>

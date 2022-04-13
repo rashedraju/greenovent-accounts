@@ -14,7 +14,9 @@ class BillController extends Controller {
     public function index( Project $project ) {
         $billStatuses = BillStatus::all();
 
-        return view( 'projects.bill', ['project' => $project, 'billStatuses' => $billStatuses] );
+        $bills = $project->bill_type == 1 ? $project->bills->take(1) : $project->bills;
+
+        return view( 'projects.bill', ['project' => $project, 'bills' => $bills, 'billStatuses' => $billStatuses] );
     }
 
     // Store internal cost

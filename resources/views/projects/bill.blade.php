@@ -8,9 +8,19 @@
             <div class="card">
                 <div class="card-body">
                     @if ($project->bill_type == 1)
-                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$project->bills->take(1)" />
+                        @unless($bills->count() > 0)
+                            <button type="button" class="btn btn-sm px-5 py-1 btn-success" data-bs-toggle="modal"
+                                data-bs-target="#add_bill_modal">
+                                <x-utils.add-icon /> Add Bill
+                            </button>
+                        @endunless
+                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$bills" />
                     @else
-                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$project->bills" />
+                        <button type="button" class="btn btn-sm px-5 py-1 btn-success" data-bs-toggle="modal"
+                            data-bs-target="#add_bill_modal">
+                            <x-utils.add-icon /> Add Bill
+                        </button>
+                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$bills" />
                     @endif
                 </div>
             </div>

@@ -12,8 +12,8 @@ class EmployeeLeave extends Model {
         return $this->belongsTo( User::class );
     }
 
-    public function apporval(){
-        return $this->belongsTo(LeaveApproval::class, 'approval_id');
+    public function apporval() {
+        return $this->belongsTo( LeaveApproval::class, 'approval_id' );
     }
 
     // get formated date string

@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="d-flex gap-3 align-items-center justify-content-between">
                         <h3 class="mb-0">Employee Details</h3>
-                        <a href="{{ route('employees.edit', $user) }}" class="btn btn-success btn-sm">Edit</a>
+                        <a href="{{ route('employees.edit', $user) }}" class="btn btn-primary btn-sm">Edit</a>
                     </div>
                     <div class="border p-3 mt-5">
                         <img src="{{ asset("/public/uploads/{$user->profile_image}") }}" alt="" srcset=""
@@ -36,6 +36,37 @@
                             <strong>{{ $user->emergency_contact_relation }}</strong>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex gap-3 align-items-center justify-content-between">
+                        <h3 class="mb-0">Leave History</h3>
+                        <a href="{{ route('leave.create') }}" class="btn btn-primary btn-sm">Leave
+                            Register</a>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Subject
+                            </th>
+                            <th>
+                                Approval
+                            </th>
+                        </thead>
+                        <tbody>
+                            @foreach ($leaves as $leave)
+                                <tr class="table-light border">
+                                    <td>{{ $leave->created_at }}</td>
+                                    <td>{{ $leave->subject }}</td>
+                                    <td>{{ $leave->apporval->name }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -171,50 +202,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex gap-3 align-items-center justify-content-between">
-                        <h3 class="mb-0">Pending Projects<span
-                                class="text-primary">({{ $user->pendingProjects()->count() }})</span></h3>
-                    </div>
-                    <div class="border p-3 mt-5">
-                        <div class="table-responsive">
-                            <table class="table table-striped gy-7 gs-7">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Client</th>
-                                        <th>Type</th>
-                                        <th>PO Number</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($user->pendingProjects() as $project)
-                                        <tr>
-                                            <td> <a href="{{ route('projects.show', $project) }}">
-                                                    {{ $project->name }} </a></td>
-                                            <td> <span
-                                                    class="badge badge-primary">{{ $project->status->name }}</span>
-                                            </td>
-                                            <td><a
-                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
-                                            </td>
-                                            <td>{{ $project->type->name }}</td>
-                                            <td>{{ $project->po_number }}</td>
-                                            <td>
-                                                <a href="{{ route('projects.show', $project) }}"
-                                                    class="btn btn-secondary btn-sm">
-                                                    View </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="card my-3">
                 <div class="card-body">
                     <div class="d-flex gap-3 align-items-center justify-content-between">

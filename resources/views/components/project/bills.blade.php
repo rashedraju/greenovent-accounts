@@ -1,13 +1,5 @@
 @props(['project', 'billType', 'billStatuses', 'bills'])
 
-@if (($billType == 1 && $bills->count() == 0) || $billType != 1)
-    <button type="button" class="btn btn-sm px-5 py-1 btn-success" data-bs-toggle="modal"
-        data-bs-target="#add_bill_modal">
-        <x-utils.add-icon /> Add Bill
-    </button>
-@endif
-
-
 @if ($bills->count() > 0)
     @foreach ($bills as $bill)
         <div class="border p-3 m-3">
