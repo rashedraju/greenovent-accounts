@@ -37,24 +37,6 @@
                     </a>
                     <div>{{ $project->client->office_address }}</div>
                 </div>
-                <div>
-                    <div class="mb-5 d-flex gap-3 align-items-center">
-                        <h3 class="fw-bolder m-0">Contact Persons</h3>
-                        <button type="button" class="btn btn-sm py-0 px-2 btn-light" data-bs-toggle="modal"
-                            data-bs-target="#add_contact_modal">
-                            <x-utils.add-icon /> Add
-                        </button>
-                    </div>
-                    <div>
-                        @foreach ($project->contactPersons as $contactPerson)
-                            <div class="border p-2 my-2">
-                                <h5>{{ $contactPerson->name }}</h5>
-                                <div>{{ $contactPerson->designation }}</div>
-                                <div>{{ $contactPerson->contact }}</div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -96,6 +78,27 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card my-2">
+            <div class="card-body">
+                <div class="mb-5 d-flex gap-3 align-items-center">
+                    <h3 class="fw-bolder m-0">Contact Persons</h3>
+                    <button type="button" class="btn btn-sm py-0 px-2 btn-light" data-bs-toggle="modal"
+                        data-bs-target="#add_contact_modal">
+                        <x-utils.add-icon /> Add
+                    </button>
+                </div>
+                <div>
+                    @foreach ($project->contactPersons as $contactPerson)
+                        <div class="border p-2 my-2">
+                            <h5>{{ $contactPerson->name }}</h5>
+                            <div>{{ $contactPerson->designation }}</div>
+                            <div>{{ $contactPerson->contact }}</div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

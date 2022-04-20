@@ -15,6 +15,11 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link pb-4 {{ $active == 'recognitions' ? 'text-active-primary active' : '' }}"
+            href="{{ route('projects.recognitions.index', $project) }}">Recognition</a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link pb-4 {{ $active == 'vendor' ? 'text-active-primary active' : '' }}"
             href="{{ route('projects.vendor.index', $project) }}">Vendor</a>
     </li>

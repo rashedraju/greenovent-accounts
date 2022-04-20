@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between flex-wrap">
                 <div class="p-3 m-3 mb-5 d-flex flex-column gap-3">
                     <div> <strong>Bill Type:</strong> {{ $billType }}
                     </div>

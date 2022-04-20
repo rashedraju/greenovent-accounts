@@ -1,24 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\CreditController;
-use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\CreditController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepositsController;
+use App\Http\Controllers\EmployeeLeaveController;
+use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ExternalController;
 use App\Http\Controllers\InternalController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EmployeeLeaveController;
-use App\Http\Controllers\WithdrawalsController;
-use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ProjectContactPersonController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RecognitionsController;
 use App\Http\Controllers\RolesAndPermissionsController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VendorController;
-use App\Models\ProjectContactPerson;
+use App\Http\Controllers\WithdrawalsController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,11 +48,11 @@ Route::middleware( 'auth' )->group( function () {
     } );
 
     // Employee Leave
-    Route::name('leave.')->prefix('leave')->group(function(){
-        Route::get('/create', [EmployeeLeaveController::class, 'create'])->name('create');
-        Route::post('/', [EmployeeLeaveController::class, 'store'])->name('store');
-        Route::put('/{employeeLeave}', [EmployeeLeaveController::class, 'update'])->name('update');
-    });
+    Route::name( 'leave.' )->prefix( 'leave' )->group( function () {
+        Route::get( '/create', [EmployeeLeaveController::class, 'create'] )->name( 'create' );
+        Route::post( '/', [EmployeeLeaveController::class, 'store'] )->name( 'store' );
+        Route::put( '/{employeeLeave}', [EmployeeLeaveController::class, 'update'] )->name( 'update' );
+    } );
 
     // Projects Routes
     Route::name( 'projects.' )->prefix( 'projects' )->group( function () {
@@ -82,6 +82,11 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{project}/vendor/{vendorCost}', [VendorController::class, 'update'] )->name( 'vendor.update' );
         Route::delete( '/{project}/vendor/{vendorCost}', [VendorController::class, 'delete'] )->name( 'vendor.delete' );
 
+        // Project Recognitions
+        Route::get( '/{project}/recognitions', [RecognitionsController::class, 'index'] )->name( 'recognitions.index' );
+        Route::post( '/{project}/recognitions', [RecognitionsController::class, 'store'] )->name( 'recognitions.store' );
+        Route::delete( '/{project}/recognitions/{recognition}', [RecognitionsController::class, 'delete'] )->name( 'recognitions.delete' );
+
         // Project Bill
         Route::get( '/{project}/bill', [BillController::class, 'index'] )->name( 'bill.index' );
         Route::post( '/{project}/bill', [BillController::class, 'store'] )->name( 'bill.store' );
@@ -89,7 +94,7 @@ Route::middleware( 'auth' )->group( function () {
         Route::delete( '/{project}/bill/{bill}', [BillController::class, 'delete'] )->name( 'bill.delete' );
 
         // Project Contact Person
-        Route::post('{project}/contact', [ProjectContactPersonController::class, 'store'])->name('contact.store');
+        Route::post( '{project}/contact', [ProjectContactPersonController::class, 'store'] )->name( 'contact.store' );
     } );
 
     // Clients Routes
@@ -173,9 +178,9 @@ Route::middleware( 'auth' )->group( function () {
     Route::put( '/permissions/{permission}', [RolesAndPermissionsController::class, 'update'] )->name( 'permissions.update' );
 } );
 
-Route::fallback( function () {
-    echo "404";
-} );
+// Route::fallback( function () {
+//     echo "404";
+// } );
 
 // Authentication routes
 require __DIR__ . '/auth.php';
