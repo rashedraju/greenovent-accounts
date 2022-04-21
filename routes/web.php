@@ -85,7 +85,6 @@ Route::middleware( 'auth' )->group( function () {
         // Project Recognitions
         Route::get( '/{project}/recognitions', [RecognitionsController::class, 'index'] )->name( 'recognitions.index' );
         Route::post( '/{project}/recognitions', [RecognitionsController::class, 'store'] )->name( 'recognitions.store' );
-        Route::delete( '/{project}/recognitions/{recognition}', [RecognitionsController::class, 'delete'] )->name( 'recognitions.delete' );
 
         // Project Bill
         Route::get( '/{project}/bill', [BillController::class, 'index'] )->name( 'bill.index' );

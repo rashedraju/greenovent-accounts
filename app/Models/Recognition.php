@@ -15,6 +15,14 @@ class Recognition extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function checkedBy(){
+        return $this->belongsTo(User::class, 'checked_by');
+    }
+
+    public function approveBy(){
+        return $this->belongsTo(User::class, 'approve_by');
+    }
+
     public function project(){
         return $this->belongsTo(Project::class);
     }

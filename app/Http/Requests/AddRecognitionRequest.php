@@ -21,6 +21,8 @@ class AddRecognitionRequest extends FormRequest {
      */
     public function rules() {
         return [
+            'user_id'                          => 'required|exists:users,id',
+            'checked_by'                       => 'required|exists:users,id',
             'recognition_items'                => 'required|array',
             'recognition_items.*.purpose'      => "required",
             'recognition_items.*.rate'         => "required",

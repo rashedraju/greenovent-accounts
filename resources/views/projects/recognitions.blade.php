@@ -19,6 +19,41 @@
                                 class="my-2" enctype="multipart/form-data">
                                 @csrf
 
+                                <div class="fv-row mb-7">
+                                    <label class="form-label fw-bolder text-dark fs-6" for="phone">Receive By
+                                        <x-utils.required />
+                                    </label>
+
+                                    <select class="form-select form-select-solid select2-hidden-accessible"
+                                        data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
+                                        name="user_id">
+                                        @foreach ($users as $userId => $userName)
+                                            <option value="{{ $userId }}">
+                                                {{ $userName }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="fv-row mb-7">
+                                    <label class="form-label fw-bolder text-dark fs-6" for="phone">Checked By
+                                        <x-utils.required />
+                                    </label>
+
+                                    <select class="form-select form-select-solid select2-hidden-accessible"
+                                        data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
+                                        name="checked_by">
+                                        @foreach ($users as $userId => $userName)
+                                            <option value="{{ $userId }}">
+                                                {{ $userName }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="my-3">
+                                    <h3>
+                                        Add Items
+                                    </h3>
+                                </div>
                                 <div id="recognition_items">
                                     <!--begin::Form group-->
                                     <div class="form-group">
@@ -55,7 +90,8 @@
 
                                     <!--begin::Form group-->
                                     <div class="form-group mt-5">
-                                        <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
+                                        <a href="javascript:;" data-repeater-create
+                                            class="btn btn-light-primary px-3 py-1">
                                             <x-utils.add-icon />Add
                                         </a>
                                     </div>
@@ -63,13 +99,21 @@
                                 </div>
                                 <!--end::Repeater-->
 
-                                <button type="submit" class="btn btn-primary mt-2">Add Recognition</button>
+                                <button type="submit" class="btn btn-primary mt-2 w-100">Save Recognition</button>
                             </form>
                         </div>
                     </div>
 
                     @foreach ($project->recognitions as $recognition)
                         <div class="border mt-3 mb-3 p-5 border-gray-300">
+                            <div class="mt-5 d-flex justify-content-between gap-3">
+                                <h2 class="text-uppercase px-3 py-1 bg-gray-900 text-white rounded-3">Money Recognition
+                                </h2>
+                                <form action="" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-primary">Send Approve Request</button>
+                                </form>
+                            </div>
                             <div class="d-flex py-5 gap-3">
                                 <div class="w-50 d-flex align-items-center gap-2"><strong> Name: </strong> <span
                                         class="w-100 flex-1 border-0 border-bottom-2 border-dotted">{{ $recognition->person->name }}</span>
@@ -115,6 +159,40 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="mt-5 d-flex justify-content-between">
+                                <div>
+                                    <div class="text-center">
+                                        {{ $recognition->person->name }}
+                                    </div>
+                                    <div class="border-top border-top-1 border-gray-500">
+                                        <strong>
+                                            Received By
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="text-center">
+                                        {{ $recognition->checkedBy?->name }}&nbsp;
+                                    </div>
+                                    <div class="border-top border-top-1 border-gray-500">
+                                        <strong>
+                                            Checked By
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-center">
+                                        {{ $recognition->approveBy?->name }}&nbsp;
+                                    </div>
+                                    <div class="border-top border-top-1 border-gray-500">
+                                        <strong>
+                                            Approve By
+                                        </strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach

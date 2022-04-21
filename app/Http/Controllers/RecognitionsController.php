@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddRecognitionRequest;
 use App\Models\Project;
 use App\Models\Recognition;
+use App\Models\User;
 
 class RecognitionsController extends Controller {
     public function index( Project $project ) {
         $projects = Project::pluck( 'name', 'id' );
+        $users = User::pluck( 'name', 'id' );
 
-        return view( 'projects.recognitions', ['projects' => $projects, 'project' => $project] );
+        return view( 'projects.recognitions', ['projects' => $projects, 'users' => $users, 'project' => $project] );
     }
 
     public function store( Project $project, AddRecognitionRequest $request ) {
@@ -18,11 +20,10 @@ class RecognitionsController extends Controller {
 
         $recognitionItems = array_pop( $attrs );
 
-        $recognition = Recognition::create( [
-            'date' => now(),
-            'user_id' => auth()->user()->id,
-            'project_id' => $project->id,
-        ] );
+        $recognition = Recognition::create( array_merge( $attrs, [
+            'date'       => now(),
+            'project_id' => $project->id
+        ] ) );
 
         $recognition->items()->createMany( $recognitionItems );
 
