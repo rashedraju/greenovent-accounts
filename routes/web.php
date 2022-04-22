@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CreditController;
@@ -175,6 +176,11 @@ Route::middleware( 'auth' )->group( function () {
     // Route access permissions
     Route::get( '/permissions', [RolesAndPermissionsController::class, 'index'] )->name( 'permissions.index' );
     Route::put( '/permissions/{permission}', [RolesAndPermissionsController::class, 'update'] )->name( 'permissions.update' );
+
+    // Approvals
+    Route::get('/approvals', [ApprovalsController::class, 'index'])->name('approvals.index');
+    Route::get('/approvals/{approval}', [ApprovalsController::class, 'show'])->name('approvals.show');
+    Route::put('/approvals/{approval}', [ApprovalsController::class, 'update'])->name('approvals.update');
 } );
 
 // Route::fallback( function () {

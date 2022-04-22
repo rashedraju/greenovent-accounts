@@ -77,6 +77,12 @@
                                 <span class="menu-title">Permissions</span>
                             </a>
                         </div>
+                        <div class="menu-item me-lg-1">
+                            <a href="{{ route('approvals.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('approvals.*') ? 'active' : '' }}">
+                                <span class="menu-title">Approvals</span>
+                            </a>
+                        </div>
                     </div>
                     <!--end::Menu-->
                 </div>

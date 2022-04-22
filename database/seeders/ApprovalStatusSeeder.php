@@ -2,16 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\TransactionAprovalType;
+use App\Models\ApprovalStatus;
 use Illuminate\Database\Seeder;
 
-class TransactionAprovalTypeSeeder extends Seeder {
+class ApprovalStatusSeeder extends Seeder
+{
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
         $types = [
             [
                 'name' => 'pending',
@@ -32,7 +34,7 @@ class TransactionAprovalTypeSeeder extends Seeder {
         ];
 
         foreach ( $types as $type ) {
-            TransactionAprovalType::create( $type );
+            ApprovalStatus::create( $type );
         }
     }
 }

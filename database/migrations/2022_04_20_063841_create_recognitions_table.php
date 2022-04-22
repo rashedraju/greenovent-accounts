@@ -17,7 +17,6 @@ class CreateRecognitionsTable extends Migration {
             $table->foreignId( 'project_id' )->constrained( 'projects', 'id' );
             $table->date( 'date' );
             $table->foreignId( 'checked_by' )->nullable()->constrained( 'users', 'id' );
-            $table->foreignId( 'approve_by' )->nullable()->constrained( 'users', 'id' );
         } );
     }
 

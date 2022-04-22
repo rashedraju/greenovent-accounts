@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder {
 
         // Call all seeders
         $this->call( [
+            // approval
+            ApprovalStatusSeeder::class,
+
             // employees
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
@@ -34,12 +37,6 @@ class DatabaseSeeder extends Seeder {
             ProjectTypeSeeder::class,
             ProjectStatusSeeder::class,
             ProjectSeeder::class,
-            // InternalCostSeeder::class,
-            // ExternalCostSeeder::class,
-            // VendorCostSeeder::class,
-
-            // project bill
-            // BillSeeder::class,
 
             // accounts
             TransactionTypeSeeder::class,
