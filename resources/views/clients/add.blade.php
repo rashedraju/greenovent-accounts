@@ -1,8 +1,10 @@
 <x-app-layout>
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
-            <div class="w-lg-700px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h1>Add New Client</h1>
+        </div>
+        <div class="card-body row">
+            <div class="col-12 col-lg-8">
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -10,9 +12,6 @@
                     method="post">
                     @csrf
 
-                    <div class="text-center mb-10">
-                        <h1 class="text-dark mb-3">Add New Client</h1>
-                    </div>
                     <div class="d-flex align-items-center mb-10">
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
@@ -102,7 +101,14 @@
                     </div>
                 </form>
             </div>
+
+            <div class="col-12 col-lg-4 border p-3 fs-5">
+                After adding new client approval request will go to:
+                <ul>
+                    <li>Executive Director</li>
+                    <li>COO</li>
+                </ul>
+            </div>
         </div>
     </div>
-
 </x-app-layout>

@@ -1,65 +1,53 @@
 <x-app-layout>
-    @foreach ($clients as $client)
-        <div class="col-3">
-            <div class="card border-hover-primary">
-                <div class="card-body p-5">
-                    <div class="d-flex justify-content-center flex-column align-items-center gap-2">
-                        <div class="fs-2x fw-bolder mt-3">{{ $client->company_name }}</div>
-                    </div>
-                    <div class="separator separator-dashed"></div>
-                    <h2 class="mt-3">
-                        &#2547; {{ number_format($client->salesByYear(now()->year)) }}</h2>
-                    <div class="fs-4 fw-bold text-gray-400 mb-7">Sales this year</div>
-                    <div class="fs-6 d-flex justify-content-between mb-4">
-                        <div class="fw-bold">Total Sales</div>
-                        <div class="d-flex fw-bolder">
-                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr007.svg-->
-                            <span class="svg-icon svg-icon-3 me-1 svg-icon-success">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none">
-                                    <path
-                                        d="M13.4 10L5.3 18.1C4.9 18.5 4.9 19.1 5.3 19.5C5.7 19.9 6.29999 19.9 6.69999 19.5L14.8 11.4L13.4 10Z"
-                                        fill="black"></path>
-                                    <path opacity="0.3" d="M19.8 16.3L8.5 5H18.8C19.4 5 19.8 5.4 19.8 6V16.3Z"
-                                        fill="black">
-                                    </path>
-                                </svg>
-                            </span>
-                            &#2547;{{ number_format($client->totalSales()) }}
-                        </div>
-                    </div>
-                    <div class="separator separator-dashed"></div>
-                    <div class="d-flex flex-column justify-content-center flex-row-fluid pe-11 mb-5 mt-3">
-                        <!--begin::Label-->
-                        @php
-                            $projectStatuses = App\Models\ProjectStatus::all();
-
-                        @endphp
-                        @foreach ($projectStatuses as $projectStatus)
-                            <div class="d-flex fs-6 fw-bold align-items-center mb-3">
-                                <div class="bullet bg-primary me-3"></div>
-                                <div class="text-gray-400">{{ $projectStatus->name }}</div>
-                                <div class="ms-auto fw-bolder text-gray-700">
-                                    {{ $projectStatus->projects()->where('client_id', $client->id)->count() }}
-                                </div>
-                            </div>
-                        @endforeach
-                        <div class="separator separator-dashed"></div>
-                        <div class="d-flex fs-6 fw-bold align-items-center mb-3 mt-2">
-                            <div class="bullet bg-primary me-3"></div>
-                            <div>Total Projects</div>
-                            <div class="ms-auto fw-bolder text-gray-700">
-                                {{ $client->projects->count() }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <a href="{{ route('clients.show', $client) }}" class="btn btn-primary mb-5">
-                            View Details
-                        </a>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h1>Clients</h1>
+            <div>
+                <a href="{{ route('clients.create') }}" type="button" class="btn btn-sm btn-primary ml-2">
+                    <x-utils.add-icon /> Add New Client
+                </a>
             </div>
         </div>
-    @endforeach
+        <div class="card-body">
+            <div class="table-responsive py-5">
+                <table class="table table-secondary table-striped">
+                    <thead>
+                        <tr class="fw-bolder fs-6 bg-gray-300">
+                            <th scope="col" class="px-2 py-5">SL</th>
+                            <th scope="col" class="px-2 py-5">Client Name</th>
+                            <th scope="col" class="px-2 py-5">Total Projects</th>
+                            <th scope="col" class="px-2 py-5">Ongoing Projects</th>
+                            <th scope="col" class="px-2 py-5">Completed Projects</th>
+                            <th scope="col" class="px-2 py-5">Pending Projects</th>
+                            <th scope="col" class="px-2 py-5">Total Sales</th>
+                            <th scope="col" class="px-2 py-5">Sales this Year</th>
+                            <th scope="col" class="px-2 py-5">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($clients as $client)
+                            <tr class="fw-bold">
+                                <th scope="row" class="px-2 py-5">{{ $loop->iteration }}</th>
+                                <td class="px-2 py-5"><a href="{{ route('clients.show', $client) }}">
+                                        {{ $client->company_name }}
+                                    </a></td>
+                                <td class="px-2 py-5">{{ $client->projects->count() }}</td>
+                                <td class="px-2 py-5"> {{ $client->inProgressProjects()->count() }} </td>
+                                <td class="px-2 py-5"> {{ $client->completedProjects()->count() }} </td>
+                                <td class="px-2 py-5"> {{ $client->pendingProjects()->count() }} </td>
+                                <td class="px-2 py-5"> {{ number_format($client->totalSales()) }} </td>
+                                <td class="px-2 py-5"> {{ number_format($client->salesByYear(now()->year)) }}
+                                </td>
+                                <td class="px-2 py-5">
+                                    <a href="{{ route('clients.show', $client) }}">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

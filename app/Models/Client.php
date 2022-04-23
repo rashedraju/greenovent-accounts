@@ -10,6 +10,23 @@ class Client extends Model {
 
     const STATUS_COMPLETED_ID = 1;
     const STATUS_INPROGRESS_ID = 2;
+    const STATUS_PENDING_ID = 2;
+
+    const USER_CEO_Id = 1;
+    const USER_COO_Id = 2;
+
+    public static function boot() {
+        parent::boot();
+
+        static::created( function ( $client ) {
+            $approvals = [
+                ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_CEO_Id],
+                ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_COO_Id],
+            ];
+
+            $client->approvals()->createMany( $approvals );
+        } );
+    }
 
     // client projects
     public function projects() {
@@ -49,5 +66,10 @@ class Client extends Model {
     // get client project by project status
     public function inProgressProjects() {
         return $this->projects->where( 'status_id', self::STATUS_INPROGRESS_ID );
+    }
+
+    // get client project by project status
+    public function pendingProjects() {
+        return $this->projects->where( 'status_id', self::STATUS_PENDING_ID );
     }
 }

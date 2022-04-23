@@ -1,12 +1,7 @@
-{{-- @props(['recognition']) --}}
-
 <div class="border mt-3 mb-3 p-5 border-gray-300">
     <div class="mt-5 d-flex justify-content-between gap-3">
         <h2 class="text-uppercase px-3 py-1 bg-gray-900 text-white rounded-3">Money Recognition
         </h2>
-        <div><strong> Approval Status </strong> <span class="text-white px-2 py-1 rounded-3"
-                style="background-color: {{ $recognition->approval()->status->color }}">
-                {{ $recognition->approval()->status->name }} </span> </div>
     </div>
     <div class="d-flex py-5 gap-3">
         <div class="w-50 d-flex align-items-center gap-2"><strong> Name: </strong> <span
@@ -85,6 +80,15 @@
                     Approve By
                 </strong>
             </div>
+        </div>
+    </div>
+
+    <div class="alert alert-secondary mt-5 d-inline-block" role="alert">
+        <div><strong> Approval Status: </strong> <span class="text-white px-2 py-1 rounded-3"
+                style="background-color: {{ $recognition->approval()->status->color }}">
+                {{ $recognition->approval()->status->name }} </span></div>
+        <div class="mt-4">
+            <strong>Approval Message:</strong> {{ $recognition->approval()->note }}
         </div>
     </div>
 </div>

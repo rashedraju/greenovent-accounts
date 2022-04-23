@@ -153,9 +153,9 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-secondary table-striped">
             <thead>
-                <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
+                <tr class="fw-bolder fs-6">
                     <th class="px-2 py-5">SI</th>
                     <th class="px-2 py-5">Porject Name</th>
                     <th class="px-2 py-5">Client Name</th>
@@ -169,9 +169,9 @@
                     <th class="px-2 py-5">Edit</th>
                 </tr>
             </thead>
-            <tbody class="border border-dark">
+            <tbody>
                 @foreach ($projects as $project)
-                    <tr class="border border-dark fw-bold">
+                    <tr class="fw-bold">
                         <td class="px-2 py-5">{{ $loop->iteration }}</td>
                         <td class="px-2 py-5"><a
                                 href="{{ route('projects.show', $project) }}">{{ $project->name }}</a></td>
