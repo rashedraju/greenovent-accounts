@@ -12,7 +12,7 @@ class ProjectStatusSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        $projectStatuses = [['name' => 'Complete', 'color' => '#28A745'], ['name' => 'In Progress', 'color' => '#0095e8'], ['name' => 'Pending', 'color' => '#FFC107'], ['name' => 'Cancel', 'color' => '#DC3545']];
+        $projectStatuses = [['name' => 'Complete', 'color' => '#28A745'], ['name' => 'Ongoing', 'color' => '#0095e8'], ['name' => 'Pending', 'color' => '#FFC107'], ['name' => 'Cancel', 'color' => '#DC3545']];
         foreach ( $projectStatuses as $status ) {
             ProjectStatus::create( $status );
         }

@@ -21,7 +21,7 @@
                     </div>
 
                     <label class="form-label">Name
-                        <x-required />
+                        <x-utils.required />
                     </label>
                     <input type="text" class="form-control mb-2" name="name"
                         value="{{ $clientContactPerson->name }}" />
@@ -31,8 +31,8 @@
                         value="{{ $clientContactPerson->designation }}" />
 
                     <label class="form-label">Dpartment</label>
-                    <input type="text" class="form-control mb-2" name="dpartment"
-                        value="{{ $clientContactPerson->dpartment }}" />
+                    <input type="text" class="form-control mb-2" name="department"
+                        value="{{ $clientContactPerson->department }}" />
 
                     <label class="form-label">Email</label>
                     <input type="text" class="form-control mb-2" name="email"

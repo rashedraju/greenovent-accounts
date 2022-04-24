@@ -16,7 +16,7 @@ class CreateClientContactPersonsTable extends Migration {
             $table->foreignId( 'client_id' );
             $table->string( 'name' );
             $table->string( 'designation' )->nullable();
-            $table->string( 'dpartment' )->nullable();
+            $table->string( 'department' )->nullable();
             $table->string( 'email' )->nullable();
             $table->string( 'phone' )->nullable();
             $table->timestamps();

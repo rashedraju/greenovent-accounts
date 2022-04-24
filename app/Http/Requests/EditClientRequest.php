@@ -24,13 +24,7 @@ class EditClientRequest extends FormRequest {
         return [
             'company_name'                               => 'string',
             'office_address'                             => 'string',
-            'business_manager_id'                        => [Rule::exists( 'users', 'id' )],
-            'client_contact_persons_input'               => 'sometimes|array',
-            'client_contact_persons_input.*.name'        => 'sometimes|string',
-            'client_contact_persons_input.*.designation' => 'sometimes|string',
-            'client_contact_persons_input.*.dpartment'   => 'sometimes|string',
-            'client_contact_persons_input.*.email'       => 'sometimes|string',
-            'client_contact_persons_input.*.phone'       => 'sometimes|string'
+            'business_manager_id'                        => [Rule::exists( 'users', 'id' )]
         ];
     }
 }

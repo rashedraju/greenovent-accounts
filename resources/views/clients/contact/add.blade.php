@@ -33,7 +33,7 @@
                                 <input type="text" class="form-control mb-2" name="designation" :value="old('designation')" />
 
                                 <label class="form-label">Dpartment</label>
-                                <input type="text" class="form-control mb-2" name="dpartment" :value="old('dpartment')" />
+                                <input type="text" class="form-control mb-2" name="department" :value="old('department')" />
 
                                 <label class="form-label">Email</label>
                                 <input type="text" class="form-control mb-2" name="email" :value="old('email')" />

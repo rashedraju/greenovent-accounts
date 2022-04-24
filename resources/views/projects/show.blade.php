@@ -3,8 +3,13 @@
         <x-project.navigation :project="$project" active="overview" />
 
         <div class="card mb-5">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-start align-items-center">
                 <h3 class="card-title">Project Overview</h3>
+                <div>
+                    <span class="text-white px-3 py-1 rounded" style="background: {{ $project->status->color }}">
+                        {{ $project->status->name }}
+                    </span>
+                </div>
             </div>
             <div class="card-body d-flex justify-content-between">
                 <div class="d-flex flex-column mb-5">

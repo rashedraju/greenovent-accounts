@@ -23,7 +23,7 @@ class EditClientContactPersonRequest extends FormRequest {
         return [
             'name'        => "string",
             'designation' => "sometimes",
-            'dpartment'   => "sometimes",
+            'department'   => "sometimes",
             'email'       => "sometimes",
             'phone'       => "sometimes"
         ];

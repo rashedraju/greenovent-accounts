@@ -41,36 +41,6 @@
                         <input class="form-control form-control-lg form-control-solid" type="text" name="office_address"
                             value="{{ $client->office_address }}" />
                     </div>
-                    <div class="text-center mb-2">
-                        <h5 class="text-dark">Contact Persons</h5>
-                    </div>
-                    <div class="d-flex align-items-center mb-10">
-                        <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                        <span class="fw-bold text-gray-400 fs-7 mx-2"></span>
-                        <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-                    </div>
-
-                    <div class="d-flex gap-3 flex-wrap pt-5">
-                        @foreach ($client->contactPersons as $contactPerson)
-                            <div class="border p-2 my-2">
-                                <h5>{{ $contactPerson->name }}</h5>
-                                <div>{{ $contactPerson->designation }}</div>
-                                <div>{{ $contactPerson->department }}</div>
-                                <div>{{ $contactPerson->email }}</div>
-                                <div>{{ $contactPerson->phone }}</div>
-                                <a href="{{ route('clients.contact.edit', [$client, $contactPerson]) }}"
-                                    class="btn btn-sm btn-light-primary text-center d-block m-2">Edit
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    {{-- Add new contact person --}}
-                    <div class="d-flex my-2 gap-3">
-                        <a href="{{ route('clients.contact.create', $client) }}" class="btn btn-light-primary">Add
-                            new contact persons
-                        </a>
-                    </div>
 
                     <div class="d-flex align-items-center mb-10">
                         <div class="border-bottom border-gray-300 mw-50 w-100"></div>

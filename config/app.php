@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
 
+        Clockwork\Support\Laravel\ClockworkServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -177,7 +179,10 @@ return [
 
         // excel service provider
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        // chart service provider
+        App\Providers\ChartServiceProvider::class
 
     ],
 

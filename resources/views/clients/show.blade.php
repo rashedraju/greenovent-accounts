@@ -1,17 +1,12 @@
 <x-app-layout>
     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
-        <!--begin:::Tab item-->
         <li class="nav-item">
             <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
                 href="#kt_customer_view_overview_tab">Overview</a>
         </li>
-        <!--end:::Tab item-->
-        <!--begin:::Tab item-->
         <li class="nav-item ms-auto">
-            <!--begin::Action menu-->
             <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                 data-kt-menu-placement="bottom-end">Actions
-                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                 <span class="svg-icon svg-icon-2 me-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path
@@ -19,9 +14,7 @@
                             fill="black"></path>
                     </svg>
                 </span>
-                <!--end::Svg Icon-->
             </a>
-            <!--begin::Menu-->
             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold py-4 w-250px fs-6"
                 data-kt-menu="true">
                 <div class="menu-item px-3">
@@ -39,28 +32,18 @@
             </div>
         </li>
     </ul>
-    <!--begin::Sidebar-->
-    <!--begin::Card-->
     <div class="card mb-5 mb-xl-8">
-        <!--begin::Card body-->
         <div class="card-body pt-15">
-            <!--begin::Summary-->
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column mb-5">
-                    <!--begin::Avatar-->
                     <div class="symbol symbol-100px symbol-circle mb-7">
                         <x-first-char title="{{ $client->company_name }}" firstChar="{{ $client->firstChar }}" />
                     </div>
-                    <!--end::Avatar-->
-                    <!--begin::Name-->
                     <div class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">
                         {{ $client->company_name }}
                     </div>
-                    <!--end::Name-->
 
-                    <!--begin::Info-->
                     <div class="d-flex gap-2 mt-6">
-                        <!--begin::Stats-->
                         <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
                             <div class="fs-4 fw-bolder text-gray-700 text-center">
                                 <span class="w-75px">{{ number_format($client->totalSales()) }}</span>
@@ -75,10 +58,7 @@
                             <div class="fw-bold text-muted">Sales this Year</div>
                         </div>
                     </div>
-                    <!--end::Info-->
                 </div>
-                <!--end::Summary-->
-                <!--begin::Details toggle-->
                 <div>
                     <div class="d-flex flex-stack fs-4 py-3">
                         <div class="">Details</div>
@@ -96,112 +76,111 @@
                             <div class="text-gray-600 text-hover-primary">
                                 {{ $client->businessManager->name }}</div>
                         </div>
+                        <hr />
+                        <div class="mt-3">
+                            {{ $client->company_name }} working with Greenovent since {{ $client->created_at }}
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--end::Details content-->
         </div>
-        <!--end::Card-->
 
     </div>
-    <!--end::Sidebar-->
-    <!--begin::Content-->
     <div class="tab-content" id="myTabContent">
-        <!--begin:::Tab pane-->
         <div class="tab-pane fade active show" id="kt_customer_view_overview_tab" role="tabpanel">
-            <!--begin::Card-->
             <div class="card pt-4 mb-6 mb-xl-9">
-                <!--begin::Card header-->
                 <div class="card-header border-0">
-                    <!--begin::Card title-->
                     <div class="card-title">
-                        <h2>Projects</h2>
+                        <h2 class="text-primary">Projects</h2>
                     </div>
-                    <!--end::Card title-->
                 </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
                 <div class="card-body pt-0 pb-5">
-                    <!--begin::Table-->
-                    <div id="kt_table_customers_payment_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                        <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed gy-5 dataTable no-footer"
-                                id="kt_table_customers_payment">
-                                <!--begin::Table head-->
-                                <thead class="border-bottom border-gray-200 fs-7 fw-bolder">
-                                    <!--begin::Table row-->
-                                    <th> Project Name</th>
-                                    <th> Project Type</th>
-                                    <th> Starting Date</th>
-                                    <th> Closing Date</th>
-                                    <th> Bill Status</th>
-                                    <th> Bill Amount(
-                                        <x-utils.currency />)
-                                    </th>
-                                    <th> Project Cost(
-                                        <x-utils.currency />)
-                                    </th>
-                                    <th> Project Cost incurred(%)</th>
-                                    <th> Gross Profit(
-                                        <x-utils.currency />)
-                                    </th>
-                                    <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
-                                <!--begin::Table body-->
-                                <tbody class="fs-6 fw-bold text-gray-600">
-                                    @foreach ($client->projects as $project)
-                                        <tr>
-                                            <td> <a
-                                                    href="{{ route('projects.show', $project) }}">{{ $project->name }}</a>
-                                            </td>
-                                            <td>{{ $project->type->name }}</td>
-                                            <td>{{ $project->start_date }}</td>
-                                            <td>{{ $project->closing_date }}</td>
-                                            <td>{{ $project->billStatus() }}</td>
-                                            <td>{{ $project->external }}</td>
-                                            <td>{{ $project->internal }}</td>
-                                            <td>{{ number_format($project->costIncurred(), 2) }}</td>
-                                            <td>{{ $project->grossProfit() }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                        </div>
-
+                    <div class="table-responsive py-5">
+                        <table class="table table-secondary table-striped">
+                            <thead>
+                                <tr class="fw-bolder fs-6 bg-gray-300">
+                                    <th scope="col" class="px-2 py-5">SL</th>
+                                    <th scope="col" class="px-2 py-5">Project Name</th>
+                                    <th scope="col" class="px-2 py-5">Project Type</th>
+                                    <th scope="col" class="px-2 py-5">Starting Date</th>
+                                    <th scope="col" class="px-2 py-5">Closing Date</th>
+                                    <th scope="col" class="px-2 py-5">PO No</th>
+                                    <th scope="col" class="px-2 py-5">PO Value(&#2547;)</th>
+                                    <th scope="col" class="px-2 py-5">Profit(&#2547;)</th>
+                                    <th scope="col" class="px-2 py-5">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($client->projects as $project)
+                                    <tr class="fw-bold">
+                                        <th scope="row" class="px-2 py-5">{{ $loop->iteration }}</th>
+                                        <td class="px-2 py-5">
+                                            <a
+                                                href="{{ route('projects.show', $project) }}">{{ $project->name }}</a>
+                                        </td>
+                                        <td class="px-2 py-5">{{ $project->type->name }}</td>
+                                        <td class="px-2 py-5"> {{ $project->start_date }} </td>
+                                        <td class="px-2 py-5"> {{ $project->closing_date }} </td>
+                                        <td class="px-2 py-5">{{ $project->po_number }}</td>
+                                        <td class="px-2 py-5">{{ $project->po_value }}</td>
+                                        <td class="px-2">{{ $project->grossProfit() }}</td>
+                                        <td class="px-2">
+                                            <a href="{{ route('projects.show', $project) }}"
+                                                class="btn btn-sm btn-light-primary text-center d-block">View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <!--end::Table-->
                 </div>
-                <!--end::Card body-->
             </div>
-            <!--end::Card-->
         </div>
-        <!--end:::Tab pane-->
     </div>
 
     <div class="card mb-5 mb-xl-8">
-        <!--begin::Card header-->
         <div class="card-header border-0">
             <div class="card-title">
-                <h3 class="fw-bolder">Contact Persons</h3>
+                <h3 class="fw-bolder text-primary">Contact Persons</h3>
                 <a href="{{ route('clients.contact.create', $client) }}" class="mx-3">
                     <x-utils.add-icon /> Add
                 </a>
             </div>
         </div>
-        <!--end::Card header-->
-        <!--begin::Card body-->
         <div class="card-body pt-2">
-            @foreach ($client->contactPersons as $contactPerson)
-                <div class="border p-2 my-2">
-                    <h5>{{ $contactPerson->name }}</h5>
-                    <div>{{ $contactPerson->designation }}</div>
-                    <div>{{ $contactPerson->department }}</div>
-                    <div>{{ $contactPerson->email }}</div>
-                    <div>{{ $contactPerson->phone }}</div>
-                </div>
-            @endforeach
+            <div class="table-responsive py-5">
+                <table class="table table-secondary table-striped">
+                    <thead>
+                        <tr class="fw-bolder fs-6 bg-gray-300">
+                            <th scope="col" class="px-2 py-5">SL</th>
+                            <th scope="col" class="px-2 py-5">Name</th>
+                            <th scope="col" class="px-2 py-5">Designation</th>
+                            <th scope="col" class="px-2 py-5">Department</th>
+                            <th scope="col" class="px-2 py-5">Email</th>
+                            <th scope="col" class="px-2 py-5">Phone</th>
+                            <th scope="col" class="px-2 py-5">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($client->contactPersons as $contactPerson)
+                            <tr class="fw-bold">
+                                <th scope="row" class="px-2 py-5">{{ $loop->iteration }}</th>
+                                <td class="px-2 py-5">{{ $contactPerson->name }}</td>
+                                <td class="px-2 py-5">{{ $contactPerson->designation }}</td>
+                                <td class="px-2 py-5"> {{ $contactPerson->department }} </td>
+                                <td class="px-2 py-5"> {{ $contactPerson->email }} </td>
+                                <td class="px-2 py-5"> {{ $contactPerson->phone }} </td>
+                                <td class="px-2">
+                                    <a href="{{ route('clients.contact.edit', [$client, $contactPerson]) }}"
+                                        class="btn btn-sm btn-light-primary text-center d-block">Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

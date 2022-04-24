@@ -107,11 +107,9 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{client}', [ClientsController::class, 'update'] )->name( 'update' );
         Route::delete( '/{client}', [ClientsController::class, 'destroy'] )->name( 'destroy' );
 
-        // Add new Client Contact Person
-        Route::get( '/{client}/contact/add', [ClientsController::class, 'createContactPerson'] )->name( 'contact.create' );
-        Route::post( '/{client}/contact', [ClientsController::class, 'storeContactPerson'] )->name( 'contact.add' );
-
-        // Edit Client Contact Person
+        // Client Contact Person
+        Route::get( '/{client}/client_contact_persons/add', [ClientsController::class, 'createContactPerson'] )->name( 'contact.create' );
+        Route::post( '/{client}/client_contact_persons', [ClientsController::class, 'storeContactPerson'] )->name( 'contact.add' );
         Route::get( '/{client}/client_contact_persons/{clientContactPerson}/edit', [ClientsController::class, 'editContactPerson'] )->name( 'contact.edit' );
         Route::put( '/{client}/client_contact_persons/{clientContactPerson}', [ClientsController::class, 'updateContactPerson'] )->name( 'contact.update' );
     } );
@@ -178,9 +176,9 @@ Route::middleware( 'auth' )->group( function () {
     Route::put( '/permissions/{permission}', [RolesAndPermissionsController::class, 'update'] )->name( 'permissions.update' );
 
     // Approvals
-    Route::get('/approvals', [ApprovalsController::class, 'index'])->name('approvals.index');
-    Route::get('/approvals/{approval}', [ApprovalsController::class, 'show'])->name('approvals.show');
-    Route::put('/approvals/{approval}', [ApprovalsController::class, 'update'])->name('approvals.update');
+    Route::get( '/approvals', [ApprovalsController::class, 'index'] )->name( 'approvals.index' );
+    Route::get( '/approvals/{approval}', [ApprovalsController::class, 'show'] )->name( 'approvals.show' );
+    Route::put( '/approvals/{approval}', [ApprovalsController::class, 'update'] )->name( 'approvals.update' );
 } );
 
 // Route::fallback( function () {

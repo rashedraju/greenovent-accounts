@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddClientRequest;
 use App\Http\Requests\CreateClientContactPersonRequest;
 use App\Http\Requests\EditClientContactPersonRequest;
+use App\Http\Requests\EditClientRequest;
 use App\Models\Client;
 use App\Models\ClientContactPerson;
 use App\Models\User;
@@ -12,7 +13,9 @@ use App\Models\User;
 class ClientsController extends Controller {
     // view all clients
     public function index() {
-        return view( 'clients.index', ['clients' => Client::orderBy( 'id', 'desc' )->get()] );
+        $clients = Client::orderBy( 'id', 'desc' )->get();
+
+        return view( 'clients.index', compact( ['clients'] ) );
     }
 
     // view client details
@@ -23,21 +26,21 @@ class ClientsController extends Controller {
     // edit client info
     public function edit( Client $client ) {
         // get all bussiness managers
-        $bussinessManagers = User::role('Bussiness Manager')->get();
+        $bussinessManagers = User::role( 'Bussiness Manager' )->get();
         return view( 'clients.edit', ['client' => $client, 'bussinessManagers' => $bussinessManagers] );
     }
 
     // update client info
-    public function update() {
-        dd( request()->all() );
-        // $attrs = $request->validated();
-        // dd( $attrs );
+    public function update( Client $client, EditClientRequest $request ) {
+        $attrs = $request->validated();
+        $client->update( $attrs );
+        return redirect()->route( 'clients.show', $client )->with( 'success', 'Client details has been updated' );
     }
 
     // add new client view
     public function create() {
         // get all bussiness managers
-        $bussinessManagers = User::role('Bussiness Manager')->get();
+        $bussinessManagers = User::role( 'Bussiness Manager' )->get();
 
         return view( 'clients.add', compact( ['bussinessManagers'] ) );
     }
@@ -53,7 +56,7 @@ class ClientsController extends Controller {
         // create contact persons
         $client->contactPersons()->createMany( $contactPersons );
 
-        return redirect()->route( 'clients.index' )->with( 'success', 'Client Added Successfully' );
+        return redirect()->route( 'clients.show', $client )->with( 'success', 'Client Added Successfully' );
     }
 
     // delete client

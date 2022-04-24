@@ -1,4 +1,9 @@
 <x-app-layout>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div id="clients_chart" style="height: 300px;"></div>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h1>Clients</h1>
@@ -50,4 +55,21 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="script">
+        <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+        <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+        <script>
+            var date = new Date();
+            const chart = new Chartisan({
+                el: '#clients_chart',
+                url: "@chart('clients_chart')",
+                hooks: new ChartisanHooks()
+                    .legend()
+                    .colors()
+                    .tooltip()
+                    .title('Sales Statestics Year of - ' + date.getFullYear())
+            });
+        </script>
+    </x-slot>
 </x-app-layout>

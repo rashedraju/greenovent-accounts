@@ -10,7 +10,7 @@ class Client extends Model {
 
     const STATUS_COMPLETED_ID = 1;
     const STATUS_INPROGRESS_ID = 2;
-    const STATUS_PENDING_ID = 2;
+    const STATUS_PENDING_ID = 3;
 
     const USER_CEO_Id = 1;
     const USER_COO_Id = 2;
@@ -21,11 +21,20 @@ class Client extends Model {
         static::created( function ( $client ) {
             $approvals = [
                 ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_CEO_Id],
-                ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_COO_Id],
+                ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_COO_Id]
             ];
 
             $client->approvals()->createMany( $approvals );
         } );
+    }
+
+    // client approvals
+    public function approvals() {
+        return $this->morphMany( Approval::class, 'approvalable' );
+    }
+
+    public function getCreatedAtAttribute( $date ) {
+        return date( 'F, Y', strtotime( $date ) );
     }
 
     // client projects
@@ -40,6 +49,12 @@ class Client extends Model {
 
     // get total sales amount of current year
     public function salesByYear( $year ) {
+        return $this->projects()->whereYear( 'start_date', $year )->sum( 'po_value' );
+    }
+
+    // get total sales of this year
+    public function salesThisYear(){
+        $year = now()->year;
         return $this->projects()->whereYear( 'start_date', $year )->sum( 'po_value' );
     }
 

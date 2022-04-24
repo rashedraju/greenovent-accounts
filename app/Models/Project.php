@@ -10,6 +10,13 @@ class Project extends Model {
     use HasFactory;
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['status', 'manager', 'client', 'type', 'billType'];
+
+    /**
      * One to many relation with projectStatus model
      * User has one status
      *
@@ -87,10 +94,9 @@ class Project extends Model {
     }
 
     // project recognitions
-    public function recognitions(){
-        return $this->hasMany(Recognition::class, 'project_id');
+    public function recognitions() {
+        return $this->hasMany( Recognition::class, 'project_id' );
     }
-
 
     // all vendor costs
     public function vendor() {

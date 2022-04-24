@@ -28,7 +28,7 @@ class AddClientRequest extends FormRequest {
             'client_contact_persons_input'               => 'required|array',
             'client_contact_persons_input.*.name'        => 'required|string',
             'client_contact_persons_input.*.designation' => 'sometimes',
-            'client_contact_persons_input.*.dpartment'   => 'sometimes',
+            'client_contact_persons_input.*.department'   => 'sometimes',
             'client_contact_persons_input.*.email'       => 'sometimes',
             'client_contact_persons_input.*.phone'       => 'sometimes'
         ];

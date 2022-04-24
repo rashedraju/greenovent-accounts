@@ -12,19 +12,47 @@ class ProjectSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        $data = [
-            'name'                => 'Accounts Website',
-            'business_manager_id' => '1',
-            'client_id'           => 1,
-            'type_id'             => 1,
-            'po_number'           => 101,
-            'po_value'            => 75000,
-            'bill_type'           => 1,
-            'start_date'          => now(),
-            'closing_date'        => now()->addMonth(),
-            'status_id'           => 2
+        $projects = [
+            [
+                'name'                => 'Landmark Website',
+                'business_manager_id' => '1',
+                'client_id'           => 1,
+                'type_id'             => 1,
+                'po_number'           => 101,
+                'po_value'            => 200000,
+                'bill_type'           => 1,
+                'start_date'          => now(),
+                'closing_date'        => now()->addMonth(),
+                'status_id'           => 2
+            ],
+            [
+                'name'                => 'BAT Event',
+                'business_manager_id' => 1,
+                'client_id'           => 2,
+                'type_id'             => 1,
+                'po_number'           => 102,
+                'po_value'            => 500000,
+                'bill_type'           => 1,
+                'start_date'          => now(),
+                'closing_date'        => now()->addMonth(),
+                'status_id'           => 2
+            ],
+            [
+                'name'                => 'TVS Eid Campaign',
+                'business_manager_id' => 1,
+                'client_id'           => 3,
+                'type_id'             => 1,
+                'po_number'           => 103,
+                'po_value'            => 100000,
+                'bill_type'           => 1,
+                'start_date'          => now(),
+                'closing_date'        => now()->addMonth(),
+                'status_id'           => 2
+            ]
         ];
 
-        Project::create( $data );
+        foreach ( $projects as $project ) {
+            Project::create( $project );
+        }
     }
 }
