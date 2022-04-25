@@ -17,12 +17,12 @@ class ClientsChart extends BaseChart {
      */
     public function handler( Request $request ): Chartisan {
         $clients = Client::orderBy( 'id', 'desc' )->get();
-
+        $year = now()->year;
         $labels = $clients->map( fn( $client ) => $client->company_name )->toArray();
         $sales = $clients->map( fn( $client ) => $client->salesThisYear() )->toArray();
 
         return Chartisan::build()
             ->labels( $labels )
-            ->dataset( '', $sales );
+            ->dataset( "Sales Statestics Year of {$year}", $sales );
     }
 }

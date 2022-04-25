@@ -11,6 +11,12 @@
 
     <link rel="shortcut icon" href="{{ asset('/public/assets/media/logos/greenovent.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+
+    {{-- js resources for chartisan carts --}}
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    {{-- js resources for chartisan carts --}}
+
     <link href="{{ asset('/public/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/public/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 </head>
