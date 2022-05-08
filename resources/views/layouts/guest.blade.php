@@ -18,7 +18,7 @@
 <!--end::Head-->
 <!--begin::Body-->
 
-<body id="kt_body" class="bg-body">
+<body>
 
     {{ $slot }}
 

@@ -12,7 +12,8 @@
                             <a href="{{ route('approvals.show', $approval) }}"
                                 class="list-group-item py-5 list-group-item-action">
                                 <div class="fs-5 fw-bolder">{{ $approval->title }}</div>
-                                <small>{{ $approval->created_at->diffForHumans() }}</small>
+                                <small>{{ $approval->created_at->diffForHumans() }}
+                                    <span class="badge badge-secondary">{{ $approval->status->name }}</span></small>
                             </a>
                         @endforeach
                     </div>
