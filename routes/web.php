@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountsBillsController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
@@ -169,6 +170,11 @@ Route::middleware( 'auth' )->group( function () {
             // data import/export
             Route::get( '/{year}/{month}/export', [CreditController::class, 'export'] )->name( 'export' );
         } );
+
+        // bills
+        Route::name('bills.')->prefix('bills')->group(function(){
+            Route::get( '/', [AccountsBillsController::class, 'index'] )->name( 'index' );
+        });
     } );
 
     // Route access permissions
