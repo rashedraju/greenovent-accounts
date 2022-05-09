@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="flex-lg-row-fluid ms-lg-15">
-        <x-project.navigation :project="$project" active="recognitions" />
+        <x-project.navigation :project="$project" active="requisitions" />
         <!--begin:::Tab pane-->
         <div>
             <x-validation-error />
@@ -8,14 +8,14 @@
             <div class="card">
                 <div class="card-body">
                     <button type="button" class="btn btn-sm px-5 py-1 btn-success" data-bs-toggle="collapse"
-                        data-bs-target="#addRecognitionCollapse" aria-expanded="false"
-                        aria-controls="addRecognitionCollapse">
-                        <x-utils.add-icon /> Add Recognition
+                        data-bs-target="#addRequisitionCollapse" aria-expanded="false"
+                        aria-controls="addRequisitionCollapse">
+                        <x-utils.add-icon /> Add Requisition
                     </button>
 
-                    <div class="collapse" id="addRecognitionCollapse">
+                    <div class="collapse" id="addRequisitionCollapse">
                         <div class="card card-body border border-gray-300 mt-3">
-                            <form action="{{ route('projects.recognitions.store', [$project]) }}" method="post"
+                            <form action="{{ route('projects.requisitions.store', [$project]) }}" method="post"
                                 class="my-2" enctype="multipart/form-data">
                                 @csrf
 
@@ -54,10 +54,10 @@
                                         Add Items
                                     </h3>
                                 </div>
-                                <div id="recognition_items">
+                                <div id="requisition_items">
                                     <!--begin::Form group-->
                                     <div class="form-group">
-                                        <div data-repeater-list="recognition_items">
+                                        <div data-repeater-list="requisition_items">
                                             <div data-repeater-item>
                                                 <div class="form-group row">
                                                     <div class="col-md-3">
@@ -99,13 +99,13 @@
                                 </div>
                                 <!--end::Repeater-->
 
-                                <button type="submit" class="btn btn-primary mt-2 w-100">Save Recognition</button>
+                                <button type="submit" class="btn btn-primary mt-2 w-100">Save Requisition</button>
                             </form>
                         </div>
                     </div>
 
-                    @foreach ($project->recognitions as $recognition)
-                        <x-recognition :recognition="$recognition" />
+                    @foreach ($project->requisitions as $requisition)
+                        <x-requisition :requisition="$requisition" />
                     @endforeach
                 </div>
             </div>
@@ -115,7 +115,7 @@
 
     <x-slot name="script">
         <script>
-            $('#recognition_items').repeater({
+            $('#requisition_items').repeater({
                 initEmpty: false,
 
                 show: function() {

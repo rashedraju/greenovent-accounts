@@ -5,22 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Recognition extends Model {
+class Requisition extends Model {
     use HasFactory;
+
+    const USER_CEO_Id = 1;
+    const USER_ACCOUNTS_Id = 5;
 
     public static function boot() {
         parent::boot();
 
-        static::created( function ( $recognition ) {
+        static::created( function ( $requisition ) {
             // auth user
             $user = auth()->user();
 
-            // create recognition approval after recognition created
+            // create requisition approval after requisition created
             $approvals = [
-                ['title' => "Money Recognition for {$recognition->project->name}", 'request_user_id' => $user->id, 'approver_id' => 1]
+                ['title' => "Money Requisition for ({$requisition->project->name})", 'request_user_id' => $user->id, 'approver_id' => self::USER_CEO_Id],
+                ['title' => "Money Requisition for ({$requisition->project->name})", 'request_user_id' => $user->id, 'approver_id' => self::USER_ACCOUNTS_Id]
             ];
 
-            $recognition->approvals()->createMany( $approvals );
+            $requisition->approvals()->createMany( $approvals );
         } );
     }
 
@@ -34,12 +38,12 @@ class Recognition extends Model {
         return $this->belongsTo( User::class, 'checked_by' );
     }
 
-    // recognition approvals
+    // requisition approvals
     public function approvals() {
         return $this->morphMany( Approval::class, 'approvalable' );
     }
 
-    // recognition have only one approval
+    // requisition have only one approval
     public function approval() {
         return $this->approvals->first();
     }
@@ -48,12 +52,12 @@ class Recognition extends Model {
         return $this->belongsTo( Project::class );
     }
 
-    // all recognition items
+    // all requisition items
     public function items() {
-        return $this->hasMany( RecognitionItem::class, 'recognition_id' );
+        return $this->hasMany( RequisitionItem::class, 'requisition_id' );
     }
 
-    // get recognition start formated date
+    // get requisition start formated date
     public function getDateAttribute( $value ) {
         return date( 'M d, Y', strtotime( $value ) );
     }

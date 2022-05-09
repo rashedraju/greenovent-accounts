@@ -133,9 +133,9 @@ class Project extends Model {
         return $this->hasOne( InternalCost::class, 'project_id' );
     }
 
-    // project recognitions
-    public function recognitions() {
-        return $this->hasMany( Recognition::class, 'project_id' );
+    // project requisitions
+    public function requisitions() {
+        return $this->hasMany( Requisition::class, 'project_id' );
     }
 
     // all vendor costs

@@ -81,5 +81,22 @@ class UserSeeder extends Seeder {
 
         $bussinessManager3 = User::create( $bussinessManager3Data );
         $bussinessManager3->assignRole( 'Bussiness Manager' );
+
+        $bussinessManager3Data = [
+            'name'                       => 'Accounts User',
+            'profile_image'              => 'profile_images/user.jpg',
+            'email'                      => 'accounts@greenovent.com',
+            'phone'                      => '01234567891',
+            'joining_date'               => now(),
+            'current_address'            => 'Dhanmondi, Dhaka',
+            'permanent_address'          => 'Dhanmondi, Dhaka',
+            'emergency_contact_name'     => 'Mark Miller',
+            'emergency_contact_no'       => '01234567891',
+            'emergency_contact_relation' => 'brother',
+            'password'                   => '12345678'
+        ];
+
+        $bussinessManager3 = User::create( $bussinessManager3Data );
+        $bussinessManager3->assignRole( 'Accounts' );
     }
 }

@@ -12,12 +12,12 @@
                             <a href="{{ route('approvals.show', $approvalItem) }}"
                                 class="list-group-item py-5 list-group-item-action {{ $approvalItem->id == $approval->id ? 'active' : '' }}">
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="fw-bolder">{{ $approval->title }}</h5>
-                                    <small>{{ $approval->created_at->diffForHumans() }}</small>
+                                    <h5 class="fw-bolder">{{ $approvalItem->title }}</h5>
+                                    <small>{{ $approvalItem->created_at->diffForHumans() }}</small>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <small>By {{ $approval->requestBy->name }}</small>
-                                    <span class="badge badge-secondary">{{ $approval->status->name }}</span>
+                                    <small>By {{ $approvalItem->requestBy->name }}</small>
+                                    <span class="badge badge-secondary">{{ $approvalItem->status->name }}</span>
                                 </div>
                             </a>
                         @endforeach
@@ -42,7 +42,9 @@
                             </div>
                         </form>
                     </div>
-                    {!! $preview !!}
+                    <div class="m-3 p-3 border">
+                        {!! $preview !!}
+                    </div>
                 </div>
             </div>
         </div>

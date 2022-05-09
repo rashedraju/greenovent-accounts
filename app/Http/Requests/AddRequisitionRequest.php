@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddRecognitionRequest extends FormRequest {
+class AddRequisitionRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,10 +23,10 @@ class AddRecognitionRequest extends FormRequest {
         return [
             'user_id'                          => 'required|exists:users,id',
             'checked_by'                       => 'required|exists:users,id',
-            'recognition_items'                => 'required|array',
-            'recognition_items.*.purpose'      => "required",
-            'recognition_items.*.rate'         => "required",
-            'recognition_items.*.total_amount' => "required"
+            'requisition_items'                => 'required|array',
+            'requisition_items.*.purpose'      => "required",
+            'requisition_items.*.rate'         => "required",
+            'requisition_items.*.total_amount' => "required"
         ];
     }
 }

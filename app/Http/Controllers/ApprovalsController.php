@@ -6,7 +6,7 @@ use App\Models\Approval;
 use App\Models\ApprovalStatus;
 use App\Models\Client;
 use App\Models\Project;
-use App\Models\Recognition;
+use App\Models\Requisition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -29,11 +29,11 @@ class ApprovalsController extends Controller {
         $preview = null;
 
         if ( $approvalable instanceof Client ) {
-            $preview = View::make( 'components.approval-preview.new-client-preview', ['client' => $approval->approvalable] );
+            $preview = View::make( 'components.approval-preview.new-client-preview', ['client' => $approvalable] );
         } else if ( $approvalable instanceof Project ) {
-            $preview = View::make( 'components.approval-preview.new-project-preview', ['project' => $approval->approvalable] );
-        } else if ( $approvalable instanceof Recognition ) {
-            $preview = View::make( 'components.recognition', ['recognition' => $approval->approvalable] );
+            $preview = View::make( 'components.approval-preview.new-project-preview', ['project' => $approvalable] );
+        } else if ( $approvalable instanceof Requisition ) {
+            $preview = View::make( 'components.requisition', ['requisition' => $approvalable] );
         }
 
         return view( 'approvals.show', ['approvals' => $this->approvals, 'approval' => $approval, 'approvalStatuses' => $approvalStatuses, 'preview' => $preview] );

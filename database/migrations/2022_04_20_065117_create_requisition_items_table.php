@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecognitionItemsTable extends Migration
+class CreateRequisitionItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateRecognitionItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recognition_items', function (Blueprint $table) {
+        Schema::create('requisition_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recognition_id')->constrained('recognitions', 'id');
+            $table->foreignId('requisition_id')->constrained('requisitions', 'id');
             $table->string('purpose');
             $table->unsignedBigInteger('rate');
             $table->unsignedBigInteger('total_amount');
@@ -29,6 +29,6 @@ class CreateRecognitionItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recognition_items');
+        Schema::dropIfExists('requisition_items');
     }
 }

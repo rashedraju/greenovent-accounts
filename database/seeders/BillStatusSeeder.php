@@ -12,7 +12,7 @@ class BillStatusSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        $statuses = ["Project Ongoing", "Not Done", "Bill submitted to Accounts", "Bill sent to client", "Bill received by client", "Bill in Client System"];
+        $statuses = ["Project Ongoing", "Bill Under Process", "Bill submitted to Accounts", "Bill in Client System", "Bill Received", "Not Done",];
 
         foreach ( $statuses as $status ) {
             BillStatus::create( ['name' => $status] );

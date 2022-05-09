@@ -14,7 +14,7 @@ use App\Http\Controllers\ExternalController;
 use App\Http\Controllers\InternalController;
 use App\Http\Controllers\ProjectContactPersonController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\RecognitionsController;
+use App\Http\Controllers\RequisitionsController;
 use App\Http\Controllers\RolesAndPermissionsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VendorController;
@@ -83,9 +83,9 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{project}/vendor/{vendorCost}', [VendorController::class, 'update'] )->name( 'vendor.update' );
         Route::delete( '/{project}/vendor/{vendorCost}', [VendorController::class, 'delete'] )->name( 'vendor.delete' );
 
-        // Project Recognitions
-        Route::get( '/{project}/recognitions', [RecognitionsController::class, 'index'] )->name( 'recognitions.index' );
-        Route::post( '/{project}/recognitions', [RecognitionsController::class, 'store'] )->name( 'recognitions.store' );
+        // Project Requisitions
+        Route::get( '/{project}/requisitions', [RequisitionsController::class, 'index'] )->name( 'requisitions.index' );
+        Route::post( '/{project}/requisitions', [RequisitionsController::class, 'store'] )->name( 'requisitions.store' );
 
         // Project Bill
         Route::get( '/{project}/bill', [BillController::class, 'index'] )->name( 'bill.index' );
