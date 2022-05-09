@@ -44,6 +44,7 @@
 
                         <label class="form-label fs-6 fw-bolder text-dark">
                             Date
+                            <x-utils.required />
                         </label>
                         <input class="form-control form-control" type="text" name="date" placeholder="DD-MM-YYYY" />
                         <div class="pb-2">
@@ -52,11 +53,13 @@
 
                         <label class="form-label fs-6 fw-bolder text-dark">
                             Bill NO
+                            <x-utils.required />
                         </label>
                         <input class="form-control form-control" type="text" name="bill_no" />
 
                         <label class="form-label fs-6 fw-bolder text-dark">
                             Subject
+                            <x-utils.required />
                         </label>
                         <input class="form-control form-control" type="text" name="subject" />
 
@@ -70,26 +73,31 @@
 
                         <label class="form-label fs-6 fw-bolder text-dark">
                             Total
+                            <x-utils.required />
                         </label>
                         <input class="form-control form-control" type="number" name="total" />
 
                         <label class="form-label fs-6 fw-bolder text-dark">
-                            ASF
+                            ASF(%)
+                            <x-utils.required />
                         </label>
                         <input class="form-control form-control" type="number" name="asf" />
 
                         <label class="form-label fs-6 fw-bolder text-dark">
-                            VAT
+                            VAT(%)
+                            <x-utils.required />
                         </label>
                         <input class="form-control form-control" type="number" name="vat" />
 
                         <label class="form-label fs-6 fw-bolder text-dark mt-2">
                             Bill File (xlsx)
+                            <x-utils.required />
                         </label>
                         <input type="file" class="form-control" name="file">
 
                         <label class="form-label fs-6 fw-bolder text-dark mt-2">
                             Supporting File (pdf/docx)
+                            <x-utils.required />
                         </label>
                         <input type="file" class="form-control" name="supporting_file">
 

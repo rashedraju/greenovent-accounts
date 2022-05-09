@@ -118,24 +118,24 @@
                                 @method('put')
 
                                 <label class="form-label fs-6 fw-bolder text-dark">
-                                    Date
+                                    Date<x-utils.required />
                                 </label>
                                 <input class="form-control form-control" type="text" name="date"
                                     value="{{ $bill->date }}" />
 
                                 <label class="form-label fs-6 fw-bolder text-dark">
-                                    Bill NO
+                                    Bill NO<x-utils.required />
                                 </label>
                                 <input class="form-control form-control" type="text" name="bill_no"
                                     value="{{ $bill->bill_no }}" />
 
                                 <label class="form-label fs-6 fw-bolder text-dark">
-                                    Subject
+                                    Subject<x-utils.required />
                                 </label>
                                 <input class="form-control form-control" type="text" name="subject"
                                     value="{{ $bill->subject }}" />
 
-                                <label class="form-label mt-2 mb-0">Bill Status</label>
+                                <label class="form-label mt-2 mb-0">Bill Status<x-utils.required /></label>
                                 <select class="form-select" name="bill_status_id">
                                     @foreach ($billStatuses as $billStatus)
                                         <option value="{{ $billStatus->id }}"
@@ -145,30 +145,30 @@
                                 </select>
 
                                 <label class="form-label fs-6 fw-bolder text-dark">
-                                    Total
+                                    Total<x-utils.required />
                                 </label>
                                 <input class="form-control form-control" type="text" name="total"
                                     value="{{ $bill->total }}" />
 
                                 <label class="form-label fs-6 fw-bolder text-dark">
-                                    ASF
+                                    ASF<x-utils.required />
                                 </label>
                                 <input class="form-control form-control" type="text" name="asf"
                                     value="{{ $bill->asf }}" />
 
                                 <label class="form-label fs-6 fw-bolder text-dark">
-                                    VAT
+                                    VAT<x-utils.required />
                                 </label>
                                 <input class="form-control form-control" type="text" name="vat"
                                     value="{{ $bill->vat }}" />
 
                                 <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                    Bill File (xlsx)
+                                    Bill File(xlsx)<x-utils.required />
                                 </label>
                                 <input type="file" class="form-control" name="file">
 
                                 <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                    Supporting File (pdf/docx)
+                                    Supporting File(pdf/docx)<x-utils.required />
                                 </label>
                                 <input type="file" class="form-control" name="supporting_file">
 

@@ -6,10 +6,10 @@
                 <div class="text-center">
                     <a href="{{ URL::to('/') }}">
                         <img alt="Logo" src="{{ asset('/public/assets/media/logos/greenovent.png') }}"
-                            class="w-100 w-sm-25" />
+                            class="w-75 w-sm-50 w-lg-25" />
                     </a>
                 </div>
-                <div class="bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                <div class="w-75 w-lg-25 bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <!-- Validation Errors -->
                     <div class="text-center mb-10">
                         <h1 class="text-dark mb-3"> {{ $title }}</h1>
