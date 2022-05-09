@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Approval;
 use App\Models\ApprovalStatus;
+use App\Models\Client;
+use App\Models\Project;
 use App\Models\Recognition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -12,7 +14,9 @@ class ApprovalsController extends Controller {
     public $approvals;
 
     public function __construct() {
-        $this->approvals = Approval::orderBy( 'id', 'desc' )->paginate( 15 );
+        // get approvals of logged in user
+        $user = auth()->user();
+        $this->approvals = $user->approvalRequests()->orderBy( 'id', 'desc' )->paginate( 15 );
     }
 
     public function index() {
@@ -24,7 +28,11 @@ class ApprovalsController extends Controller {
         $approvalStatuses = ApprovalStatus::all();
         $preview = null;
 
-        if ( $approvalable instanceof Recognition ) {
+        if ( $approvalable instanceof Client ) {
+            $preview = View::make( 'components.approval-preview.new-client-preview', ['client' => $approval->approvalable] );
+        } else if ( $approvalable instanceof Project ) {
+            $preview = View::make( 'components.approval-preview.new-project-preview', ['project' => $approval->approvalable] );
+        } else if ( $approvalable instanceof Recognition ) {
             $preview = View::make( 'components.recognition', ['recognition' => $approval->approvalable] );
         }
 

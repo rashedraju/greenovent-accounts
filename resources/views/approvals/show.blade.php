@@ -11,10 +11,14 @@
                         @foreach ($approvals as $approvalItem)
                             <a href="{{ route('approvals.show', $approvalItem) }}"
                                 class="list-group-item py-5 list-group-item-action {{ $approvalItem->id == $approval->id ? 'active' : '' }}">
-                                <div class="fs-5 fw-bolder">{{ $approvalItem->title }}</div>
-                                <small>{{ $approvalItem->created_at->diffForHumans() }}
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="fw-bolder">{{ $approval->title }}</h5>
+                                    <small>{{ $approval->created_at->diffForHumans() }}</small>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <small>By {{ $approval->requestBy->name }}</small>
                                     <span class="badge badge-secondary">{{ $approval->status->name }}</span>
-                                </small>
+                                </div>
                             </a>
                         @endforeach
                     </div>

@@ -19,6 +19,7 @@ class CreateApprovalsTable extends Migration
             $table->foreignId('approval_status_id')->default(1)->constrained('approval_statuses', 'id');
             $table->unsignedBigInteger('approvalable_id');
             $table->string('approvalable_type');
+            $table->foreignId('request_user_id')->constrained('users', 'id');
             $table->foreignId('approver_id')->constrained('users', 'id');
             $table->string('note')->nullable();
             $table->timestamps();

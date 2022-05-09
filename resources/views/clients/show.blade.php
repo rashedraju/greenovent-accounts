@@ -34,6 +34,23 @@
     </ul>
     <div class="card mb-5 mb-xl-8">
         <div class="card-body pt-15">
+            @if ($client->isApprovedByEveryone())
+                <div class="alert alert-success" role="alert"> Approved</div>
+            @else
+                <div class="alert alert-danger" role="alert">
+                    <h4>Approvals:</h4>
+                    @foreach ($client->approvals as $approval)
+                        <div class="d-inline-flex flex-column border p-1">
+                            <div> {{ $approval->approver->name }} <br /> <small>
+                                    {{ $approval->approver->designation() }}
+                                </small> </div>
+                            <div>
+                                <span class="badge badge-secondary">{{ $approval->status->name }}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-column mb-5">
                     <div class="symbol symbol-100px symbol-circle mb-7">

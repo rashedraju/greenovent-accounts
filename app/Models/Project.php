@@ -9,12 +9,52 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model {
     use HasFactory;
 
+    const USER_CEO_Id = 1;
+    const USER_COO_Id = 2;
+
+    const APPROVAL_APPROVED_ID = 2;
+
     /**
      * The relationships that should always be loaded.
      *
      * @var array
      */
     protected $with = ['status', 'manager', 'client', 'type', 'billType'];
+
+    public static function boot() {
+        parent::boot();
+
+        // after new project record created
+        static::created( function ( $project ) {
+            // auth user
+            $user = auth()->user();
+
+            // send approvals to specific approver
+            $approvals = [
+                ['title' => "New project ({$project->name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_CEO_Id],
+                ['title' => "New project ({$project->name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_COO_Id]
+            ];
+
+            $project->approvals()->createMany( $approvals );
+        } );
+    }
+
+    // project approvals
+    public function approvals() {
+        return $this->morphMany( Approval::class, 'approvalable' );
+    }
+
+    // check is approved by every approver
+    public function isApprovedByEveryone() {
+        $status = true;
+        foreach ( $this->approvals as $approval ) {
+            if ( $approval->status->id != self::APPROVAL_APPROVED_ID ) {
+                $status = false;
+                break;
+            }
+        }
+        return $status;
+    }
 
     /**
      * One to many relation with projectStatus model

@@ -15,13 +15,20 @@ class Client extends Model {
     const USER_CEO_Id = 1;
     const USER_COO_Id = 2;
 
+    const APPROVAL_APPROVED_ID = 2;
+
     public static function boot() {
         parent::boot();
 
+        // after new client record created
         static::created( function ( $client ) {
+            // auth user
+            $user = auth()->user();
+
+            // send approvals to specific approver
             $approvals = [
-                ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_CEO_Id],
-                ['title' => "New client [{$client->company_name}] added ", 'approver_id' => self::USER_COO_Id]
+                ['title' => "New client ({$client->company_name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_CEO_Id],
+                ['title' => "New client ({$client->company_name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_COO_Id]
             ];
 
             $client->approvals()->createMany( $approvals );
@@ -31,6 +38,18 @@ class Client extends Model {
     // client approvals
     public function approvals() {
         return $this->morphMany( Approval::class, 'approvalable' );
+    }
+
+    // check is approved by every approver
+    public function isApprovedByEveryone() {
+        $status = true;
+        foreach ( $this->approvals as $approval ) {
+            if ( $approval->status->id != self::APPROVAL_APPROVED_ID ) {
+                $status = false;
+                break;
+            }
+        }
+        return $status;
     }
 
     public function getCreatedAtAttribute( $date ) {
@@ -53,7 +72,7 @@ class Client extends Model {
     }
 
     // get total sales of this year
-    public function salesThisYear(){
+    public function salesThisYear() {
         $year = now()->year;
         return $this->projects()->whereYear( 'start_date', $year )->sum( 'po_value' );
     }

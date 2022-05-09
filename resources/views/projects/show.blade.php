@@ -3,6 +3,25 @@
         <x-project.navigation :project="$project" active="overview" />
 
         <div class="card mb-5">
+            <div class="card-body pb-0">
+                @if ($project->isApprovedByEveryone())
+                    <div class="alert alert-success" role="alert"> Approved</div>
+                @else
+                    <div class="alert alert-danger" role="alert">
+                        <h4>Approvals:</h4>
+                        @foreach ($project->approvals as $approval)
+                            <div class="d-inline-flex flex-column border p-1">
+                                <div> {{ $approval->approver->name }} <br /> <small>
+                                        {{ $approval->approver->designation() }}
+                                    </small> </div>
+                                <div>
+                                    <span class="badge badge-secondary">{{ $approval->status->name }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
             <div class="card-header d-flex justify-content-start align-items-center">
                 <h3 class="card-title">Project Overview</h3>
                 <div>

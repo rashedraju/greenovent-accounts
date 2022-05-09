@@ -12,8 +12,12 @@ class Recognition extends Model {
         parent::boot();
 
         static::created( function ( $recognition ) {
+            // auth user
+            $user = auth()->user();
+
+            // create recognition approval after recognition created
             $approvals = [
-                ['title' => "Money Recognition for {$recognition->project->name}", 'approver_id' => 1]
+                ['title' => "Money Recognition for {$recognition->project->name}", 'request_user_id' => $user->id, 'approver_id' => 1]
             ];
 
             $recognition->approvals()->createMany( $approvals );

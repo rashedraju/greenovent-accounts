@@ -26,5 +26,13 @@ class AuthServiceProvider extends ServiceProvider {
 
         // Make model ungurded
         Model::unguard();
+
+        // logedin a user for development mode
+        if ( $this->app->environment( 'local' ) ) {
+            auth()->attempt( [
+                'email'    => 'admin@greenovent.com',
+                'password' => '12345678'
+            ] );
+        }
     }
 }

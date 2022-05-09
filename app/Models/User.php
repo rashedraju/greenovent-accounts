@@ -80,9 +80,15 @@ class User extends Authenticatable {
         return $this->projects->where( 'status_id', 2 );
     }
 
-    // user in pending projects
+    // user projects with pending status
     public function pendingProjects() {
         return $this->projects->where( 'status_id', 3 );
+    }
+
+    // user approvals
+    // user get approval requests
+    public function approvalRequests() {
+        return $this->hasMany( Approval::class, "approver_id" );
     }
 
     // Employee performances
