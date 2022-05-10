@@ -22,7 +22,7 @@
                 <table class="table table-secondary table-striped">
                     <thead>
                         <tr class="fw-bolder fs-6 bg-gray-300">
-                            <th scope="col" class="px-2 py-5">SL</th>
+                            <th scope="col" class="px-2 py-5"></th>
                         </tr>
                     </thead>
                     <tbody>
