@@ -19,8 +19,10 @@ class BusinessManagerContributionChart extends BaseChart {
         $managers = User::role( 'Bussiness Manager' )->get();
 
         $labels = $managers->pluck( 'name' )->toArray();
-        $currentMonth = now()->month;
-        $data = $managers->map( fn( $manager ) => $manager->projects()->whereMonth( 'created_at', $currentMonth )->get()->sum( fn( $project ) => $project->po_value ) )->toArray();
+        $date = \Carbon\Carbon::now();
+        $lastMonth = $date->subMonth()->format( 'm' );
+
+        $data = $managers->map( fn( $manager ) => $manager->projects()->whereMonth( 'created_at', $lastMonth )->get()->sum( fn( $project ) => $project->po_value ) )->toArray();
 
         return Chartisan::build()
             ->labels( $labels )

@@ -1,17 +1,16 @@
 <x-app-layout>
-    <div class="card card-body">
-        <div class="d-flex justify-content-between">
-            <div class="w-75">
-                <h6 class="text-center mb-5">Finance Records of this year - {{ $year }}</h6>
-                <div id="net_profit_chart" style="height: 300px;"></div>
-            </div>
-            <div class="w-25">
-                <h6 class="text-center mb-5">Business Manager Contribution by Month</h6>
-                <div id="business_manager_contribution_chart" style="height: 300px;"></div>
-            </div>
+    <div class="d-flex gap-3 justify-content-between">
+        <div class="card card-body w-75">
+            <h6 class="text-center mb-5">Finance Records of this year - {{ $year }}</h6>
+            <div id="net_profit_chart" style="height: 300px;"></div>
         </div>
-
-        <div class="d-flex overflow-scroll mt-5">
+        <div class="card card-body w-25">
+            <h6 class="text-center mb-5">Business Manager Contribution of last Month</h6>
+            <div id="business_manager_contribution_chart" style="height: 300px;"></div>
+        </div>
+    </div>
+    <div class="card card-body mt-5">
+        <div class="d-flex overflow-scroll">
             <div class="bg-primary p-5" style="border-radius: 2rem 0 0 0">
                 <p class="text-white">Total</p>
                 <h1 class="text-white">
