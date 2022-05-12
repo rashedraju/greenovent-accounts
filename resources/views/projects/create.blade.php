@@ -83,6 +83,11 @@
                             <input class="form-control form-control-lg form-control-solid" type="number" name="po_value"
                                 :value="old('po_value')" />
                         </div>
+                        <div class="fv-row mb-10">
+                            <label class="form-label fs-6 fw-bolder text-dark">Advance Paid</label>
+                            <input class="form-control form-control-lg form-control-solid" type="number"
+                                name="advance_paid" :value="old('advance_paid')" />
+                        </div>
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Bill Type
@@ -116,7 +121,7 @@
                         </div>
 
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Project Status</label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="type_id">Project Status</label>
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
                                 data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"

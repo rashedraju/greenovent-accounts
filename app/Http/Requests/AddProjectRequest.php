@@ -31,7 +31,8 @@ class AddProjectRequest extends FormRequest {
             'bill_type'           => ['required', Rule::exists( 'bill_statuses', 'id' )],
             'start_date'          => ['required', 'date'],
             'closing_date'        => ['required', 'date'],
-            'status_id'           => ['sometimes']
+            'status_id'           => ['sometimes'],
+            'advance_paid'        => 'sometimes'
         ];
     }
 }

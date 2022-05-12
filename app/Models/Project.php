@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model {
     use HasFactory;
 
+    const AIT = 2;
+
     const USER_CEO_Id = 1;
     const USER_COO_Id = 2;
 
@@ -171,9 +173,19 @@ class Project extends Model {
         return $this->hasMany( Bill::class, 'project_id' );
     }
 
-    // gross profit
+    // get ait
+    public function ait() {
+        return $this->external ? $this->external->grandTotal() * ( self::AIT / 100 ) : 0;
+    }
+
+    // Total Expenses (Project Expenses + AIT + Other Expenses)
+    public function totalExpense() {
+        return $this->internal ? $this->internal->total + $this->ait() : 0;
+    }
+
+    // gross profit :: Gross Profit = (Sub Total (Sales + ASF) - Total Expenses)
     public function grossProfit() {
-        return $this->external - $this->internal;
+        return $this->external ? $this->external?->asfSubTotal() - $this->totalExpense() : 0;
     }
 
     // Cost incurred

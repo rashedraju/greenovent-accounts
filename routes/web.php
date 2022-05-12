@@ -18,6 +18,7 @@ use App\Http\Controllers\ProjectBillController;
 use App\Http\Controllers\ProjectContactPersonController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RequisitionsController;
+use App\Http\Controllers\RevenueController;
 use App\Http\Controllers\RolesAndPermissionsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VendorController;
@@ -108,6 +109,11 @@ Route::middleware( 'auth' )->group( function () {
     Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
         Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
         Route::get( '/{year}/{month}', [ExpensesController::class, 'show'] )->name( 'show' );
+    } );
+
+    Route::name( 'revenue.' )->prefix( 'revenue' )->group( function () {
+        Route::get( '/', [RevenueController::class, 'index'] )->name( 'index' );
+        Route::get( '/{year}/{month}', [RevenueController::class, 'show'] )->name( 'show' );
     } );
 
     // Clients Routes

@@ -74,6 +74,13 @@
                         </div>
 
                         <div class="menu-item me-lg-1">
+                            <a href="{{ route('revenue.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('revenue.*') ? 'active' : '' }}">
+                                <span class="menu-title">Revenue</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item me-lg-1">
                             <a href="{{ route('employees.index') }}"
                                 class="menu-link py-3 {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                                 <span class="menu-title">Employees</span>
