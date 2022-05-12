@@ -60,6 +60,20 @@
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
+                            <a href="{{ route('bills.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('bills.*') ? 'active' : '' }}">
+                                <span class="menu-title">Bills</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item me-lg-1">
+                            <a href="{{ route('expenses.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
+                                <span class="menu-title">Expenses</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-item me-lg-1">
                             <a href="{{ route('employees.index') }}"
                                 class="menu-link py-3 {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                                 <span class="menu-title">Employees</span>

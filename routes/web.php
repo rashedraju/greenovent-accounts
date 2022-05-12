@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountsBillsController;
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\AccountsExpensesController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientsController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ExternalController;
 use App\Http\Controllers\InternalController;
+use App\Http\Controllers\ProjectBillController;
 use App\Http\Controllers\ProjectContactPersonController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RequisitionsController;
@@ -89,13 +91,23 @@ Route::middleware( 'auth' )->group( function () {
         Route::post( '/{project}/requisitions', [RequisitionsController::class, 'store'] )->name( 'requisitions.store' );
 
         // Project Bill
-        Route::get( '/{project}/bill', [BillController::class, 'index'] )->name( 'bill.index' );
-        Route::post( '/{project}/bill', [BillController::class, 'store'] )->name( 'bill.store' );
-        Route::put( '/{project}/bill/{bill}', [BillController::class, 'update'] )->name( 'bill.update' );
-        Route::delete( '/{project}/bill/{bill}', [BillController::class, 'delete'] )->name( 'bill.delete' );
+        Route::get( '/{project}/bill', [ProjectBillController::class, 'index'] )->name( 'bill.index' );
+        Route::post( '/{project}/bill', [ProjectBillController::class, 'store'] )->name( 'bill.store' );
+        Route::put( '/{project}/bill/{bill}', [ProjectBillController::class, 'update'] )->name( 'bill.update' );
+        Route::delete( '/{project}/bill/{bill}', [ProjectBillController::class, 'delete'] )->name( 'bill.delete' );
 
         // Project Contact Person
         Route::post( '{project}/contact', [ProjectContactPersonController::class, 'store'] )->name( 'contact.store' );
+    } );
+
+    Route::name( 'bills.' )->prefix( 'bills' )->group( function () {
+        Route::get( '/', [BillController::class, 'index'] )->name( 'index' );
+        Route::get( '/{bill}', [BillController::class, 'show'] )->name( 'show' );
+    } );
+
+    Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
+        Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
+        Route::get( '/{year}/{month}', [ExpensesController::class, 'show'] )->name( 'show' );
     } );
 
     // Clients Routes
@@ -125,14 +137,14 @@ Route::middleware( 'auth' )->group( function () {
 
         // debit
         Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
-            Route::get( '/', [ExpensesController::class, 'index'] )->name( 'index' );
-            Route::get( '/{year}/{month}', [ExpensesController::class, 'show'] )->name( 'show' );
-            Route::post( '/', [ExpensesController::class, 'store'] )->name( 'store' );
-            Route::put( '/{expense}', [ExpensesController::class, 'update'] )->name( 'update' );
-            Route::delete( '/{expense}', [ExpensesController::class, 'destory'] )->name( 'delete' );
+            Route::get( '/', [AccountsExpensesController::class, 'index'] )->name( 'index' );
+            Route::get( '/{year}/{month}', [AccountsExpensesController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [AccountsExpensesController::class, 'store'] )->name( 'store' );
+            Route::put( '/{expense}', [AccountsExpensesController::class, 'update'] )->name( 'update' );
+            Route::delete( '/{expense}', [AccountsExpensesController::class, 'destory'] )->name( 'delete' );
 
             // data import/export
-            Route::get( '/{year}/{month}/export', [ExpensesController::class, 'export'] )->name( 'export' );
+            Route::get( '/{year}/{month}/export', [AccountsExpensesController::class, 'export'] )->name( 'export' );
         } );
 
         // withdrawal
@@ -172,9 +184,9 @@ Route::middleware( 'auth' )->group( function () {
         } );
 
         // bills
-        Route::name('bills.')->prefix('bills')->group(function(){
+        Route::name( 'bills.' )->prefix( 'bills' )->group( function () {
             Route::get( '/', [AccountsBillsController::class, 'index'] )->name( 'index' );
-        });
+        } );
     } );
 
     // Route access permissions
