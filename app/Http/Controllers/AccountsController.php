@@ -16,22 +16,26 @@ class AccountsController extends Controller {
         $year = now()->year;
 
         // total balance of this year
-        $totalAmountByYear = $this->accountService->getTotalBalanceByYear( $year );
+        $totalBalanceByYear = $this->accountService->getTotalBalanceByYear( $year );
 
         // total bank balance of this year
         $totalBankAmountByYear = $this->accountService->getTotalBankAmountByYear( $year );
 
+        // get total cash amount by year
         $totalCashAmountByYear = $this->accountService->getTotalCashAmountByYear( $year );
 
+        // get total loan amount by year
         $totalLoanAmountByYear = $this->accountService->getLoanAmountByYear( $year );
+
+        // get toal investment amount by year
         $totalInvestmentAmountByYear = $this->accountService->getInvestmentAmountByYear( $year );
 
-        // get revenue, expense, netprofit by year
-        $totalRevenueOfThisYear = $this->accountService->getTotalSalesByYear( $year );
+        // get sales, expense, netprofit by year
+        $totalSalesByYear = $this->accountService->getTotalSalesByYear( $year );
         $totalExpenseByYear = $this->accountService->getTotalExpenseAmountByYear( $year );
-        $netProfit = $this->accountService->getNetProfitByYear( $year );
+        $netProfitByYear = $this->accountService->getNetProfitByYear( $year );
 
-        return view( 'accounts.index', compact( ['year', 'totalAmountByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear', 'totalRevenueOfThisYear', 'totalExpenseByYear', 'netProfit'] ) );
+        return view( 'accounts.index', compact( ['year', 'totalBalanceByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear', 'totalSalesByYear', 'totalExpenseByYear', 'netProfitByYear'] ) );
 
         return redirect()->route( 'accounts.finances.index', now()->year );
     }
