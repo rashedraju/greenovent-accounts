@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Services\AccountService;
 use Illuminate\Http\Request;
 
@@ -51,11 +52,11 @@ class AccountsController extends Controller {
             $totalExpenseAmountOfThisMonth = $this->accountService->getTotalExpenseAmountByYearAndMonth( $year, $month );
 
             // revenues
-            $revenuesOfThisMonth = $this->accountService->getTotalSalesByYearAndMonth( $year, $month );
+            $projectsOfThisMonth = Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get();
             $totalRevenueAmountOfThisMonth = $this->accountService->getTotalSalesByYearAndMonth( $year, $month );
             $netProfitOfThisMonth = $this->accountService->getNetProfitByYearMonth( $year, $month );
 
-            return view( 'accounts.show', compact( ['month', 'year', 'expensesOfThisMonth', 'totalExpenseAmountOfThisMonth', 'revenuesOfThisMonth', 'totalRevenueAmountOfThisMonth', 'netProfitOfThisMonth'] ) );
+            return view( 'accounts.show', compact( ['month', 'year', 'expensesOfThisMonth', 'totalExpenseAmountOfThisMonth', 'projectsOfThisMonth', 'totalRevenueAmountOfThisMonth', 'netProfitOfThisMonth'] ) );
 
         }
 

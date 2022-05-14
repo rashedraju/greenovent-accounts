@@ -38,7 +38,7 @@
                     </table>
                 </div>
                 <div class="border p-3">
-                    <h4>Revenues</h4>
+                    <h4>Sales</h4>
                     <table class="table table-striped table-light">
                         <thead>
                             <tr>
@@ -49,12 +49,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($revenuesOfThisMonth as $revenueOfThisMonth)
+                            @foreach ($projectsOfThisMonth as $project)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $revenueOfThisMonth->name }}</td>
-                                    <td>{{ $revenueOfThisMonth->client->company_name }}</td>
-                                    <td>{{ number_format($revenueOfThisMonth->po_value) }}</td>
+                                    <td>{{ $project->name }}</td>
+                                    <td>{{ $project->client->company_name }}</td>
+                                    <td>{{ number_format($project->po_value) }}</td>
                                 </tr>
                             @endforeach
                             <tr class="table-warning">
