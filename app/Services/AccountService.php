@@ -45,6 +45,10 @@ class AccountService {
         return $this->getTotalSalesByYearAndMonth( $year, $month ) - $this->getTotalExpenseAmountByYearAndMonth( $year, $month );
     }
 
+    public function getTotalNetProfitByYearAndMonth($year, $month){
+        return $this->getTotalSalesByYearAndMonth( $year, $month ) - $this->getTotalExpenseAmountByYearAndMonth( $year, $month );
+    }
+
     // get total deposit amount by year
     public function getTotalDepositByYear( $year ) {
         return Deposit::whereYear( 'date', $year )->get()->sum( fn( $deposit ) => $deposit->amount );

@@ -14,6 +14,7 @@ use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\ExternalController;
 use App\Http\Controllers\InternalController;
+use App\Http\Controllers\ProfitLossController;
 use App\Http\Controllers\ProjectBillController;
 use App\Http\Controllers\ProjectContactPersonController;
 use App\Http\Controllers\ProjectController;
@@ -115,6 +116,11 @@ Route::middleware( 'auth' )->group( function () {
     Route::name( 'revenue.' )->prefix( 'revenue' )->group( function () {
         Route::get( '/', [RevenueController::class, 'index'] )->name( 'index' );
         Route::get( '/{year}/{month}', [RevenueController::class, 'show'] )->name( 'show' );
+    } );
+
+    Route::name( 'profit-loss.' )->prefix( 'profit-loss' )->group( function () {
+        Route::get( '/', [ProfitLossController::class, 'index'] )->name( 'index' );
+        Route::get( '/{year}/{month}', [ProfitLossController::class, 'show'] )->name( 'show' );
     } );
 
     // Clients Routes
