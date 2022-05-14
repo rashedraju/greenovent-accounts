@@ -46,16 +46,12 @@
                                     {{ $project->ait() }} </strong> </div>
                             <div class="py-1">Total Expenses: <strong>
                                     {{ $project->totalExpense() }} </strong> </div>
-                            <div class="py-1">Gross Profit: <strong>
-                                    {{ $project->grossProfit() }} </strong> </div>
                         </div>
                         <div>
-                            <div class="py-1">Expenses(Total of Internal): <strong>
-                                    {{ $project->internal?->total }} </strong> </div>
-                            <div class="py-1">AIT(2%): <strong>
-                                    {{ $project->ait() }} </strong> </div>
-                            <div class="py-1">Total Expenses: <strong>
-                                    {{ $project->totalExpense() }} </strong> </div>
+                            <div class="py-1">Advance paid: <strong>
+                                    {{ $project->advance_paid }} </strong> </div>
+                            <div class="py-1">Due: <strong>
+                                    {{ $project->due() }} </strong> </div>
                             <div class="py-1">Gross Profit: <strong>
                                     {{ $project->grossProfit() }} </strong> </div>
                         </div>

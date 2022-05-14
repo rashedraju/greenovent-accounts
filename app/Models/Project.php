@@ -188,6 +188,11 @@ class Project extends Model {
         return $this->external ? $this->external?->asfSubTotal() - $this->totalExpense() : 0;
     }
 
+    // due amount (Sub Total (Sales + ASF) – AIT - Client Advance)
+    public function due(){
+        return $this->external?->asfSubTotal() - $this->ait() - $this->advance_paid;
+    }
+
     // Cost incurred
     public function costIncurred() {
         return $this->external && $this->internal ? ( $this->internal / $this->external ) * 100 : 0;
