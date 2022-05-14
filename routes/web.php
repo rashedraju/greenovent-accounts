@@ -103,7 +103,8 @@ Route::middleware( 'auth' )->group( function () {
 
     Route::name( 'bills.' )->prefix( 'bills' )->group( function () {
         Route::get( '/', [BillController::class, 'index'] )->name( 'index' );
-        Route::get( '/{bill}', [BillController::class, 'show'] )->name( 'show' );
+        Route::get( '/clients/{client}', [BillController::class, 'client'] )->name( 'client' );
+        Route::get( '/clients/{client}/bills/{bill}', [BillController::class, 'show'] )->name( 'show' );
     } );
 
     Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {

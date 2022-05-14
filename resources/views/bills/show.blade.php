@@ -1,6 +1,9 @@
 <x-app-layout>
+    <h1 class="text-center">Bills</h1>
     <div class="card">
         <div class="card-body">
+            <h2 class="mb-5 text-center">{{ $client->company_name }}</h2>
+
             <div class="d-flex bg-light justify-content-between align-items-center px-3">
                 <h4 class="text-center py-5">Project:
                     <a href="{{ route('projects.show', $bill->project) }}">{{ $bill->project->name }}</a>
