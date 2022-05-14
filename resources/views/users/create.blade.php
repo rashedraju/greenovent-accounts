@@ -20,9 +20,8 @@
                         </div>
 
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_relation">Image
-                                <x-utils.required />
-                            </label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_relation">Profile
+                                Image</label>
                             <input class="form-control form-control-lg form-control-solid" type="file"
                                 name="profile_image" value="{{ old('profile_image') }}" />
                             <div class="text-muted"> use jpg/jpeg/png image with max 5MB file size.</div>
@@ -65,36 +64,28 @@
                         </div>
 
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date
-                                <x-utils.required />
-                            </label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date</label>
                             <input class="form-control form-control-solid" id="user_add_joining_date_picker"
                                 name="joining_date" value="{{ old('joining_date') }}"
                                 placeholder="Select joining date" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
-                                Address
-                                <x-utils.required />
-                            </label>
+                                Address</label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="current_address" value="{{ old('current_address') }}"
                                 placeholder="Ex. Dhanmondi, Dhaka-1209" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="permanent_address">Permanent
-                                Address
-                                <x-utils.required />
-                            </label>
+                                Address</label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="permanent_address" value="{{ old('permanent_address') }}"
                                 placeholder="Ex. Dhanmondi, Dhaka-1209" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_name">Name of
-                                Emergency Contact
-                                <x-utils.required />
-                            </label>
+                                Emergency Contact</label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="emergency_contact_name" value="{{ old('emergency_contact_name') }}"
                                 placeholder="Ex. John Doe" />
@@ -102,18 +93,14 @@
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="emergency_contact_no">Emergency
-                                Contact No.
-                                <x-utils.required />
-                            </label>
+                                Contact No.</label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="emergency_contact_no" value="{{ old('emergency_contact_no') }}"
                                 placeholder="Ex. 01xxxxxxxxx" />
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6"
-                                for="emergency_contact_relation">Relationship with Emergency Contact
-                                <x-utils.required />
-                            </label>
+                                for="emergency_contact_relation">Relationship with Emergency Contact</label>
                             <input class="form-control form-control-lg form-control-solid" type="text"
                                 name="emergency_contact_relation" value="{{ old('emergency_contact_relation') }}"
                                 placeholder="Ex. Brother" />

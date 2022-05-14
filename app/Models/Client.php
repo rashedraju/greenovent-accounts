@@ -12,7 +12,7 @@ class Client extends Model {
     const STATUS_INPROGRESS_ID = 2;
     const STATUS_PENDING_ID = 3;
 
-    const USER_CEO_Id = 1;
+    const USER_EXECUTIVE_DIRECTOR_Id = 1;
     const USER_COO_Id = 2;
 
     const APPROVAL_APPROVED_ID = 2;
@@ -23,12 +23,12 @@ class Client extends Model {
         // after new client record created
         static::created( function ( $client ) {
             // auth user
-            $user = auth()->user();
+            $request_user = auth()->user()?->id ?? $client->business_manager_id;
 
             // send approvals to specific approver
             $approvals = [
-                ['title' => "New client ({$client->company_name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_CEO_Id],
-                ['title' => "New client ({$client->company_name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_COO_Id]
+                ['title' => "New client ({$client->company_name}) added ", "request_user_id" => $request_user, 'approver_id' => self::USER_EXECUTIVE_DIRECTOR_Id],
+                ['title' => "New client ({$client->company_name}) added ", "request_user_id" => $request_user, 'approver_id' => self::USER_COO_Id]
             ];
 
             $client->approvals()->createMany( $approvals );

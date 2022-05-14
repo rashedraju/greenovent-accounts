@@ -5,16 +5,16 @@
             <div id="net_profit_chart" style="height: 300px;"></div>
         </div>
         <div class="card card-body w-25">
-            <h6 class="text-center mb-5">Business Manager Contribution of last Month</h6>
+            <h6 class="text-center mb-5">Business Manager Contribution of this Month</h6>
             <div id="business_manager_contribution_chart" style="height: 300px;"></div>
         </div>
     </div>
     <div class="card card-body mt-5">
         <div class="d-flex overflow-scroll">
             <div class="bg-primary p-5" style="border-radius: 2rem 0 0 0">
-                <p class="text-white">Total</p>
+                <p class="text-white">Total Balance</p>
                 <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($totalAmountByYear) }}
+                    <x-utils.currency />{{ number_format($totalBalanceByYear) }}
                 </h1>
             </div>
 
@@ -46,9 +46,9 @@
                 </h1>
             </div>
             <div class="bg-info p-5">
-                <p class="text-white">Revenue</p>
+                <p class="text-white">Sales</p>
                 <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($totalRevenueOfThisYear) }}
+                    <x-utils.currency />{{ number_format($totalSalesByYear) }}
                 </h1>
             </div>
 
@@ -62,7 +62,7 @@
             <div class="bg-success p-5 text-white" style="border-radius: 0 2rem 0 0">
                 <p class="text-white">Net Profit</p>
                 <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($netProfit) }}
+                    <x-utils.currency />{{ number_format($netProfitByYear) }}
                 </h1>
             </div>
         </div>
@@ -250,7 +250,7 @@
             // net profit chart
             const netPorfitChart = new Chartisan({
                 el: '#net_profit_chart',
-                url: "@chart('net_profit_by_month_chart')",
+                url: "@chart('net_profit_by_year_month_chart')",
                 hooks: new ChartisanHooks()
                     .legend()
                     .colors()

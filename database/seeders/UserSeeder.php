@@ -12,91 +12,81 @@ class UserSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        // create ceo and asign role
-        $ceoData = [
-            'name'                       => 'John Doe',
-            'profile_image'              => 'profile_images/user.jpg',
-            'email'                      => 'admin@greenovent.com',
-            'phone'                      => '01234567891',
-            'joining_date'               => now(),
-            'current_address'            => 'Dhanmondi, Dhaka',
-            'permanent_address'          => 'Dhanmondi, Dhaka',
-            'emergency_contact_name'     => 'John Doe',
-            'emergency_contact_no'       => '01234567891',
-            'emergency_contact_relation' => 'brother',
-            'password'                   => '12345678'
+        $user1Data = [
+            'name'          => 'User 1',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user1@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
         ];
 
-        $ceo = User::create( $ceoData );
-        $ceo->assignRole( 'CEO' );
+        $user1 = User::create( $user1Data );
+        $user1->assignRole( 'Executive Director' );
 
-        // create bussiness manager and asign role
-        $bussinessManager1Data = [
-            'name'                       => 'Jane Doe',
-            'profile_image'              => 'profile_images/user.jpg',
-            'email'                      => 'jane@greenovent.com',
-            'phone'                      => '01234567891',
-            'joining_date'               => now(),
-            'current_address'            => 'Dhanmondi, Dhaka',
-            'permanent_address'          => 'Dhanmondi, Dhaka',
-            'emergency_contact_name'     => 'John Doe',
-            'emergency_contact_no'       => '01234567891',
-            'emergency_contact_relation' => 'brother',
-            'password'                   => '12345678'
+        $user2Data = [
+            'name'          => 'User 2',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user2@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
         ];
 
-        $bussinessManager1 = User::create( $bussinessManager1Data );
-        $bussinessManager1->assignRole( 'Bussiness Manager' );
+        $user2 = User::create( $user2Data );
+        $user2->assignRole( 'COO' );
 
-        $bussinessManager2Data = [
-            'name'                       => 'Mark Miller',
-            'profile_image'              => 'profile_images/user.jpg',
-            'email'                      => 'mark@greenovent.com',
-            'phone'                      => '01234567891',
-            'joining_date'               => now(),
-            'current_address'            => 'Dhanmondi, Dhaka',
-            'permanent_address'          => 'Dhanmondi, Dhaka',
-            'emergency_contact_name'     => 'Mark Miller',
-            'emergency_contact_no'       => '01234567891',
-            'emergency_contact_relation' => 'brother',
-            'password'                   => '12345678'
+        $user3data = [
+            'name'          => 'User 3',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user3@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
         ];
 
-        $bussinessManager2 = User::create( $bussinessManager2Data );
-        $bussinessManager2->assignRole( 'Bussiness Manager' );
+        $user3 = User::create( $user3data );
+        $user3->assignRole( 'General Manager' );
 
-        $bussinessManager3Data = [
-            'name'                       => 'Joe Jonas ',
-            'profile_image'              => 'profile_images/user.jpg',
-            'email'                      => 'jonas@greenovent.com',
-            'phone'                      => '01234567891',
-            'joining_date'               => now(),
-            'current_address'            => 'Dhanmondi, Dhaka',
-            'permanent_address'          => 'Dhanmondi, Dhaka',
-            'emergency_contact_name'     => 'Mark Miller',
-            'emergency_contact_no'       => '01234567891',
-            'emergency_contact_relation' => 'brother',
-            'password'                   => '12345678'
+        $user4Data = [
+            'name'          => 'User 4',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user4@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
         ];
 
-        $bussinessManager3 = User::create( $bussinessManager3Data );
-        $bussinessManager3->assignRole( 'Bussiness Manager' );
+        $user4 = User::create( $user4Data );
+        $user4->assignRole( 'Accounts Manager' );
 
-        $bussinessManager3Data = [
-            'name'                       => 'Accounts User',
-            'profile_image'              => 'profile_images/user.jpg',
-            'email'                      => 'accounts@greenovent.com',
-            'phone'                      => '01234567891',
-            'joining_date'               => now(),
-            'current_address'            => 'Dhanmondi, Dhaka',
-            'permanent_address'          => 'Dhanmondi, Dhaka',
-            'emergency_contact_name'     => 'Mark Miller',
-            'emergency_contact_no'       => '01234567891',
-            'emergency_contact_relation' => 'brother',
-            'password'                   => '12345678'
+        $user5Data = [
+            'name'          => 'User 5',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user5@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
         ];
 
-        $bussinessManager3 = User::create( $bussinessManager3Data );
-        $bussinessManager3->assignRole( 'Accounts' );
+        $user5 = User::create( $user5Data );
+        $user5->assignRole( 'Bussiness Manager' );
+
+        $user6Data = [
+            'name'          => 'User 6',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user6@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
+        ];
+
+        $user6 = User::create( $user6Data );
+        $user6->assignRole( 'Accounts Executive' );
+
+        $user7Data = [
+            'name'          => 'User 7',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'user7@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
+        ];
+
+        $user7 = User::create( $user7Data );
+        $user7->assignRole( 'Accounts Executive' );
     }
 }

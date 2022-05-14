@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\EmployeeLeave;
 use App\Models\Project;
-use App\Models\User;
 use App\Services\AccountService;
 use App\Services\CreditService;
 use App\Services\PermissionService;
@@ -27,23 +26,27 @@ class DashboardController extends Controller {
 
         $clients = Client::orderBy( 'id', 'desc' )->get();
         $projects = Project::orderBy( 'id', 'desc' )->get();
-        $users = User::paginate( 5 );
 
         // finance records
         $year = now()->year;
+
         // total balance of this year
-        $totalAmountByYear = $this->accountService->getTotalAmountByYear( $year );
+        $totalBalanceByYear = $this->accountService->getTotalBalanceByYear( $year );
 
         // total bank balance of this year
         $totalBankAmountByYear = $this->accountService->getTotalBankAmountByYear( $year );
 
-        $totalCashAmountByYear = $totalAmountByYear - $totalBankAmountByYear;
+        // get total cash amount by year
+        $totalCashAmountByYear = $this->accountService->getTotalCashAmountByYear( $year );
 
+        // get total loan amount by year
         $totalLoanAmountByYear = $this->accountService->getLoanAmountByYear( $year );
+
+        // get toal investment amount by year
         $totalInvestmentAmountByYear = $this->accountService->getInvestmentAmountByYear( $year );
 
-        // get revenue, expense, netprofit by year
-        $totalRevenueOfThisYear = $this->accountService->getTotalRevenueAmountByYear( $year );
+        // get sales, expense, netprofit by year
+        $totalSalesByYear = $this->accountService->getTotalSalesByYear( $year );
         $totalExpenseByYear = $this->accountService->getTotalExpenseAmountByYear( $year );
         $netProfitByYear = $this->accountService->getNetProfitByYear( $year );
 
@@ -55,8 +58,8 @@ class DashboardController extends Controller {
         // latest five credit record by project
         $lastFiveCreditRecordsByProject = $this->creditService->lastFiveCreditRecordsByProject();
 
-        $leaveRecordsOfThisMonth = EmployeeLeave::whereMonth('created_at', now()->month)->get();
+        $leaveRecordsOfThisMonth = EmployeeLeave::whereMonth( 'created_at', now()->month )->get();
 
-        return view( 'dashboard', compact( ['clients', 'projects', 'users', 'year', 'totalAmountByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear', 'netProfit', 'totalRevenueOfThisYear', 'totalExpenseByYear', 'lastFiveCreditRecordsByProject', 'leaveRecordsOfThisMonth'] ) );
+        return view( 'dashboard', compact( ['clients', 'projects', 'year', 'totalBalanceByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear', 'totalSalesByYear', 'totalExpenseByYear', 'netProfitByYear', 'lastFiveCreditRecordsByProject', 'leaveRecordsOfThisMonth'] ) );
     }
 }

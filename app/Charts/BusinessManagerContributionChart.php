@@ -4,7 +4,7 @@ declare ( strict_types = 1 );
 
 namespace App\Charts;
 
-use App\Models\User;
+use App\Models\Project;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
@@ -16,13 +16,14 @@ class BusinessManagerContributionChart extends BaseChart {
      * and never a string or an array.
      */
     public function handler( Request $request ): Chartisan {
-        $managers = User::role( 'Bussiness Manager' )->get();
+        $year = now()->year;
+        $month = now()->month;
 
-        $labels = $managers->pluck( 'name' )->toArray();
-        $date = \Carbon\Carbon::now();
-        $lastMonth = $date->subMonth()->format( 'm' );
+        $managers = Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->map( fn( $project ) => $project->manager );
 
-        $data = $managers->map( fn( $manager ) => $manager->projects()->whereMonth( 'created_at', $lastMonth )->get()->sum( fn( $project ) => $project->po_value ) )->toArray();
+        $labels = $managers->map( fn( $manager ) => $manager->name )->toArray();
+
+        $data = $managers->map( fn( $manager ) => $manager->projects()->whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->sum( fn( $project ) => $project->po_value ) )->toArray();
 
         return Chartisan::build()
             ->labels( $labels )

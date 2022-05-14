@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Requisition extends Model {
     use HasFactory;
 
-    const USER_CEO_Id = 1;
+    const USER_EXECUTIVE_DIRECTOR_Id = 1;
     const USER_ACCOUNTS_Id = 5;
 
     public static function boot() {
@@ -16,12 +16,12 @@ class Requisition extends Model {
 
         static::created( function ( $requisition ) {
             // auth user
-            $user = auth()->user();
+            $request_user = $requisition->user_id;
 
             // create requisition approval after requisition created
             $approvals = [
-                ['title' => "Money Requisition for ({$requisition->project->name})", 'request_user_id' => $user->id, 'approver_id' => self::USER_CEO_Id],
-                ['title' => "Money Requisition for ({$requisition->project->name})", 'request_user_id' => $user->id, 'approver_id' => self::USER_ACCOUNTS_Id]
+                ['title' => "Money Requisition for ({$requisition->project->name})", 'request_user_id' => $request_user, 'approver_id' => self::USER_EXECUTIVE_DIRECTOR_Id],
+                ['title' => "Money Requisition for ({$requisition->project->name})", 'request_user_id' => $request_user, 'approver_id' => self::USER_ACCOUNTS_Id]
             ];
 
             $requisition->approvals()->createMany( $approvals );

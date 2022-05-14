@@ -23,17 +23,17 @@ class EmployeeAddRequest extends FormRequest {
     public function rules() {
         return [
             'name'                       => ['required', 'string', 'max:255'],
-            'profile_image'              => ['required'],
+            'profile_image'              => ['sometimes'],
             'designation'                => ['required'],
             'email'                      => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone'                      => ['required', 'string'],
             'password'                   => ['required', 'confirmed', 'min:8', 'max:255'],
-            'joining_date'               => 'required|string',
-            'current_address'            => 'required|string',
-            'permanent_address'          => 'required|string',
-            'emergency_contact_name'     => 'required|string',
-            'emergency_contact_no'       => 'required|string',
-            'emergency_contact_relation' => 'required|string'
+            'joining_date'               => 'sometimes',
+            'current_address'            => 'sometimes',
+            'permanent_address'          => 'sometimes',
+            'emergency_contact_name'     => 'sometimes',
+            'emergency_contact_no'       => 'sometimes',
+            'emergency_contact_relation' => 'sometimes'
         ];
     }
 }

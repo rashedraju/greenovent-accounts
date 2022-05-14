@@ -15,7 +15,7 @@ class ProjectSeeder extends Seeder {
         $projects = [
             [
                 'name'                => 'Landmark Website',
-                'business_manager_id' => 2,
+                'business_manager_id' => 3,
                 'client_id'           => 1,
                 'type_id'             => 1,
                 'po_number'           => 101,
@@ -24,11 +24,11 @@ class ProjectSeeder extends Seeder {
                 'start_date'          => now(),
                 'closing_date'        => now()->addMonth(),
                 'status_id'           => 2,
-                'created_at'          => '2022-01-24 10:12:00'
+                'created_at'          => '2022-04-24 10:12:00'
             ],
             [
                 'name'                => 'BAT Event',
-                'business_manager_id' => 2,
+                'business_manager_id' => 4,
                 'client_id'           => 2,
                 'type_id'             => 1,
                 'po_number'           => 102,
@@ -37,11 +37,11 @@ class ProjectSeeder extends Seeder {
                 'start_date'          => now(),
                 'closing_date'        => now()->addMonth(),
                 'status_id'           => 2,
-                'created_at'          => '2022-02-24 10:12:00'
+                'created_at'          => '2022-05-24 10:12:00'
             ],
             [
                 'name'                => 'TVS Eid Campaign',
-                'business_manager_id' => 3,
+                'business_manager_id' => 5,
                 'client_id'           => 3,
                 'type_id'             => 1,
                 'po_number'           => 103,
@@ -50,7 +50,7 @@ class ProjectSeeder extends Seeder {
                 'start_date'          => now(),
                 'closing_date'        => now()->addMonth(),
                 'status_id'           => 2,
-                'created_at'          => '2022-03-24 10:12:00'
+                'created_at'          => '2022-05-24 10:12:00'
             ]
         ];
 

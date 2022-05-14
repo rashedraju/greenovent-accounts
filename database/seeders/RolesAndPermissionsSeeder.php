@@ -25,22 +25,20 @@ class RolesAndPermissionsSeeder extends Seeder {
         Permission::create( ['name' => 'Permissions'] );
 
         // create roles
-        $roleCEO = Role::create( ['name' => 'CEO'] );
-        $roleCOO = Role::create( ['name' => 'COO'] );
         $roleExecutiveDirector = Role::create( ['name' => 'Executive Director'] );
+        $roleCOO = Role::create( ['name' => 'COO'] );
         $roleGeneralManager = Role::create( ['name' => 'General Manager'] );
+        $roleAccountsManager = Role::create( ['name' => 'Accounts Manager'] );
         $roleGeneralManager = Role::create( ['name' => 'Bussiness Manager'] );
-        $roleHeadofOperations = Role::create( ['name' => 'Head of Operations'] );
+        $roleAccountsExecutive = Role::create( ['name' => 'Accounts Executive'] );
         $roleHR = Role::create( ['name' => 'HR'] );
-        $roleAccounts = Role::create( ['name' => 'Accounts'] );
 
-        // permissions for roleCEO
-        $roleCEO->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
+        // permissions for roles
+        $roleExecutiveDirector->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
         $roleCOO->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
-        $roleExecutiveDirector->givePermissionTo( ['Clients', 'Projects'] );
         $roleGeneralManager->givePermissionTo( ['Clients', 'Projects'] );
-        $roleHeadofOperations->givePermissionTo( ['Clients', 'Projects'] );
+        $roleAccountsManager->givePermissionTo( ['Clients', 'Projects'] );
         $roleHR->givePermissionTo( ['Employees'] );
-        $roleAccounts->givePermissionTo( ['Accounts'] );
+        $roleAccountsExecutive->givePermissionTo( ['Accounts'] );
     }
 }

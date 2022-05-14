@@ -32,12 +32,12 @@ class EmployeeEditRequest extends FormRequest {
             ],
             'phone'                      => ['required', 'string'],
             'password'                   => ['sometimes', 'confirmed', 'min:8', 'max:255'],
-            'joining_date'               => 'required|string',
-            'current_address'            => 'required|string',
-            'permanent_address'          => 'required|string',
-            'emergency_contact_name'     => 'required|string',
-            'emergency_contact_no'       => 'required|string',
-            'emergency_contact_relation' => 'required|string'
+            'joining_date'               => 'sometimes',
+            'current_address'            => 'sometimes',
+            'permanent_address'          => 'sometimes',
+            'emergency_contact_name'     => 'sometimes',
+            'emergency_contact_no'       => 'sometimes',
+            'emergency_contact_relation' => 'sometimes'
         ];
     }
 

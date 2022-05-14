@@ -6,72 +6,13 @@ use App\Models\Credit;
 use App\Models\CreditCategory;
 use App\Models\Deposit;
 use App\Models\Expense;
-use App\Models\ExternalCost;
 use App\Models\Project;
 use App\Models\Withdrawal;
 
 class AccountService {
-
-    /**
-     * Projects sales, expense, revenue start
-     *
-     */
-
-    // get sales amount by year
-    public function getTotalSalesByYear( $year ) {
-        return ExternalCost::whereYear( 'created_at', $year )->get()->sum( fn( $external ) => $external->total );
-    }
-
-    // get total sales amount by year and month
-    public function getTotalSalesByYearAndMonth( $year, $month ) {
-        return ExternalCost::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->sum( fn( $external ) => $external->total );
-    }
-
-    // get total expense of projects by year
-    public function getTotalExpensesOfProjectsByYear( $year ) {
-        return Project::whereYear( 'created_at', $year )->get()->sum( fn( $project ) => $project->totalExpense() );
-    }
-
-    // get total expense of projects by year and month
-    public function getTotalExpensesOfProjectsByYearAndMonth( $year, $month ) {
-        return Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->sum( fn( $project ) => $project->totalExpense() );
-    }
-
-    // get total gross profit of projects by year
-    public function getTotalGrossProfitOfProjectsByYear($year){
-        return Project::whereYear('created_at', $year)->get()->sum(fn($project) => $project->grossProfit());
-    }
-
-    // get total gross profit of projects by year and month
-    public function getTotalGrossProfitOfProjectsByYearAndMonth($year, $month){
-        return Project::whereYear('created_at', $year)->whereMonth('created_at', $month)->get()->sum(fn($project) => $project->grossProfit());
-    }
-
-    // get total due amount of projects by year
-    public function getTotalDueAmountOfProjectsByYear($year){
-        return Project::whereYear('created_at', $year)->get()->sum(fn($project) => $project->due());
-    }
-
-    // get total due amount of projects by year and month
-    public function getTotalDueAmountOfProjectsByYearAndMonth($year, $month){
-        return Project::whereYear('created_at', $year)->whereMonth('created_at', $month)->get()->sum(fn($project) => $project->due());
-    }
-
-    /**
-     * Projects sales, expense, revenue end
-     *
-     */
-
-    // get total expense of project by year and month
-
-    // get net profit by year
-    public function getNetProfitByYear( $year ) {
-        return $this->getTotalRevenueAmountByYear( $year ) - $this->getTotalExpenseAmountByYear( $year );
-    }
-
-    // get total balance
-    public function getTotalAmountByYear( $year ) {
-        return $this->getTotalCreditByYear( $year ) - $this->getTotalDebitByYear( $year );
+    // get total of debit records by year
+    public function getTotalDebitByYear( $year ) {
+        return Expense::whereYear( 'date', $year )->get()->sum( fn( $debit ) => $debit->amount );
     }
 
     // get total of credit records by year
@@ -79,14 +20,29 @@ class AccountService {
         return Credit::whereYear( 'date', $year )->get()->sum( fn( $credit ) => $credit->amount );
     }
 
-    // get total of debit records by year
-    public function getTotalDebitByYear( $year ) {
-        return Expense::whereYear( 'date', $year )->get()->sum( fn( $debit ) => $debit->amount );
+    // get total balance by year
+    public function getTotalBalanceByYear( $year ) {
+        return $this->getTotalCreditByYear( $year ) - $this->getTotalDebitByYear( $year );
     }
 
-    // get all bank amount by year
-    public function getTotalBankAmountByYear( $year ) {
-        return $this->getTotalDepositByYear( $year ) - $this->getTotalWithdrawalByYear( $year );
+    // get net profit by year
+    public function getNetProfitByYear( $year ) {
+        return $this->getTotalSalesByYear( $year ) - $this->getTotalExpenseAmountByYear( $year );
+    }
+
+    // get total sales by year and month
+    public function getTotalSalesByYearAndMonth( $year, $month ) {
+        return Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->sum( fn( $project ) => $project->po_value );
+    }
+
+    // get total amount of expenses of by year and month
+    public function getTotalExpenseAmountByYearAndMonth( $year, $month ) {
+        return Expense::filter( ['year' => $year, 'month' => $month] )->get()->sum( fn( $expense ) => $expense->amount );
+    }
+
+    // get total net profit by year and month
+    public function getNetProfitByYearMonth( $year, $month ) {
+        return $this->getTotalSalesByYearAndMonth( $year, $month ) - $this->getTotalExpenseAmountByYearAndMonth( $year, $month );
     }
 
     // get total deposit amount by year
@@ -97,6 +53,16 @@ class AccountService {
     // get withdrawal amount by year
     public function getTotalWithdrawalByYear( $year ) {
         return Withdrawal::whereYear( 'date', $year )->get()->sum( fn( $withdrawal ) => $withdrawal->amount );
+    }
+
+    // get all bank amount by year
+    public function getTotalBankAmountByYear( $year ) {
+        return $this->getTotalDepositByYear( $year ) - $this->getTotalWithdrawalByYear( $year );
+    }
+
+    // get total cash amount by year
+    public function getTotalCashAmountByYear( $year ) {
+        return $this->getTotalBalanceByYear( $year ) - $this->getTotalBankAmountByYear( $year );
     }
 
     // get all loan amount
@@ -131,12 +97,7 @@ class AccountService {
 
     // get total amount of expenses of by year
     public function getTotalExpenseAmountByYear( $year ) {
-        return $this->getExpensesByYear( $year )->sum( fn( $expense ) => $expense->amount );
-    }
-
-    // get total amount of expenses of by year and month
-    public function getTotalExpenseAmountByYearAndMonth( $year, $month ) {
-        return $this->getExpensesByYearAndMonth( $year, $month )->sum( fn( $expense ) => $expense->amount );
+        return Expense::filter( ['year' => $year] )->get()->sum( fn( $expense ) => $expense->amount );
     }
 
     // get total revenues by year and month
@@ -145,24 +106,9 @@ class AccountService {
         return Project::whereYear( 'created_at', $year )->get();
     }
 
-    // get total revenues by year and month
-    // total revenues taken from project work order that place on this month
-    public function getRevenuesByYearAndMonth( $year, $month ) {
-        return Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get();
-    }
-
-    // get total revenue amount by year and month
-    public function getTotalRevenueAmountByYear( $year ) {
-        return $this->getRevenuesByYear( $year )->sum( fn( $revenue ) => $revenue->po_value );
-    }
-
-    // get total revenue amount by year and month
-    public function getTotalRevenueAmountByYearAndMonth( $year, $month ) {
-        return $this->getRevenuesByYearAndMonth( $year, $month )->sum( fn( $revenue ) => $revenue->po_value );
-    }
-
-    public function getNetProfitByYearMonth( $year, $month ) {
-        return $this->getTotalRevenueAmountByYearAndMonth( $year, $month ) - $this->getTotalExpenseAmountByYearAndMonth( $year, $month );
+    // get total sales amount by year and month
+    public function getTotalSalesByYear( $year ) {
+        return Project::whereYear( 'created_at', $year )->get()->sum( fn( $project ) => $project->po_value );
     }
 
     /**

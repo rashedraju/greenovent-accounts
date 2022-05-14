@@ -11,7 +11,7 @@ class Project extends Model {
 
     const AIT = 2;
 
-    const USER_CEO_Id = 1;
+    const USER_EXECUTIVE_DIRECTOR_Id = 1;
     const USER_COO_Id = 2;
 
     const APPROVAL_APPROVED_ID = 2;
@@ -29,12 +29,12 @@ class Project extends Model {
         // after new project record created
         static::created( function ( $project ) {
             // auth user
-            $user = auth()->user();
+            $request_user = auth()->user()?->id ?? $project->business_manager_id;
 
             // send approvals to specific approver
             $approvals = [
-                ['title' => "New project ({$project->name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_CEO_Id],
-                ['title' => "New project ({$project->name}) added ", "request_user_id" => $user->id, 'approver_id' => self::USER_COO_Id]
+                ['title' => "New project ({$project->name}) added ", "request_user_id" => $request_user, 'approver_id' => self::USER_EXECUTIVE_DIRECTOR_Id],
+                ['title' => "New project ({$project->name}) added ", "request_user_id" => $request_user, 'approver_id' => self::USER_COO_Id]
             ];
 
             $project->approvals()->createMany( $approvals );

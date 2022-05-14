@@ -16,18 +16,18 @@ class AccountsController extends Controller {
         $year = now()->year;
 
         // total balance of this year
-        $totalAmountByYear = $this->accountService->getTotalAmountByYear( $year );
+        $totalAmountByYear = $this->accountService->getTotalBalanceByYear( $year );
 
         // total bank balance of this year
         $totalBankAmountByYear = $this->accountService->getTotalBankAmountByYear( $year );
 
-        $totalCashAmountByYear = $totalAmountByYear - $totalBankAmountByYear;
+        $totalCashAmountByYear = $this->accountService->getTotalCashAmountByYear( $year );
 
         $totalLoanAmountByYear = $this->accountService->getLoanAmountByYear( $year );
         $totalInvestmentAmountByYear = $this->accountService->getInvestmentAmountByYear( $year );
 
         // get revenue, expense, netprofit by year
-        $totalRevenueOfThisYear = $this->accountService->getTotalRevenueAmountByYear( $year );
+        $totalRevenueOfThisYear = $this->accountService->getTotalSalesByYear( $year );
         $totalExpenseByYear = $this->accountService->getTotalExpenseAmountByYear( $year );
         $netProfit = $this->accountService->getNetProfitByYear( $year );
 
@@ -47,8 +47,8 @@ class AccountsController extends Controller {
             $totalExpenseAmountOfThisMonth = $this->accountService->getTotalExpenseAmountByYearAndMonth( $year, $month );
 
             // revenues
-            $revenuesOfThisMonth = $this->accountService->getRevenuesByYearAndMonth( $year, $month );
-            $totalRevenueAmountOfThisMonth = $this->accountService->getTotalRevenueAmountByYearAndMonth( $year, $month );
+            $revenuesOfThisMonth = $this->accountService->getTotalSalesByYearAndMonth( $year, $month );
+            $totalRevenueAmountOfThisMonth = $this->accountService->getTotalSalesByYearAndMonth( $year, $month );
             $netProfitOfThisMonth = $this->accountService->getNetProfitByYearMonth( $year, $month );
 
             return view( 'accounts.show', compact( ['month', 'year', 'expensesOfThisMonth', 'totalExpenseAmountOfThisMonth', 'revenuesOfThisMonth', 'totalRevenueAmountOfThisMonth', 'netProfitOfThisMonth'] ) );

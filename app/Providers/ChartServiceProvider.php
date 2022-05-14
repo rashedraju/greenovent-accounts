@@ -25,7 +25,7 @@ class ChartServiceProvider extends ServiceProvider {
         $charts->register( [
             \App\Charts\ClientsChart::class,
             \App\Charts\ProjectsChart::class,
-            \App\Charts\NetProfitByMonthChart::class,
+            \App\Charts\NetProfitByYearMonthChart::class,
             \App\Charts\BusinessManagerContributionChart::class,
             RevenueByMonthChart::class
         ] );
