@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountsBillsController;
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\AccountsEmployeeLoanController;
 use App\Http\Controllers\AccountsExpensesController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
@@ -200,6 +201,14 @@ Route::middleware( 'auth' )->group( function () {
         Route::name( 'bills.' )->prefix( 'bills' )->group( function () {
             Route::get( '/', [AccountsBillsController::class, 'index'] )->name( 'index' );
         } );
+
+        // employee laod
+        Route::name('employee-loan.')->prefix('employee-loan')->group(function(){
+            Route::get('/', [AccountsEmployeeLoanController::class, 'index'])->name('index');
+            Route::put('/', [AccountsEmployeeLoanController::class, 'update'])->name('update');
+            Route::post('/', [AccountsEmployeeLoanController::class, 'store'])->name('store');
+            Route::delete('/{accountsEmployeeLoan}', [AccountsEmployeeLoanController::class, 'delete'])->name('delete');
+        });
     } );
 
     // Route access permissions

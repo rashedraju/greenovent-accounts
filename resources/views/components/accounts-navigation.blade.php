@@ -39,6 +39,12 @@
                             <span class="menu-title">Bills</span>
                         </a>
                     </div>
+                    <div class="menu-item me-lg-1">
+                        <a href="{{ route('accounts.employee-loan.index') }}"
+                            class="menu-link py-3 {{ request()->routeIs('accounts.employee-loan.*') ? 'bg-primary text-white mx-1' : '' }}">
+                            <span class="menu-title">Employee Loan</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
