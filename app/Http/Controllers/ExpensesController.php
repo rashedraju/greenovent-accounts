@@ -32,7 +32,7 @@ class ExpensesController extends Controller {
             $expenseRecords = Expense::filter( array_merge( ['year' => $year, 'month' => $month], request( ['head', 'user_id', 'project_id', 'expense_type_id', 'transaction_type_id'] ) ) )->get();
 
             // get billing persons
-            $billingPersons = User::pluck( 'name', 'id' );
+            $employees = User::pluck( 'name', 'id' );
 
             // get projects
             $projects = Project::pluck( 'name', 'id' );
@@ -54,7 +54,7 @@ class ExpensesController extends Controller {
             // projects of this month
             $projectsOfThisMonth = $expenseRecords->pluck( 'project.name', 'project.id' );
 
-            return view( 'expenses.show', compact( ['month', 'year', 'expenseRecords', 'billingPersons', 'projects', 'expenseTypes', 'transactionTypes', 'totalExpensesOfThisMonth', 'expenseHeadsOfThisMonth', 'billingPersonsOfThisMonth', 'projectsOfThisMonth'] ) );
+            return view( 'expenses.show', compact( ['month', 'year', 'expenseRecords', 'employees', 'projects', 'expenseTypes', 'transactionTypes', 'totalExpensesOfThisMonth', 'expenseHeadsOfThisMonth', 'billingPersonsOfThisMonth', 'projectsOfThisMonth'] ) );
         }
 
         return redirect()->route( 'expenses.index' )->with( 'failed', 'Expense records not found!' );

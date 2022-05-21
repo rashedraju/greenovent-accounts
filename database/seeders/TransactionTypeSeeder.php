@@ -14,7 +14,10 @@ class TransactionTypeSeeder extends Seeder {
     public function run() {
         $names = [
             'Cash',
-            'Bank'
+            'Bank',
+            "Bkash",
+            "Nagad",
+            "Others"
         ];
 
         foreach ( $names as $type ) {

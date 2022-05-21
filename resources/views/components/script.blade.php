@@ -7,8 +7,8 @@
 {{-- multiple input field repeater --}}
 <script src="{{ asset('/public/assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
 
-<!--end::Page Custom Javascript-->
-<!--end::Javascript-->
+{{-- AlpineJs --}}
+<script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
 
 {{-- Toast Notification Start --}}
 

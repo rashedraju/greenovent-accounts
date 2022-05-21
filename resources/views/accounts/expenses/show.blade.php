@@ -23,8 +23,7 @@
             {{-- Import and Export excel file --}}
 
             <div class="d-flex gap-3 justify-content-end">
-                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" data-bs-toggle="modal"
-                    data-bs-target="#add_debit">
+                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_expense_drawer_btn">
                     <x-utils.add-icon /> Add
                 </button>
                 <a href="{{ route('accounts.expenses.export', [$year, $month]) }}"
@@ -295,78 +294,94 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" id="add_debit">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add new expense record</h5>
-                </div>
+    {{-- <x-drawer btnId="add_expense_drawer_btn" drawerId="add_expense_drawer" title="Add new expense record">
+        <form action="{{ route('accounts.expenses.store') }}" method="post">
+            @csrf
 
-                <div class="modal-body">
-                    <form action="{{ route('accounts.expenses.store') }}" method="post">
-                        @csrf
+            <label class="form-label mt-2 mb-0">Date</label>
+            <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
 
-                        <label class="form-label mt-2 mb-0">Date</label>
-                        <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+            <label class="form-label mt-2 mb-0">Head</label>
+            <input type="text" class="form-control" name="head">
 
-                        <label class="form-label mt-2 mb-0">Head</label>
-                        <input type="text" class="form-control" name="head">
+            <label class="form-label mt-2 mb-0">Billing Person</label>
+            <select class="form-select" name="user_id">
+                <option value="0" disabled selected>Select</option>
+                @foreach ($billingPersons as $billingPersonId => $billingPersonName)
+                    <option value="{{ $billingPersonId }}">
+                        {{ $billingPersonName }}</option>
+                @endforeach
+            </select>
 
-                        <label class="form-label mt-2 mb-0">Billing Person</label>
-                        <select class="form-select" name="user_id">
-                            <option value="0" disabled selected>Select</option>
-                            @foreach ($billingPersons as $billingPersonId => $billingPersonName)
-                                <option value="{{ $billingPersonId }}">
-                                    {{ $billingPersonName }}</option>
-                            @endforeach
-                        </select>
+            <label class="form-label mt-2 mb-0">Project Name</label>
+            <select class="form-select" name="project_id">
+                <option value="0" disabled selected>Select</option>
+                @foreach ($projects as $projectId => $projectName)
+                    <option value="{{ $projectId }}">
+                        {{ $projectName }}</option>
+                @endforeach
+            </select>
 
-                        <label class="form-label mt-2 mb-0">Project Name</label>
-                        <select class="form-select" name="project_id">
-                            <option value="0" disabled selected>Select</option>
-                            @foreach ($projects as $projectId => $projectName)
-                                <option value="{{ $projectId }}">
-                                    {{ $projectName }}</option>
-                            @endforeach
-                        </select>
+            <label class="form-label mt-2 mb-0">Description</label>
+            <input type="text" class="form-control" name="description">
 
-                        <label class="form-label mt-2 mb-0">Description</label>
-                        <input type="text" class="form-control" name="description">
+            <label class="form-label mt-2 mb-0">Expense Type</label>
+            <select class="form-select" name="expense_type_id">
+                <option value="0" disabled selected>Select</option>
+                @foreach ($expenseTypes as $expenseTypeId => $expenseTypeName)
+                    <option value="{{ $expenseTypeId }}">
+                        {{ $expenseTypeName }}</option>
+                @endforeach
+            </select>
 
-                        <label class="form-label mt-2 mb-0">Expense Type</label>
-                        <select class="form-select" name="expense_type_id">
-                            <option value="0" disabled selected>Select</option>
-                            @foreach ($expenseTypes as $expenseTypeId => $expenseTypeName)
-                                <option value="{{ $expenseTypeId }}">
-                                    {{ $expenseTypeName }}</option>
-                            @endforeach
-                        </select>
+            <label class="form-label mt-2 mb-0">Transaction Type</label>
+            <select class="form-select" name="transaction_type_id">
+                <option value="0" disabled selected>Select</option>
+                @foreach ($transactionTypes as $transactionTypeId => $transactionTypeName)
+                    <option value="{{ $transactionTypeId }}">
+                        {{ $transactionTypeName }}</option>
+                @endforeach
+            </select>
 
-                        <label class="form-label mt-2 mb-0">Transaction Type</label>
-                        <select class="form-select" name="transaction_type_id">
-                            <option value="0" disabled selected>Select</option>
-                            @foreach ($transactionTypes as $transactionTypeId => $transactionTypeName)
-                                <option value="{{ $transactionTypeId }}">
-                                    {{ $transactionTypeName }}</option>
-                            @endforeach
-                        </select>
+            <label class="form-label mt-2 mb-0">Amount</label>
+            <input type="number" class="form-control" name="amount">
 
-                        <label class="form-label mt-2 mb-0">Amount</label>
-                        <input type="number" class="form-control" name="amount">
+            <label class="form-label mt-2 mb-0">Note</label>
+            <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
 
-                        <label class="form-label mt-2 mb-0">Note</label>
-                        <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+            <button type="submit" class="btn btn-primary my-3 w-100">Add</button>
+        </form>
+    </x-drawer> --}}
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
+    <x-drawer btnId="add_expense_drawer_btn" drawerId="add_expense_drawer" title="Add new expense record">
+        <form action="{{ route('accounts.expenses.store') }}" method="post" x-data="{ expenseType: '0' }">
+            @csrf
 
-                </div>
+            <label class="form-label mt-2 mb-0">Expense Type</label>
+            <select class="form-select" name="expense_type_id" x-model="expenseType">
+                <option value="0" disabled selected>Select</option>
+                @foreach ($expenseTypes as $expenseTypeId => $expenseTypeName)
+                    <option value="{{ $expenseTypeId }}">
+                        {{ $expenseTypeName }}</option>
+                @endforeach
+            </select>
 
-            </div>
-        </div>
-    </div>
+            <template x-if="expenseType == 1">
+                <label class="form-label mt-2 mb-0">Date</label>
+                <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
 
+                <label class="form-label mt-2 mb-0">Employee Name</label>
+                <select class="form-select" name="">
+                    <option value="0" disabled selected>Select</option>
+                    @foreach ($billingPersons as $billingPersonId => $billingPersonName)
+                        <option value="{{ $billingPersonId }}">
+                            {{ $billingPersonName }}</option>
+                    @endforeach
+                </select>
+            </template>
+            <template x-if="expenseType == '2'">
+                <div> Salary </div>
+            </template>
+        </form>
+    </x-drawer>
 </x-app-layout>

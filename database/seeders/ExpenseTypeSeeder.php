@@ -17,8 +17,7 @@ class ExpenseTypeSeeder extends Seeder {
             'Daily Conveyance',
             'Project/Event',
             'Loan',
-            'Invest',
-            'Others'
+            'Investment',
         ];
 
         foreach ( $types as $type ) {
