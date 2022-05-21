@@ -18,6 +18,7 @@ class CreateAccountsEmployeeLoansTable extends Migration
             $table->date('date');
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->unsignedBigInteger('amount');
+            $table->unsignedBigInteger('paid')->default(0);
             $table->timestamps();
         });
     }

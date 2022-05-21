@@ -205,7 +205,7 @@ Route::middleware( 'auth' )->group( function () {
         // employee laod
         Route::name('employee-loan.')->prefix('employee-loan')->group(function(){
             Route::get('/', [AccountsEmployeeLoanController::class, 'index'])->name('index');
-            Route::put('/', [AccountsEmployeeLoanController::class, 'update'])->name('update');
+            Route::put('/{accountsEmployeeLoan}', [AccountsEmployeeLoanController::class, 'update'])->name('update');
             Route::post('/', [AccountsEmployeeLoanController::class, 'store'])->name('store');
             Route::delete('/{accountsEmployeeLoan}', [AccountsEmployeeLoanController::class, 'delete'])->name('delete');
         });

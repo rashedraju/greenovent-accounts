@@ -12,8 +12,7 @@ class AccountsEmployeeLoan extends Model {
         return $this->belongsTo( User::class );
     }
 
-    public function due() {
-        $paidLoanAmount = AccountsEmployeePayLoan::where( 'loan_id', $this->id )->get()?->amount ?? 0;
-        return $this->amount - $paidLoanAmount;
+    public function due(){
+        return $this->amount - $this->paid;
     }
 }

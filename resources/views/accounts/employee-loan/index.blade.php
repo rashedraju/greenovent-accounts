@@ -60,39 +60,71 @@
                 <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_load_drawer_btn">
                     <x-utils.add-icon /> Add
                 </button>
-                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-primary" id="pay_load_drawer_btn">
-                    <x-utils.add-icon /> Play Loan
-                </button>
             </div>
             <div class="table-responsive py-5">
-                <table class="table table-secondary table-striped">
+                <table class="table table-secondary table-striped table-hover">
                     <thead>
                         <tr class="fw-bolder fs-6 bg-gray-300">
                             <th scope="col" class="px-2 py-5">SL</th>
                             <th scope="col" class="px-2 py-5">Date</th>
                             <th scope="col" class="px-2 py-5">Employee Name</th>
                             <th scope="col" class="px-2 py-5">Loan Amount</th>
+                            <th scope="col" class="px-2 py-5">Paid</th>
+                            <th scope="col" class="px-2 py-5">Due</th>
                             <th scope="col" class="px-2 py-5">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($loans as $loan)
-                            <td class="px-2 py-5">{{ $loop->iteration }}</td>
-                            <td class="px-2 py-5">{{ date('M d, Y', strtotime($loan->date)) }}</td>
-                            <td class="px-2 py-5">{{ $loan->user->name }}</td>
-                            <td class="px-2 py-5">{{ number_format($loan->amount) }}</td>
-                            <td class="px-2 py-5">
-                                <form method="post" action="{{ route('accounts.employee-loan.delete', $loan) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-sm bg-transparent p-0 m-0">
-                                        <x-utils.delete-icon />
+                            <tr>
+                                <td class="px-2 py-5">{{ $loop->iteration }}</td>
+                                <td class="px-2 py-5">{{ date('M d, Y', strtotime($loan->date)) }}</td>
+                                <td class="px-2 py-5">{{ $loan->user->name }}</td>
+                                <td class="px-2 py-5">{{ number_format($loan->amount) }}</td>
+                                <td class="px-2 py-5">{{ number_format($loan->paid) }}</td>
+                                <td class="px-2 py-5">{{ number_format($loan->due()) }}</td>
+                                <td class="px-2 py-5 d-flex">
+                                    <button type="button" class="btn btn-sm bg-transparent p-0 m-0"
+                                        id="edit_load_drawer_btn_{{ $loan->id }}">
+                                        <x-utils.edit-icon />
                                     </button>
-                                </form>
-                            </td>
+
+                                    <form method="post" action="{{ route('accounts.employee-loan.delete', $loan) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-sm bg-transparent p-0 m-0">
+                                            <x-utils.delete-icon />
+                                        </button>
+                                    </form>
+                                    <x-drawer btnId="edit_load_drawer_btn_{{ $loan->id }}"
+                                        drawerId="edit_load_drawer_{{ $loan->id }}" title="Edit Loan">
+                                        <form action="{{ route('accounts.employee-loan.update', $loan) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('put')
+
+                                            <label class="form-label mt-2 mb-0">Amount</label>
+                                            <input type="number" class="form-control" name="amount"
+                                                value="{{ $loan->amount }}">
+
+                                            <label class="form-label mt-2 mb-0">Paid</label>
+                                            <input type="number" class="form-control" name="paid"
+                                                value="{{ $loan->paid }}">
+
+                                            <div class="py-3">
+                                                <strong>Due: {{ number_format($loan->due()) }}</strong>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+                                        </form>
+                                    </x-drawer>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
+
+                {{ $loans->links() }}
             </div>
         </div>
     </div>
@@ -117,31 +149,6 @@
             <input type="number" class="form-control" name="amount">
 
             <button type="submit" class="btn btn-primary mt-2">Add</button>
-        </form>
-    </x-drawer>
-
-    <x-drawer btnId="pay_load_drawer_btn" drawerId="pay_load_drawer" title="Pay Loan">
-        <form action="{{ route('accounts.employee-loan.update') }}" method="post">
-            @csrf
-            @method('put')
-
-            <label class="form-label mt-2 mb-0">Date</label>
-            <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
-
-            <label class="form-label mt-2 mb-0">Select Loan</label>
-            <select class="form-select" name="loan_id" data-control="select2" data-placeholder="Select">
-                <option></option>
-                @foreach ($loans as $loan)
-                    <option value="{{ $loan->id }}">
-                        #{{ $loan->date }}_{{ $loan->user->name }}_due:{{ $loan->due() }}
-                    </option>
-                @endforeach
-            </select>
-
-            <label class="form-label mt-2 mb-0">Amount</label>
-            <input type="number" class="form-control" name="amount">
-
-            <button type="submit" class="btn btn-primary mt-2">Pay Loan</button>
         </form>
     </x-drawer>
     <!--end::View component-->
