@@ -52,9 +52,4 @@ class ProjectService {
     public function getTotalDueAmountOfProjectsByYearAndMonth( $year, $month ) {
         return Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->sum( fn( $project ) => $project->due() );
     }
-
-    /*
- * Projects sales, expense, revenue end
- *
- */
 }

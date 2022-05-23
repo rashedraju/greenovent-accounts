@@ -2,79 +2,56 @@
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
-
     <x-accounts-navigation />
-
     <div class="card mt-3">
         <div class="card-body py-4">
-            <h3 class="pb-5 text-center">Finance Records Month of {{ now()->year($year)->month($month)->format('F') }}
-                - {{ $year }} </h3>
+            <h3 class="pb-5 text-center">
+                Finance Records Month of {{ now()->month($data['month'])->format('F') }} - {{ $data['year'] }}
+            </h3>
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="d-flex overflow-scroll">
+                    <div class="bg-info p-5" style="border-radius: 2rem 0 0 0">
+                        <p class="text-white">Sales</p>
+                        <h1 class="text-white">
+                            <x-utils.currency />{{ number_format($data['sales']) }}
+                        </h1>
+                    </div>
 
-            <div class="d-flex gap-3">
-                <div class="border p-3">
-                    <h4>Total Expenses</h4>
-                    <table class="table table-striped table-light">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($expensesOfThisMonth as $expenseOfThisMonth)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $expenseOfThisMonth->head }}</td>
-                                    <td>{{ $expenseOfThisMonth->amount }}</td>
-                                </tr>
-                            @endforeach
-                            <tr class="table-warning">
-                                <td></td>
-                                <td></td>
-                                <td><strong> Total = {{ $totalExpenseAmountOfThisMonth }}</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="border p-3">
-                    <h4>Sales</h4>
-                    <table class="table table-striped table-light">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Project Name</th>
-                                <th scope="col">Client Name</th>
-                                <th scope="col">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($projectsOfThisMonth as $project)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $project->name }}</td>
-                                    <td>{{ $project->client->company_name }}</td>
-                                    <td>{{ number_format($project->po_value) }}</td>
-                                </tr>
-                            @endforeach
-                            <tr class="table-warning">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><strong>Total = {{ number_format($totalRevenueAmountOfThisMonth) }}</strong></td>
-                            </tr>
-                            <tr class="table-success">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><strong>Net Profit = {{ number_format($netProfitOfThisMonth) }}</strong>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="bg-light p-5">
+                        <p class="text-gray-700">Expense</p>
+                        <h1 class="text-gray-700">
+                            <x-utils.currency />{{ number_format($data['expense']) }}
+                        </h1>
+                    </div>
+                    <div class="bg-success p-5 text-white">
+                        <p class="text-white">Net Profit</p>
+                        <h1 class="text-white">
+                            <x-utils.currency />{{ number_format($data['net_profit']) }}
+                        </h1>
+                    </div>
+
+                    <div class="bg-primary p-5">
+                        <p class="text-white">Current Balance</p>
+                        <h1 class="text-white">
+                            <x-utils.currency />{{ number_format($data['balance']) }}
+                        </h1>
+                    </div>
+
+                    <div class="bg-light p-5 text-white border border-gray-300">
+                        <p class="text-gray-700">Bank</p>
+                        <h1 class="text-gray-700">
+                            <x-utils.currency />{{ number_format($data['bank_amount']) }}
+                        </h1>
+                    </div>
+
+                    <div class="bg-light p-5 text-white border border-gray-300">
+                        <p class="text-gray-700">Cash</p>
+                        <h1 class="text-gray-700">
+                            <x-utils.currency />{{ number_format($data['cash_amount']) }}
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </x-app-layout>

@@ -5,32 +5,35 @@ namespace App\Services;
 use App\Models\Accounts\Credit\InvestmentCredit;
 use App\Models\Accounts\Credit\LoanCredit;
 use App\Models\Accounts\Credit\ProjectCredit;
-use App\Models\Credit;
 
-class CreditService{
-    public function lastFiveCreditRecordsByProject(){
-        return Credit::whereNotNull('project_id')->latest('date')->take(1)->get();
-    }
-
+class CreditService {
     // credit records
-    public function getProjectCredit($args = []){
+    public function getProjectCredit( $args = [] ) {
         return ProjectCredit::filter( $args )->get();
     }
-    public function getLoanCredit($args = []){
+
+    public function getLoanCredit( $args = [] ) {
         return LoanCredit::filter( $args )->get();
     }
-    public function getInvestmentCredit($args = []){
+
+    public function getInvestmentCredit( $args = [] ) {
         return InvestmentCredit::filter( $args )->get();
     }
 
     // credit amount
-    public function getProjectCreditAmount($args = []){
+    public function getProjectCreditAmount( $args = [] ) {
         return ProjectCredit::filter( $args )->get()->sum( fn( $credit ) => $credit->amount );
     }
-    public function getLoanCreditAmount($args = []){
+
+    public function getLoanCreditAmount( $args = [] ) {
         return LoanCredit::filter( $args )->get()->sum( fn( $credit ) => $credit->amount );
     }
-    public function getInvestmentCreditAmount($args = []){
+
+    public function getInvestmentCreditAmount( $args = [] ) {
         return InvestmentCredit::filter( $args )->get()->sum( fn( $credit ) => $credit->amount );
+    }
+
+    public function getTotalCreditAmount( $args = [] ) {
+        return $this->getProjectCreditAmount( $args ) + $this->getLoanCreditAmount( $args ) + $this->getInvestmentCreditAmount( $args );
     }
 }

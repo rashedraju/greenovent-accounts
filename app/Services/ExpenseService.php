@@ -30,6 +30,17 @@ class ExpenseService {
         return InvestmentExpense::filter( $args )->get();
     }
 
+    public function getExpenses($args){
+        $salary = $this->getSalaryExpenses($args);
+        $project = $this->getProjectExpenses($args);
+        $dailyConveyance = $this->getDailyConveyanceExpenses($args);
+        $loan = $this->getLoanExpenses($args);
+        $investment = $this->getInvestmentExpenses($args);
+
+        $expense = $salary->merge($project)->merge($dailyConveyance)->merge($loan)->merge($investment);
+        return $expense->sortBy('created_at');
+    }
+
     // Expense amounts
     public function getSalaryExpenseAmount( $args = [] ) {
         return $this->getSalaryExpenses( $args )->sum( fn( $expense ) => $expense->amount );
@@ -51,7 +62,7 @@ class ExpenseService {
         return $this->getInvestmentExpenses( $args )->sum( fn( $expense ) => $expense->amount );
     }
 
-    public function getTotalExpenseAmount($args = []){
-         
+    public function getTotalExpenseAmount( $args = [] ) {
+        return $this->getSalaryExpenseAmount( $args ) + $this->getDailyConveyanceExpenseAmount( $args ) + $this->getProjectExpenseAmount( $args ) + $this->getLoanExpenseAmount( $args ) + $this->getInvestmentExpenseAmount( $args );
     }
 }

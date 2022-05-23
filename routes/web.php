@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountsBillsController;
-use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\AccountsEmployeeLoanController;
+use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Accounts\AccountsExpensesController;
 use App\Http\Controllers\Accounts\CreditController;
 use App\Http\Controllers\Accounts\DailyConveyanceExpenseController;

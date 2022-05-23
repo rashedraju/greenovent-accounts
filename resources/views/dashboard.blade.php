@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="d-flex gap-3 justify-content-between">
         <div class="card card-body w-75">
-            <h6 class="text-center mb-5">Finance Records of this year - {{ $year }}</h6>
+            <h6 class="text-center mb-5">Finance Records of this year - {{ $data['year'] }}</h6>
             <div id="net_profit_chart" style="height: 300px;"></div>
         </div>
         <div class="card card-body w-25">
@@ -11,58 +11,44 @@
     </div>
     <div class="card card-body mt-5">
         <div class="d-flex overflow-scroll">
-            <div class="bg-primary p-5" style="border-radius: 2rem 0 0 0">
-                <p class="text-white">Total Balance</p>
-                <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($totalBalanceByYear) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5 text-white border border-gray-300">
-                <p class="text-gray-700">Bank</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($totalBankAmountByYear) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5 text-white border border-gray-300">
-                <p class="text-gray-700">Cash</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($totalCashAmountByYear) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5 text-white border border-gray-300">
-                <p class="text-gray-700">Loan</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($totalLoanAmountByYear) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5 text-white border border-gray-300">
-                <p class="text-gray-700">Investment</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($totalInvestmentAmountByYear) }}
-                </h1>
-            </div>
-            <div class="bg-info p-5">
+            <div class="bg-info p-5" style="border-radius: 2rem 0 0 0">
                 <p class="text-white">Sales</p>
                 <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($totalSalesByYear) }}
+                    <x-utils.currency />{{ number_format($data['sales']) }}
                 </h1>
             </div>
 
             <div class="bg-light p-5">
                 <p class="text-gray-700">Expense</p>
                 <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($totalExpenseByYear) }}
+                    <x-utils.currency />{{ number_format($data['expense']) }}
+                </h1>
+            </div>
+            <div class="bg-success p-5 text-white">
+                <p class="text-white">Net Profit</p>
+                <h1 class="text-white">
+                    <x-utils.currency />{{ number_format($data['net_profit']) }}
                 </h1>
             </div>
 
-            <div class="bg-success p-5 text-white" style="border-radius: 0 2rem 0 0">
-                <p class="text-white">Net Profit</p>
+            <div class="bg-primary p-5">
+                <p class="text-white">Current Balance</p>
                 <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($netProfitByYear) }}
+                    <x-utils.currency />{{ number_format($data['balance']) }}
+                </h1>
+            </div>
+
+            <div class="bg-light p-5 text-white border border-gray-300">
+                <p class="text-gray-700">Bank</p>
+                <h1 class="text-gray-700">
+                    <x-utils.currency />{{ number_format($data['bank_amount']) }}
+                </h1>
+            </div>
+
+            <div class="bg-light p-5 text-white border border-gray-300">
+                <p class="text-gray-700">Cash</p>
+                <h1 class="text-gray-700">
+                    <x-utils.currency />{{ number_format($data['cash_amount']) }}
                 </h1>
             </div>
         </div>
@@ -88,7 +74,7 @@
                         </tr>
                     </thead>
                     <tbody class="border border-dark">
-                        @foreach ($clients as $client)
+                        @foreach ($data['clients'] as $client)
                             <tr class="border border-dark fw-bold {{ $loop->iteration <= 3 ? 'table-primary' : '' }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $client->company_name }}</td>
@@ -127,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody class="border border-dark">
-                        @foreach ($projects as $project)
+                        @foreach ($data['projects'] as $project)
                             <tr class="border border-dark fw-bold">
                                 <td class="px-2 py-5">{{ $loop->iteration }}</td>
                                 <td class="px-2 py-5"><a
@@ -179,26 +165,24 @@
                         </tr>
                     </thead>
                     <tbody class="border border-dark">
-                        @foreach ($lastFiveCreditRecordsByProject as $creditRecord)
+                        @foreach ($data['project_expenses'] as $project_expense)
                             <tr class="border border-dark fw-bold">
                                 <td class="px-2 py-5">{{ $loop->iteration }}</td>
-                                <td class="px-2 py-5"><a
-                                        href="{{ route('projects.show', $creditRecord->project) }}">{{ $creditRecord->project->name }}</a>
-                                </td>
+                                <td class="px-2 py-5">>{{ $project_expense->project->name }}</td>
                                 <td class="px-2 py-5">
                                     <span class="text-white px-3 py-1 rounded"
-                                        style="background: {{ $creditRecord->project->status->color }}">
-                                        {{ $creditRecord->project->status->name }}
+                                        style="background: {{ $project_expense->project->status->color }}">
+                                        {{ $project_expense->project->status->name }}
                                     </span>
                                 </td>
                                 <td class="px-2 py-5">
-                                    {{ $creditRecord->receivedPerson->name }}
+                                    {{ $project_expense->user->name }}
                                 </td>
                                 <td class="px-2 py-5">
-                                    {{ number_format($creditRecord->amount) }}
+                                    {{ number_format($project_expense->amount) }}
                                 </td>
                                 <td class="px-2 py-5">
-                                    {{ $creditRecord->transactionType->name }}
+                                    {{ $project_expense->transactionType->name }}
                                 </td>
                             </tr>
                         @endforeach
@@ -224,7 +208,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($leaveRecordsOfThisMonth as $leaveRecord)
+                        @foreach ($data['leave_records'] as $leaveRecord)
                             <tr>
                                 <td class="px-2 py-5">{{ $loop->iteration }}</td>
                                 <td class="px-2 py-5"><a
