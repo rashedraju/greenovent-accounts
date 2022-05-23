@@ -98,7 +98,7 @@ class User extends Authenticatable {
 
     public function performancesByGroup() {
         return $this->performances->groupby( function ( $performance ) {
-            return Carbon::parse( $performance->created_at )->format( 'F, Y' );
+            return Carbon::parse( $performance->created_at )->format( 'F , Y' );
         } );
     }
 }

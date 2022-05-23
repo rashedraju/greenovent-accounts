@@ -4,41 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Services\AccountService;
+use App\Services\ProjectService;
 use Illuminate\Http\Request;
 
 class AccountsController extends Controller {
     public $accountService;
+    public $projectService;
 
-    public function __construct( AccountService $accountService ) {
+    public function __construct( AccountService $accountService, ProjectService $projectService ) {
         $this->accountService = $accountService;
+        $this->projectService = $projectService;
     }
 
     public function index() {
-        $year = now()->year;
+        return view( 'accounts.index' );
+    }
 
-        // total balance of this year
-        $totalBalanceByYear = $this->accountService->getTotalBalanceByYear( $year );
+    public function showByYear( $year ) {
+        if ( $year ) {
+            $sales = $this->projectService->getTotalSalesByYear( $year );
 
-        // total bank balance of this year
-        $totalBankAmountByYear = $this->accountService->getTotalBankAmountByYear( $year );
+            // total balance of this year
+            $totalBalanceByYear = $this->accountService->getTotalBalanceByYear( $year );
 
-        // get total cash amount by year
-        $totalCashAmountByYear = $this->accountService->getTotalCashAmountByYear( $year );
+            // total bank balance of this year
+            $totalBankAmountByYear = $this->accountService->getTotalBankAmountByYear( $year );
 
-        // get total loan amount by year
-        $totalLoanAmountByYear = $this->accountService->getLoanAmountByYear( $year );
+            // get total cash amount by year
+            $totalCashAmountByYear = $this->accountService->getTotalCashAmountByYear( $year );
 
-        // get toal investment amount by year
-        $totalInvestmentAmountByYear = $this->accountService->getInvestmentAmountByYear( $year );
+            // get total loan amount by year
+            $totalLoanAmountByYear = $this->accountService->getLoanAmountByYear( $year );
 
-        // get sales, expense, netprofit by year
-        $totalSalesByYear = $this->accountService->getTotalSalesByYear( $year );
-        $totalExpenseByYear = $this->accountService->getTotalExpenseAmountByYear( $year );
-        $netProfitByYear = $this->accountService->getNetProfitByYear( $year );
+            // get toal investment amount by year
+            $totalInvestmentAmountByYear = $this->accountService->getInvestmentAmountByYear( $year );
 
-        return view( 'accounts.index', compact( ['year', 'totalBalanceByYear', 'totalBankAmountByYear', 'totalCashAmountByYear', 'totalLoanAmountByYear', 'totalInvestmentAmountByYear', 'totalSalesByYear', 'totalExpenseByYear', 'netProfitByYear'] ) );
+            // get sales, expense, netprofit by year
+            $totalExpenseByYear = $this->accountService->getTotalExpenseAmountByYear( $year );
+            $netProfitByYear = $this->accountService->getNetProfitByYear( $year );
 
-        return redirect()->route( 'accounts.finances.index', now()->year );
+            return view( 'accounts.show-year', compact([]));
+
+        } else {
+            return redirect()->route( 'accounts.finances.index')->with('failed', 'Records not found!');
+        }
     }
 
     // show finance recods of this year

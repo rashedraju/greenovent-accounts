@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder {
             // bills
             BillTypeSeeder::class,
             BillStatusSeeder::class,
+
             // projects
             ProjectTypeSeeder::class,
             ProjectStatusSeeder::class,
@@ -44,11 +45,7 @@ class DatabaseSeeder extends Seeder {
             WithdrawalSeeder::class,
             DepositSeeder::class,
             ExpenseTypeSeeder::class,
-            ExpenseSeeder::class,
-            CreditCategorySeeder::class,
-            CreditSeeder::class,
-            CompanyLoanLenderSeeder::class,
-            CompanyInvestorSeeder::class
+            CreditCategorySeeder::class
         ] );
     }
 }

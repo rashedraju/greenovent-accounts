@@ -8,6 +8,7 @@
 <script src="{{ asset('/public/assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
 
 {{-- AlpineJs --}}
+<script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
 
 {{-- Toast Notification Start --}}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExpensesExport;
 use App\Http\Requests\ExpenseAddRequest;
 use App\Models\Expense;
 use App\Models\ExpenseType;
@@ -10,14 +9,13 @@ use App\Models\Project;
 use App\Models\TransactionType;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class AccountsExpensesController extends Controller {
     public function index() {
         // total expenses of current year
         $year = now()->year;
 
-        $totalExpenseOfByYear = Expense::whereYear( 'date', $year )->get()->sum( fn( $expense ) => $expense->amount );
+        $totalExpenseOfByYear = collect();
 
         $expenseTypes = ExpenseType::all();
 
@@ -32,7 +30,7 @@ class AccountsExpensesController extends Controller {
 
             // get records
             // $expenseRecords = Expense::whereYear( 'date', '=', $year )->whereMonth( 'date', '=', $month )->get();
-            $expenseRecords = Expense::filter( array_merge( ['year' => $year, 'month' => $month], request( ['head', 'user_id', 'project_id', 'expense_type_id', 'transaction_type_id'] ) ) )->get();
+            $expenseRecords = collect();
 
             // get billing persons
             $billingPersons = User::pluck( 'name', 'id' );
@@ -67,41 +65,19 @@ class AccountsExpensesController extends Controller {
     public function store( ExpenseAddRequest $request ) {
         $attributes = $request->validated();
 
-        $attributes = array_merge( $attributes, [
-            'modified' => now()
-        ] );
-
-        $expense = Expense::create( $attributes );
-
-        if ( $expense ) {
-            return redirect()->back()->with( 'success', 'Expense added.' );
-        }
-
         return redirect()->back()->with( 'failed', 'Failed to add expense.' );
     }
 
-    public function update( Expense $expense, ExpenseAddRequest $request ) {
+    public function update( ExpenseAddRequest $request ) {
         $attributes = $request->validated();
 
-        $attributes = array_merge( $attributes, [
-            'modified' => now()
-        ] );
-
-        if ( $expense->update( $attributes ) ) {
-            return redirect()->back()->with( 'success', "Expense No: {$expense->id} updated." );
-        }
-
-        return redirect()->back()->with( 'failed', "Expense No: {$expense->id} Failed to update." );
+        return redirect()->back()->with( 'failed', "Failed to update expense record." );
 
     }
 
     // delete expense
-    public function destory( Expense $expense ) {
-        if ( $expense->delete() ) {
-            return redirect()->back()->with( 'success', "Expense No:{$expense->id} deleted." );
-        }
-
-        return redirect()->back()->with( 'failed', "Expense No:{$expense->id} Failed to delete." );
+    public function destory() {
+        return redirect()->back()->with( 'failed', "Failed to delete expense record" );
     }
 
     // download expense records by year and month
@@ -111,8 +87,6 @@ class AccountsExpensesController extends Controller {
             $month = $request->month;
 
             $fname = now()->month( $month )->format( 'F' ) . "_" . $year . "_expense_records.xlsx";
-
-            return Excel::download( new ExpensesExport( $year, $month ), $fname );
         }
 
         return redirect()->route( 'accounts.expenses.index' )->with( 'failed', 'Expense records not found!' );

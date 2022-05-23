@@ -12,7 +12,7 @@
                     <div class="menu-item me-lg-1">
                         <a href="{{ route('accounts.expenses.index') }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.expenses.*') ? 'bg-primary text-white mx-1' : '' }}">
-                            <span class="menu-title">Debits</span>
+                            <span class="menu-title">Expenses</span>
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
