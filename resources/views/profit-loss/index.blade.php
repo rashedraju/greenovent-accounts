@@ -52,9 +52,9 @@
             </div>
 
             <ul class="list-unstyled">
-                @for ($i = now()->month; $i >= 1; $i--)
+                @for ($i = 1; $i <= now()->month; $i++)
                     <li class="p-3 bg-gray-300 m-3">
-                        <a href="{{ route('revenue.show', [now()->year, $i]) }}"> Profit/Loss
+                        <a href="{{ route('profit-loss.show', [now()->year, $i]) }}"> Profit/Loss
                             Record Month
                             of {{ now()->month($i)->format('F') }} -
                             {{ now()->year }}</a>

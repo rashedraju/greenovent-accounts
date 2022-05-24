@@ -10,7 +10,7 @@ class ProfitLossController extends Controller {
     public $projectService;
     public $accountService;
 
-    public function __construct(AccountService $accountService, ProjectService $projectService ) {
+    public function __construct( AccountService $accountService, ProjectService $projectService ) {
         $this->projectService = $projectService;
         $this->accountService = $accountService;
     }
@@ -37,7 +37,7 @@ class ProfitLossController extends Controller {
             // revenues by year and month
             $totalSalesByYearAndMonth = $this->projectService->getTotalSalesByYearAndMonth( $year, $month );
             $totalExpensesOfProjectsByYearAndMonth = $this->projectService->getTotalExpensesOfProjectsByYearAndMonth( $year, $month );
-            $totalGrossProfitOfProjectsByYearAndMonth = $this->accountService->getTotalNetProfitByYearAndMonth( $year, $month );
+            $totalGrossProfitOfProjectsByYearAndMonth = $this->accountService->getNetProfitByYear( $year, $month );
 
             return view( 'profit-loss.show', compact( ['month', 'year', 'totalSalesByYearAndMonth', 'totalExpensesOfProjectsByYearAndMonth', 'totalGrossProfitOfProjectsByYearAndMonth'] ) );
         }

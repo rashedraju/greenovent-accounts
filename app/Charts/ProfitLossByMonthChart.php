@@ -30,7 +30,7 @@ class ProfitLossByMonthChart extends BaseChart {
         // get net profit by year and month
         $year = now()->year;
         $months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        $netProfitsByMonth = array_map( fn( $month ) => $this->accountService->getTotalNetProfitByYearAndMonth( $year, $month ), $months );
+        $netProfitsByMonth = array_map( fn( $month ) => $this->accountService->getNetProfitByYearMonth( $year, $month ), $months );
 
         return Chartisan::build()
             ->labels( $labels )
