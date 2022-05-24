@@ -18,12 +18,6 @@ class ExpensesController extends Controller {
         // total expenses of current year
         $year = now()->year;
 
-        $project = $this->expenseService->getProjectExpenses( ['year' => $year] );
-        $dailyConveyance = $this->expenseService->getDailyConveyanceExpenses( ['year' => $year] );
-        $salary = $this->expenseService->getSalaryExpenses( ['year' => $year] );
-        $loan = $this->expenseService->getLoanExpenses( ['year' => $year] );
-        $investment = $this->expenseService->getInvestmentExpenses( ['year' => $year] );
-
         $projectAmount = $this->expenseService->getProjectExpenseAmount( ['year' => $year] );
         $dailyConveyanceAmount = $this->expenseService->getDailyConveyanceExpenseAmount( ['year' => $year] );
         $salaryAmount = $this->expenseService->getSalaryExpenseAmount( ['year' => $year] );
@@ -31,34 +25,30 @@ class ExpensesController extends Controller {
         $investmentAmount = $this->expenseService->getInvestmentExpenseAmount( ['year' => $year] );
 
         $total = $projectAmount + $dailyConveyanceAmount + $salaryAmount + $loanAmount + $investmentAmount;
+
         $data = [
             'year'     => $year,
             'total'    => $total,
             'expenses' => [
                 'project'          => [
-                    'name'    => 'Project',
-                    'amount'  => $projectAmount,
-                    'records' => $project
+                    'name'   => 'Project',
+                    'amount' => $projectAmount
                 ],
                 'daily_conveyance' => [
-                    'name'    => 'Daily Conveyance',
-                    'amount'  => $dailyConveyanceAmount,
-                    'records' => $dailyConveyance
+                    'name'   => 'Daily Conveyance',
+                    'amount' => $dailyConveyanceAmount
                 ],
                 'salary'           => [
-                    'name'    => 'Salary',
-                    'amount'  => $salaryAmount,
-                    'records' => $salary
+                    'name'   => 'Salary',
+                    'amount' => $salaryAmount
                 ],
                 'loan'             => [
-                    'name'    => 'Loan',
-                    'amount'  => $loanAmount,
-                    'records' => $loan
+                    'name'   => 'Loan',
+                    'amount' => $loanAmount
                 ],
                 'investment'       => [
-                    'name'    => 'Investment',
-                    'amount'  => $investmentAmount,
-                    'records' => $investment
+                    'name'   => 'Investment',
+                    'amount' => $investmentAmount
                 ]
             ]
         ];
@@ -67,28 +57,65 @@ class ExpensesController extends Controller {
 
     public function show( $year, $month ) {
         if ( $year && $month ) {
-            $expenseRecords = $this->expenseService->getExpenses( ['year' => $year, 'month' => $month] );
+            // total expenses of current year
+            $year = now()->year;
 
-            // get billing persons
-            $employees = User::pluck( 'name', 'id' );
+            $project = $this->expenseService->getProjectExpenses( ['year' => $year] );
+            $dailyConveyance = $this->expenseService->getDailyConveyanceExpenses( ['year' => $year] );
+            $salary = $this->expenseService->getSalaryExpenses( ['year' => $year] );
+            $loan = $this->expenseService->getLoanExpenses( ['year' => $year] );
+            $investment = $this->expenseService->getInvestmentExpenses( ['year' => $year] );
 
-            // get projects
+            $projectAmount = $this->expenseService->getProjectExpenseAmount( ['year' => $year] );
+            $dailyConveyanceAmount = $this->expenseService->getDailyConveyanceExpenseAmount( ['year' => $year] );
+            $salaryAmount = $this->expenseService->getSalaryExpenseAmount( ['year' => $year] );
+            $loanAmount = $this->expenseService->getLoanExpenseAmount( ['year' => $year] );
+            $investmentAmount = $this->expenseService->getInvestmentExpenseAmount( ['year' => $year] );
+
+            $total = $projectAmount + $dailyConveyanceAmount + $salaryAmount + $loanAmount + $investmentAmount;
+
             $projects = Project::pluck( 'name', 'id' );
+            $users = User::pluck( 'name', 'id' );
+            $transactionTypes = TransactionType::all();
 
-            // get transaction types
-            $transactionTypes = TransactionType::pluck( 'name', 'id' );
-
-            $totalExpensesOfThisMonth = $this->expenseService->getTotalExpenseAmount( ['year' => $year, 'month' => $month] );
-
-            // expense heads
-            $expenseHeadsOfThisMonth = $expenseRecords->pluck( 'head' );
-
-            // projects of this month
-            $projectsOfThisMonth = Project::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->get()->pluck( 'project.name', 'project.id' );
-
-            return view( 'expenses.show', compact( ['month', 'year', 'expenseRecords', 'employees', 'projects', 'transactionTypes', 'totalExpensesOfThisMonth', 'expenseHeadsOfThisMonth', 'projectsOfThisMonth'] ) );
+            $data = [
+                'year'              => $year,
+                'month'             => $month,
+                'total'             => $total,
+                'projects'          => $projects,
+                'employees'         => $users,
+                'transaction_types' => $transactionTypes,
+                'expenses'          => [
+                    'project'          => [
+                        'name'    => 'Project',
+                        'amount'  => $projectAmount,
+                        'records' => $project
+                    ],
+                    'daily_conveyance' => [
+                        'name'    => 'Daily Conveyance',
+                        'amount'  => $dailyConveyanceAmount,
+                        'records' => $dailyConveyance
+                    ],
+                    'salary'           => [
+                        'name'    => 'Salary',
+                        'amount'  => $salaryAmount,
+                        'records' => $salary
+                    ],
+                    'loan'             => [
+                        'name'    => 'Loan',
+                        'amount'  => $loanAmount,
+                        'records' => $loan
+                    ],
+                    'investment'       => [
+                        'name'    => 'Investment',
+                        'amount'  => $investmentAmount,
+                        'records' => $investment
+                    ]
+                ]
+            ];
+            return view( 'expenses.show', ['data' => $data] );
+        } else {
+            return redirect()->route( 'expenses.index' )->with( 'failed', 'Records not found' );
         }
-
-        return redirect()->route( 'expenses.index' )->with( 'failed', 'Expense records not found!' );
     }
 }
