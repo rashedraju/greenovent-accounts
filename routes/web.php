@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountsBillsController;
 use App\Http\Controllers\AccountsEmployeeLoanController;
 use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Accounts\AccountsExpensesController;
+use App\Http\Controllers\Accounts\AccountsRequisitoinController;
 use App\Http\Controllers\Accounts\CreditController;
 use App\Http\Controllers\Accounts\DailyConveyanceExpenseController;
 use App\Http\Controllers\Accounts\InvestmentCreditController;
@@ -257,6 +258,12 @@ Route::middleware( 'auth' )->group( function () {
             Route::put( '/{accountsBill}', [AccountsBillsController::class, 'update'] )->name( 'update' );
             Route::post( '/', [AccountsBillsController::class, 'store'] )->name( 'store' );
             Route::delete( '/{accountsBill}', [AccountsBillsController::class, 'delete'] )->name( 'delete' );
+        } );
+
+        // bills
+        Route::name( 'requisitions.' )->prefix( 'requisitions' )->group( function () {
+            Route::get( '/', [AccountsRequisitoinController::class, 'index'] )->name( 'index' );
+            Route::get( '/{requisition}', [AccountsRequisitoinController::class, 'show'] )->name( 'show' );
         } );
 
         // employee laod

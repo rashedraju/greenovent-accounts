@@ -40,6 +40,12 @@
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
+                        <a href="{{ route('accounts.requisitions.index') }}"
+                            class="menu-link py-3 {{ request()->routeIs('accounts.requisitions.*') ? 'bg-primary text-white mx-1' : '' }}">
+                            <span class="menu-title">Requisitions</span>
+                        </a>
+                    </div>
+                    <div class="menu-item me-lg-1">
                         <a href="{{ route('accounts.employee-loan.index') }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.employee-loan.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Employee Loan</span>
