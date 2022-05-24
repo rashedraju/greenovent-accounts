@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Accounts;
 
 use App\Exports\CreditsExport;
 use App\Http\Controllers\Controller;
+use App\Models\Accounts\Credit\InvestmentCredit;
+use App\Models\Accounts\Credit\LoanCredit;
 use App\Models\Project;
 use App\Models\TransactionType;
 use App\Models\User;
@@ -54,6 +56,10 @@ class CreditController extends Controller {
         if ( $year && $month ) {
             $args = ['year' => $year, 'month' => $month];
 
+            $args = array_merge( $args,
+                request( ['head', 'project_id', 'received_person', 'company_name'] )
+            );
+
             $project = $this->creditService->getProjectCredit( $args );
             $loan = $this->creditService->getLoanCredit( $args );
             $investment = $this->creditService->getInvestmentCredit( $args );
@@ -71,6 +77,8 @@ class CreditController extends Controller {
             $endDate = now()->year( $year )->month( $month )->endOfMonth()->toDateString();
             $employees = User::all();
             $transactionTypes = TransactionType::all();
+            $loanProviders = LoanCredit::pluck('loan_provider');
+            $companyNames = InvestmentCredit::pluck('company_name');
 
             $data = [
                 'year'              => $year,
@@ -80,6 +88,8 @@ class CreditController extends Controller {
                 'projects'          => $projects,
                 'employees'         => $employees,
                 'transaction_types' => $transactionTypes,
+                'loan_providers' => $loanProviders,
+                'company_names' => $companyNames,
                 'total'             => $total,
                 'credits'           => [
                     'project'    => [

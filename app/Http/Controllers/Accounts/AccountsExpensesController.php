@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Accounts\Expenses\InvestmentExpense;
 use App\Models\Project;
 use App\Models\TransactionType;
 use App\Models\User;
@@ -57,6 +58,10 @@ class AccountsExpensesController extends Controller {
         if ( $year && $month ) {
             $args = ['year' => $year, 'month' => $month];
 
+            $args = array_merge( $args,
+                request( ['user_id', 'head', 'received_person', 'project_id', 'company_name'] )
+            );
+
             $salary = $this->expenseService->getSalaryExpenses( $args );
             $dailyConveyance = $this->expenseService->getDailyConveyanceExpenses( $args );
             $project = $this->expenseService->getProjectExpenses( $args );
@@ -74,10 +79,11 @@ class AccountsExpensesController extends Controller {
 
             $total = $salaryAmount + $dailyConveyanceAmount + $projectAmount + $loanAmount + $investmentAmount;
 
-            $projects = Project::pluck('name', 'id');
+            $projects = Project::pluck( 'name', 'id' );
             $startDate = now()->year( $year )->month( $month )->startOfMonth()->toDateString();
             $endDate = now()->year( $year )->month( $month )->endOfMonth()->toDateString();
             $employees = User::all();
+            $companyNames = InvestmentExpense::pluck( 'company_name' );
             $transactionTypes = TransactionType::all();
 
             $data = [
@@ -87,6 +93,7 @@ class AccountsExpensesController extends Controller {
                 'end_date'          => $endDate,
                 'projects'          => $projects,
                 'employees'         => $employees,
+                'company_names'     => $companyNames,
                 'transaction_types' => $transactionTypes,
                 'total'             => $total,
                 'expenses'          => [

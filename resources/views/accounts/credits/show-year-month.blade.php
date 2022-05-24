@@ -1,14 +1,4 @@
 <x-app-layout>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:nth-child(3) {
-            border: solid thin;
-        }
-
-    </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
@@ -71,15 +61,80 @@
                 <div class="tab-content">
                     <div class="tab-pane fade" :class="creditType === 'project' && 'show active'"
                         id="credit_tab_project" role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.credits.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <input type="text" class="form-control" name="head" list="heads" placeholder="Head">
+                                <datalist id="heads">
+                                    @foreach ($data['credits']['project']['heads'] as $head)
+                                        <option value="{{ $head }}">
+                                    @endforeach
+                                </datalist>
+
+                                <select class="form-select py-0" name="project_id">
+                                    <option value="0" disabled selected>Project Name</option>
+                                    @foreach ($data['projects'] as $projectId => $projectName)
+                                        <option value="{{ $projectId }}">
+                                            {{ $projectName }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.credits.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+                            </form>
+                        </div>
                         <x-accounts.credits.project :heads="$data['credits']['project']['heads']" :projects="$data['projects']" :credits="$data['credits']['project']['records']"
                             :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                     <div class="tab-pane fade" :class="creditType === 'loan' && 'show active'" id="credit_tab_loan"
                         role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.credits.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <input type="text" class="form-control" name="loan_provider" list="loan_providers"
+                                    placeholder="Loan Provider">
+                                <datalist id="loan_providers">
+                                    @foreach ($data['loan_providers'] as $loanProvider)
+                                        <option value="{{ $loanProvider }}">
+                                    @endforeach
+                                </datalist>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.credits.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+                            </form>
+                        </div>
                         <x-accounts.credits.loan :credits="$data['credits']['loan']['records']" :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                     <div class="tab-pane fade" :class="creditType === 'investment' && 'show active'"
                         id="credit_tab_investment" role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.credits.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <input type="text" class="form-control" name="company_name" list="company_names"
+                                    placeholder="Company Name">
+                                <datalist id="company_names">
+                                    @foreach ($data['company_names'] as $compnay)
+                                        <option value="{{ $compnay }}">
+                                    @endforeach
+                                </datalist>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.credits.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+
+                            </form>
+                        </div>
                         <x-accounts.credits.investment :credits="$data['credits']['investment']['records']" :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                 </div>

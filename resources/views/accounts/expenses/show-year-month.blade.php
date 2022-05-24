@@ -1,14 +1,4 @@
 <x-app-layout>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:nth-child(3) {
-            border: solid thin;
-        }
-
-    </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
@@ -80,25 +70,157 @@
                 <div class="tab-content">
                     <div class="tab-pane fade" :class="expenseType === 'salary' && 'show active'"
                         id="expense_tab_salary" role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <select class="form-select py-0" name="user_id">
+                                    <option value="0" disabled selected>Received by</option>
+                                    @foreach ($data['employees'] as $employee)
+                                        <option value="{{ $employee->id }}">
+                                            {{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+
+                            </form>
+                        </div>
                         <x-accounts.expenses.salary :expenses="$data['expenses']['salary']['records']" :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
 
                     <div class="tab-pane fade" :class="expenseType === 'daily_conveyance' && 'show active'"
                         id="expense_tab_daily_conveyance" role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <input type="text" class="form-control" name="head" list="heads" placeholder="Heads">
+                                <datalist id="heads">
+                                    @foreach ($data['expenses']['daily_conveyance']['heads'] as $head)
+                                        <option value="{{ $head }}">
+                                    @endforeach
+                                </datalist>
+
+                                <select class="form-select py-0" name="user_id">
+                                    <option value="0" disabled selected>Received by</option>
+                                    @foreach ($data['employees'] as $employee)
+                                        <option value="{{ $employee->id }}">
+                                            {{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+
+                            </form>
+                        </div>
                         <x-accounts.expenses.daily-conveyance :heads="$data['expenses']['daily_conveyance']['heads']" :expenses="$data['expenses']['daily_conveyance']['records']" :employees="$data['employees']"
                             :transactionTypes="$data['transaction_types']" />
                     </div>
                     <div class="tab-pane fade" :class="expenseType === 'project' && 'show active'"
                         id="expense_tab_project" role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <input type="text" class="form-control" name="head" list="heads" placeholder="Head">
+                                <datalist id="heads">
+                                    @foreach ($data['expenses']['project']['heads'] as $head)
+                                        <option value="{{ $head }}">
+                                    @endforeach
+                                </datalist>
+
+                                <select class="form-select py-0" name="project_id">
+                                    <option value="0" disabled selected>Project Name</option>
+                                    @foreach ($data['projects'] as $projectId => $projectName)
+                                        <option value="{{ $projectId }}">
+                                            {{ $projectName }}</option>
+                                    @endforeach
+                                </select>
+
+                                <select class="form-select py-0" name="user_id">
+                                    <option value="0" disabled selected>Received by</option>
+                                    @foreach ($data['employees'] as $employee)
+                                        <option value="{{ $employee->id }}">
+                                            {{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+
+                            </form>
+                        </div>
+
                         <x-accounts.expenses.project :heads="$data['expenses']['project']['heads']" :projects="$data['projects']" :expenses="$data['expenses']['project']['records']"
                             :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                     <div class="tab-pane fade" :class="expenseType === 'loan' && 'show active'" id="expense_tab_loan"
                         role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <select class="form-select py-0" name="received_person">
+                                    <option value="0" disabled selected>Received By</option>
+                                    @foreach ($data['employees'] as $employee)
+                                        <option value="{{ $employee->id }}">
+                                            {{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+
+                            </form>
+                        </div>
+
                         <x-accounts.expenses.loan :expenses="$data['expenses']['loan']['records']" :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                     <div class="tab-pane fade" :class="expenseType === 'investment' && 'show active'"
                         id="expense_tab_investment" role="tabpanel">
+                        <div class="my-2">
+                            <form
+                                action="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                method="get" class="d-inline-flex gap-3">
+                                @csrf
+
+                                <select class="form-select py-0" name="received_person">
+                                    <option value="0" disabled selected>Received By</option>
+                                    @foreach ($data['employees'] as $employee)
+                                        <option value="{{ $employee->id }}">
+                                            {{ $employee->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <input type="text" class="form-control" name="company_name" list="company_names"
+                                    placeholder="Company Name">
+                                <datalist id="company_names">
+                                    @foreach ($data['company_names'] as $compnay)
+                                        <option value="{{ $compnay }}">
+                                    @endforeach
+                                </datalist>
+
+                                <button type="submit" class="my-3 btn btn-primary w-100">Filter</button>
+                                <a href="{{ route('accounts.expenses.show.year.month', [$data['year'], $data['month']]) }}"
+                                    class="my-3 btn btn-secondary w-100">Clear</a>
+
+                            </form>
+                        </div>
                         <x-accounts.expenses.investment :expenses="$data['expenses']['investment']['records']" :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                 </div>
