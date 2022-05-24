@@ -1,14 +1,4 @@
 <x-app-layout>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:nth-child(3) {
-            border: solid thin;
-        }
-
-    </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
