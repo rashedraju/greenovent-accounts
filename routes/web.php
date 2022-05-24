@@ -253,6 +253,10 @@ Route::middleware( 'auth' )->group( function () {
         // bills
         Route::name( 'bills.' )->prefix( 'bills' )->group( function () {
             Route::get( '/', [AccountsBillsController::class, 'index'] )->name( 'index' );
+            Route::get( '/{client}', [AccountsBillsController::class, 'show'] )->name( 'show' );
+            Route::put( '/{accountsBill}', [AccountsBillsController::class, 'update'] )->name( 'update' );
+            Route::post( '/', [AccountsBillsController::class, 'store'] )->name( 'store' );
+            Route::delete( '/{accountsBill}', [AccountsBillsController::class, 'delete'] )->name( 'delete' );
         } );
 
         // employee laod
