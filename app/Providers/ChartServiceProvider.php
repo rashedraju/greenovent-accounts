@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Charts\ProfitLossByMonthChart;
+use App\Charts\RevenueByClientChart;
 use App\Charts\RevenueByMonthChart;
 use ConsoleTVs\Charts\Registrar as Charts;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +30,7 @@ class ChartServiceProvider extends ServiceProvider {
             \App\Charts\NetProfitByYearMonthChart::class,
             \App\Charts\BusinessManagerContributionChart::class,
             RevenueByMonthChart::class,
+            RevenueByClientChart::class,
             ProfitLossByMonthChart::class
         ] );
     }
