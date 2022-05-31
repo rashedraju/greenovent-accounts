@@ -4,7 +4,13 @@
             <div class="p-2 py-5">
                 <h1 class="text-center">Employees</h1>
             </div>
-
+            <div class="d-flex justify-content-end">
+                <div class="btn btn-primary">
+                    <a href="https://office.greenovent.com/admin/attendances" target="_blank"
+                        class="text-white py-3 mx-auto">View Attendance
+                        Sheet</a>
+                </div>
+            </div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
