@@ -29,7 +29,7 @@ class UpdateRolesAndPermissionsRequest extends FormRequest {
     public function rules() {
         $roles = [];
         foreach ( $this->roles as $role ) {
-            $roles[$role] = 'sometimes';
+            $roles[str_replace( ' ', '_', $role )] = 'sometimes';
         }
 
         return $roles;

@@ -17,7 +17,7 @@ class RolesAndPermissionsController extends Controller {
     // assign roles to a permission
     public function update( UpdateRolesAndPermissionsRequest $request, Permission $permission ) {
         $attrs = $request->validated();
-        $roles = array_keys( $attrs );
+        $roles = array_map( fn( $role ) => str_replace( '_', ' ', $role ), array_keys( $attrs ) );
         $permission->syncRoles( $roles );
 
         return redirect()->route( 'permissions.index' )->with( 'success', 'Permission updated!' );

@@ -285,9 +285,5 @@ Route::middleware( 'auth' )->group( function () {
     Route::put( '/approvals/{approval}', [ApprovalsController::class, 'update'] )->name( 'approvals.update' );
 } );
 
-// Route::fallback( function () {
-//     echo "404";
-// } );
-
 // Authentication routes
 require __DIR__ . '/auth.php';
