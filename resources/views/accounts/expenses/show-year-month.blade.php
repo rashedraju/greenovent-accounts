@@ -29,13 +29,12 @@
             </div>
 
             <div class="d-flex gap-3 justify-content-end">
+                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-primary" id="upload_expense_drawer_btn">
+                    <x-utils.upload /> Upload Excel
+                </button>
                 <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_expense_drawer_btn">
                     <x-utils.add-icon /> Add New Record
                 </button>
-                {{-- <a href="{{ route('accounts.expenses.export', [$year, $month]) }}"
-                    class="btn btn-sm my-2 px-10 py-0 btn-danger">
-                    <x-utils.download /> Export
-                </a> --}}
             </div>
 
             <x-validation-error />
@@ -224,6 +223,19 @@
                         <x-accounts.expenses.investment :expenses="$data['expenses']['investment']['records']" :employees="$data['employees']" :transactionTypes="$data['transaction_types']" />
                     </div>
                 </div>
+
+                <x-drawer btnId="upload_expense_drawer_btn" drawerId="upload_expense_drawer"
+                    title="Upload expense excel file">
+                    <form action="{{ route('accounts.expenses.store') }}" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+
+                        <label for="expense_file" class="form-label">Drag or drop file here</label>
+                        <input type="file" name="expense_file" id="" class="form-control">
+                        <button type="submit" class="btn btn-primary mt-5">Upload</button>
+                    </form>
+                </x-drawer>
+
 
                 <x-drawer btnId="add_expense_drawer_btn" drawerId="add_expense_drawer" title="Add new expense record">
                     <template x-if="expenseType === 'salary'">

@@ -164,6 +164,7 @@ Route::middleware( 'auth' )->group( function () {
             Route::get( '/', [AccountsExpensesController::class, 'index'] )->name( 'index' );
             Route::get( '/{year}', [AccountsExpensesController::class, 'showByYear'] )->name( 'show.year' );
             Route::get( '/{year}/{month}', [AccountsExpensesController::class, 'show'] )->name( 'show.year.month' );
+            Route::post( '/', [AccountsExpensesController::class, 'store'] )->name( 'store' );
 
             Route::name( 'salary.' )->prefix( 'salary' )->group( function () {
                 Route::post( '/', [SalaryExpenseController::class, 'store'] )->name( 'store' );

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ExpenseImport;
 use App\Models\Accounts\Expenses\InvestmentExpense;
 use App\Models\Project;
 use App\Models\TransactionType;
 use App\Models\User;
 use App\Services\ExpenseService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AccountsExpensesController extends Controller {
     public $expenseService;
@@ -131,6 +133,17 @@ class AccountsExpensesController extends Controller {
         }
 
         return redirect()->route( 'accounts.expenses.show.year' )->with( 'failed', 'Expense records not found!' );
+    }
+
+    public function store( Request $request ) {
+        $attr = $request->validate( [
+            'expense_file' => 'required|mimes:xlsx,xls'
+        ] );
+
+        Excel::import( new ExpenseImport(), $attr['expense_file'] );
+
+        return back();
+
     }
 
     // download expense records by year and month
