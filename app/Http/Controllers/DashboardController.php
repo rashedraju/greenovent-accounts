@@ -9,12 +9,9 @@ use App\Models\Project;
 use App\Services\AccountService;
 use App\Services\CreditService;
 use App\Services\ExpenseService;
-use App\Services\PermissionService;
 use App\Services\ProjectService;
 
 class DashboardController extends Controller {
-    use PermissionService;
-
     public $accountService;
     public $creditService;
     public $expenseService;
@@ -28,8 +25,6 @@ class DashboardController extends Controller {
     }
 
     public function index() {
-        $this->checkPermission();
-
         $clients = Client::orderBy( 'id', 'desc' )->get();
         $projects = Project::orderBy( 'id', 'desc' )->get();
 

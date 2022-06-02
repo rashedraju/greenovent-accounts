@@ -28,6 +28,24 @@ class AuthenticatedSessionController extends Controller {
 
         $request->session()->regenerate();
 
+        switch ( auth()->user()->designation() ) {
+            case 'Executive Director':
+                return redirect()->route( 'dashboard' );
+            case 'COO':
+                return redirect()->route( 'dashboard' );
+            case 'General Manager':
+                return redirect()->route( 'projects.index' );
+            case 'Accounts Manager':
+                return redirect()->route( 'projects.index' );
+            case 'Bussiness Manager':
+                return redirect()->route( 'projects.index' );
+            case 'Accounts Executive':
+                return redirect()->route( 'accounts.finances.index' );
+            case 'HR':
+                return redirect()->route( 'employees.index' );
+            default:
+                return redirect()->route( 'employees.show', auth()->user() );
+        }
         return redirect()->route( 'dashboard' );
     }
 
