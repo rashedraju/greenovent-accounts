@@ -1,3 +1,7 @@
+@php
+$user = auth()->user();
+@endphp
+
 <div id="kt_header" style="" class="header align-items-stretch">
     <!--begin::Container-->
     <div class="container-fluid d-flex align-items-stretch justify-content-between">
@@ -41,6 +45,7 @@
                     <!--begin::Menu-->
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
+
                         <div class="menu-item me-lg-1">
                             <a href="{{ route('dashboard') }}"
                                 class="menu-link py-3 {{ request()->routeIs('dashboard.*') ? 'active' : '' }}">
@@ -56,34 +61,14 @@
                         <div class="menu-item me-lg-1">
                             <a href="{{ route('projects.index') }}"
                                 class="menu-link py-3 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
-                                <span class="menu-title">Projects</span>
-                            </a>
-                        </div>
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('bills.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('bills.*') ? 'active' : '' }}">
-                                <span class="menu-title">Bills</span>
+                                <span class="menu-title">Account Manager</span>
                             </a>
                         </div>
 
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('expenses.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
-                                <span class="menu-title">Expenses</span>
-                            </a>
-                        </div>
-
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('revenue.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('revenue.*') ? 'active' : '' }}">
-                                <span class="menu-title">Revenue</span>
-                            </a>
-                        </div>
-
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('profit-loss.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('profit-loss.*') ? 'active' : '' }}">
-                                <span class="menu-title">Profit/Loss</span>
+                            <a href="{{ route('accounts.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('accounts.*') ? 'active' : '' }}">
+                                <span class="menu-title">Accounts</span>
                             </a>
                         </div>
 
@@ -93,12 +78,7 @@
                                 <span class="menu-title">Employees</span>
                             </a>
                         </div>
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('accounts.finances.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('accounts.*') ? 'active' : '' }}">
-                                <span class="menu-title">Accounts</span>
-                            </a>
-                        </div>
+
                         <div class="menu-item me-lg-1">
                             <a href="{{ route('permissions.index') }}"
                                 class="menu-link py-3 {{ request()->routeIs('permissions.*') ? 'active' : '' }}">

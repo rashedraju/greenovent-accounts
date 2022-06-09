@@ -1,23 +1,23 @@
 <x-app-layout>
-    <div class="p-2 py-5">
-        <h1 class="text-center">Accounts</h1>
+    <div class="p-1">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts.index') }}">Accounts</a></li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year', $data['year']) }}">{{ $data['year'] }}</a></li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts.show.year.month', ['year' => $data['year'], 'month' => $data['year']]) }}">{{ now()->month($data['month'])->format('F') }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">All Expenses</li>
+            </ol>
+        </nav>
     </div>
 
-    <x-accounts-navigation />
+    <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
     <div class="card mt-3">
         <div class="card-body py-4">
-            <h3 class="border-bottom border-dark pb-5 text-center">Expense Records</h3>
-
-            <ul class="list-unstyled">
-                @for ($i = now()->year; $i >= 2021; $i--)
-                    <li class="p-3 bg-gray-300 m-3">
-                        <a href="{{ route('accounts.expenses.show.year', $i) }}"> Expense
-                            Record Year
-                            of {{ $i }}</a>
-                    </li>
-                @endfor
-            </ul>
+            
         </div>
     </div>
 </x-app-layout>

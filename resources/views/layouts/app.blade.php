@@ -27,7 +27,7 @@
         <div class="page d-flex flex-row flex-column-fluid">
             <div class="wrapper d-flex flex-column flex-row-fluid pt-15" id="kt_wrapper">
                 <x-header />
-                <div class="content d-flex flex-column flex-column-fluid mt-5" id="kt_content">
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     <div class="post d-flex flex-column-fluid" id="kt_post">
                         <div id="kt_content_container" class="container-fluid">
                             {{ $slot }}

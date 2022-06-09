@@ -1,28 +1,38 @@
-@props(['employees', 'transactionTypes', 'startDate', 'endDate'])
-<form action="{{ route('accounts.expenses.salary.store') }}" method="post">
+@props(['year', 'month', 'employees', 'transactionTypes', 'startDate', 'endDate'])
+<form action="{{ route('accounts.expenses.salary.store', ['year' => $year, 'month' => $month]) }}" method="post">
     @csrf
 
-    <label class="form-label mt-2 mb-0">Date</label>
-    <input type="date" pattern="\d{4}-\d{2}-\d{2}" min="{{ $startDate }}" max="{{ $endDate }}"
-        class="form-control" name="date" placeholder="DD-MM-YYYY">
+    <label class="form-label mt-5 mb-0">Date
+        <x-utils.required />
+    </label>
+    <input type="date" pattern="\d{4}-\d{2}-\d{2}" max="{{ $endDate }}" min="{{ $startDate }}"
+        class="form-control" name="date" placeholder="DD-MM-YYYY" :value="old('date')">
 
-    <label class="form-label mt-2 mb-0">Employee Name</label>
-    <select class="form-select" name="user_id">
+    <label class="form-label mt-5 mb-0">Employee Name
+        <x-utils.required />
+    </label>
+    <select class="form-select" data-kt-select name="user_id">
+        <option></option>
         <option value="0" disabled selected>Select</option>
         @foreach ($employees as $employee)
-            <option value="{{ $employee->id }}">
+            <option value="{{ $employee->id }}" {{ $employee->id == old('user_id') ? 'selected' : '' }}>
                 {{ $employee->name }}</option>
         @endforeach
     </select>
 
-    <label class="form-label mt-2 mb-0">Amount</label>
-    <input type="number" class="form-control" name="amount">
+    <label class="form-label mt-5 mb-0">Amount
+        <x-utils.required />
+    </label>
+    <input type="number" class="form-control" name="amount" :value="old('amount')">
 
-    <label class="form-label mt-2 mb-0">Transaction Types</label>
+    <label class="form-label mt-5 mb-0">Transaction Types
+        <x-utils.required />
+    </label>
     <select class="form-select" name="transaction_type_id">
         <option value="0" disabled selected>Select</option>
         @foreach ($transactionTypes as $transactionType)
-            <option value="{{ $transactionType->id }}">
+            <option value="{{ $transactionType->id }}"
+                {{ $transactionType->id == old('transaction_type_id') ? 'selected' : '' }}>
                 {{ $transactionType->name }}</option>
         @endforeach
     </select>

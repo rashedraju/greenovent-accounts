@@ -1,5 +1,7 @@
-@props(['expense', 'employees', 'transactionTypes'])
-<form action="{{ route('accounts.expenses.salary.update', $expense) }}" method="post">
+@props(['expense', 'employees', 'transactionTypes', 'year', 'month'])
+<form
+    action="{{ route('accounts.expenses.salary.update', ['year' => $year, 'month' => $month, 'salaryExpense' => $expense]) }}"
+    method="post">
     @csrf
     @method('put')
 

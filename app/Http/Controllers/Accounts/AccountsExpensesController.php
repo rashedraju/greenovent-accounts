@@ -17,8 +17,20 @@ class AccountsExpensesController extends Controller {
         $this->expenseService = $expenseService;
     }
 
-    public function index() {
-        return view( 'accounts.expenses.index' );
+    public function index( $year, $month ) {
+        if ( $year && $month ) {
+            $expenses = $this->expenseService->getExpenses( ['year' => $year, 'month' => $month] );
+
+            $data = [
+                'year'     => $year,
+                'month'    => $month,
+                'expenses' => $expenses
+            ];
+
+            return view( 'accounts.expenses.index', ['data' => $data] );
+        }
+
+        return back()->with( 'Not found!' );
     }
 
     public function showByYear( $year ) {

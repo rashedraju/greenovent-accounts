@@ -153,19 +153,14 @@ Route::middleware( 'auth' )->group( function () {
     // Accounts
     Route::name( 'accounts.' )->prefix( 'accounts' )->group( function () {
         // finances
-        Route::name( 'finances.' )->prefix( 'finances' )->group( function () {
-            Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
-            Route::get( '{year}', [AccountsController::class, 'showByYear'] )->name( 'show.year' );
-            Route::get( '{year}/{month}', [AccountsController::class, 'show'] )->name( 'show.year.month' );
-        } );
+        Route::get( '/', [AccountsController::class, 'index'] )->name( 'index' );
+        Route::get( '/{year}', [AccountsController::class, 'showByYear'] )->name( 'show.year' );
+        Route::get( '/{year}/{month}', [AccountsController::class, 'show'] )->name( 'show.year.month' );
 
         // debit
-        Route::name( 'expenses.' )->prefix( 'expenses' )->group( function () {
-            Route::get( '/', [AccountsExpensesController::class, 'index'] )->name( 'index' );
-            Route::get( '/{year}', [AccountsExpensesController::class, 'showByYear'] )->name( 'show.year' );
-            Route::get( '/{year}/{month}', [AccountsExpensesController::class, 'show'] )->name( 'show.year.month' );
-
+        Route::name( 'expenses.' )->prefix( '/{year}/{month}/expenses' )->group( function () {
             Route::name( 'salary.' )->prefix( 'salary' )->group( function () {
+                Route::get( '/', [SalaryExpenseController::class, 'index'] )->name( 'index' );
                 Route::post( '/', [SalaryExpenseController::class, 'store'] )->name( 'store' );
                 Route::put( '/{salaryExpense}', [SalaryExpenseController::class, 'update'] )->name( 'update' );
                 Route::delete( '/{salaryExpense}', [SalaryExpenseController::class, 'delete'] )->name( 'delete' );
