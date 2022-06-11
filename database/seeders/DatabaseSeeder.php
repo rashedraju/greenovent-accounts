@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder {
             ProjectSeeder::class,
 
             // accounts
+            AccountsExpenseTypeSeeder::class,
             TransactionTypeSeeder::class,
             TransactionAprovalTypeSeeder::class,
             WithdrawalSeeder::class,

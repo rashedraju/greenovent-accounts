@@ -77,16 +77,5 @@ class UserSeeder extends Seeder {
 
         $user6 = User::create( $user6Data );
         $user6->assignRole( 'Accounts Executive' );
-
-        $user7Data = [
-            'name'          => 'User 7',
-            'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user7@greenovent.com',
-            'phone'         => '01234567891',
-            'password'      => '12345678'
-        ];
-
-        $user7 = User::create( $user7Data );
-        $user7->assignRole( 'Accounts Executive' );
     }
 }

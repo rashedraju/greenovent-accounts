@@ -4,24 +4,18 @@
     <div class="card-body py-4">
         <div class="row">
             <div class="col-12">
-                <div class="d-flex gap-3 border-y">
+                <div class="d-flex flex-wrap gap-3 border-y">
                     <div class="menu-item me-lg-1">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Expenses
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item py-3 {{ request()->routeIs('accounts.expenses.salary.*') ? 'active' : '' }}"
-                                    href="{{ route('accounts.expenses.salary.index', ['year' => $year, 'month' => $month]) }}">Salary
-                                    Expenses</a>
-                                <a class="dropdown-item py-3" href="#">Daily Conveyances</a>
-                            </div>
-                        </div>
-                        {{-- <a href="#"
+                        <a href="{{ route('accounts.expenses.index', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.expenses.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Expenses</span>
-                        </a> --}}
+                        </a>
+                    </div>
+                    <div class="menu-item me-lg-1">
+                        <a href="{{ route('accounts.sales.index', ['year' => $year, 'month' => $month]) }}"
+                            class="menu-link py-3 {{ request()->routeIs('accounts.sales.*') ? 'bg-primary text-white mx-1' : '' }}">
+                            <span class="menu-title">Sales</span>
+                        </a>
                     </div>
                     <div class="menu-item me-lg-1">
                         <a href="#"

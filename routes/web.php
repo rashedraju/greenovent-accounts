@@ -2,18 +2,14 @@
 
 use App\Http\Controllers\AccountsBillsController;
 use App\Http\Controllers\AccountsEmployeeLoanController;
+use App\Http\Controllers\AccountsManagerController;
 use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Accounts\AccountsExpensesController;
 use App\Http\Controllers\Accounts\AccountsRequisitoinController;
 use App\Http\Controllers\Accounts\CreditController;
-use App\Http\Controllers\Accounts\DailyConveyanceExpenseController;
 use App\Http\Controllers\Accounts\InvestmentCreditController;
-use App\Http\Controllers\Accounts\InvestmentExpenseController;
 use App\Http\Controllers\Accounts\LoanCreditController;
-use App\Http\Controllers\Accounts\LoanExpenseController;
 use App\Http\Controllers\Accounts\ProjectCreditController;
-use App\Http\Controllers\Accounts\ProjectExpenseController;
-use App\Http\Controllers\Accounts\SalaryExpenseController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientsController;
@@ -112,6 +108,12 @@ Route::middleware( 'auth' )->group( function () {
         Route::post( '{project}/contact', [ProjectContactPersonController::class, 'store'] )->name( 'contact.store' );
     } );
 
+    Route::name( 'accounts-manager.' )->prefix( 'accounts-manager' )->group( function () {
+        Route::get( '/', [AccountsManagerController::class, 'index'] )->name( 'index' );
+        Route::get( '/{user}', [AccountsManagerController::class, 'show'] )->name( 'show' );
+        Route::get( '/{user}/{client}', [AccountsManagerController::class, 'client'] )->name( 'client' );
+    } );
+
     Route::name( 'bills.' )->prefix( 'bills' )->group( function () {
         Route::get( '/', [BillController::class, 'index'] )->name( 'index' );
         Route::get( '/clients/{client}', [BillController::class, 'client'] )->name( 'client' );
@@ -159,39 +161,21 @@ Route::middleware( 'auth' )->group( function () {
 
         // debit
         Route::name( 'expenses.' )->prefix( '/{year}/{month}/expenses' )->group( function () {
-            Route::name( 'salary.' )->prefix( 'salary' )->group( function () {
-                Route::get( '/', [SalaryExpenseController::class, 'index'] )->name( 'index' );
-                Route::post( '/', [SalaryExpenseController::class, 'store'] )->name( 'store' );
-                Route::put( '/{salaryExpense}', [SalaryExpenseController::class, 'update'] )->name( 'update' );
-                Route::delete( '/{salaryExpense}', [SalaryExpenseController::class, 'delete'] )->name( 'delete' );
-            } );
-
-            Route::name( 'daily-conveyance.' )->prefix( 'daily-conveyance' )->group( function () {
-                Route::post( '/', [DailyConveyanceExpenseController::class, 'store'] )->name( 'store' );
-                Route::put( '/{dailyConveyanceExpense}', [DailyConveyanceExpenseController::class, 'update'] )->name( 'update' );
-                Route::delete( '/{dailyConveyanceExpense}', [DailyConveyanceExpenseController::class, 'delete'] )->name( 'delete' );
-            } );
-
-            Route::name( 'project.' )->prefix( 'project' )->group( function () {
-                Route::post( '/', [ProjectExpenseController::class, 'store'] )->name( 'store' );
-                Route::put( '/{projectExpense}', [ProjectExpenseController::class, 'update'] )->name( 'update' );
-                Route::delete( '/{projectExpense}', [ProjectExpenseController::class, 'delete'] )->name( 'delete' );
-            } );
-
-            Route::name( 'loan.' )->prefix( 'loan' )->group( function () {
-                Route::post( '/', [LoanExpenseController::class, 'store'] )->name( 'store' );
-                Route::put( '/{loanExpense}', [LoanExpenseController::class, 'update'] )->name( 'update' );
-                Route::delete( '/{loanExpense}', [LoanExpenseController::class, 'delete'] )->name( 'delete' );
-            } );
-
-            Route::name( 'investment.' )->prefix( 'investment' )->group( function () {
-                Route::post( '/', [InvestmentExpenseController::class, 'store'] )->name( 'store' );
-                Route::put( '/{investmentExpense}', [InvestmentExpenseController::class, 'update'] )->name( 'update' );
-                Route::delete( '/{investmentExpense}', [InvestmentExpenseController::class, 'delete'] )->name( 'delete' );
-            } );
+            Route::get( '/', [AccountsExpensesController::class, 'index'] )->name( 'index' );
+            Route::get( '/{accountsExpenseType}', [AccountsExpensesController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [AccountsExpensesController::class, 'store'] )->name( 'store' );
 
             // // data import/export
-            Route::get( '/{year}/{month}/export', [AccountsExpensesController::class, 'export'] )->name( 'export' );
+            Route::get( '/export', [AccountsExpensesController::class, 'export'] )->name( 'export' );
+        } );
+
+        Route::name( 'sales.' )->prefix( '/{year}/{month}/sales' )->group( function () {
+            Route::get( '/', [AccountsExpensesController::class, 'index'] )->name( 'index' );
+            Route::get( '/{accountsExpenseType}', [AccountsExpensesController::class, 'show'] )->name( 'show' );
+            Route::post( '/', [AccountsExpensesController::class, 'store'] )->name( 'store' );
+
+            // // data import/export
+            Route::get( '/export', [AccountsExpensesController::class, 'export'] )->name( 'export' );
         } );
 
         // credit

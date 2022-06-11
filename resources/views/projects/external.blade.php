@@ -1,6 +1,22 @@
 <x-app-layout>
+    <div class="card card-body p-5 m-sm-1 m-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts-manager.index') }}">Accounts
+                        Manager</a></li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts-manager.show', $project->accountsManager->id) }}">{{ $project->accountsManager->name }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts-manager.client', ['user' => $project->accountsManager->id, 'client' => $project->client->id]) }}">{{ $project->client->company_name }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">{{ $project->name }}</li>
+            </ol>
+        </nav>
+    </div>
+
     <!--begin::Content-->
-    <div class="flex-lg-row-fluid ms-lg-15">
+    <div class="flex-lg-row-fluid">
         <x-project.navigation :project="$project" active="external" />
         <!--begin:::Tab pane-->
         <div>

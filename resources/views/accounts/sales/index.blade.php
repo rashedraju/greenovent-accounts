@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item fs-4"><a
                         href="{{ route('accounts.show.year.month', ['year' => $data['year'], 'month' => $data['year']]) }}">{{ now()->month($data['month'])->format('F') }}</a>
                 </li>
-                <li class="breadcrumb-item fs-4">Expenses</li>
+                <li class="breadcrumb-item fs-4">Sales</li>
             </ol>
         </nav>
     </div>
@@ -18,7 +18,7 @@
     <div class="card mt-3">
         <div class="row">
             <div class="col-12 col-sm-3">
-                <div class="row style=" style="margin-left: 0">
+                <div class="row" style="margin-left: 0">
                     <div class="col-2 px-2 py-5 border border-secondary flex-grow-1 fs-2">Descriptoin</div>
                     <div class="col-1 px-2 py-5 border border-secondary flex-grow-1 fs-2">Amount</div>
                 </div>
@@ -31,7 +31,7 @@
                             {{ number_format($expenseType->expenses->sum(fn($item) => $item->amount)) }}</div>
                     </a>
                 @endforeach
-                <div class="row style=" style="margin-left: 0">
+                <div class="row" style="margin-left: 0">
                     <div class="col-2 px-2 py-5 border border-secondary flex-grow-1 fs-2">Total Expense</div>
                     <div class="col-1 px-2 py-5 border border-secondary flex-grow-1 fs-2">
                         {{ number_format($data['totalExpense']) }}</div>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="p-1">
+    <div class="p-1 mt-sm-1 mt-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item active fs-4" aria-current="page"><a

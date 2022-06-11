@@ -53,15 +53,9 @@ $user = auth()->user();
                             </a>
                         </div>
                         <div class="menu-item me-lg-1">
-                            <a href="{{ route('clients.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('clients.*') ? 'active' : '' }}">
-                                <span class="menu-title">Clients</span>
-                            </a>
-                        </div>
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('projects.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('projects.*') ? 'active' : '' }}">
-                                <span class="menu-title">Account Manager</span>
+                            <a href="{{ route('accounts-manager.index') }}"
+                                class="menu-link py-3 {{ request()->routeIs('accounts-manager.*') ? 'active' : '' }}">
+                                <span class="menu-title">Accounts Manager</span>
                             </a>
                         </div>
 

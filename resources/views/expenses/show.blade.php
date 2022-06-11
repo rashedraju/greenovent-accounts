@@ -16,15 +16,6 @@
                 {{ now()->year($data['year'])->month($data['month'])->format('F') }}
                 - {{ $data['year'] }} </h3>
 
-            {{-- Import and Export excel file --}}
-
-            {{-- <div class="d-flex gap-3 justify-content-end">
-                <a href="{{ route('accounts.expenses.export', [$data['year'], $data['month']]) }}"
-                    class="btn btn-sm my-2 px-10 py-0 btn-danger">
-                    <x-utils.download /> Export
-                </a>
-            </div> --}}
-
             <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#expense_tab_salary"> Salary </a>

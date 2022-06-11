@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model {
     use HasFactory;
 
-    const AIT = 2;
-
     const USER_EXECUTIVE_DIRECTOR_Id = 1;
     const USER_COO_Id = 2;
 
@@ -74,6 +72,10 @@ class Project extends Model {
      */
     public function manager() {
         return $this->belongsTo( User::class, 'business_manager_id' );
+    }
+
+    public function accountsManager(){
+        return $this->belongsTo(User::class, 'business_manager_id');
     }
 
     public function contactPersons() {
@@ -175,7 +177,7 @@ class Project extends Model {
 
     // get ait
     public function ait() {
-        return $this->external ? $this->external->grandTotal() * ( self::AIT / 100 ) : 0;
+        return $this->external ? $this->external->grandTotal() * $this->external->ait : 0;
     }
 
     // Total Expenses (Project Expenses + AIT + Other Expenses)

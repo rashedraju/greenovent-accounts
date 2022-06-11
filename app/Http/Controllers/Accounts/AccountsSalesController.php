@@ -10,7 +10,7 @@ use App\Services\ExpenseService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class AccountsExpensesController extends Controller {
+class AccountsSalesController extends Controller {
     public $expenseService;
 
     public function __construct( ExpenseService $expenseService ) {

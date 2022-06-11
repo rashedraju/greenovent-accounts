@@ -1,107 +1,107 @@
 <x-app-layout>
-    <div class="flex-lg-row-fluid ms-lg-15">
+    <div class="card card-body p-5 m-sm-1 m-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts-manager.index') }}">Accounts
+                        Manager</a></li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts-manager.show', $project->accountsManager->id) }}">{{ $project->accountsManager->name }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts-manager.client', ['user' => $project->accountsManager->id, 'client' => $project->client->id]) }}">{{ $project->client->company_name }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">{{ $project->name }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="flex-lg-row-fluid">
         <x-project.navigation :project="$project" active="overview" />
-
-        <div class="card mb-5">
-            <div class="card-body pb-0">
-                @if ($project->isApprovedByEveryone())
-                    <div class="alert alert-success" role="alert"> Approved</div>
-                @else
-                    <div class="alert alert-danger" role="alert">
-                        <h4>Approvals:</h4>
-                        @foreach ($project->approvals as $approval)
-                            <div class="d-inline-flex flex-column border p-1">
-                                <div> {{ $approval->approver->name }} <br /> <small>
-                                        {{ $approval->approver->designation() }}
-                                    </small> </div>
-                                <div>
-                                    <span class="badge badge-secondary">{{ $approval->status->name }}</span>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-            <div class="card-header d-flex justify-content-start align-items-center">
-                <h3 class="card-title">Project Overview</h3>
-                <div>
-                    <span class="text-white px-3 py-1 rounded" style="background: {{ $project->status->color }}">
-                        {{ $project->status->name }}
-                    </span>
-                </div>
-            </div>
-            <div class="card-body d-flex justify-content-between">
-                <div class="d-flex flex-column mb-5">
-                    <h1 class="fs-3 text-primary text-hover-primary fw-bolder mb-1">
-                        {{ $project->name }}
-                    </h1>
-
-                    <div class="d-flex gap-2 my-6">
-                        <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-                            <div class="fs-4 fw-bolder text-gray-700 text-center">
-                                <span class="w-75px">{{ $project->po_number }}</span>
-                            </div>
-                            <div class="fw-bold text-muted">PO Number</div>
-                        </div>
-                        <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
-                            <div class="fs-4 fw-bolder text-gray-700 text-center">
-                                <span class="w-75px">
-                                    <x-utils.currency />{{ number_format($project->po_value) }}
-                                </span>
-                            </div>
-                            <div class="fw-bold text-muted">PO Value</div>
-                        </div>
-                    </div>
-                    <div>Business Manager: <strong> {{ $project->manager->name }} </strong></div>
-                </div>
-                <div>
-                    <h3 class="fw-bolder mb-3">Client Info</h3>
-                    <a href="{{ route('clients.show', $project->client) }}">
-                        <h5 class="text-primary">{{ $project->client->company_name }}</h5>
-                    </a>
-                    <div>{{ $project->client->office_address }}</div>
-                </div>
-            </div>
-        </div>
 
         <div class="card my-2">
             <div class="card-header">
-                <h3 class="card-title">Latest Internal & External</h3>
+                <h3 class="card-title">{{ $project->name }}</h3>
             </div>
-            <div class="card-body">
-                <div class="card card-bordered">
-                    <div class="card-body">
-                        <div class="fs-5 d-flex">
-                            <div class="d-flex flex-column gap-3 text-end">
-                                <div class="px-5">
-                                    <strong>External:</strong>
-                                </div>
-                                <div class="px-5">
-                                    <strong>Internal:</strong>
-                                </div>
-                                <div class="px-5">
-                                    <strong>Vendor: </strong>
-                                </div>
-                                <div class="px-5">
-                                    <strong>Gross Profit: </strong>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column gap-3 text-end">
-                                <div class="px-5">
-                                    {{ number_format($project->external?->total) }}
-                                </div class="px-5">
-                                <div class="px-5">
-                                    {{ number_format($project->internal?->total) }}
-                                </div>
-                                <div class="px-5">
-                                    {{ number_format($project->vendor?->total) }}
-                                </div>
-                                <div class="px-5">
-                                    {{ number_format($project->grossProfit()) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row justify-content-between">
+                <div class="col-12 col-sm-4">
+                    <table class="table table-secondary bs-table-bordered">
+                        <tbody>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Project Goal</th>
+                                <td>{{ number_format((float) $project->external?->grandTotal(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Sales</th>
+                                <td>{{ number_format((float) $project->external?->total, 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">ASF</th>
+                                <td>{{ number_format((float) $project->external?->asfTotal(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Sub Total</th>
+                                <td>{{ number_format((float) $project->external?->asfSubTotal(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Amount VAT</th>
+                                <td>{{ number_format((float) $project->external?->vatTotal(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Client Advance </th>
+                                <td>{{ number_format((float) $project->advance_paid, 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">AIT </th>
+                                <td>{{ number_format((float) $project->ait(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6"> Expence </th>
+                                <td>{{ number_format((float) $project->internal?->total, 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6"> Total Expense </th>
+                                <td>{{ number_format((float) $project->totalExpense(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6"> Due </th>
+                                <td>{{ number_format((float) $project->due(), 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6"> Gross Profit </th>
+                                <td>{{ number_format((float) $project->grossProfit(), 2, '.', ',') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <table class="table table-secondary bs-table-bordered">
+                        <tbody>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Project Type</th>
+                                <td>{{ $project->type->name }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">PO Number </th>
+                                <td>{{ $project->po_number }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">PO Value </th>
+                                <td>{{ number_format((float) $project->po_value, 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Bill Type </th>
+                                <td>{{ $project->billType->name }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Bill Status </th>
+                                <td>{{ $project->billStatus() }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Project Status </th>
+                                <td>{{ $project->status->name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

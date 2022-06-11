@@ -1,6 +1,21 @@
 <x-app-layout>
+    <div class="card card-body p-5 m-sm-1 m-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts-manager.index') }}">Accounts
+                        Manager</a></li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts-manager.show', $project->accountsManager->id) }}">{{ $project->accountsManager->name }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4"><a
+                        href="{{ route('accounts-manager.client', ['user' => $project->accountsManager->id, 'client' => $project->client->id]) }}">{{ $project->client->company_name }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">{{ $project->name }}</li>
+            </ol>
+        </nav>
+    </div>
     <!--begin::Content-->
-    <div class="flex-lg-row-fluid ms-lg-15">
+    <div class="flex-lg-row-fluid">
         <x-project.navigation :project="$project" active="vendor" />
         <!--begin:::Tab pane-->
         <div>
@@ -64,7 +79,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('projects.vendor.update', [$project, $project->vendor]) }}"
+                                    <form
+                                        action="{{ route('projects.vendor.update', [$project, $project->vendor]) }}"
                                         method="post" class="my-2" enctype="multipart/form-data">
                                         @csrf
                                         @method('put')
@@ -108,8 +124,8 @@
                     <h5 class="modal-title">Add vendor</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('projects.vendor.store', $project) }}" method="post" class="my-2"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('projects.vendor.store', $project) }}" method="post"
+                        class="my-2" enctype="multipart/form-data">
                         @csrf
 
                         <label class="form-label fs-6 fw-bolder text-dark">

@@ -1,5 +1,5 @@
 @props(['project', 'active'])
-<ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold mb-8">
+<ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bold my-8">
     <!--begin:::Tab item-->
     <li class="nav-item">
         <a class="nav-link pb-4 {{ $active == 'overview' ? 'text-active-primary active' : '' }}"
@@ -49,11 +49,6 @@
             <div class="menu-item px-3">
                 <a href="{{ route('projects.edit', $project) }}" class="menu-link px-5">Edit
                     Project Info</a>
-            </div>
-            <div class="menu-item px-3">
-                <button type="button" class="text-danger bg-transparent border-0 px-5" data-bs-toggle="modal"
-                    data-bs-target="#project_delete_modal"> Delete Project
-                </button>
             </div>
         </div>
     </li>
