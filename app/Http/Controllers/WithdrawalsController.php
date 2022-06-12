@@ -28,7 +28,6 @@ class WithdrawalsController extends Controller {
             // find withdrawals of this date
             $year = $request->year;
             $month = $request->month;
-
             // get withdrawal records
             $withdrawalRecords = Withdrawal::filter( array_merge( ['year' => $year, 'month' => $month], request( ['user_id', 'bank_name'] ) ) )->get();
 

@@ -8,15 +8,43 @@ use App\Models\Bill;
 use App\Models\BillStatus;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class ProjectBillController extends Controller {
     // show internal costs
     public function index( Project $project ) {
         $billStatuses = BillStatus::all();
 
-        $bills = $project->bill_type == 1 ? $project->bills->take(1) : $project->bills;
+        $bills = $project->bill_type == 1 ? $project->bills->take( 1 ) : $project->bills;
 
-        return view( 'projects.bill', ['project' => $project, 'bills' => $bills, 'billStatuses' => $billStatuses] );
+        $billSheets = [];
+
+        foreach ( $bills as $bill ) {
+            if ( $bill->file ) {
+                $reader = new Xlsx();
+                $spreadsheet = $reader->load( 'public/uploads/' . $bill->file->file );
+
+                $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html( $spreadsheet );
+                $hdr = $writer->generateHTMLHeader();
+                $sty = $writer->generateStyles( false ); // do not write <style> and </style>
+                $newstyle = <<<EOF
+                <style type='text/css'>
+                $sty
+                </style>
+                EOF;
+                $sheetHeader = preg_replace( '@</head>@', "$newstyle\n</head>", $hdr );
+                $sheetData = $writer->generateHtmlAll();
+                $sheetFooter = $writer->generateHTMLFooter();
+
+                $billSheets[] = [
+                    $sheetHeader,
+                    $sheetData,
+                    $sheetFooter
+                ];
+            }
+        }
+
+        return view( 'projects.bill', ['project' => $project, 'bills' => $bills, 'billStatuses' => $billStatuses, 'billSheets' => $billSheets] );
     }
 
     // Store internal cost
@@ -30,7 +58,7 @@ class ProjectBillController extends Controller {
             $filePath = $request->file( 'file' )->storeAs( 'project_bill_files', $fname, 'uploads' );
 
             // create bill
-            $bill = $project->bills()->create( $request->only( ['date', 'bill_no', 'subject', 'bill_status_id', 'total', 'asf', 'vat'] ) );
+            $bill = $project->bills()->create( $request->only( ['date', 'bill_status_id', 'total', 'asf', 'vat'] ) );
 
             // save fill file path to bill
             $bill->file()->create( ['file' => $filePath] );
@@ -91,7 +119,7 @@ class ProjectBillController extends Controller {
             ] );
         }
 
-        $bill->update( $request->only( ['date', 'bill_no', 'subject', 'bill_status_id', 'total', 'asf', 'vat'] ) );
+        $bill->update( $request->only( ['date', 'bill_status_id', 'total', 'asf', 'vat'] ) );
 
         return redirect()->route( 'projects.bill.index', ['project' => $project] )->with( 'success', 'Project bill updated' );
     }

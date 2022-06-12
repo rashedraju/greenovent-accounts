@@ -31,7 +31,7 @@
     <!--begin:::Tab item-->
     <li class="nav-item ms-auto">
         <!--begin::Action menu-->
-        <a href="#" class="btn btn-primary ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent"
+        <a href="#" class="btn btn-secondary ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end">Actions
             <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
             <span class="svg-icon svg-icon-2 me-0">

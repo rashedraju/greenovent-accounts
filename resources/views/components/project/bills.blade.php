@@ -1,4 +1,4 @@
-@props(['project', 'billType', 'billStatuses', 'bills'])
+@props(['project', 'billType', 'billStatuses', 'bills', 'billSheets'])
 
 @if ($bills->count() > 0)
     @foreach ($bills as $bill)
@@ -7,8 +7,8 @@
                 <h4 class="text-center py-5">Bill Month -
                     {{ $bill->billMonth() }} - {{ $bill->billYear() }}</h4>
                 <div>
-                    <button type="button" class="btn btn-sm px-5 py-1 btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#edit_bill_modal-{{ $bill->id }}">
+                    <button type="button" class="btn btn-sm px-5 py-1 btn-primary"
+                        id="edit_bill_btn-{{ $bill->id }}">
                         <x-utils.edit-icon /> Edit Bill
                     </button>
                 </div>
@@ -20,7 +20,6 @@
                     </div>
                     <div> <strong>Bill Status:</strong> {{ $bill->status->name }}
                     </div>
-                    <div> <strong>Subject:</strong> {{ $bill->subject }}</div>
                     <div> <strong>Date:</strong> {{ $bill->date }} </div>
                 </div>
 
@@ -30,13 +29,13 @@
                             <strong>Total:</strong>
                         </div>
                         <div class="border-bottom border-gray-500 px-5">
-                            ASF {{ $bill->asf }}%:
+                            ASF ({{ $bill->asf }}%):
                         </div>
                         <div class="px-5">
                             <strong>Sub Total:</strong>
                         </div>
                         <div class="border-bottom border-gray-500 px-5">
-                            VAT {{ $bill->vat }}%:
+                            VAT ({{ $bill->vat }}%):
                         </div>
                         <div class="px-5">
                             <strong>Grand Total:</strong>
@@ -80,7 +79,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="border-top border-gray-300 mt-2">
+                        <div class="border-top border-gray-300 mt-5">
                             <h5 class="py-3 mb-5">Supporting File:
                             </h5>
                             @if ($bill->supporting)
@@ -103,82 +102,71 @@
                 </div>
             </div>
 
-            <div class="modal fade" tabindex="-1" id="edit_bill_modal-{{ $bill->id }}">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div>
-                                <h5 class="modal-title">Edit Bill</h5>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('projects.bill.update', [$project, $bill]) }}" method="post"
-                                class="my-2" enctype="multipart/form-data">
-                                @csrf
-                                @method('put')
-
-                                <label class="form-label fs-6 fw-bolder text-dark">
-                                    Date<x-utils.required />
-                                </label>
-                                <input class="form-control form-control" type="text" name="date"
-                                    value="{{ $bill->date }}" />
-
-                                <label class="form-label fs-6 fw-bolder text-dark">
-                                    Bill NO<x-utils.required />
-                                </label>
-                                <input class="form-control form-control" type="text" name="bill_no"
-                                    value="{{ $bill->bill_no }}" />
-
-                                <label class="form-label fs-6 fw-bolder text-dark">
-                                    Subject<x-utils.required />
-                                </label>
-                                <input class="form-control form-control" type="text" name="subject"
-                                    value="{{ $bill->subject }}" />
-
-                                <label class="form-label mt-2 mb-0">Bill Status<x-utils.required /></label>
-                                <select class="form-select" name="bill_status_id">
-                                    @foreach ($billStatuses as $billStatus)
-                                        <option value="{{ $billStatus->id }}"
-                                            {{ $billStatus->id == $bill->bill_status_id ? 'selected' : '' }}>
-                                            {{ $billStatus->name }}</option>
-                                    @endforeach
-                                </select>
-
-                                <label class="form-label fs-6 fw-bolder text-dark">
-                                    Total<x-utils.required />
-                                </label>
-                                <input class="form-control form-control" type="text" name="total"
-                                    value="{{ $bill->total }}" />
-
-                                <label class="form-label fs-6 fw-bolder text-dark">
-                                    ASF<x-utils.required />
-                                </label>
-                                <input class="form-control form-control" type="text" name="asf"
-                                    value="{{ $bill->asf }}" />
-
-                                <label class="form-label fs-6 fw-bolder text-dark">
-                                    VAT<x-utils.required />
-                                </label>
-                                <input class="form-control form-control" type="text" name="vat"
-                                    value="{{ $bill->vat }}" />
-
-                                <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                    Bill File(xlsx)<x-utils.required />
-                                </label>
-                                <input type="file" class="form-control" name="file">
-
-                                <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                    Supporting File(pdf/docx)<x-utils.required />
-                                </label>
-                                <input type="file" class="form-control" name="supporting_file">
-
-                                <button type="submit" class="btn btn-primary mt-2">Save
-                                    Changes</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div class="border border-secondary">
+                @foreach ($billSheets as $billSheet)
+                    {!! $billSheet[0] !!}
+                    {!! $billSheet[1] !!}
+                    {!! $billSheet[2] !!}
+                @endforeach
             </div>
+
+            <x-drawer btnId="edit_bill_btn-{{ $bill->id }}" drawerId="edit_bill_drawer-{{ $bill->id }}"
+                title="Edit Bill">
+                <form action="{{ route('projects.bill.update', [$project, $bill]) }}" method="post"
+                    class="my-2" enctype="multipart/form-data">
+                    @csrf
+                    @method('put')
+
+                    <label class="form-label mt-5">Date</label>
+
+                    <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date"
+                        placeholder="DD-MM-YYYY" value="{{ $bill->date }}">
+
+                    <label class="form-label mt-5 mb-0">Bill Status
+                        <x-utils.required />
+                    </label>
+                    <select class="form-select" name="bill_status_id">
+                        @foreach ($billStatuses as $billStatus)
+                            <option value="{{ $billStatus->id }}"
+                                {{ $billStatus->id == $bill->bill_status_id ? 'selected' : '' }}>
+                                {{ $billStatus->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                        Total
+                        <x-utils.required />
+                    </label>
+                    <input class="form-control" type="text" name="total" value="{{ $bill->total }}" />
+
+                    <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                        ASF
+                        <x-utils.required />
+                    </label>
+                    <input class="form-control" type="text" name="asf" value="{{ $bill->asf }}" />
+
+                    <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                        VAT
+                        <x-utils.required />
+                    </label>
+                    <input class="form-control" type="text" name="vat" value="{{ $bill->vat }}" />
+
+                    <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                        Bill File(xlsx)
+                        <x-utils.required />
+                    </label>
+                    <input type="file" class="form-control" name="file">
+
+                    <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                        Supporting File(pdf/docx)
+                        <x-utils.required />
+                    </label>
+                    <input type="file" class="form-control" name="supporting_file">
+
+                    <button type="submit" class="btn btn-primary mt-5">Save
+                        Changes</button>
+                </form>
+            </x-drawer>
         </div>
     @endforeach
 @else

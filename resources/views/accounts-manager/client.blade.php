@@ -12,6 +12,25 @@
         </nav>
     </div>
 
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-3">
+                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                    <p class="text-gray-700">Sales this year</p>
+                    <h1 class="text-black">
+                        <x-utils.currency />{{ number_format($data['salesThisYear']) }}
+                    </h1>
+                </div>
+
+                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                    <p class="text-gray-700">Sales this month</p>
+                    <h1 class="text-black">
+                        <x-utils.currency />{{ number_format($data['salesThisMonth']) }}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card mt-3 py-10">
         <div class="table-responsive">
             <table class="table table-secondary table-striped">

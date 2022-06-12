@@ -7,12 +7,12 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 
 class AccountsBillsController extends Controller {
-    public function index() {
+    public function index( $year, $month ) {
         $clients = Client::orderBy( 'id', 'desc' )->get();
-        return view( 'accounts.bills.index', ['clients' => $clients] );
+        return view( 'accounts.bills.index', ['clients' => $clients, 'year' => $year, 'month' => $month] );
     }
 
-    public function show( Client $client ) {
+    public function show( $year, $month, Client $client ) {
         if ( $client ) {
             $bills = AccountsBill::where( 'client_id', $client->id )->orderBy( 'id', 'desc' )->get();
             $totalInvoiceAmount = $bills->sum( fn( $bill ) => $bill->invoice_amount );
@@ -26,6 +26,8 @@ class AccountsBillsController extends Controller {
             $total_due = $bills->sum( fn( $bill ) => $bill->due );
 
             $data = [
+                'year'                      => $year,
+                'month'                     => $month,
                 'client'                    => $client,
                 'bills'                     => $bills,
                 'total_invoice_amount'      => $totalInvoiceAmount,

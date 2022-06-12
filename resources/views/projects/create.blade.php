@@ -89,6 +89,12 @@
                                 name="advance_paid" :value="old('advance_paid')" />
                         </div>
 
+                        <div class="fv-row mb-10">
+                            <label class="form-label fs-6 fw-bolder text-dark">BP</label>
+                            <input class="form-control form-control-lg form-control-solid" type="number"
+                                name="bp" :value="old('bp')" />
+                        </div>
+
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Bill Type
                                 <x-utils.required />

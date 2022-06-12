@@ -61,6 +61,10 @@ class AccountsController extends Controller {
     // show finance recods of this year
     public function show( $year, $month ) {
         if ( $year && $month ) {
+            $sales = $this->projectService->getTotalSalesByYearAndMonth( $year, $month );
+            $expense = $this->expenseService->getTotalExpenseAmount( ['year' => $year, 'month' => $month] );
+            $netProfit = $this->accountService->getNetProfitByYearMonth( $year, $month );
+
             // sales, expenses, profit
             $sales = $this->projectService->getTotalSalesByYearAndMonth( $year, $month );
             $expense = $this->expenseService->getTotalExpenseAmount( ['year' => $year, 'month' => $month] );
@@ -73,7 +77,7 @@ class AccountsController extends Controller {
             $bankAmount = $this->accountService->getTotalBankAmountByYearMonth( $year, $month );
 
             // get total cash amount by year and month
-            $cashAmount = $this->accountService->getTotalCashAmountByYear( $year );
+            $cashAmount = $this->accountService->getTotalCashAmountByYearMonth( $year, $month );
 
             $data = [
                 'year'        => $year,

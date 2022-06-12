@@ -34,10 +34,10 @@ class RolesAndPermissionsSeeder extends Seeder {
         $roleHR = Role::create( ['name' => 'HR'] );
 
         // permissions for roles
-        $roleExecutiveDirector->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
-        $roleCOO->givePermissionTo( ['Dashboard', 'Clients', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
-        $roleGeneralManager->givePermissionTo( ['Clients', 'Projects'] );
-        $roleAccountsManager->givePermissionTo( ['Clients', 'Projects'] );
+        $roleExecutiveDirector->givePermissionTo( ['Dashboard', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
+        $roleCOO->givePermissionTo( ['Dashboard', 'Projects', 'Employees', 'Accounts', 'Permissions'] );
+        $roleGeneralManager->givePermissionTo( ['Projects'] );
+        $roleAccountsManager->givePermissionTo( ['Projects'] );
         $roleHR->givePermissionTo( ['Employees'] );
         $roleAccountsExecutive->givePermissionTo( ['Accounts'] );
     }

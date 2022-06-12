@@ -32,6 +32,7 @@ class EditProjectRequest extends FormRequest {
             'start_date'          => 'required|date',
             'closing_date'        => 'required|date',
             'advance_paid'        => 'sometimes',
+            'bp'        => 'sometimes',
             'status_id'           => 'sometimes'
         ];
     }

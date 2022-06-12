@@ -6,11 +6,33 @@ use App\Http\Requests\VendorCostRequest;
 use App\Models\Project;
 use App\Models\VendorCost;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class VendorController extends Controller {
     // show vendor costs
     public function index( Project $project ) {
-        return view( 'projects.vendor', ['project' => $project] );
+        $sheetHeader = null;
+        $sheetData = null;
+        $sheetFooter = null;
+
+        if ( $project->vendor?->file ) {
+            $reader = new Xlsx();
+            $spreadsheet = $reader->load( 'public/uploads/' . $project->vendor->file->file );
+
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html( $spreadsheet );
+            $hdr = $writer->generateHTMLHeader();
+            $sty = $writer->generateStyles( false ); // do not write <style> and </style>
+            $newstyle = <<<EOF
+            <style type='text/css'>
+            $sty
+            </style>
+            EOF;
+            $sheetHeader = preg_replace( '@</head>@', "$newstyle\n</head>", $hdr );
+            $sheetData = $writer->generateHtmlAll();
+            $sheetFooter = $writer->generateHTMLFooter();
+        }
+
+        return view( 'projects.vendor', ['project' => $project, 'sheetHeader' => $sheetHeader, 'sheetData' => $sheetData, 'sheetFooter' => $sheetFooter] );
     }
 
     // Store vendor cost

@@ -23,6 +23,7 @@ class CreateProjectsTable extends Migration {
             $table->dateTime( 'start_date' );
             $table->dateTime( 'closing_date' );
             $table->unsignedBigInteger('advance_paid')->default(0);
+            $table->unsignedBigInteger('bp')->default(0);
             $table->foreignId( 'status_id' )->default( 3 )->constrained( 'project_statuses', 'id' );
             $table->timestamps();
         } );

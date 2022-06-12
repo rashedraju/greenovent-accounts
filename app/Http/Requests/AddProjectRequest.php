@@ -32,6 +32,7 @@ class AddProjectRequest extends FormRequest {
             'start_date'          => ['required', 'date'],
             'closing_date'        => ['required', 'date'],
             'status_id'           => ['sometimes'],
+            'bp'                  => 'sometimes',
             'advance_paid'        => 'sometimes'
         ];
     }

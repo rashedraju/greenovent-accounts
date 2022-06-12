@@ -74,8 +74,8 @@ class Project extends Model {
         return $this->belongsTo( User::class, 'business_manager_id' );
     }
 
-    public function accountsManager(){
-        return $this->belongsTo(User::class, 'business_manager_id');
+    public function accountsManager() {
+        return $this->belongsTo( User::class, 'business_manager_id' );
     }
 
     public function contactPersons() {
@@ -114,12 +114,12 @@ class Project extends Model {
 
     // get project start formated date
     public function getStartDateAttribute( $value ) {
-        return date( 'M d, Y', strtotime( $value ) );
+        return date( 'd-m-Y', strtotime( $value ) );
     }
 
     // get project start formated date
     public function getClosingDateAttribute( $value ) {
-        return date( 'M d, Y', strtotime( $value ) );
+        return date( 'd-m-Y', strtotime( $value ) );
     }
 
     // get project type
@@ -185,13 +185,17 @@ class Project extends Model {
         return $this->internal ? $this->internal->total + $this->ait() : 0;
     }
 
+    public function sales(){
+        return $this->external ? $this->external?->asfSubTotal() : 0;
+    }
+
     // gross profit :: Gross Profit = (Sub Total (Sales + ASF) - Total Expenses)
     public function grossProfit() {
         return $this->external ? $this->external?->asfSubTotal() - $this->totalExpense() : 0;
     }
 
     // due amount (Sub Total (Sales + ASF) – AIT - Client Advance)
-    public function due(){
+    public function due() {
         return $this->external?->asfSubTotal() - $this->ait() - $this->advance_paid;
     }
 

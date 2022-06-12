@@ -14,6 +14,8 @@
             </ol>
         </nav>
     </div>
+
+    <div class="alert alert-danger mt-3"> Bill Status: {{ $project->billStatus() }}</div>
     <div class="flex-lg-row-fluid">
         <x-project.navigation :project="$project" active="bill" />
         <!--begin:::Tab pane-->
@@ -24,18 +26,18 @@
                 <div class="card-body">
                     @if ($project->bill_type == 1)
                         @unless($bills->count() > 0)
-                            <button type="button" class="btn btn-sm px-5 py-1 btn-success" data-bs-toggle="modal"
-                                data-bs-target="#add_bill_modal">
+                            <button type="button" class="btn px-5 py-2 my-2 btn-success" id="add_bill_btn">
                                 <x-utils.add-icon /> Add Bill
                             </button>
                         @endunless
-                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$bills" />
+                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$bills"
+                            :billSheets="$billSheets" />
                     @else
-                        <button type="button" class="btn btn-sm px-5 py-1 btn-success" data-bs-toggle="modal"
-                            data-bs-target="#add_bill_modal">
+                        <button type="button" class="btn px-5 py-2 my-2 btn-success" id="add_bill_btn">
                             <x-utils.add-icon /> Add Bill
                         </button>
-                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$bills" />
+                        <x-project.bills :project="$project" :billType="$project->billType->name" :billStatuses="$billStatuses" :bills="$bills"
+                            :billSheets="$billSheets" />
                     @endif
                 </div>
             </div>
@@ -44,83 +46,56 @@
     </div>
 
     {{-- Add new bill --}}
-    <div class="modal fade" tabindex="-1" id="add_bill_modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title">Add Bill</h5>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('projects.bill.store', [$project]) }}" method="post" class="my-2"
-                        enctype="multipart/form-data">
-                        @csrf
+    <x-drawer btnId="add_bill_btn" drawerId="add_bill_drawer" title="Add Bill">
+        <form action="{{ route('projects.bill.store', [$project]) }}" method="post" class="my-2"
+            enctype="multipart/form-data">
+            @csrf
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            Date
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="text" name="date" placeholder="DD-MM-YYYY" />
-                        <div class="pb-2">
-                            <small class="text-danger">*</small><small> Please follow the date format.</small>
-                        </div>
+            <label class="form-label mt-5">Date</label>
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            Bill NO
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="text" name="bill_no" />
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date" placeholder="DD-MM-YYYY"
+                :value="old('date')">
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            Subject
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="text" name="subject" />
+            <label class="form-label mt-5">Bill Status</label>
+            <select class="form-select" name="bill_status_id">
+                @foreach ($billStatuses as $billStatus)
+                    <option value="{{ $billStatus->id }}">
+                        {{ $billStatus->name }}</option>
+                @endforeach
+            </select>
 
-                        <label class="form-label mt-2 mb-0">Bill Status</label>
-                        <select class="form-select" name="bill_status_id">
-                            @foreach ($billStatuses as $billStatus)
-                                <option value="{{ $billStatus->id }}">
-                                    {{ $billStatus->name }}</option>
-                            @endforeach
-                        </select>
+            <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                Total
+                <x-utils.required />
+            </label>
+            <input class="form-control" type="number" name="total" :value="old('total')" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            Total
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="total" />
+            <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                ASF(%)
+                <x-utils.required />
+            </label>
+            <input class="form-control" type="number" name="asf" :value="old('asf')" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            ASF(%)
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="asf" />
+            <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                VAT(%)
+                <x-utils.required />
+            </label>
+            <input class="form-control" type="number" name="vat" :value="old('vat')" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            VAT(%)
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="vat" />
+            <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                Bill File (xlsx)
+                <x-utils.required />
+            </label>
+            <input type="file" class="form-control" name="file" :value="old('file')">
 
-                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                            Bill File (xlsx)
-                            <x-utils.required />
-                        </label>
-                        <input type="file" class="form-control" name="file">
+            <label class="form-label fs-6 fw-bolder text-dark mt-5">
+                Supporting File (pdf/docx)
+                <x-utils.required />
+            </label>
+            <input type="file" class="form-control" name="supporting_file" :value="old('supporting_file')">
 
-                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                            Supporting File (pdf/docx)
-                            <x-utils.required />
-                        </label>
-                        <input type="file" class="form-control" name="supporting_file">
-
-                        <button type="submit" class="btn btn-primary mt-2">Add Bill</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+            <button type="submit" class="btn btn-primary mt-5">Add Bill</button>
+        </form>
+    </x-drawer>
     <!--end::Content-->
 </x-app-layout>

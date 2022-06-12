@@ -21,6 +21,50 @@
         <div>
             <x-validation-error />
 
+            <div class="d-flex gap-3 my-2">
+                @if ($project->vendor)
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button type="button" class="btn btn-sm px-10 py-2 btn-primary" id="edit_vendor_btn">
+                            <x-utils.upload /> Edit
+                        </button>
+
+                        <a href="{{ asset("/public/uploads/{$project->vendor->file->file}") }}"
+                            class="btn btn-sm px-10 py-2 btn-danger">
+                            <x-utils.download /> Export
+                        </a>
+                    </div>
+
+                    <x-drawer btnId="edit_vendor_btn" drawerId="edit_vendor_drawer" title="Edit Vendor Costing">
+                        <form action="{{ route('projects.vendor.update', [$project, $project->vendor]) }}"
+                            method="post" class="my-2" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
+
+                            <label class="form-label fs-6 fw-bolder text-dark">
+                                Total
+                            </label>
+
+                            <input class="form-control form-control" type="number" name="total"
+                                value="{{ $project->vendor->total }}" />
+
+                            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                                Vendor File (.xlsx)
+                            </label>
+                            <input type="file" class="form-control" name="file">
+
+                            <label class="form-label mt-2">Note</label>
+                            <textarea type="text" class="form-control" name="note" rows="1"> {{ $project->vendor->note }} </textarea>
+
+                            <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+                        </form>
+                    </x-drawer>
+                @else
+                    <button type="button" class="btn btn-sm px-10 py-2 btn-success" id="add_vendor_btn">
+                        <x-utils.upload /> Add
+                    </button>
+                @endif
+            </div>
+
             <div class="card">
                 <div class="card-body">
                     @if ($project->vendor)
@@ -52,101 +96,39 @@
                 </div>
             </div>
 
-            <div class="d-flex gap-3 mt-2">
-                @if ($project->vendor)
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
-                            data-bs-target="#edit_vendor_modal">
-                            <x-utils.upload /> Edit
-                        </button>
-
-                        <a href="{{ asset("/public/uploads/{$project->vendor->file->file}") }}"
-                            class="btn btn-sm px-10 py-0 btn-danger">
-                            <x-utils.download /> Export
-                        </a>
-                    </div>
-
-                    <div class="modal fade" tabindex="-1" id="edit_vendor_modal">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div>
-                                        <h5 class="modal-title">Edit vendor</h5>
-                                        {{-- <small class="text-danger">After edit the vendor a
-                                                request send to
-                                                the business manager for
-                                                approval.</small> --}}
-                                    </div>
-                                </div>
-                                <div class="modal-body">
-                                    <form
-                                        action="{{ route('projects.vendor.update', [$project, $project->vendor]) }}"
-                                        method="post" class="my-2" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('put')
-
-                                        <label class="form-label fs-6 fw-bolder text-dark">
-                                            Total
-                                        </label>
-
-                                        <input class="form-control form-control" type="number" name="total"
-                                            value="{{ $project->vendor->total }}" />
-
-                                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                            Vendor File (.xlsx)
-                                        </label>
-                                        <input type="file" class="form-control" name="file">
-
-                                        <label class="form-label mt-2">Note</label>
-                                        <textarea type="text" class="form-control" name="note" rows="1"> {{ $project->vendor->note }} </textarea>
-
-                                        <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
-                        data-bs-target="#import_vendor_modal">
-                        <x-utils.upload /> Add
-                    </button>
-                @endif
+            <div class="overflow-scroll">
+                <div style="width: 150vw">
+                    {!! $sheetHeader !!}
+                    {!! $sheetData !!}
+                    {!! $sheetFooter !!}
+                </div>
             </div>
+
         </div>
         <!--end:::Tab content-->
     </div>
     <!--end::Content-->
-    <div class="modal fade" tabindex="-1" id="import_vendor_modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add vendor</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('projects.vendor.store', $project) }}" method="post"
-                        class="my-2" enctype="multipart/form-data">
-                        @csrf
+    <x-drawer btnId="add_vendor_btn" drawerId="add_vendor_drawer" title="Add Vendor Costing">
+        <form action="{{ route('projects.vendor.store', $project) }}" method="post" class="my-2"
+            enctype="multipart/form-data">
+            @csrf
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            Total
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="total" />
+            <label class="form-label fs-6 fw-bolder text-dark">
+                Total
+                <x-utils.required />
+            </label>
+            <input class="form-control form-control" type="number" name="total" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                            Vendor File (.xlsx)
-                            <x-utils.required />
-                        </label>
-                        <input type="file" class="form-control" name="file">
+            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                Vendor File (.xlsx)
+                <x-utils.required />
+            </label>
+            <input type="file" class="form-control" name="file">
 
-                        <label class="form-label mt-2">Note</label>
-                        <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+            <label class="form-label mt-2">Note</label>
+            <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
 
-                        <button type="submit" class="btn btn-primary mt-2">Add</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+            <button type="submit" class="btn btn-primary mt-2">Add</button>
+        </form>
+    </x-drawer>
 </x-app-layout>

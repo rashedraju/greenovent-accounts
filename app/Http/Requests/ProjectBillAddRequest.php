@@ -22,8 +22,6 @@ class ProjectBillAddRequest extends FormRequest {
     public function rules() {
         return [
             'date'            => 'required|string',
-            'bill_no'         => 'required|string',
-            'subject'         => 'required|string',
             'bill_status_id'  => 'required',
             'total'           => 'required',
             'asf'             => 'sometimes|integer',

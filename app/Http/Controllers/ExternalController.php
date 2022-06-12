@@ -7,11 +7,33 @@ use App\Http\Requests\EditCostRequest;
 use App\Models\ExternalCost;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class ExternalController extends Controller {
     // show external costs
     public function index( Project $project ) {
-        return view( 'projects.external', ['project' => $project] );
+        $sheetHeader = null;
+        $sheetData = null;
+        $sheetFooter = null;
+
+        if ( $project->external?->file ) {
+            $reader = new Xlsx();
+            $spreadsheet = $reader->load( 'public/uploads/' . $project->external->file->file );
+
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html( $spreadsheet );
+            $hdr = $writer->generateHTMLHeader();
+            $sty = $writer->generateStyles( false ); // do not write <style> and </style>
+            $newstyle = <<<EOF
+            <style type='text/css'>
+            $sty
+            </style>
+            EOF;
+            $sheetHeader = preg_replace( '@</head>@', "$newstyle\n</head>", $hdr );
+            $sheetData = $writer->generateHtmlAll();
+            $sheetFooter = $writer->generateHTMLFooter();
+        }
+
+        return view( 'projects.external', ['project' => $project, 'sheetHeader' => $sheetHeader, 'sheetData' => $sheetData, 'sheetFooter' => $sheetFooter] );
     }
 
     // Store external cost

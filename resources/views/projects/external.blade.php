@@ -20,6 +20,61 @@
         <x-project.navigation :project="$project" active="external" />
         <!--begin:::Tab pane-->
         <div>
+            <div class="d-flex gap-3 my-2">
+                @if ($project->external)
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button type="button" class="btn px-10 py-2 btn-primary" id="edit_external_btn">
+                            <x-utils.upload /> Edit
+                        </button>
+
+                        <a href="{{ asset("/public/uploads/{$project->external->file->file}") }}"
+                            class="btn px-10 py-2 btn-danger">
+                            <x-utils.download /> Export
+                        </a>
+                    </div>
+
+                    <x-drawer btnId="edit_external_btn" drawerId="edit_external_drawer" title="Edit External">
+                        <form action="{{ route('projects.external.update', [$project, $project->external]) }}"
+                            method="post" class="my-2" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
+
+                            <label class="form-label fs-6 fw-bolder text-dark">
+                                Total
+                            </label>
+                            <input class="form-control form-control" type="number" name="total"
+                                value="{{ $project->external->total }}" />
+
+                            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                                ASF(%)
+                            </label>
+                            <input class="form-control form-control" type="number" name="asf"
+                                value="{{ $project->external->asf }}" />
+
+                            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                                VAT(%)
+                            </label>
+                            <input class="form-control form-control" type="number" name="vat"
+                                value="{{ $project->external->vat }}" />
+
+                            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                                Extimate File (.xlsx)
+                            </label>
+                            <input type="file" class="form-control" name="file">
+
+                            <label class="form-label mt-2">Note</label>
+                            <textarea type="text" class="form-control" name="note" rows="1"> {{ $project->external->note }} </textarea>
+
+                            <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+                        </form>
+                    </x-drawer>
+                @else
+                    <button type="button" class="btn px-10 py-2 btn-success" id="import_external_btn">
+                        <x-utils.upload /> Add External
+                    </button>
+                @endif
+            </div>
+
             <x-validation-error />
 
             <div class="card">
@@ -74,126 +129,51 @@
                     @endif
                 </div>
             </div>
-            {{-- Add/Edit/Delete/Download project external --}}
-            <div class="d-flex gap-3 mt-2">
-                @if ($project->external)
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
-                            data-bs-target="#edit_external_modal">
-                            <x-utils.upload /> Edit
-                        </button>
-
-                        <a href="{{ asset("/public/uploads/{$project->external->file->file}") }}"
-                            class="btn btn-sm px-10 py-0 btn-danger">
-                            <x-utils.download /> Export
-                        </a>
-                    </div>
-
-                    <div class="modal fade" tabindex="-1" id="edit_external_modal">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div>
-                                        <h5 class="modal-title">Edit Estimate</h5>
-                                        {{-- <small class="text-danger">After edit the estimate a
-                                                request send to
-                                                the business manager for
-                                                approval.</small> --}}
-                                    </div>
-                                </div>
-                                <div class="modal-body">
-                                    <form
-                                        action="{{ route('projects.external.update', [$project, $project->external]) }}"
-                                        method="post" class="my-2" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('put')
-
-                                        <label class="form-label fs-6 fw-bolder text-dark">
-                                            Total
-                                        </label>
-                                        <input class="form-control form-control" type="number" name="total"
-                                            value="{{ $project->external->total }}" />
-
-                                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                            ASF(%)
-                                        </label>
-                                        <input class="form-control form-control" type="number" name="asf"
-                                            value="{{ $project->external->asf }}" />
-
-                                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                            VAT(%)
-                                        </label>
-                                        <input class="form-control form-control" type="number" name="vat"
-                                            value="{{ $project->external->vat }}" />
-
-                                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                            Extimate File (.xlsx)
-                                        </label>
-                                        <input type="file" class="form-control" name="file">
-
-                                        <label class="form-label mt-2">Note</label>
-                                        <textarea type="text" class="form-control" name="note" rows="1"> {{ $project->external->note }} </textarea>
-
-                                        <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <button type="button" class="btn btn-sm px-10 py-0 btn-success" data-bs-toggle="modal"
-                        data-bs-target="#import_external_modal">
-                        <x-utils.upload /> Add
-                    </button>
-                @endif
+            <div class="overflow-scroll">
+                <div style="width: 150vw">
+                    {!! $sheetHeader !!}
+                    {!! $sheetData !!}
+                    {!! $sheetFooter !!}
+                </div>
             </div>
         </div>
         <!--end:::Tab content-->
     </div>
     <!--end::Content-->
 
-    <div class="modal fade" tabindex="-1" id="import_external_modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Estimate</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('projects.external.store', $project) }}" method="post"
-                        class="my-2" enctype="multipart/form-data">
-                        @csrf
+    <x-drawer btnId="import_external_btn" drawerId="import_external_drawer" title="Import External">
+        <form action="{{ route('projects.external.store', $project) }}" method="post" class="my-2"
+            enctype="multipart/form-data">
+            @csrf
 
-                        <label class="form-label fs-6 fw-bolder text-dark">
-                            Total
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="total" />
+            <label class="form-label fs-6 fw-bolder text-dark">
+                Total
+                <x-utils.required />
+            </label>
+            <input class="form-control form-control" type="number" name="total" :value="old('total')" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                            ASF(%)
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="asf" />
+            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                ASF(%)
+                <x-utils.required />
+            </label>
+            <input class="form-control form-control" type="number" name="asf" :value="old('asf')" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                            VAT(%)
-                            <x-utils.required />
-                        </label>
-                        <input class="form-control form-control" type="number" name="vat" />
+            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                VAT(%)
+                <x-utils.required />
+            </label>
+            <input class="form-control form-control" type="number" name="vat" :value="old('vat')" />
 
-                        <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                            Extimate File (.xlsx)
-                            <x-utils.required />
-                        </label>
-                        <input type="file" class="form-control" name="file">
+            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                Extimate File (.xlsx)
+                <x-utils.required />
+            </label>
+            <input type="file" class="form-control" name="file" :value="old('file')">
 
-                        <label class="form-label mt-2">Note</label>
-                        <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+            <label class="form-label mt-2">Note</label>
+            <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
 
-                        <button type="submit" class="btn btn-primary mt-2">Add</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+    </x-drawer>
 </x-app-layout>

@@ -58,7 +58,7 @@ class Bill extends Model {
         return $this->asfSubTotal() + $this->vatTotal();
     }
 
-    public function getDateAttribute( $value ) {
+    public function getCreatedAtAttribute( $value ) {
         return date( 'd-m-Y', strtotime( $value ) );
     }
 

@@ -1,9 +1,14 @@
 <x-app-layout>
+    <style>
+        th {
+            white-space: nowrap;
+        }
+    </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
 
-    <x-accounts-navigation />
+    <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
     <h3 class="py-5 text-center">Bill of {{ $data['client']->company_name }}</h3>
     <div class="d-flex gap-3 justify-content-end">
@@ -38,21 +43,23 @@
             <tbody>
                 @foreach ($data['bills'] as $bill)
                     <tr class="fw-bold border border-gray-500 text-center">
-                        <td class="px-1 py-5">{{ $loop->iteration }}</td>
-                        <td class="px-1 py-5">{{ date('d-m-yy', strtotime($bill->date)) }}</a> </td>
-                        <td class="px-1 py-5">{{ $bill->description }}</td>
-                        <td class="px-1 py-5">{{ $bill->bill_no }}</td>
-                        <td class="px-1 py-5">{{ $bill->invoice_amount }}</td>
-                        <td class="px-1 py-5">{{ $bill->vat }}</td>
-                        <td class="px-1 py-5">{{ $bill->gross_invoice_value }}</td>
-                        <td class="px-1 py-5">{{ $bill->ait }}</td>
-                        <td class="px-1 py-5">{{ $bill->cash_suppose_to_receipt }}</td>
-                        <td class="px-1 py-5">{{ $bill->receipt_number }}</td>
-                        <td class="px-1 py-5">{{ $bill->receipt_date }}</td>
-                        <td class="px-1 py-5">{{ $bill->cash_cheque_receipt }}</td>
-                        <td class="px-1 py-5">{{ $bill->advance }}</td>
-                        <td class="px-1 py-5">{{ $bill->discount }}</td>
-                        <td class="px-1 py-5">{{ $bill->due }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $loop->iteration }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">
+                            {{ date('d-m-yy', strtotime($bill->date)) }}</a> </td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->description }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->bill_no }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->invoice_amount }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->vat }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->gross_invoice_value }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->ait }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->cash_suppose_to_receipt }}
+                        </td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->receipt_number }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->receipt_date }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->cash_cheque_receipt }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->advance }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->discount }}</td>
+                        <td class="px-1 py-5" style="white-space: nowrap;">{{ $bill->due }}</td>
                         <td class="px-2 py-5">
                             <div class="d-flex gap-3 cursor-pointer">
                                 <div id="edit_bill_drawer_btn_{{ $loop->iteration }}">
@@ -66,7 +73,9 @@
                     </tr>
                     <x-drawer btnId="edit_bill_drawer_btn_{{ $loop->iteration }}"
                         drawerId="edit_bill_drawer_{{ $loop->iteration }}" title="Edit bill record">
-                        <form action="{{ route('accounts.bills.update', $bill) }}" method="post">
+                        <form
+                            action="{{ route('accounts.bills.update', ['year' => $data['year'], 'month' => $data['month'], 'accountsBill' => $bill]) }}"
+                            method="post">
                             @csrf
                             @method('put')
 
@@ -127,7 +136,8 @@
 
                     <x-drawer btnId="delete_bill_drawer_btn_{{ $loop->iteration }}"
                         drawerId="delete_bill_drawer_{{ $loop->iteration }}" title="Delete Bill Record">
-                        <form method="post" action="{{ route('accounts.bills.delete', $bill) }}">
+                        <form method="post"
+                            action="{{ route('accounts.bills.delete', ['year' => $data['year'], 'month' => $data['month'], 'accountsBill' => $bill]) }}">
                             @csrf
                             @method('delete')
                             <h2 class="mb-3">Are you sure you want to delete this?</h2>
@@ -145,7 +155,8 @@
     </div>
 
     <x-drawer btnId="add_bill_drawer_btn" drawerId="add_bill_drawer" title="Add new bill record">
-        <form action="{{ route('accounts.bills.store') }}" method="post">
+        <form action="{{ route('accounts.bills.store', ['year' => $data['year'], 'month' => $data['month']]) }}"
+            method="post">
             @csrf
 
             <input type="hidden" name="client_id" value="{{ $data['client']->id }}">

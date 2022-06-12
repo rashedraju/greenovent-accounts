@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Requisition;
 
 class AccountsRequisitoinController extends Controller {
-    public function index() {
+    public function index($year, $month) {
         $requisitions = Requisition::orderBy( 'id', 'desc' )->paginate( 15 );
         return view( 'accounts.requisitions.index', ['requisitions' => $requisitions] );
     }

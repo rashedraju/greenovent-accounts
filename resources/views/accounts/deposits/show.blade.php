@@ -7,13 +7,12 @@
         tr:nth-child(3) {
             border: solid thin;
         }
-
     </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
 
-    <x-accounts-navigation />
+    <x-accounts-navigation :year="$year" :month="$month" />
 
     <div class="card mt-3">
         <div class="card-body py-4">
@@ -92,7 +91,8 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <form action="{{ route('accounts.deposits.update', $deposit) }}"
+                                                <form
+                                                    action="{{ route('accounts.deposits.update', ['year' => $year, 'month' => $month, 'deposit' => $deposit]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('put')
@@ -145,7 +145,8 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <form action="{{ route('accounts.deposits.delete', $deposit) }}"
+                                                <form
+                                                    action="{{ route('accounts.deposits.delete', ['year' => $year, 'month' => $month, 'deposit' => $deposit]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')
@@ -233,7 +234,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="{{ route('accounts.deposits.store') }}" method="post">
+                    <form action="{{ route('accounts.deposits.store', ['year' => $year, 'month' => $month]) }}"
+                        method="post">
                         @csrf
 
                         <label class="form-label mt-2 mb-0">Date</label>

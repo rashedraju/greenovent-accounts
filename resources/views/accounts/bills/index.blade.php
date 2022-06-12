@@ -3,7 +3,7 @@
         <h1 class="text-center">Accounts</h1>
     </div>
 
-    <x-accounts-navigation />
+    <x-accounts-navigation :year="$year" :month="$month" />
 
     <div class="card mt-3">
         <div class="card-body py-4">
@@ -12,7 +12,9 @@
             <ul class="list-unstyled">
                 @foreach ($clients as $client)
                     <li class="p-3 bg-gray-300 m-3">
-                        <a href="{{ route('accounts.bills.show', $client) }}"> Bills of
+                        <a
+                            href="{{ route('accounts.bills.show', ['year' => $year, 'month' => $month, 'client' => $client]) }}">
+                            Bills of
                             {{ $client->company_name }}</a>
                     </li>
                 @endforeach

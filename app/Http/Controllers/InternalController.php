@@ -6,11 +6,33 @@ use App\Http\Requests\InternalCostRequest;
 use App\Models\InternalCost;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class InternalController extends Controller {
     // show internal costs
     public function index( Project $project ) {
-        return view( 'projects.internal', ['project' => $project] );
+        $sheetHeader = null;
+        $sheetData = null;
+        $sheetFooter = null;
+
+        if ( $project->internal?->file ) {
+            $reader = new Xlsx();
+            $spreadsheet = $reader->load( 'public/uploads/' . $project->internal->file->file );
+
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html( $spreadsheet );
+            $hdr = $writer->generateHTMLHeader();
+            $sty = $writer->generateStyles( false ); // do not write <style> and </style>
+            $newstyle = <<<EOF
+            <style type='text/css'>
+            $sty
+            </style>
+            EOF;
+            $sheetHeader = preg_replace( '@</head>@', "$newstyle\n</head>", $hdr );
+            $sheetData = $writer->generateHtmlAll();
+            $sheetFooter = $writer->generateHTMLFooter();
+        }
+
+        return view( 'projects.internal', ['project' => $project, 'sheetHeader' => $sheetHeader, 'sheetData' => $sheetData, 'sheetFooter' => $sheetFooter] );
     }
 
     // Store internal cost

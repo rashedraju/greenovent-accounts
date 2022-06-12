@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Client;
 use App\Models\Project;
+use App\Models\User;
 
 class AccountsManagerController extends Controller {
     public function index() {
@@ -29,10 +29,14 @@ class AccountsManagerController extends Controller {
     }
 
     public function client( User $user, Client $client ) {
+        $salesThisYear = $client->projects()->whereYear( 'start_date', now()->year )->get()->sum( fn( $p ) => $p->sales() );
+        $salesThisMonth = $client->projects( 'start_date' )->whereYear( 'start_date', now()->year )->whereMonth( 'start_date', now()->month )->get()->sum( fn( $p ) => $p->sales() );
 
         $data = [
             'accountsManager' => $user,
-            'client'         => $client
+            'client'          => $client,
+            'salesThisYear'   => $salesThisYear,
+            'salesThisMonth'  => $salesThisMonth
         ];
 
         return view( 'accounts-manager.client', ['data' => $data] );

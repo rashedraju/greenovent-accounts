@@ -1,19 +1,23 @@
 <x-app-layout>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:nth-child(3) {
-            border: solid thin;
-        }
-
-    </style>
-    <div class="p-2 py-5">
-        <h1 class="text-center">Accounts</h1>
+    <div class="p-1 mt-sm-1 mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts.index') }}">Accounts</a></li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year', $year) }}">{{ $year }}</a></li>
+                <li class="breadcrumb-item fs-4">{{ now()->month($month)->format('F') }}</li>
+            </ol>
+        </nav>
     </div>
+    <div class="card mt-3">
+        <div class="card-body py-4">
+            <h3 class="pb-5 text-center">
+                {{ now()->month($month)->format('F') }} - {{ $year }}
+            </h3>
 
-    <x-accounts-navigation />
+            <x-accounts-navigation :year="$year" :month="$month" />
+        </div>
+    </div>
 
     <div class="card mt-3">
         <div class="card-body py-4">
@@ -94,7 +98,7 @@
 
                                             <div class="modal-body">
                                                 <form
-                                                    action="{{ route('accounts.withdrawals.update', $withdrawal) }}"
+                                                    action="{{ route('accounts.withdrawals.update', ['year' => $year, 'month' => $month, 'withdrawal' => $withdrawal]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('put')
@@ -149,7 +153,7 @@
 
                                             <div class="modal-body">
                                                 <form
-                                                    action="{{ route('accounts.withdrawals.delete', $withdrawal) }}"
+                                                    action="{{ route('accounts.withdrawals.delete', ['year' => $year, 'month' => $month, 'withdrawal' => $withdrawal]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')
@@ -239,7 +243,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="{{ route('accounts.withdrawals.store') }}" method="post">
+                    <form action="{{ route('accounts.withdrawals.store', ['year' => $year, 'month' => $month]) }}"
+                        method="post">
                         @csrf
 
                         <label class="form-label mt-2 mb-0">Date</label>

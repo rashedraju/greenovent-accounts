@@ -16,7 +16,7 @@ class Requisition extends Model {
 
         static::created( function ( $requisition ) {
             // auth user
-            $request_user = $requisition->user_id;
+            $request_user = (string) $requisition->project->manager->id;
 
             // create requisition approval after requisition created
             $approvals = [
@@ -26,16 +26,6 @@ class Requisition extends Model {
 
             $requisition->approvals()->createMany( $approvals );
         } );
-    }
-
-    public $timestamps = false;
-
-    public function person() {
-        return $this->belongsTo( User::class, 'user_id' );
-    }
-
-    public function checkedBy() {
-        return $this->belongsTo( User::class, 'checked_by' );
     }
 
     // requisition approvals
@@ -52,13 +42,13 @@ class Requisition extends Model {
         return $this->belongsTo( Project::class );
     }
 
-    // all requisition items
-    public function items() {
-        return $this->hasMany( RequisitionItem::class, 'requisition_id' );
+    // get requisition start formated date
+    public function getCreatedAtAttribute( $value ) {
+        return date( 'M d, Y', strtotime( $value ) );
     }
 
-    // get requisition start formated date
-    public function getDateAttribute( $value ) {
-        return date( 'M d, Y', strtotime( $value ) );
+    // internal excel file
+    public function file() {
+        return $this->morphOne( File::class, 'fileable' );
     }
 }

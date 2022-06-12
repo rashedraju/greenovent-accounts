@@ -21,12 +21,7 @@ class AddRequisitionRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'user_id'                          => 'required|exists:users,id',
-            'checked_by'                       => 'required|exists:users,id',
-            'requisition_items'                => 'required|array',
-            'requisition_items.*.purpose'      => "required",
-            'requisition_items.*.rate'         => "required",
-            'requisition_items.*.total_amount' => "required"
+            'file'                          => 'required|file'
         ];
     }
 }

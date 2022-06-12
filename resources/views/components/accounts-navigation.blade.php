@@ -18,37 +18,31 @@
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
-                        <a href="#"
-                            class="menu-link py-3 {{ request()->routeIs('accounts.credits.*') ? 'bg-primary text-white mx-1' : '' }}">
-                            <span class="menu-title">Credits</span>
-                        </a>
-                    </div>
-                    <div class="menu-item me-lg-1">
-                        <a href="#"
+                        <a href="{{ route('accounts.withdrawals.show', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.withdrawals.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Withdrawals</span>
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
-                        <a href="#"
+                        <a href="{{ route('accounts.deposits.show', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.deposits.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Deposits</span>
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
-                        <a href="#"
+                        <a href="{{ route('accounts.bills.index', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.bills.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Bills</span>
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
-                        <a href="#"
+                        <a href="{{ route('accounts.requisitions.index', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.requisitions.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Requisitions</span>
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
-                        <a href="#"
+                        <a href="{{ route('accounts.sales.index', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.employee-loan.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Employee Loan</span>
                         </a>
