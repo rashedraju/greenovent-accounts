@@ -20,7 +20,7 @@ class AccountsManagerController extends Controller {
     }
 
     public function show( User $user ) {
-        $clients = $user->projects->map( fn( $project ) => $project->client )->unique();
+        $clients = Client::where( 'business_manager_id', $user->id )->get();
 
         $data = [
             'accountsManager' => $user,

@@ -15,7 +15,7 @@ class ProjectSeeder extends Seeder {
         $projects = [
             [
                 'name'                => 'Event 1',
-                'business_manager_id' => 4,
+                'business_manager_id' => 3,
                 'client_id'           => 1,
                 'type_id'             => 1,
                 'po_number'           => 101,
@@ -28,7 +28,7 @@ class ProjectSeeder extends Seeder {
             ],
             [
                 'name'                => 'Event 2',
-                'business_manager_id' => 4,
+                'business_manager_id' => 3,
                 'client_id'           => 2,
                 'type_id'             => 1,
                 'po_number'           => 102,
@@ -41,7 +41,7 @@ class ProjectSeeder extends Seeder {
             ],
             [
                 'name'                => 'Event 3',
-                'business_manager_id' => 5,
+                'business_manager_id' => 4,
                 'client_id'           => 3,
                 'type_id'             => 1,
                 'po_number'           => 103,
@@ -54,7 +54,7 @@ class ProjectSeeder extends Seeder {
             ],
             [
                 'name'                => 'Event 4',
-                'business_manager_id' => 5,
+                'business_manager_id' => 4,
                 'client_id'           => 4,
                 'type_id'             => 1,
                 'po_number'           => 103,

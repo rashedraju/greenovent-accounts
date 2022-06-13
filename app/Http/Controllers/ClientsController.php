@@ -56,7 +56,7 @@ class ClientsController extends Controller {
         // create contact persons
         $client->contactPersons()->createMany( $contactPersons );
 
-        return redirect()->route( 'clients.show', $client )->with( 'success', 'Client Added Successfully' );
+        return redirect()->route( 'accounts-manager.show', ['user' => $client->business_manager_id] )->with( 'success', 'Client Added Successfully' );
     }
 
     // delete client
