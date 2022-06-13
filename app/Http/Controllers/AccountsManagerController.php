@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillType;
 use App\Models\Client;
+use App\Models\ProjectStatus;
+use App\Models\ProjectType;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -34,11 +37,33 @@ class AccountsManagerController extends Controller {
         $salesThisYear = $client->projects()->whereYear( 'start_date', now()->year )->get()->sum( fn( $p ) => $p->sales() );
         $salesThisMonth = $client->projects( 'start_date' )->whereYear( 'start_date', now()->year )->whereMonth( 'start_date', now()->month )->get()->sum( fn( $p ) => $p->sales() );
 
+        // get bussiness managers
+        $bussinessManagers = User::role( 'Accounts Manager' )->get();
+
+        $projects = $client->projects()->orderBy( 'id', 'desc' )->get();
+        // get clients
+        $clients = Client::all();
+
+        // get project types
+        $projectTypes = ProjectType::all();
+
+        // get project statuses
+        $projectStatuses = ProjectStatus::all();
+
+        // bill types
+        $billTypes = BillType::all();
+
         $data = [
-            'accountsManager' => $user,
-            'client'          => $client,
-            'salesThisYear'   => $salesThisYear,
-            'salesThisMonth'  => $salesThisMonth
+            'accountsManager'   => $user,
+            'projects'          => $projects,
+            'bussinessManagers' => $bussinessManagers,
+            'client'            => $client,
+            'salesThisYear'     => $salesThisYear,
+            'salesThisMonth'    => $salesThisMonth,
+            'clients'           => $clients,
+            'projectTypes'      => $projectTypes,
+            'projectStatuses'   => $projectStatuses,
+            'billTypes'         => $billTypes
         ];
 
         return view( 'accounts-manager.client', ['data' => $data] );

@@ -31,7 +31,13 @@ class ProjectController extends Controller {
 
     // porject dashboard
     public function show( Project $project ) {
-        return view( 'projects.show', ['project' => $project] );
+        // get project statuses
+        $projectStatuses = ProjectStatus::all();
+
+        // bill types
+        $billTypes = BillType::all();
+
+        return view( 'projects.show', compact( ['project', 'projectStatuses', 'billTypes'] ) );
     }
 
     // create new project
@@ -61,12 +67,7 @@ class ProjectController extends Controller {
 
         $project = Project::create( $attrs );
 
-        if ( $project ) {
-            return redirect()->route( 'projects.show', $project )->with( 'success', 'Project added successfully' );
-        }
-
-        return redirect()->route( 'projects.index' )->with( 'failed', 'Failed to add project' );
-
+        return redirect()->route( 'accounts-manager.client', ['user' => $project->business_manager_id, 'client' => $project->client->id] )->with( 'success', 'Project added successfully' );
     }
 
     // edit project details

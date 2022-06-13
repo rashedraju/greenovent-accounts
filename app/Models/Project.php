@@ -162,7 +162,11 @@ class Project extends Model {
      */
 
     public function billStatus() {
-        return $this->bills->first()?->status->name ?? 'Not Done';
+        return $this->bills()->orderBy( 'id', 'desc' )->first()?->status->name ?? 'Not Done';
+    }
+
+    public function isBillSendToClient() {
+        return $this->bills()->orderBy( 'id', 'desc' )->first()?->status->id >= 5;
     }
 
     /**
@@ -185,7 +189,7 @@ class Project extends Model {
         return $this->internal ? $this->internal->total + $this->ait() : 0;
     }
 
-    public function sales(){
+    public function sales() {
         return $this->external ? $this->external?->asfSubTotal() : 0;
     }
 

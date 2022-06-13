@@ -43,11 +43,13 @@
 
             <div class="col-12 col-sm-6 mx-auto">
                 @foreach ($data['clients'] as $client)
-                    <a href="{{ route('accounts-manager.client', ['user' => $data['accountsManager']->id, 'client' => $client->id]) }}"
-                        class="row bg-hover-secondary" style="margin-left: 0; margin-right: 0">
-                        <div class="col-2 px-2 py-5 border border-secondary flex-grow-1">{{ $client->company_name }}
-                        </div>
-                    </a>
+                    <div class="d-flex justify-content-between align-item-center my-2 border border-secondary ">
+                        <a href="{{ route('accounts-manager.client', ['user' => $data['accountsManager']->id, 'client' => $client->id]) }}"
+                            class="bg-hover-secondary align-self-center flex-grow-1 p-3"
+                            style="margin-left: 0; margin-right: 0">
+                            {{ $client->company_name }}
+                        </a>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -130,4 +132,6 @@
             </div>
         </form>
     </x-drawer>
+
+
 </x-app-layout>

@@ -34,7 +34,7 @@ class ClientsController extends Controller {
     public function update( Client $client, EditClientRequest $request ) {
         $attrs = $request->validated();
         $client->update( $attrs );
-        return redirect()->route( 'clients.show', $client )->with( 'success', 'Client details has been updated' );
+        return redirect()->route( 'accounts-manager.client', ['user' => $client->business_manager_id, 'client' => $client] )->with( 'success', 'Client details has been updated' );
     }
 
     // add new client view
