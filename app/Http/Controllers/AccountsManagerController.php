@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class AccountsManagerController extends Controller {
     public function index() {
         $accountsManagers = User::role( 'Accounts Manager' )->get();
+        $employees = User::orderBy( 'id', 'desc' )->get();
 
         $data = [
-            'accountsManagers' => $accountsManagers
+            'accountsManagers' => $accountsManagers,
+            'employees'        => $employees
         ];
 
         return view( 'accounts-manager.index', ['data' => $data] );
@@ -39,5 +42,18 @@ class AccountsManagerController extends Controller {
         ];
 
         return view( 'accounts-manager.client', ['data' => $data] );
+    }
+
+    // add new accounts manager
+    public function store( Request $request ) {
+        $attrs = $request->validate( [
+            'user_id' => 'required|exists:users,id'
+        ] );
+
+        $user = User::find( $attrs['user_id'] );
+
+        $user->assignRole( 'Accounts Manager' );
+
+        return redirect()->route( 'accounts-manager.index' )->with( 'New Accounts Manager has been added.' );
     }
 }

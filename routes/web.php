@@ -110,6 +110,7 @@ Route::middleware( 'auth' )->group( function () {
     Route::name( 'accounts-manager.' )->prefix( 'accounts-manager' )->group( function () {
         Route::get( '/', [AccountsManagerController::class, 'index'] )->name( 'index' );
         Route::get( '/{user}', [AccountsManagerController::class, 'show'] )->name( 'show' );
+        Route::post( '/', [AccountsManagerController::class, 'store'] )->name( 'store' );
         Route::get( '/{user}/{client}', [AccountsManagerController::class, 'client'] )->name( 'client' );
     } );
 

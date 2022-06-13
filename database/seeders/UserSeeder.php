@@ -13,9 +13,9 @@ class UserSeeder extends Seeder {
      */
     public function run() {
         $user1Data = [
-            'name'          => 'User 1',
+            'name'          => 'Tanzir Ahmed Rabby',
             'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user1@greenovent.com',
+            'email'         => 'rabby@greenovent.com',
             'phone'         => '01234567891',
             'password'      => '12345678'
         ];
@@ -24,9 +24,9 @@ class UserSeeder extends Seeder {
         $user1->assignRole( 'Executive Director' );
 
         $user2Data = [
-            'name'          => 'User 2',
+            'name'          => 'Mohammad Ashraful Islam',
             'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user2@greenovent.com',
+            'email'         => 'islam.ashraful@greenovent.com',
             'phone'         => '01234567891',
             'password'      => '12345678'
         ];
@@ -35,31 +35,20 @@ class UserSeeder extends Seeder {
         $user2->assignRole( 'COO' );
 
         $user3data = [
-            'name'          => 'User 3',
+            'name'          => 'Jakaria Ahmed Omi',
             'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user3@greenovent.com',
+            'email'         => 'jakaria@greenovent.com',
             'phone'         => '01234567891',
             'password'      => '12345678'
         ];
 
         $user3 = User::create( $user3data );
-        $user3->assignRole( 'General Manager' );
-
-        $user4Data = [
-            'name'          => 'Accounts Manager One',
-            'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user4@greenovent.com',
-            'phone'         => '01234567891',
-            'password'      => '12345678'
-        ];
-
-        $user4 = User::create( $user4Data );
-        $user4->assignRole( 'Accounts Manager' );
+        $user3->assignRole( 'General Manager', 'Accounts Manager' );
 
         $user5Data = [
-            'name'          => 'Accounts Manager Two',
+            'name'          => 'Samiun Hyder',
             'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user5@greenovent.com',
+            'email'         => 'samiun@greenovent.com',
             'phone'         => '01234567891',
             'password'      => '12345678'
         ];
@@ -68,14 +57,25 @@ class UserSeeder extends Seeder {
         $user5->assignRole( 'Accounts Manager' );
 
         $user6Data = [
-            'name'          => 'User 6',
+            'name'          => 'Greenovents Accounts',
             'profile_image' => 'profile_images/user.jpg',
-            'email'         => 'user6@greenovent.com',
+            'email'         => 'accounts@greenovent.com',
             'phone'         => '01234567891',
             'password'      => '12345678'
         ];
 
         $user6 = User::create( $user6Data );
         $user6->assignRole( 'Accounts Executive' );
+
+        $user7Data = [
+            'name'          => 'Ahmed Jahid',
+            'profile_image' => 'profile_images/user.jpg',
+            'email'         => 'ahmed.jahid@greenovent.com',
+            'phone'         => '01234567891',
+            'password'      => '12345678'
+        ];
+
+        $user7 = User::create( $user7Data );
+        $user7->assignRole( 'CEO' );
     }
 }
