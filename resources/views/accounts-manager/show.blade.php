@@ -32,7 +32,12 @@
 
     <div class="card mt-3 py-10">
         <div class="row">
-            <h3 class="text-center mb-5">Clients</h3>
+            <div class="d-flex justify-content-between">
+                <h3 class="text-center mb-5 flex-grow-1">Clients</h3>
+                <a href="{{ route('clients.create') }}" type="button" class="btn btn-sm btn-primary mx-2">
+                    <x-utils.add-icon /> Add New Client
+                </a>
+            </div>
             <div class="col-12 col-sm-6 mx-auto">
                 @foreach ($data['clients'] as $client)
                     <a href="{{ route('accounts-manager.client', ['user' => $data['accountsManager']->id, 'client' => $client->id]) }}"

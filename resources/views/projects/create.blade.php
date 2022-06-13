@@ -10,7 +10,7 @@
                         @csrf
 
                         <div class="text-center mb-10">
-                            <h1 class="text-dark mb-3">Add New Project</h1>
+                            <h1 class="text-dark mb-3">Add New Project/Event</h1>
                         </div>
                         <div class="d-flex align-items-center mb-10">
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
@@ -18,7 +18,7 @@
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         </div>
                         <div class="fv-row mb-10">
-                            <label class="form-label fs-6 fw-bolder text-dark">Project Name
+                            <label class="form-label fs-6 fw-bolder text-dark">Project/Event Name
                                 <x-utils.required />
                             </label>
                             <input class="form-control form-control-lg form-control-solid" type="text" name="name"
@@ -91,8 +91,8 @@
 
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">BP</label>
-                            <input class="form-control form-control-lg form-control-solid" type="number"
-                                name="bp" :value="old('bp')" />
+                            <input class="form-control form-control-lg form-control-solid" type="number" name="bp"
+                                :value="old('bp')" />
                         </div>
 
                         <div class="fv-row mb-7">
@@ -145,8 +145,7 @@
                             <div class="border-bottom border-gray-300 mw-50 w-100"></div>
                         </div>
                         <div class="d-flex gap-3">
-                            <a href="{{ route('projects.index') }}" class="btn btn-lg btn-secondary w-100 mb-5">Go
-                                Back</a>
+
                             <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
                                 Add Project
                             </button>

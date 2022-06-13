@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\Project;
 use App\Models\User;
 
 class AccountsManagerController extends Controller {
     public function index() {
-        $accountsManagers = Project::all()->map( fn( $project ) => $project->accountsManager )->unique();
+        $accountsManagers = User::role( 'Accounts Manager' )->get();
 
         $data = [
             'accountsManagers' => $accountsManagers

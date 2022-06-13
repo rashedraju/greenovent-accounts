@@ -32,6 +32,12 @@
         </div>
     </div>
     <div class="card mt-3 py-10">
+        <div class="d-flex justify-content-between">
+            <h3 class="text-center mb-5 flex-grow-1">Project/Event</h3>
+            <a href="{{ route('projects.create') }}" type="button" class="btn btn-sm btn-primary mx-2">
+                <x-utils.add-icon /> Add New Project/Event
+            </a>
+        </div>
         <div class="table-responsive">
             <table class="table table-secondary table-striped">
                 <thead>
