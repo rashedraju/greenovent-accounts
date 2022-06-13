@@ -14,8 +14,8 @@ class ProjectSeeder extends Seeder {
     public function run() {
         $projects = [
             [
-                'name'                => 'Landmark Website',
-                'business_manager_id' => 3,
+                'name'                => 'Event 1',
+                'business_manager_id' => 4,
                 'client_id'           => 1,
                 'type_id'             => 1,
                 'po_number'           => 101,
@@ -24,10 +24,10 @@ class ProjectSeeder extends Seeder {
                 'start_date'          => now(),
                 'closing_date'        => now()->addMonth(),
                 'status_id'           => 2,
-                'created_at'          => '2022-04-24 10:12:00'
+                'created_at'          => now()
             ],
             [
-                'name'                => 'BAT Event',
+                'name'                => 'Event 2',
                 'business_manager_id' => 4,
                 'client_id'           => 2,
                 'type_id'             => 1,
@@ -37,10 +37,10 @@ class ProjectSeeder extends Seeder {
                 'start_date'          => now(),
                 'closing_date'        => now()->addMonth(),
                 'status_id'           => 2,
-                'created_at'          => '2022-05-24 10:12:00'
+                'created_at'          => now()
             ],
             [
-                'name'                => 'TVS Eid Campaign',
+                'name'                => 'Event 3',
                 'business_manager_id' => 5,
                 'client_id'           => 3,
                 'type_id'             => 1,
@@ -50,7 +50,20 @@ class ProjectSeeder extends Seeder {
                 'start_date'          => now(),
                 'closing_date'        => now()->addMonth(),
                 'status_id'           => 2,
-                'created_at'          => '2022-05-24 10:12:00'
+                'created_at'          => now()
+            ],
+            [
+                'name'                => 'Event 4',
+                'business_manager_id' => 5,
+                'client_id'           => 4,
+                'type_id'             => 1,
+                'po_number'           => 103,
+                'po_value'            => 100000,
+                'bill_type'           => 1,
+                'start_date'          => now(),
+                'closing_date'        => now()->addMonth(),
+                'status_id'           => 2,
+                'created_at'          => now()
             ]
         ];
 

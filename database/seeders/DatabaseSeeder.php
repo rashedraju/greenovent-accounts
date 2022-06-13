@@ -20,9 +20,6 @@ class DatabaseSeeder extends Seeder {
             // employees
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
-            EmployeePerformanceStatusSeeder::class,
-            PerformanceNameSeeder::class,
-            EmployeePerformanceSeeder::class,
 
             // leave
             LeaveApprovalSeeder::class,
@@ -43,8 +40,6 @@ class DatabaseSeeder extends Seeder {
             AccountsExpenseTypeSeeder::class,
             TransactionTypeSeeder::class,
             TransactionAprovalTypeSeeder::class,
-            WithdrawalSeeder::class,
-            DepositSeeder::class,
             CreditCategorySeeder::class
         ] );
     }

@@ -28,11 +28,11 @@ class AuthServiceProvider extends ServiceProvider {
         Model::unguard();
 
         // logedin a user for development mode
-        if ( $this->app->environment( 'local' ) ) {
-            auth()->attempt( [
-                'email'    => 'admin@greenovent.com',
-                'password' => '12345678'
-            ] );
-        }
+        // if ( $this->app->environment( 'local' ) ) {
+        //     auth()->attempt( [
+        //         'email'    => 'user1@greenovent.com',
+        //         'password' => '12345678'
+        //     ] );
+        // }
     }
 }

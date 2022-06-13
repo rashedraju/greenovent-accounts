@@ -46,7 +46,7 @@ class UserSeeder extends Seeder {
         $user3->assignRole( 'General Manager' );
 
         $user4Data = [
-            'name'          => 'User 4',
+            'name'          => 'Accounts Manager One',
             'profile_image' => 'profile_images/user.jpg',
             'email'         => 'user4@greenovent.com',
             'phone'         => '01234567891',
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder {
         $user4->assignRole( 'Accounts Manager' );
 
         $user5Data = [
-            'name'          => 'User 5',
+            'name'          => 'Accounts Manager Two',
             'profile_image' => 'profile_images/user.jpg',
             'email'         => 'user5@greenovent.com',
             'phone'         => '01234567891',
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder {
         ];
 
         $user5 = User::create( $user5Data );
-        $user5->assignRole( 'Bussiness Manager' );
+        $user5->assignRole( 'Accounts Manager' );
 
         $user6Data = [
             'name'          => 'User 6',
