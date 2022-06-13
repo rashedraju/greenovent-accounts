@@ -79,7 +79,7 @@
             </table>
         </div>
     </div>
-    
+
     <div class="card mt-5 p-3">
         <div class="d-flex gap-3 align-items-center mb-5">
             <div class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">
@@ -119,18 +119,7 @@
                 <input class="form-control form-control-lg form-control-solid" type="text" name="company_name"
                     value="{{ $data['client']->company_name }}" />
             </div>
-            <div class="fv-row mb-7">
-                <label class="form-label fw-bolder text-dark fs-6" for="phone">Bussiness Manager</label>
 
-                <select class="form-select form-select-solid select2-hidden-accessible" data-control="select2"
-                    data-hide-search="true" tabindex="-1" aria-hidden="true" name="business_manager_id">
-                    @foreach ($data['bussinessManagers'] as $bussinessManager)
-                        <option value="{{ $bussinessManager->id }}"
-                            {{ $data['client']->businessManager->id == $bussinessManager->id ? 'selected' : '' }}>
-                            {{ $bussinessManager->name }}</option>
-                    @endforeach
-                </select>
-            </div>
             <div class="fv-row mb-10">
                 <label class="form-label fs-6 fw-bolder text-dark">Office Address</label>
                 <input class="form-control form-control-lg form-control-solid" type="text" name="office_address"
