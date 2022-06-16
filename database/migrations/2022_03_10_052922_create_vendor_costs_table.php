@@ -16,7 +16,7 @@ class CreateVendorCostsTable extends Migration
         Schema::create('vendor_costs', function (Blueprint $table) {
             $table->id();
             $table->foreignId( 'project_id' )->constrained();
-            $table->unsignedBigInteger( 'total' );
+            $table->unsignedDecimal( 'total' );
             $table->string( 'note' )->nullable();
             $table->timestamps();
         });

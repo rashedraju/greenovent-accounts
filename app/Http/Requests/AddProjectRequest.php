@@ -26,7 +26,7 @@ class AddProjectRequest extends FormRequest {
             'business_manager_id' => ['required', Rule::exists( 'users', 'id' )],
             'client_id'           => ['required', Rule::exists( 'clients', 'id' )],
             'type_id'             => ['required', Rule::exists( 'project_types', 'id' )],
-            'po_number'           => ['required', Rule::unique( 'projects', 'po_number' )],
+            'po_number'           => ['sometimes'],
             'po_value'            => ['required', 'integer'],
             'bill_type'           => ['required', Rule::exists( 'bill_statuses', 'id' )],
             'start_date'          => ['required', 'date'],

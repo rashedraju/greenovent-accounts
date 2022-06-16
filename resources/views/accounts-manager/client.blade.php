@@ -178,9 +178,7 @@
             </div>
 
             <div class="fv-row mb-10">
-                <label class="form-label fs-6 fw-bolder text-dark">PO Number
-                    <x-utils.required />
-                </label>
+                <label class="form-label fs-6 fw-bolder text-dark">PO Number</label>
                 <input class="form-control form-control-lg form-control-solid" type="text" name="po_number" />
             </div>
 

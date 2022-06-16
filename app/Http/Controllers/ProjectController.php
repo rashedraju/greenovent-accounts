@@ -65,7 +65,7 @@ class ProjectController extends Controller {
         // fields
         $attrs = $request->validated();
 
-        $project = Project::create( $attrs );
+        $project = Project::create( array_filter( $attrs, fn( $attr ) => $attr != null ) );
 
         return redirect()->route( 'accounts-manager.client', ['user' => $project->business_manager_id, 'client' => $project->client->id] )->with( 'success', 'Project added successfully' );
     }

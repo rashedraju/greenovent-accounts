@@ -26,13 +26,13 @@ class EditProjectRequest extends FormRequest {
             'business_manager_id' => [Rule::exists( 'users', 'id' )],
             'client_id'           => [Rule::exists( 'clients', 'id' )],
             'type_id'             => [Rule::exists( 'project_types', 'id' )],
-            'po_number'           => ['required', Rule::unique( 'projects', 'po_number' )->ignore( $this->route( 'project' ) )],
+            'po_number'           => ['sometimes'],
             'po_value'            => ['required', 'integer'],
             'bill_type'           => ['required', Rule::exists( 'bill_statuses', 'id' )],
             'start_date'          => 'required|date',
             'closing_date'        => 'required|date',
             'advance_paid'        => 'sometimes',
-            'bp'        => 'sometimes',
+            'bp'                  => 'sometimes',
             'status_id'           => 'sometimes'
         ];
     }

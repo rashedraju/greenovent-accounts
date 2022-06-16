@@ -18,9 +18,9 @@ class CreateBillsTable extends Migration
             $table->date('date');
             $table->foreignId('project_id');
             $table->foreignId('bill_status_id')->constrained('bill_statuses', 'id');
-            $table->unsignedBigInteger('total');
-            $table->unsignedInteger('asf')->default(0);
-            $table->unsignedInteger('vat')->default(0);
+            $table->unsignedDouble('total');
+            $table->unsignedDouble('asf')->default(0);
+            $table->unsignedDouble('vat')->default(0);
             $table->timestamps();
         });
     }
