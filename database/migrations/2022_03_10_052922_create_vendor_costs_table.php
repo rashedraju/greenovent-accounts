@@ -17,6 +17,7 @@ class CreateVendorCostsTable extends Migration
             $table->id();
             $table->foreignId( 'project_id' )->constrained();
             $table->unsignedDecimal( 'total' );
+            $table->unsignedDecimal('due')->default(0);
             $table->string( 'note' )->nullable();
             $table->timestamps();
         });

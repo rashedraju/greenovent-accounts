@@ -26,7 +26,7 @@ class DepositAddRequest extends FormRequest {
             'bank_name'   => 'required|string',
             'slip_number' => 'required|string',
             'amount'      => 'required|string',
-            'note'        => 'sometimes',
+            'note'        => 'nullable',
             'date'        => 'required|date|date_format:Y-m-d'
         ];
     }

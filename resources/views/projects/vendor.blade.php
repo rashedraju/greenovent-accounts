@@ -44,8 +44,15 @@
                                 Total
                             </label>
 
-                            <input class="form-control form-control" type="number" name="total"
+                            <input class="form-control form-control" type="number" step="0.01" name="total"
                                 value="{{ $project->vendor->total }}" />
+
+                            <label class="form-label fs-6 fw-bolder text-dark">
+                                Due
+                            </label>
+
+                            <input class="form-control form-control" type="number" step="0.01" name="due"
+                                value="{{ $project->vendor->due }}" />
 
                             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                                 Vendor File (.xlsx)
@@ -69,15 +76,29 @@
                 <div class="card-body">
                     @if ($project->vendor)
                         <div class="d-flex justify-content-between">
-                            <div class="fs-5 d-flex">
-                                <div class="d-flex flex-column gap-3 text-end">
-                                    <div class="border-bottom border-gray-500 px-5">
-                                        <strong>Total:</strong>
+                            <div>
+                                <div class="fs-5 d-flex">
+                                    <div class="d-flex flex-column gap-3 text-end">
+                                        <div class="px-5">
+                                            <strong>Total:</strong>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column gap-3 text-end">
+                                        <div class="px-5">
+                                            {{ number_format($project->vendor->total, 2) }}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-column gap-3 text-end">
-                                    <div class="border-bottom border-gray-500 px-5">
-                                        {{ number_format($project->vendor->total) }}
+                                <div class="fs-5 d-flex">
+                                    <div class="d-flex flex-column gap-3 text-end">
+                                        <div class="border-bottom border-gray-500 px-5">
+                                            <strong>Due:</strong>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column gap-3 text-end">
+                                        <div class="border-bottom border-gray-500 px-5">
+                                            {{ number_format($project->vendor->due, 2) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -117,11 +138,15 @@
                 Total
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" name="total" />
+            <input class="form-control form-control" type="number" step="0.01" name="total" />
+
+            <label class="form-label fs-6 fw-bolder text-dark">
+                Due
+            </label>
+            <input class="form-control form-control" type="number" step="0.01" name="due" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 Vendor File (.xlsx)
-                <x-utils.required />
             </label>
             <input type="file" class="form-control" name="file">
 

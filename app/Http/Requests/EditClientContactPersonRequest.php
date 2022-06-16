@@ -22,10 +22,10 @@ class EditClientContactPersonRequest extends FormRequest {
     public function rules() {
         return [
             'name'        => "string",
-            'designation' => "sometimes",
-            'department'   => "sometimes",
-            'email'       => "sometimes",
-            'phone'       => "sometimes"
+            'designation' => "nullable",
+            'department'  => "nullable",
+            'email'       => "nullable",
+            'phone'       => "nullable"
         ];
     }
 }

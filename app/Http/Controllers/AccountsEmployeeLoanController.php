@@ -18,7 +18,7 @@ class AccountsEmployeeLoanController extends Controller {
             'date'    => 'required|date',
             'user_id' => 'required|exists:users,id',
             'amount'  => 'required|integer',
-            'paid'    => 'sometimes'
+            'paid'    => 'nullable'
         ] );
 
         AccountsEmployeeLoan::create( $attrs );
@@ -28,8 +28,8 @@ class AccountsEmployeeLoanController extends Controller {
 
     public function update( AccountsEmployeeLoan $accountsEmployeeLoan, Request $request ) {
         $attrs = $request->validate( [
-            'amount' => 'sometimes',
-            'paid'   => 'sometimes'
+            'amount' => 'nullable',
+            'paid'   => 'nullable'
         ] );
 
         $accountsEmployeeLoan->update( $attrs );

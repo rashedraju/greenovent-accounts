@@ -39,7 +39,7 @@ class VendorController extends Controller {
     public function store( Project $project, VendorCostRequest $request ) {
         $request->validated();
 
-        $vendor = $project->vendor()->create( $request->only( ['total', 'note'] ) );
+        $vendor = $project->vendor()->create( $request->only( ['total', 'due', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
             $fname = time() . "_" . $request->file->getClientOriginalName();
@@ -57,7 +57,7 @@ class VendorController extends Controller {
     public function update( Project $project, VendorCost $vendorCost, VendorCostRequest $request, ) {
         $request->validated();
 
-        $vendorCost->update( $request->only( ['total', 'note'] ) );
+        $vendorCost->update( $request->only( ['total', 'due', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
             $fname = time() . "_" . $request->file->getClientOriginalName();
@@ -71,7 +71,7 @@ class VendorController extends Controller {
             }
 
             // save new file path
-            $vendorCost->file()->update( ['file' => $filePath] );
+            $vendorCost->file()->updateOrCreate( ['file' => $filePath] );
         }
 
         return redirect()->route( 'projects.vendor.index', ['project' => $project] )->with( 'success', 'vendor cost updated' );

@@ -4,15 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditVendorCostRequest extends FormRequest
-{
+class EditVendorCostRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,15 +19,14 @@ class EditVendorCostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'project_id'  => 'sometimes',
-            'title'       => 'sometimes|string',
-            'name'       => 'sometimes|string',
-            'advance'    => 'sometimes|integer',
-            'due'        => 'sometimes|integer',
-            'created_at'  => 'sometimes|date',
+            'project_id' => 'nullable',
+            'title'      => 'nullable|string',
+            'name'       => 'nullable|string',
+            'advance'    => 'nullable|integer',
+            'due'        => 'nullable|integer',
+            'created_at' => 'nullable|date'
         ];
     }
 }

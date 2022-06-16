@@ -21,11 +21,11 @@ class AddCostRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'total'      => 'required|integer',
-            'asf'        => 'required|integer',
-            'vat'        => 'required|integer',
-            'file'       => 'required|file',
-            'note'       => 'sometimes'
+            'total' => 'required|numeric',
+            'asf'   => 'required|numeric',
+            'vat'   => 'required|numeric',
+            'file'  => 'nullable|file',
+            'note'  => 'nullable|string'
         ];
     }
 }

@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class RequisitionsController extends Controller {
     public function index( Project $project ) {
-        $requisitionsSheets = [];
+        $requisitions = [];
 
         foreach ( $project->requisitions as $requisition ) {
             if ( $requisition->file ) {
@@ -28,22 +28,31 @@ class RequisitionsController extends Controller {
                 $sheetData = $writer->generateHtmlAll();
                 $sheetFooter = $writer->generateHTMLFooter();
 
-                $requisitionsSheets[] = [
-                    $sheetHeader,
-                    $sheetData,
-                    $sheetFooter
+                $requisitions[] = [
+                    'total' => $requisition->total,
+                    'sheet' => [
+                        $sheetHeader,
+                        $sheetData,
+                        $sheetFooter
+                    ]
+                ];
+            } else {
+                $requisitions[] = [
+                    'total' => $requisition->total,
+                    'sheet' => null
                 ];
             }
         }
 
-        return view( 'projects.requisitions', ['project' => $project, 'requisitionsSheets' => $requisitionsSheets] );
+        return view( 'projects.requisitions', ['project' => $project, 'requisitions' => $requisitions] );
     }
 
     public function store( Project $project, AddRequisitionRequest $request ) {
         $attrs = $request->validated();
 
         $requisition = Requisition::create( [
-            'project_id' => $project->id
+            'project_id' => $project->id,
+            'total'      => $attrs['total']
         ] );
 
         if ( $request->has( 'file' ) ) {
@@ -51,8 +60,6 @@ class RequisitionsController extends Controller {
             $filePath = $request->file( 'file' )->storeAs( 'requisition_files', $fname, 'uploads' );
 
             $requisition->file()->create( ['file' => $filePath] );
-        } else {
-            return back()->with( 'failed', "Requisition file did't fount" );
         }
 
         return back()->with( 'success', "Requisition added successfully" );

@@ -27,10 +27,12 @@
                             <x-utils.upload /> Edit
                         </button>
 
-                        <a href="{{ asset("/public/uploads/{$project->external->file->file}") }}"
-                            class="btn px-10 py-2 btn-danger">
-                            <x-utils.download /> Export
-                        </a>
+                        @if ($project->external->file)
+                            <a href="{{ asset("/public/uploads/{$project->external->file->file}") }}"
+                                class="btn px-10 py-2 btn-danger">
+                                <x-utils.download /> Export
+                            </a>
+                        @endif
                     </div>
 
                     <x-drawer btnId="edit_external_btn" drawerId="edit_external_drawer" title="Edit External">
@@ -42,19 +44,19 @@
                             <label class="form-label fs-6 fw-bolder text-dark">
                                 Total
                             </label>
-                            <input class="form-control form-control" type="number" name="total"
+                            <input class="form-control form-control" type="number" step="0.01" name="total"
                                 value="{{ $project->external->total }}" />
 
                             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                                 ASF(%)
                             </label>
-                            <input class="form-control form-control" type="number" name="asf"
+                            <input class="form-control form-control" type="number" step="0.01" name="asf"
                                 value="{{ $project->external->asf }}" />
 
                             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                                 VAT(%)
                             </label>
-                            <input class="form-control form-control" type="number" name="vat"
+                            <input class="form-control form-control" type="number" step="0.01" name="vat"
                                 value="{{ $project->external->vat }}" />
 
                             <label class="form-label fs-6 fw-bolder text-dark mt-2">
@@ -101,19 +103,19 @@
                                 </div>
                                 <div class="d-flex flex-column gap-3 text-end">
                                     <div class="px-5">
-                                        {{ number_format($project->external->total) }}
+                                        {{ number_format($project->external->total, 2) }}
                                     </div class="px-5">
                                     <div class="border-bottom border-gray-500 px-5">
-                                        {{ number_format($project->external->asfTotal()) }}
+                                        {{ number_format($project->external->asfTotal(), 2) }}
                                     </div>
                                     <div class="px-5">
-                                        {{ number_format($project->external->asfSubTotal()) }}
+                                        {{ number_format($project->external->asfSubTotal(), 2) }}
                                     </div>
                                     <div class="border-bottom border-gray-500 px-5">
-                                        {{ number_format($project->external->vatTotal()) }}
+                                        {{ number_format($project->external->vatTotal(), 2) }}
                                     </div>
                                     <div class="px-5">
-                                        {{ number_format($project->external->grandTotal()) }}
+                                        {{ number_format($project->external->grandTotal(), 2) }}
                                     </div>
                                 </div>
                             </div>
@@ -150,23 +152,22 @@
                 Total
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" name="total" :value="old('total')" />
+            <input class="form-control form-control" type="number" step="0.01" name="total" :value="old('total')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 ASF(%)
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" name="asf" :value="old('asf')" />
+            <input class="form-control form-control" type="number" step="0.01" name="asf" :value="old('asf')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 VAT(%)
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" name="vat" :value="old('vat')" />
+            <input class="form-control form-control" type="number" step="0.01" name="vat" :value="old('vat')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 Extimate File (.xlsx)
-                <x-utils.required />
             </label>
             <input type="file" class="form-control" name="file" :value="old('file')">
 

@@ -21,13 +21,13 @@ class ProjectBillEditRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'date'            => 'required|string',
-            'bill_status_id'  => 'required',
-            'total'           => 'required',
-            'asf'             => 'sometimes|integer',
-            'vat'             => 'sometimes|integer',
-            'file'            => 'sometimes|file',
-            'supporting_file' => 'sometimes|file'
+            'date'            => 'nullable|date',
+            'bill_status_id'  => 'nullable',
+            'total'           => 'nullable|numeric',
+            'asf'             => 'nullable|numeric',
+            'vat'             => 'nullable|numeric',
+            'file'            => 'nullable|file',
+            'supporting_file' => 'nullable|file'
         ];
     }
 }

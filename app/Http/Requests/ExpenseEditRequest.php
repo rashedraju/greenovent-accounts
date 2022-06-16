@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ExpenseEditRequest extends FormRequest {
     /**
@@ -25,11 +25,11 @@ class ExpenseEditRequest extends FormRequest {
             'head'                => 'required|string',
             'user_id'             => ['required', Rule::exists( 'users', 'id' )],
             'project_id'          => ['required', Rule::exists( 'users', 'id' )],
-            'description'         => 'sometimes',
+            'description'         => 'nullable',
             'expense_type_id'     => ['required', Rule::exists( 'expense_types', 'id' )],
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )],
             'amount'              => 'required|string',
-            'note'                => 'sometimes',
+            'note'                => 'nullable',
             'date'                => 'required|date'
         ];
     }

@@ -24,12 +24,12 @@ class CreditAddRequest extends FormRequest {
         return [
             'user_id'             => ['required', Rule::exists( 'users', 'id' )],
             'category_id'         => ['required', Rule::exists( 'credit_categories', 'id' )],
-            'project_id'          => 'sometimes',
-            'loan_lender_id'      => 'sometimes',
-            'investor_id'         => 'sometimes',
+            'project_id'          => 'nullable',
+            'loan_lender_id'      => 'nullable',
+            'investor_id'         => 'nullable',
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )],
             'amount'              => 'required|string',
-            'note'                => 'sometimes',
+            'note'                => 'nullable',
             'date'                => 'required|date|date_format:Y-m-d'
         ];
     }

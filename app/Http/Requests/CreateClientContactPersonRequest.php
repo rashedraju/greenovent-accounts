@@ -23,10 +23,10 @@ class CreateClientContactPersonRequest extends FormRequest {
         return [
             'client_contact_persons_input'               => 'required|array',
             'client_contact_persons_input.*.name'        => "required",
-            'client_contact_persons_input.*.designation' => "sometimes",
-            'client_contact_persons_input.*.department'   => "sometimes",
-            'client_contact_persons_input.*.email'       => "sometimes",
-            'client_contact_persons_input.*.phone'       => "sometimes"
+            'client_contact_persons_input.*.designation' => "nullable",
+            'client_contact_persons_input.*.department'  => "nullable",
+            'client_contact_persons_input.*.email'       => "nullable",
+            'client_contact_persons_input.*.phone'       => "nullable"
         ];
     }
 

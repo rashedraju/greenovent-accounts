@@ -10,9 +10,9 @@ use Illuminate\Validation\Rule;
 class ProjectExpenseController extends Controller {
     public function store( Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'head'                => 'required|string',
-            'description'         => 'sometimes',
+            'description'         => 'nullable',
             'project_id'          => ['required', Rule::exists( 'projects', 'id' )],
             'user_id'             => ['required', Rule::exists( 'users', 'id' )],
             'amount'              => 'required|integer',
@@ -28,9 +28,9 @@ class ProjectExpenseController extends Controller {
 
     public function update( ProjectExpense $projectExpense, Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'head'                => 'required|string',
-            'description'         => 'sometimes',
+            'description'         => 'nullable',
             'project_id'          => ['required', Rule::exists( 'projects', 'id' )],
             'user_id'             => ['required', Rule::exists( 'users', 'id' )],
             'amount'              => 'required|integer',

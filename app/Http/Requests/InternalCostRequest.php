@@ -25,17 +25,19 @@ class InternalCostRequest extends FormRequest {
 
     private function internalEditRules() {
         return [
-            'total' => 'required|integer',
-            'file'  => 'sometimes|file',
-            'note'  => 'sometimes'
+            'total' => 'nullable|numeric',
+            'ait' => 'nullable|numeric',
+            'file'  => 'nullable|file',
+            'note'  => 'nullable|string'
         ];
     }
 
     private function internalAddRules() {
         return [
-            'total' => 'required|integer',
-            'file'  => 'required|file',
-            'note'  => 'sometimes'
+            'total' => 'required|numeric',
+            'ait' => 'required|numeric',
+            'file'  => 'nullable|file',
+            'note'  => 'nullable|string'
         ];
     }
 }

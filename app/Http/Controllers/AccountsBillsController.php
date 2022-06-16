@@ -51,20 +51,20 @@ class AccountsBillsController extends Controller {
     public function store( Request $request ) {
         $attrs = $request->validate( [
             'client_id'               => 'required|exists:clients,id',
-            'date'                    => 'sometimes',
-            'description'             => 'sometimes',
-            'bill_no'                 => 'sometimes',
-            'invoice_amount'          => 'sometimes',
-            'vat'                     => 'sometimes',
-            'gross_invoice_value'     => 'sometimes',
-            'ait'                     => 'sometimes',
-            'cash_suppose_to_receipt' => 'sometimes',
-            'receipt_number'          => 'sometimes',
-            'receipt_date'            => 'sometimes',
-            'cash_cheque_receipt'     => 'sometimes',
-            'advance'                 => 'sometimes',
-            'discount'                => 'sometimes',
-            'due'                     => 'sometimes'
+            'date'                    => 'nullable',
+            'description'             => 'nullable',
+            'bill_no'                 => 'nullable',
+            'invoice_amount'          => 'nullable',
+            'vat'                     => 'nullable',
+            'gross_invoice_value'     => 'nullable',
+            'ait'                     => 'nullable',
+            'cash_suppose_to_receipt' => 'nullable',
+            'receipt_number'          => 'nullable',
+            'receipt_date'            => 'nullable',
+            'cash_cheque_receipt'     => 'nullable',
+            'advance'                 => 'nullable',
+            'discount'                => 'nullable',
+            'due'                     => 'nullable'
         ] );
 
         if ( AccountsBill::create( $attrs ) ) {
@@ -76,20 +76,20 @@ class AccountsBillsController extends Controller {
 
     public function update( AccountsBill $accountsBill, Request $request ) {
         $attrs = $request->validate( [
-            'date'                    => 'sometimes',
-            'description'             => 'sometimes',
-            'bill_no'                 => 'sometimes',
-            'invoice_amount'          => 'sometimes',
-            'vat'                     => 'sometimes',
-            'gross_invoice_value'     => 'sometimes',
-            'ait'                     => 'sometimes',
-            'cash_suppose_to_receipt' => 'sometimes',
-            'receipt_number'          => 'sometimes',
-            'receipt_date'            => 'sometimes',
-            'cash_cheque_receipt'     => 'sometimes',
-            'advance'                 => 'sometimes',
-            'discount'                => 'sometimes',
-            'due'                     => 'sometimes'
+            'date'                    => 'nullable',
+            'description'             => 'nullable',
+            'bill_no'                 => 'nullable',
+            'invoice_amount'          => 'nullable',
+            'vat'                     => 'nullable',
+            'gross_invoice_value'     => 'nullable',
+            'ait'                     => 'nullable',
+            'cash_suppose_to_receipt' => 'nullable',
+            'receipt_number'          => 'nullable',
+            'receipt_date'            => 'nullable',
+            'cash_cheque_receipt'     => 'nullable',
+            'advance'                 => 'nullable',
+            'discount'                => 'nullable',
+            'due'                     => 'nullable'
         ] );
 
         if ( $accountsBill->update( $attrs ) ) {

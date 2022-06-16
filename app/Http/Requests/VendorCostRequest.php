@@ -25,17 +25,19 @@ class VendorCostRequest extends FormRequest {
 
     private function vendorEditRules() {
         return [
-            'total' => 'required|integer',
-            'file'  => 'sometimes|file',
-            'note'  => 'sometimes'
+            'total' => 'nullable|numeric',
+            'due'   => 'nullable|numeric',
+            'file'  => 'nullable|file',
+            'note'  => 'nullable|string'
         ];
     }
 
     private function vendorAddRules() {
         return [
-            'total' => 'required|integer',
-            'file'  => 'required|file',
-            'note'  => 'sometimes'
+            'total' => 'required|numeric',
+            'due'   => 'nullable|numeric',
+            'file'  => 'nullable|file',
+            'note'  => 'nullable|string'
         ];
     }
 }

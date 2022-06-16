@@ -39,7 +39,7 @@ class ApprovalsController extends Controller {
     public function update( Approval $approval, Request $request ) {
         $attrs = $request->validate( [
             'approval_status_id' => 'required|exists:approval_statuses,id',
-            'note'               => 'sometimes'
+            'note'               => 'nullable'
         ] );
 
         $approval->update( $attrs );

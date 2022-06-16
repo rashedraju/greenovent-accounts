@@ -13,6 +13,7 @@ class CreateRequisitionsTable extends Migration {
     public function up() {
         Schema::create( 'requisitions', function ( Blueprint $table ) {
             $table->id();
+            $table->unsignedDouble('total');
             $table->foreignId( 'project_id' )->constrained( 'projects', 'id' );
             $table->timestamps();
         } );

@@ -68,29 +68,27 @@
                 Total
                 <x-utils.required />
             </label>
-            <input class="form-control" type="number" name="total" :value="old('total')" />
+            <input class="form-control" type="number" name="total" step="0.01" :value="old('total')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-5">
                 ASF(%)
                 <x-utils.required />
             </label>
-            <input class="form-control" type="number" name="asf" :value="old('asf')" />
+            <input class="form-control" type="number" step="0.01" name="asf" :value="old('asf')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-5">
                 VAT(%)
                 <x-utils.required />
             </label>
-            <input class="form-control" type="number" name="vat" :value="old('vat')" />
+            <input class="form-control" type="number" step="0.01" name="vat" :value="old('vat')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-5">
                 Bill File (xlsx)
-                <x-utils.required />
             </label>
             <input type="file" class="form-control" name="file" :value="old('file')">
 
             <label class="form-label fs-6 fw-bolder text-dark mt-5">
-                Supporting File (pdf/docx)
-                <x-utils.required />
+                Supporting File (PDF/DOCX/JPG)
             </label>
             <input type="file" class="form-control" name="supporting_file" :value="old('supporting_file')">
 

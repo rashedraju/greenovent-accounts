@@ -21,11 +21,11 @@ class EditCostRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'total' => 'sometimes|integer',
-            'asf'   => 'sometimes|integer',
-            'vat'   => 'sometimes|integer',
-            'file'  => 'sometimes|file',
-            'note'  => 'sometimes|string'
+            'total' => 'nullable|numeric',
+            'asf'   => 'nullable|numeric',
+            'vat'   => 'nullable|numeric',
+            'file'  => 'nullable|file',
+            'note'  => 'nullable|string'
         ];
     }
 }

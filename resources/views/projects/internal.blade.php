@@ -27,10 +27,12 @@
                         <button type="button" class="btn px-10 py-2 btn-primary" id="edit_internal_drawer_btn">
                             <x-utils.upload /> Edit
                         </button>
-                        <a href="{{ asset("/public/uploads/{$project->internal->file->file}") }}"
-                            class="btn px-10 py-2 btn-danger">
-                            <x-utils.download /> Export
-                        </a>
+                        @if ($project->internal->file)
+                            <a href="{{ asset("/public/uploads/{$project->internal->file->file}") }}"
+                                class="btn px-10 py-2 btn-danger">
+                                <x-utils.download /> Export
+                            </a>
+                        @endif
                     </div>
 
                     <x-drawer btnId="edit_internal_drawer_btn" drawerId="edit_internal_drawer" title="Edit Internal">
@@ -43,8 +45,15 @@
                                 Total
                             </label>
 
-                            <input class="form-control form-control" type="number" name="total"
+                            <input class="form-control form-control" type="number" step="0.01" name="total"
                                 value="{{ $project->internal->total }}" />
+
+                            <label class="form-label fs-6 fw-bolder text-dark">
+                                AIT(%)
+                            </label>
+
+                            <input class="form-control form-control" type="number" step="0.01" name="ait"
+                                value="{{ $project->internal->ait }}" />
 
                             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                                 Internal File (.xlsx)
@@ -71,19 +80,45 @@
                             <div class="fs-5 d-flex">
                                 <div class="d-flex flex-column gap-3 text-end">
                                     <div class="border-bottom border-gray-500 px-5">
-                                        <strong>Total:</strong>
+                                        <strong>Expense:</strong>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-column gap-3 text-end">
                                     <div class="border-bottom border-gray-500 px-5">
-                                        {{ number_format($project->internal->total) }}
+                                        {{ number_format($project->internal->total, 2) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fs-5 d-flex">
+                                <div class="d-flex flex-column gap-3 text-end">
+                                    <div class="border-bottom border-gray-500 px-5">
+                                        <strong>AIT:</strong>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column gap-3 text-end">
+                                    <div class="border-bottom border-gray-500 px-5">
+                                        {{ number_format($project->ait(), 2) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fs-5 d-flex">
+                                <div class="d-flex flex-column gap-3 text-end">
+                                    <div class="border-bottom border-gray-500 px-5">
+                                        <strong>Total Expense:</strong>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column gap-3 text-end">
+                                    <div class="border-bottom border-gray-500 px-5">
+                                        {{ number_format($project->totalExpense(), 2) }}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-3 d-flex flex-column gap-3" style="border-left: 2px solid #ddd">
                                 <div>Estimate:
-                                    <strong>{{ number_format($project->external?->grandTotal()) }}</strong>
+                                    <strong>{{ number_format($project->external?->grandTotal(), 2) }}</strong>
                                 </div>
                                 <div>Added: <strong>{{ $project->internal->created_at }}</strong></div>
                                 <div>Last Edited: <strong>{{ $project->internal->updated_at }}</strong></div>
@@ -116,11 +151,16 @@
                 Total
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" name="total" />
+            <input class="form-control form-control" type="number" step="0.01" name="total" />
+
+            <label class="form-label fs-6 fw-bolder text-dark">
+                AIT(%)
+                <x-utils.required />
+            </label>
+            <input class="form-control form-control" type="number" step="0.01" name="ait" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 Internal File (.xlsx)
-                <x-utils.required />
             </label>
             <input type="file" class="form-control" name="file">
 

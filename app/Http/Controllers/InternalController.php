@@ -39,7 +39,7 @@ class InternalController extends Controller {
     public function store( Project $project, InternalCostRequest $request ) {
         $request->validated();
 
-        $internal = $project->internal()->create( $request->only( ['total', 'note'] ) );
+        $internal = $project->internal()->create( $request->only( ['total', 'ait', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
             $fname = time() . "_" . $request->file->getClientOriginalName();
@@ -57,7 +57,7 @@ class InternalController extends Controller {
     public function update( Project $project, InternalCost $internalCost, InternalCostRequest $request, ) {
         $request->validated();
 
-        $internalCost->update( $request->only( ['total', 'note'] ) );
+        $internalCost->update( $request->only( ['total', 'ait', 'note'] ) );
 
         if ( $request->has( 'file' ) ) {
             $fname = time() . "_" . $request->file->getClientOriginalName();
@@ -71,7 +71,7 @@ class InternalController extends Controller {
             }
 
             // save file path
-            $internalCost->file()->update( ['file' => $filePath] );
+            $internalCost->file()->updateOrCreate( ['file' => $filePath] );
         }
 
         return redirect()->route( 'projects.internal.index', ['project' => $project] )->with( 'success', 'internal cost updated' );

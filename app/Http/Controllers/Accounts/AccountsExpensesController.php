@@ -95,8 +95,8 @@ class AccountsExpensesController extends Controller {
         $attributes = $request->validate( [
             'date'                => 'required',
             'expense_type_id'     => ['required', Rule::exists( 'accounts_expense_types', 'id' )],
-            'item'                => 'sometimes',
-            'description'         => 'sometimes',
+            'item'                => 'nullable',
+            'description'         => 'nullable',
             'amount'              => 'required|integer',
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )]
         ] );

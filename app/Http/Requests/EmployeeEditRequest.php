@@ -23,7 +23,7 @@ class EmployeeEditRequest extends FormRequest {
     public function rules() {
         return [
             'name'                       => ['required', 'string', 'max:255'],
-            'profile_image'              => ['sometimes|image'],
+            'profile_image'              => ['nullable|image'],
             'designation'                => ['required'],
             'email'                      => [
                 'required',
@@ -31,13 +31,13 @@ class EmployeeEditRequest extends FormRequest {
                 Rule::unique( 'users' )->ignore( $this->user->id, 'id' )
             ],
             'phone'                      => ['required', 'string'],
-            'password'                   => ['sometimes', 'confirmed', 'min:8', 'max:255'],
-            'joining_date'               => 'sometimes',
-            'current_address'            => 'sometimes',
-            'permanent_address'          => 'sometimes',
-            'emergency_contact_name'     => 'sometimes',
-            'emergency_contact_no'       => 'sometimes',
-            'emergency_contact_relation' => 'sometimes'
+            'password'                   => ['nullable', 'confirmed', 'min:8', 'max:255'],
+            'joining_date'               => 'nullable',
+            'current_address'            => 'nullable',
+            'permanent_address'          => 'nullable',
+            'emergency_contact_name'     => 'nullable',
+            'emergency_contact_no'       => 'nullable',
+            'emergency_contact_relation' => 'nullable'
         ];
     }
 

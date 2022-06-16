@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 class LoanExpenseController extends Controller {
     public function store( Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'received_person'     => 'required|string',
             'amount'              => 'required|integer',
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )]
@@ -23,7 +23,7 @@ class LoanExpenseController extends Controller {
 
     public function update( LoanExpense $loanExpense, Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'received_person'     => 'required|string',
             'amount'              => 'required|integer',
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )]

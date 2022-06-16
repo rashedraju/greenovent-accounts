@@ -21,7 +21,8 @@ class AddRequisitionRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'file'                          => 'required|file'
+            'total' => 'required|numeric',
+            'file'  => 'nullable|file'
         ];
     }
 }

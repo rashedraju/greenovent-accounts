@@ -72,7 +72,7 @@ class ExternalController extends Controller {
             }
 
             // update file path
-            $externalCost->file()->update( ['file' => $filePath] );
+            $externalCost->file()->updateOrCreate( ['file' => $filePath] );
         } else {
             return back()->with( 'failed', "External file did't fount" );
         }

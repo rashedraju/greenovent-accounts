@@ -181,7 +181,7 @@ class Project extends Model {
 
     // get ait
     public function ait() {
-        return $this->external ? $this->external->grandTotal() * $this->external->ait : 0;
+        return $this->external ? $this->external->grandTotal() * $this->internal->ait : 0;
     }
 
     // Total Expenses (Project Expenses + AIT + Other Expenses)

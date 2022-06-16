@@ -43,19 +43,19 @@
                     </div>
                     <div class="d-flex flex-column gap-3 text-end">
                         <div class="px-5">
-                            {{ number_format($bill->total) }}
+                            {{ number_format($bill->total, 2) }}
                         </div class="px-5">
                         <div class="border-bottom border-gray-500 px-5">
-                            {{ number_format($bill->asfTotal()) }}
+                            {{ number_format($bill->asfTotal(), 2) }}
                         </div>
                         <div class="px-5">
-                            {{ number_format($bill->asfSubTotal()) }}
+                            {{ number_format($bill->asfSubTotal(), 2) }}
                         </div>
                         <div class="border-bottom border-gray-500 px-5">
-                            {{ number_format($bill->vatTotal()) }}
+                            {{ number_format($bill->vatTotal(), 2) }}
                         </div>
                         <div class="px-5">
-                            {{ number_format($bill->grandTotal()) }}
+                            {{ number_format($bill->grandTotal(), 2) }}
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                                 <div>
                                     <strong> {{ explode('/', $bill->supporting->file)[1] }}
                                     </strong>
-                                    <a href="{{ asset("/public/uploads/{$bill->supporting?->file}") }}"
+                                    <a href="{{ asset("/public/uploads/{$bill->supporting?->file}") }}" download
                                         class="btn btn-sm p-1 btn-secondary">
                                         Download
                                     </a>
@@ -153,13 +153,11 @@
 
                     <label class="form-label fs-6 fw-bolder text-dark mt-5">
                         Bill File(xlsx)
-                        <x-utils.required />
                     </label>
                     <input type="file" class="form-control" name="file">
 
                     <label class="form-label fs-6 fw-bolder text-dark mt-5">
-                        Supporting File(pdf/docx)
-                        <x-utils.required />
+                        Supporting File (PDF/DOCX/JPG)
                     </label>
                     <input type="file" class="form-control" name="supporting_file">
 

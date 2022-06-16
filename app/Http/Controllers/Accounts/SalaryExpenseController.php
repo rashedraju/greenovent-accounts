@@ -45,7 +45,7 @@ class SalaryExpenseController extends Controller {
 
     public function store( Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'user_id'             => ['required', Rule::exists( 'users', 'id' )],
             'amount'              => 'required|integer',
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )]
@@ -58,7 +58,7 @@ class SalaryExpenseController extends Controller {
 
     public function update( SalaryExpense $salaryExpense, Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'user_id'             => ['required', Rule::exists( 'users', 'id' )],
             'amount'              => 'required|integer',
             'transaction_type_id' => ['required', Rule::exists( 'transaction_types', 'id' )]

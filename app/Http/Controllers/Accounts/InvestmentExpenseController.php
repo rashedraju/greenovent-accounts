@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 class InvestmentExpenseController extends Controller {
     public function store( Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'received_person'     => 'required|string',
             'company_name'        => 'required|string',
             'amount'              => 'required|integer',
@@ -24,7 +24,7 @@ class InvestmentExpenseController extends Controller {
 
     public function update( InvestmentExpense $investmentExpense, Request $request ) {
         $attributes = $request->validate( [
-            'date'                => 'sometimes',
+            'date'                => 'nullable',
             'received_person'     => 'required|string',
             'company_name'        => 'required|string',
             'amount'              => 'required|integer',

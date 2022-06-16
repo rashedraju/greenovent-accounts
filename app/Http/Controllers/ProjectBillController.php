@@ -51,32 +51,28 @@ class ProjectBillController extends Controller {
     public function store( Project $project, ProjectBillAddRequest $request ) {
         $request->validated();
 
+        // store bill file
+
+        // create bill
+        $bill = $project->bills()->create( $request->only( ['date', 'bill_status_id', 'total', 'asf', 'vat'] ) );
+
+        // save bill file
         if ( $request->hasFile( 'file' ) ) {
             $fname = time() . "_" . $request->file->getClientOriginalName();
-
-            // store bill file
             $filePath = $request->file( 'file' )->storeAs( 'project_bill_files', $fname, 'uploads' );
-
-            // create bill
-            $bill = $project->bills()->create( $request->only( ['date', 'bill_status_id', 'total', 'asf', 'vat'] ) );
-
-            // save fill file path to bill
             $bill->file()->create( ['file' => $filePath] );
+        }
 
-            // add supporting
-            if ( $request->hasFile( 'supporting_file' ) ) {
-                // store supporting file
-                $supportingFileName = time() . "_" . $request->supporting_file->getClientOriginalName();
-                $supportingFilePath = $request->file( 'supporting_file' )->storeAs( 'project_supporting_files', $supportingFileName, 'uploads' );
+        // add supporting file
+        if ( $request->hasFile( 'supporting_file' ) ) {
+            // store supporting file
+            $supportingFileName = time() . "_" . $request->supporting_file->getClientOriginalName();
+            $supportingFilePath = $request->file( 'supporting_file' )->storeAs( 'project_supporting_files', $supportingFileName, 'uploads' );
 
-                // save supporting to bill
-                $bill->supporting()->create( [
-                    'file' => $supportingFilePath
-                ] );
-            }
-
-        } else {
-            return redirect()->route( 'projects.bill.index', $project )->with( 'failed', "Bill file did't found" );
+            // save supporting to bill
+            $bill->supporting()->create( [
+                'file' => $supportingFilePath
+            ] );
         }
 
         return redirect()->route( 'projects.bill.index', $project )->with( 'success', 'bill Added' );
@@ -87,34 +83,33 @@ class ProjectBillController extends Controller {
         $attr = $request->validated();
 
         if ( $request->has( 'file' ) ) {
-            $fname = time() . "_" . $request->file->getClientOriginalName();
-
-            // store new file
-            $filePath = $request->file( 'file' )->storeAs( 'project_bill_files', $fname, 'uploads' );
 
             // delete previous file
             if ( isset( $bill->file->file ) && Storage::disk( 'uploads' )->exists( $bill->file->file ) ) {
                 Storage::disk( 'uploads' )->delete( $bill->file->file );
             }
 
+            $fname = time() . "_" . $request->file->getClientOriginalName();
+            $filePath = $request->file( 'file' )->storeAs( 'project_bill_files', $fname, 'uploads' );
+
             // save file to bill
-            $bill->file()->update( ['file' => $filePath] );
+            $bill->file()->updateOrCreate( ['file' => $filePath] );
 
         }
 
         // update supporting file
         if ( $request->hasFile( 'supporting_file' ) ) {
-            // store supporting file
-            $supportingFileName = time() . "_" . $request->supporting_file->getClientOriginalName();
-            $supportingFilePath = $request->file( 'supporting_file' )->storeAs( 'project_supporting_files', $supportingFileName, 'uploads' );
-
             // delete previous supporting file
             if ( isset( $bill->supporting->file ) && Storage::disk( 'uploads' )->exists( $bill->supporting->file ) ) {
                 Storage::disk( 'uploads' )->delete( $bill->supporting->file );
             }
 
+            // store supporting file
+            $supportingFileName = time() . "_" . $request->supporting_file->getClientOriginalName();
+            $supportingFilePath = $request->file( 'supporting_file' )->storeAs( 'project_supporting_files', $supportingFileName, 'uploads' );
+
             // save supporting to bill
-            $bill->supporting->update( [
+            $bill->supporting()->updateOrCreate( [
                 'file' => $supportingFilePath
             ] );
         }

@@ -23,11 +23,11 @@ class ProjectBillAddRequest extends FormRequest {
         return [
             'date'            => 'required|string',
             'bill_status_id'  => 'required',
-            'total'           => 'required',
-            'asf'             => 'sometimes|integer',
-            'vat'             => 'sometimes|integer',
-            'file'            => 'required|file',
-            'supporting_file' => 'sometimes|file'
+            'total'           => 'required|numeric',
+            'asf'             => 'required|numeric',
+            'vat'             => 'required|numeric',
+            'file'            => 'nullable|file',
+            'supporting_file' => 'nullable|file'
         ];
     }
 }
