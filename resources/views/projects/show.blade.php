@@ -35,7 +35,7 @@
                                 <td>{{ number_format((float) $project->external?->total, 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
-                                <th class="px-2 py-5 fw-bolder fs-6">ASF</th>
+                                <th class="px-2 py-5 fw-bolder fs-6">ASF ({{ $project->external?->asf }}%)</th>
                                 <td>{{ number_format((float) $project->external?->asfTotal(), 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
@@ -43,7 +43,8 @@
                                 <td>{{ number_format((float) $project->external?->asfSubTotal(), 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
-                                <th class="px-2 py-5 fw-bolder fs-6">Amount VAT</th>
+                                <th class="px-2 py-5 fw-bolder fs-6">Amount VAT ({{ $project->external?->vat }}%)
+                                </th>
                                 <td>{{ number_format((float) $project->external?->vatTotal(), 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
@@ -51,7 +52,7 @@
                                 <td>{{ number_format((float) $project->advance_paid, 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
-                                <th class="px-2 py-5 fw-bolder fs-6">AIT </th>
+                                <th class="px-2 py-5 fw-bolder fs-6">AIT ({{ $project->internal?->ait }}%)</th>
                                 <td>{{ number_format((float) $project->ait(), 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
@@ -153,8 +154,8 @@
                     <h5 class="modal-title">Add contact person</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('projects.contact.store', $project) }}" method="post"
-                        class="my-2" enctype="multipart/form-data">
+                    <form action="{{ route('projects.contact.store', $project) }}" method="post" class="my-2"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <label class="form-label fs-6 fw-bolder text-dark">
