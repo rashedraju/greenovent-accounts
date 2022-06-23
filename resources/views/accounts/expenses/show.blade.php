@@ -14,7 +14,7 @@
             </ol>
         </nav>
     </div>
-
+    
     <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
     <div class="card mt-3">

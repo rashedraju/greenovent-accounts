@@ -45,13 +45,12 @@
         .modal.drawer.left-align:not(.show) .modal-dialog {
             transform: translate(-25%, 0);
         }
-
     </style>
     <div class="p-2 py-5">
         <h1 class="text-center">Accounts</h1>
     </div>
 
-    <x-accounts-navigation />
+    <x-accounts-navigation :year="$year" :month="$month" />
 
     <div class="card mt-3">
         <h3 class="border-bottom border-dark py-5 text-center">Employee Loans</h3>
@@ -89,7 +88,8 @@
                                         <x-utils.edit-icon />
                                     </button>
 
-                                    <form method="post" action="{{ route('accounts.employee-loan.delete', $loan) }}">
+                                    <form method="post"
+                                        action="{{ route('accounts.employee-loan.delete', ['year' => $year, 'month' => $month, 'accountsEmployeeLoan' => $loan]) }}">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-sm bg-transparent p-0 m-0">
@@ -98,7 +98,8 @@
                                     </form>
                                     <x-drawer btnId="edit_load_drawer_btn_{{ $loan->id }}"
                                         drawerId="edit_load_drawer_{{ $loan->id }}" title="Edit Loan">
-                                        <form action="{{ route('accounts.employee-loan.update', $loan) }}"
+                                        <form
+                                            action="{{ route('accounts.employee-loan.update', ['year' => $year, 'month' => $month, 'accountsEmployeeLoan' => $loan]) }}"
                                             method="post">
                                             @csrf
                                             @method('put')
@@ -130,11 +131,13 @@
     </div>
 
     <x-drawer btnId="add_load_drawer_btn" drawerId="add_load_drawer" title="Add Employee Loan">
-        <form action="{{ route('accounts.employee-loan.store') }}" method="post">
+        <form action="{{ route('accounts.employee-loan.store', ['year' => $year, 'month' => $month]) }}"
+            method="post">
             @csrf
 
             <label class="form-label mt-2 mb-0">Date</label>
-            <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date"
+                placeholder="DD-MM-YYYY">
 
             <label class="form-label mt-2 mb-0">Employee Name</label>
             <select class="form-select" name="user_id" data-control="select2" data-placeholder="Select">

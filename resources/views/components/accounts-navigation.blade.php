@@ -42,7 +42,7 @@
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
-                        <a href="{{ route('accounts.sales.index', ['year' => $year, 'month' => $month]) }}"
+                        <a href="{{ route('accounts.employee-loan.index', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.employee-loan.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Employee Loan</span>
                         </a>

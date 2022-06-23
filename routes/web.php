@@ -240,14 +240,14 @@ Route::middleware( 'auth' )->group( function () {
         // bills
         Route::name( 'requisitions.' )->prefix( '/{year}/{month}/requisitions' )->group( function () {
             Route::get( '/', [AccountsRequisitoinController::class, 'index'] )->name( 'index' );
-            Route::get( '/{requisition}', [AccountsRequisitoinController::class, 'show'] )->name( 'show' );
+            Route::get( '/{project}', [AccountsRequisitoinController::class, 'show'] )->name( 'show' );
         } );
 
         // employee laod
         Route::name( 'employee-loan.' )->prefix( '/{year}/{month}/employee-loan' )->group( function () {
             Route::get( '/', [AccountsEmployeeLoanController::class, 'index'] )->name( 'index' );
-            Route::put( '/{accountsEmployeeLoan}', [AccountsEmployeeLoanController::class, 'update'] )->name( 'update' );
             Route::post( '/', [AccountsEmployeeLoanController::class, 'store'] )->name( 'store' );
+            Route::put( '/{accountsEmployeeLoan}', [AccountsEmployeeLoanController::class, 'update'] )->name( 'update' );
             Route::delete( '/{accountsEmployeeLoan}', [AccountsEmployeeLoanController::class, 'delete'] )->name( 'delete' );
         } );
     } );

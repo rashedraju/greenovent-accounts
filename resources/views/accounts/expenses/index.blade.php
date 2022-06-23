@@ -15,6 +15,15 @@
 
     <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
+    <div class="d-flex justify-content-between border border-bottom">
+        <div>&nbsp;</div>
+        <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_expense_drawer_btn">
+            <x-utils.add-icon /> Add Expense
+        </button>
+    </div>
+
+    <x-validation-error />
+
     <div class="card mt-3">
         <div class="row">
             <div class="col-12 col-sm-3">
@@ -42,4 +51,62 @@
             </div>
         </div>
     </div>
+
+    <x-drawer btnId="add_expense_drawer_btn" drawerId="add_expense_drawer" title="Add Expense">
+        <form action="{{ route('accounts.expenses.store', ['year' => $data['year'], 'month' => $data['month']]) }}"
+            method="post">
+            @csrf
+
+            <label class="form-label mt-5 mb-0">Date
+                <x-utils.required />
+            </label>
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" max="{{ $data['endDate'] }}"
+                min="{{ $data['startDate'] }}" class="form-control" name="date" placeholder="DD-MM-YYYY"
+                :value="old('date')">
+
+            <label class="form-label mt-5 mb-0">Expense Type
+                <x-utils.required />
+            </label>
+            <select class="form-select" data-kt-select name="expense_type_id">
+                <option></option>
+                <option value="0" disabled selected>Select</option>
+                @foreach ($data['expenseTypes'] as $expenseType)
+                    <option value="{{ $expenseType->id }}"
+                        {{ $expenseType->id == old('expense_type_id') ? 'selected' : '' }}>
+                        {{ $expenseType->name }}</option>
+                @endforeach
+            </select>
+
+            <label class="form-label mt-5 mb-0">Item
+                <x-utils.required />
+            </label>
+            <input type="text" class="form-control" name="item" :value="old('item')">
+
+            <label class="form-label mt-5 mb-0">Description
+                <x-utils.required />
+            </label>
+            <input type="text" class="form-control" name="description" :value="old('description')">
+
+            <label class="form-label mt-5 mb-0">Amount
+                <x-utils.required />
+            </label>
+            <input type="number" class="form-control" name="amount" :value="old('amount')">
+
+            <label class="form-label mt-5 mb-0">Transaction Types
+                <x-utils.required />
+            </label>
+            <select class="form-select" name="transaction_type_id">
+                <option value="0" disabled selected>Select</option>
+                @foreach ($data['transactionTypes'] as $transactionType)
+                    <option value="{{ $transactionType->id }}"
+                        {{ $transactionType->id == old('transaction_type_id') ? 'selected' : '' }}>
+                        {{ $transactionType->name }}</option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="my-3 btn btn-primary w-100">Submit</button>
+        </form>
+
+
+    </x-drawer>
 </x-app-layout>

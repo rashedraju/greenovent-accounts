@@ -22,11 +22,18 @@ class AccountsExpensesController extends Controller {
             $expenseTypes = AccountsExpenseType::all();
 
             $totalExpense = AccountsExpense::whereYear( 'date', $year )->whereMonth( 'date', $month )->get()->sum( fn( $item ) => $item->amount );
+            $transactionTypes = TransactionType::all();
+            $startDate = now()->year( $year )->month( $month )->startOfMonth()->toDateString();
+            $endDate = now()->year( $year )->month( $month )->endOfMonth()->toDateString();
+
             $data = [
-                'year'         => $year,
-                'month'        => $month,
-                'totalExpense' => $totalExpense,
-                'expenseTypes' => $expenseTypes
+                'year'             => $year,
+                'month'            => $month,
+                'startDate'        => $startDate,
+                'endDate'          => $endDate,
+                'totalExpense'     => $totalExpense,
+                'expenseTypes'     => $expenseTypes,
+                'transactionTypes' => $transactionTypes
             ];
 
             return view( 'accounts.expenses.index', ['data' => $data] );

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddRequisitionRequest;
 use App\Models\Project;
 use App\Models\Requisition;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class RequisitionsController extends Controller {
@@ -12,7 +13,7 @@ class RequisitionsController extends Controller {
         $requisitions = [];
 
         foreach ( $project->requisitions as $requisition ) {
-            if ( $requisition->file ) {
+            if ( $requisition->file && Storage::disk( 'uploads' )->exists( $requisition->file->file ) ) {
                 $reader = new Xlsx();
                 $spreadsheet = $reader->load( 'public/uploads/' . $requisition->file->file );
 

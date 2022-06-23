@@ -7,10 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 class AccountsEmployeeLoanController extends Controller {
-    public function index() {
-        $loans = AccountsEmployeeLoan::orderBy( 'id', 'desc' )->paginate( 10 );
+    public function index( $year, $month ) {
+        $loans = AccountsEmployeeLoan::whereYear( 'created_at', $year )->whereMonth( 'created_at', $month )->orderBy( 'id', 'desc' )->paginate( 10 );
         $users = User::pluck( 'name', 'id' );
-        return view( 'accounts.employee-loan.index', ['loans' => $loans, 'users' => $users] );
+        return view( 'accounts.employee-loan.index', ['year' => $year, 'month' => $month, 'loans' => $loans, 'users' => $users] );
     }
 
     public function store( Request $request ) {
@@ -26,7 +26,7 @@ class AccountsEmployeeLoanController extends Controller {
         return back()->with( 'success', 'Loan has been added.' );
     }
 
-    public function update( AccountsEmployeeLoan $accountsEmployeeLoan, Request $request ) {
+    public function update( $year, $month, AccountsEmployeeLoan $accountsEmployeeLoan, Request $request ) {
         $attrs = $request->validate( [
             'amount' => 'nullable',
             'paid'   => 'nullable'
@@ -36,7 +36,7 @@ class AccountsEmployeeLoanController extends Controller {
         return back()->with( 'success', 'Loan has been updated.' );
     }
 
-    public function delete( AccountsEmployeeLoan $accountsEmployeeLoan ) {
+    public function delete( $year, $month, AccountsEmployeeLoan $accountsEmployeeLoan ) {
         $accountsEmployeeLoan->delete();
         return back()->with( 'success', 'Loan has been deleted.' );
     }
