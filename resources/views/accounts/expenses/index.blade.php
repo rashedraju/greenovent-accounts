@@ -15,11 +15,12 @@
 
     <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
-    <div class="d-flex justify-content-between border border-bottom">
-        <div>&nbsp;</div>
-        <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_expense_drawer_btn">
+    <div class="d-flex justify-content-end border border-bottom gap-3">
+        <button type="button" class="btn btn-sm my-2 px-6 btn-success" id="add_expense_drawer_btn">
             <x-utils.add-icon /> Add Expense
         </button>
+        <button class="btn btn-sm my-2 px-6 btn-secondary" id="create_new_expense_type_btn">Create new expense
+            type</button>
     </div>
 
     <x-validation-error />
@@ -47,7 +48,39 @@
                 </div>
             </div>
             <div class="col-12 col-sm-9">
-
+                <h2 class="py-5 pr-5">Today Expenses</h2>
+                <div class="table-responsive">
+                    <table class="table table-secondary table-striped">
+                        <thead>
+                            <tr class="fw-bolder fs-6">
+                                <th class="px-2 py-5">SL</th>
+                                <th class="px-2 py-5">Date</th>
+                                <th class="px-2 py-5">Item</th>
+                                <th class="px-2 py-5">Description</th>
+                                <th class="px-2 py-5">Amount</th>
+                                <th class="px-2 py-5">Transaction Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data['todayExpenses'] as $expense)
+                                <tr class="fw-bold">
+                                    <td class="px-2 py-5">{{ $loop->iteration }}</td>
+                                    <td class="px-2 py-5">{{ date('d-m-Y', strtotime($expense->date)) }}</a>
+                                    </td>
+                                    <td class="px-2 py-5">{{ $expense->item }}</a> </td>
+                                    <td class="px-2 py-5">{{ $expense->description }}</a> </td>
+                                    <td class="px-2 py-5">{{ number_format($expense->amount) }}</a> </td>
+                                    <td class="px-2 py-5">{{ $expense->transactionType->name }}</a> </td>
+                                </tr>
+                            @endforeach
+                            <tr class="fw-bold border border-secondary">
+                                <td class="px-2 py-5 fs-2" colspan="4">Total Amount</td>
+                                <td class="px-2 py-5 fs-2" colspan="6">
+                                    {{ number_format($data['totalExpensesTodayAmount'], 2, '.') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -106,7 +139,20 @@
 
             <button type="submit" class="my-3 btn btn-primary w-100">Submit</button>
         </form>
+    </x-drawer>
 
+    {{-- create new expense type drawer --}}
+    <x-drawer btnId="create_new_expense_type_btn" drawerId="create_new_expense_type_drawer"
+        title="Create new expense type">
+        <form action="{{ route('accounts.expense-types.store') }}" method="post">
+            @csrf
 
+            <label class="form-label mt-5 mb-0">Name
+                <x-utils.required />
+            </label>
+            <input type="text" class="form-control" name="name" :value="old('name')">
+
+            <button type="submit" class="my-3 btn btn-primary w-100">Submit</button>
+        </form>
     </x-drawer>
 </x-app-layout>

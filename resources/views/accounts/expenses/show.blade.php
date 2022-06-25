@@ -14,7 +14,7 @@
             </ol>
         </nav>
     </div>
-    
+
     <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
     <div class="card mt-3">
@@ -26,7 +26,8 @@
                 </div>
                 @foreach ($data['expenseTypes'] as $expenseType)
                     <a href="{{ route('accounts.expenses.show', ['year' => $data['year'], 'month' => $data['month'], 'accountsExpenseType' => $expenseType->id]) }}"
-                        class="row bg-hover-secondary" style="margin-left: 0">
+                        class="row bg-hover-secondary {{ $expenseType->id == $data['accountsExpenseType']->id ? 'active bg-active-light' : '' }}"
+                        style="margin-left: 0">
                         <div class="col-2 px-2 py-5 border border-secondary flex-grow-1">{{ $expenseType->name }}
                         </div>
                         <div class="col-1 px-2 py-5 border border-secondary flex-grow-1">
@@ -59,6 +60,9 @@
                                 <th class="px-2 py-5">Description</th>
                                 <th class="px-2 py-5">Amount</th>
                                 <th class="px-2 py-5">Transaction Type</th>
+                                @hasrole('Accounts Executive')
+                                    <th class="px-2 py-5">Action</th>
+                                @endhasrole
                             </tr>
                         </thead>
                         <tbody>
@@ -71,11 +75,78 @@
                                     <td class="px-2 py-5">{{ $expense->description }}</a> </td>
                                     <td class="px-2 py-5">{{ number_format($expense->amount) }}</a> </td>
                                     <td class="px-2 py-5">{{ $expense->transactionType->name }}</a> </td>
+                                    @hasrole('Accounts Executive')
+                                        <td class="px-2 py-5"> <button class="btn btn-outlined-primary"
+                                                id="expense_edit_btn_{{ $expense->id }}">
+                                                <x-utils.edit-icon />
+                                            </button>
+                                        </td>
+                                        <x-drawer btnId="expense_edit_btn_{{ $expense->id }}"
+                                            drawerId="expense_edit_drawer_{{ $expense->id }}" title="Edit Expense">
+                                            <form
+                                                action="{{ route('accounts.expenses.update', ['year' => $data['year'], 'month' => $data['month'], 'accountsExpense' => $expense]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('put')
+
+                                                <label class="form-label mt-5 mb-0">Date</label>
+                                                <input type="date" pattern="\d{4}-\d{2}-\d{2}"
+                                                    max="{{ $data['endDate'] }}" min="{{ $data['startDate'] }}"
+                                                    class="form-control" name="date" placeholder="DD-MM-YYYY"
+                                                    value="{{ $expense->date }}">
+
+                                                <label class="form-label mt-5 mb-0">Expense Type
+                                                    <x-utils.required />
+                                                </label>
+                                                <select class="form-select" data-kt-select name="expense_type_id">
+                                                    <option></option>
+                                                    <option value="0" disabled selected>Select</option>
+                                                    @foreach ($data['expenseTypes'] as $expenseType)
+                                                        <option value="{{ $expenseType->id }}"
+                                                            {{ $expenseType->id == $expense->expense_type_id ? 'selected' : '' }}>
+                                                            {{ $expenseType->name }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                                <label class="form-label mt-5 mb-0">Item
+                                                    <x-utils.required />
+                                                </label>
+                                                <input type="text" class="form-control" name="item"
+                                                    value="{{ $expense->item }}">
+
+                                                <label class="form-label mt-5 mb-0">Description
+                                                    <x-utils.required />
+                                                </label>
+                                                <input type="text" class="form-control" name="description"
+                                                    value="{{ $expense->description }}">
+
+                                                <label class="form-label mt-5 mb-0">Amount
+                                                    <x-utils.required />
+                                                </label>
+                                                <input type="number" class="form-control" name="amount"
+                                                    value="{{ $expense->amount }}">
+
+                                                <label class="form-label mt-5 mb-0">Transaction Types
+                                                    <x-utils.required />
+                                                </label>
+                                                <select class="form-select" name="transaction_type_id">
+                                                    <option value="0" disabled selected>Select</option>
+                                                    @foreach ($data['transactionTypes'] as $transactionType)
+                                                        <option value="{{ $transactionType->id }}"
+                                                            {{ $transactionType->id == $expense->transaction_type_id ? 'selected' : '' }}>
+                                                            {{ $transactionType->name }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                                <button type="submit" class="my-3 btn btn-primary w-100">Submit</button>
+                                            </form>
+                                        </x-drawer>
+                                    @endhasrole
                                 </tr>
                             @endforeach
                             <tr class="fw-bold border border-secondary">
                                 <td class="px-2 py-5 fs-2" colspan="4">Total Amount</td>
-                                <td class="px-2 py-5 fs-2" colspan="6">
+                                <td class="px-2 py-5 fs-2" colspan="7">
                                     {{ number_format($data['totalExpenseByType']) }}</td>
                             </tr>
                         </tbody>
