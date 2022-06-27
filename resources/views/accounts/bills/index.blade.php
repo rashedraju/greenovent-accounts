@@ -14,7 +14,6 @@
                     <li class="p-3 bg-gray-300 m-3">
                         <a
                             href="{{ route('accounts.bills.show', ['year' => $year, 'month' => $month, 'client' => $client]) }}">
-                            Bills of
                             {{ $client->company_name }}</a>
                     </li>
                 @endforeach

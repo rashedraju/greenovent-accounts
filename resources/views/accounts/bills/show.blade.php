@@ -42,7 +42,7 @@
             </thead>
             <tbody>
                 @foreach ($data['bills'] as $bill)
-                    <tr class="fw-bold border border-gray-500 text-center">
+                    <tr class="fw-bold border border-gray-500 text-center {{ $bill->due ? 'table-danger' : '' }}">
                         <td class="px-1 py-5" style="white-space: nowrap;">{{ $loop->iteration }}</td>
                         <td class="px-1 py-5" style="white-space: nowrap;">
                             {{ date('d-m-yy', strtotime($bill->date)) }}</a> </td>
@@ -113,15 +113,16 @@
                                 value="{{ $bill->receipt_number }}">
 
                             <label class="form-label mt-2 mb-0">Receipt date</label>
-                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="receipt_date"
-                                placeholder="DD-MM-YYYY" value="{{ $bill->receipt_date }}">
+                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control"
+                                name="receipt_date" placeholder="DD-MM-YYYY" value="{{ $bill->receipt_date }}">
 
                             <label class="form-label mt-2 mb-0">Cash cheque receipt</label>
                             <input type="number" class="form-control" name="cash_cheque_receipt"
                                 value="{{ $bill->cash_cheque_receipt }}">
 
                             <label class="form-label mt-2 mb-0">Advance</label>
-                            <input type="number" class="form-control" name="advance" value="{{ $bill->advance }}">
+                            <input type="number" class="form-control" name="advance"
+                                value="{{ $bill->advance }}">
 
                             <label class="form-label mt-2 mb-0">Discount</label>
                             <input type="number" class="form-control" name="discount"
@@ -162,7 +163,8 @@
             <input type="hidden" name="client_id" value="{{ $data['client']->id }}">
 
             <label class="form-label mt-2 mb-0">Date</label>
-            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date" placeholder="DD-MM-YYYY">
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date"
+                placeholder="DD-MM-YYYY">
 
             <label class="form-label mt-2 mb-0">Description</label>
             <input type="text" class="form-control" name="description">
