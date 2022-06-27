@@ -5,8 +5,9 @@ use App\Http\Controllers\AccountsEmployeeLoanController;
 use App\Http\Controllers\AccountsManagerController;
 use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Accounts\AccountsExpensesController;
-use App\Http\Controllers\Accounts\AccountsRequisitoinController;
 use App\Http\Controllers\Accounts\AccountsExpenseTypesController;
+use App\Http\Controllers\Accounts\AccountsRequisitoinController;
+use App\Http\Controllers\Accounts\AccountsSalesController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientsController;
@@ -154,7 +155,7 @@ Route::middleware( 'auth' )->group( function () {
 
     // Accounts
     // accounts expense types
-    Route::post('/accounts-expense-types', [AccountsExpenseTypesController::class, 'store'])->name('accounts.expense-types.store');
+    Route::post( '/accounts-expense-types', [AccountsExpenseTypesController::class, 'store'] )->name( 'accounts.expense-types.store' );
 
     // accounts routes
     Route::name( 'accounts.' )->prefix( 'accounts' )->group( function () {

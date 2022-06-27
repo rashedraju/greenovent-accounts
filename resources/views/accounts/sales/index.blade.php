@@ -73,7 +73,7 @@
                 </thead>
                 <tbody>
                     @foreach ($data['projects'] as $project)
-                        <tr class="border border-dark cursor-pointer"
+                        <tr class="border border-dark cursor-pointer {{ $project->due() == 0 ? '' : 'table-danger' }}"
                             onclick="window.location='{{ route('projects.show', $project->id) }}'">
                             <td class="px-2 py-5">{{ $project->start_date }}</td>
                             <td class="px-2 py-5">{{ $project->manager->name }}</td>

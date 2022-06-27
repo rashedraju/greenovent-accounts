@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     @foreach ($data['projects'] as $project)
-                        <tr class="fw-bold cursor-pointer {{ $project->isBillSendToClient() ? '' : 'table-danger' }}"
+                        <tr class="fw-bold cursor-pointer {{ $project->due() == 0 ? '' : 'table-danger' }}"
                             onclick="window.location='{{ route('projects.show', $project->id) }}'">
                             <td class="px-2 py-5">
                                 {{ $loop->iteration }}</td>
