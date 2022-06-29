@@ -24,7 +24,6 @@
     </div>
 
     <x-validation-error />
-
     <div class="card mt-3">
         <div class="row">
             <div class="col-12 col-sm-3">
@@ -38,7 +37,8 @@
                         <div class="col-2 px-2 py-5 border border-secondary flex-grow-1">{{ $expenseType->name }}
                         </div>
                         <div class="col-1 px-2 py-5 border border-secondary flex-grow-1">
-                            {{ number_format($expenseType->expenses->sum(fn($item) => $item->amount)) }}</div>
+                            {{ number_format($expenseType->expenses()->whereYear('date', $data['year'])->whereMonth('date', $data['month'])->get()->sum(fn($item) => $item->amount)) }}
+                        </div>
                     </a>
                 @endforeach
                 <div class="row style=" style="margin-left: 0">
