@@ -65,9 +65,8 @@
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date</label>
-                            <input class="form-control form-control-solid" id="user_add_joining_date_picker"
-                                name="joining_date" value="{{ old('joining_date') }}"
-                                placeholder="Select joining date" />
+                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="joining_date"
+                                placeholder="DD-MM-YYYY">
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="current_address">Current
