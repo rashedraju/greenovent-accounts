@@ -5,7 +5,7 @@
                 <h1 class="text-center">Employees</h1>
             </div>
             <div class="d-flex gap-3 justify-content-end">
-                <button class="btn btn-secondary" id="add_designation_btn">Add new
+                <button class="btn btn-secondary" id="add_designation_btn">View/Add
                     designation</button>
                 <div class="btn btn-primary">
                     <a href="https://office.greenovent.com/admin/attendances" target="_blank"
@@ -250,5 +250,13 @@
 
             <button type="submit" class="my-3 btn btn-primary w-100">Submit</button>
         </form>
+        <div class="py-2">
+            <h5 class="p-2">All Designations</h5>
+            <ul>
+                @foreach ($designations as $designation)
+                    <li>{{ $designation }}</li>
+                @endforeach
+            </ul>
+        </div>
     </x-drawer>
 </x-app-layout>

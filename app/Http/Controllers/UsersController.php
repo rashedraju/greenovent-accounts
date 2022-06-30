@@ -23,8 +23,9 @@ class UsersController extends Controller {
         $users = User::orderBy( 'joining_date', 'asc' )->get();
         $leaves = EmployeeLeave::orderBy( 'created_at', 'desc' )->get();
         $leaveApprovals = LeaveApproval::all();
+        $designations = Role::all()->pluck( 'name' );
 
-        return view( 'users.index', ['users' => $users, 'leaves' => $leaves, 'leaveApprovals' => $leaveApprovals] );
+        return view( 'users.index', ['users' => $users, 'leaves' => $leaves, 'leaveApprovals' => $leaveApprovals, 'designations'  => $designations] );
     }
 
     // Show Employe Profile

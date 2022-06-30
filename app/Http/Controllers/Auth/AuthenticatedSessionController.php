@@ -40,6 +40,10 @@ class AuthenticatedSessionController extends Controller {
             return redirect()->route( 'accounts.index' );
         }
 
+        if ( auth()->user()->hasAnyRole( 'HR' ) ) {
+            return redirect()->route( 'employees.index' );
+        }
+
         return redirect()->route( 'dashboard' );
     }
 

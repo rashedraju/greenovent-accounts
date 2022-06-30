@@ -11,7 +11,8 @@ $user = auth()->user();
                 id="kt_header_menu_mobile_toggle">
                 <!--begin::Svg Icon | path: icons/duotune/text/txt001.svg-->
                 <span class="svg-icon svg-icon-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none">
                         <path
                             d="M13 11H3C2.4 11 2 10.6 2 10V9C2 8.4 2.4 8 3 8H13C13.6 8 14 8.4 14 9V10C14 10.6 13.6 11 13 11ZM22 5V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4V5C2 5.6 2.4 6 3 6H21C21.6 6 22 5.6 22 5Z"
                             fill="black" />
@@ -46,45 +47,55 @@ $user = auth()->user();
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
 
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('dashboard') }}"
-                                class="menu-link py-3 {{ request()->routeIs('dashboard.*') ? 'active' : '' }}">
-                                <span class="menu-title">Dashboard</span>
-                            </a>
-                        </div>
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('accounts-manager.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('accounts-manager.*') ? 'active' : '' }}">
-                                <span class="menu-title">Accounts Manager</span>
-                            </a>
-                        </div>
+                        @can('Dashboard')
+                            <div class="menu-item me-lg-1">
+                                <a href="{{ route('dashboard') }}"
+                                    class="menu-link py-3 {{ request()->routeIs('dashboard.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Dashboard</span>
+                                </a>
+                            </div>
+                        @endcan
+                        @can('Projects')
+                            <div class="menu-item me-lg-1">
+                                <a href="{{ route('accounts-manager.index') }}"
+                                    class="menu-link py-3 {{ request()->routeIs('accounts-manager.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Accounts Manager</span>
+                                </a>
+                            </div>
+                        @endcan
 
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('accounts.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('accounts.*') ? 'active' : '' }}">
-                                <span class="menu-title">Accounts</span>
-                            </a>
-                        </div>
+                        @can('Accounts')
+                            <div class="menu-item me-lg-1">
+                                <a href="{{ route('accounts.index') }}"
+                                    class="menu-link py-3 {{ request()->routeIs('accounts.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Accounts</span>
+                                </a>
+                            </div>
+                        @endcan
 
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('employees.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('employees.*') ? 'active' : '' }}">
-                                <span class="menu-title">Employees</span>
-                            </a>
-                        </div>
+                        @can('Employees')
+                            <div class="menu-item me-lg-1">
+                                <a href="{{ route('employees.index') }}"
+                                    class="menu-link py-3 {{ request()->routeIs('employees.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Employees</span>
+                                </a>
+                            </div>
+                        @endcan
 
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('permissions.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('permissions.*') ? 'active' : '' }}">
-                                <span class="menu-title">Permissions</span>
-                            </a>
-                        </div>
-                        <div class="menu-item me-lg-1">
-                            <a href="{{ route('approvals.index') }}"
-                                class="menu-link py-3 {{ request()->routeIs('approvals.*') ? 'active' : '' }}">
-                                <span class="menu-title">Approvals</span>
-                            </a>
-                        </div>
+                        @can('Dashboard')
+                            <div class="menu-item me-lg-1">
+                                <a href="{{ route('permissions.index') }}"
+                                    class="menu-link py-3 {{ request()->routeIs('permissions.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Permissions</span>
+                                </a>
+                            </div>
+                            <div class="menu-item me-lg-1">
+                                <a href="{{ route('approvals.index') }}"
+                                    class="menu-link py-3 {{ request()->routeIs('approvals.*') ? 'active' : '' }}">
+                                    <span class="menu-title">Approvals</span>
+                                </a>
+                            </div>
+                        @endcan
                     </div>
                     <!--end::Menu-->
                 </div>
@@ -116,7 +127,8 @@ $user = auth()->user();
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
                                         @if ($profileImg = auth()->user()->profile_image)
-                                            <img src="{{ asset("/public/uploads/{$profileImg}") }}" alt="" srcset=""
+                                            <img src="{{ asset("/public/uploads/{$profileImg}") }}" alt=""
+                                                srcset=""
                                                 class="symbol-label fs-3 bg-light-danger text-danger border border-secondary">
                                         @else
                                             <div

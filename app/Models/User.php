@@ -53,7 +53,7 @@ class User extends Authenticatable {
 
     // get readable joining date
     public function getJoiningDateAttribute( $value ) {
-        return date( 'M d, Y', strtotime( $value ) );
+        return date( 'd-m-Y', strtotime( $value ) );
     }
 
     // a user has many client

@@ -83,7 +83,7 @@ class AccountsExpensesController extends Controller {
 
     public function show( $year, $month, AccountsExpenseType $accountsExpenseType ) {
         $expenseTypes = AccountsExpenseType::all();
-        $epxneses = $accountsExpenseType->expenses;
+        $epxneses = $accountsExpenseType->expenses()->whereYear( 'date', $year )->whereMonth( 'date', $month )->get();
         $totalExpense = AccountsExpense::whereYear( 'date', $year )->whereMonth( 'date', $month )->get()->sum( fn( $item ) => $item->amount );
         $transactionTypes = TransactionType::all();
         $startDate = now()->year( $year )->month( $month )->startOfMonth()->toDateString();
