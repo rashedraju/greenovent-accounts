@@ -13,6 +13,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepositsController;
+use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeLeaveController;
 use App\Http\Controllers\EmployeePerformanceController;
 use App\Http\Controllers\ExpensesController;
@@ -55,6 +56,8 @@ Route::middleware( 'auth' )->group( function () {
         Route::delete( '/{user}/delete', [UsersController::class, 'destroy'] )->name( 'delete' );
         // Employee performance
         Route::post( '/{user}/performances', [EmployeePerformanceController::class, 'store'] )->name( 'performances.store' );
+
+        Route::post( '/designation', [EmployeeDesignationController::class, 'store'] )->name( 'designation.store' );
     } );
 
     // Employee Leave

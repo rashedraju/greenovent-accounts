@@ -5,6 +5,8 @@
                 <h1 class="text-center">Employees</h1>
             </div>
             <div class="d-flex gap-3 justify-content-end">
+                <button class="btn btn-secondary" id="add_designation_btn">Add new
+                    designation</button>
                 <div class="btn btn-primary">
                     <a href="https://office.greenovent.com/admin/attendances" target="_blank"
                         class="text-white py-3 mx-auto">View Attendance
@@ -36,9 +38,11 @@
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1"
-                                                    transform="rotate(-90 11.364 20.364)" fill="black"></rect>
-                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black">
+                                                <rect opacity="0.5" x="11.364" y="20.364" width="16"
+                                                    height="2" rx="1" transform="rotate(-90 11.364 20.364)"
+                                                    fill="black"></rect>
+                                                <rect x="4.36396" y="11.364" width="16" height="2"
+                                                    rx="1" fill="black">
                                                 </rect>
                                             </svg>
                                         </span>
@@ -55,21 +59,27 @@
                                         id="kt_table_users">
                                         <thead>
                                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                <th class="min-w-125px sorting" tabindex="0" style="width: 314.844px;">
+                                                <th class="min-w-125px sorting" tabindex="0"
+                                                    style="width: 314.844px;">
                                                     Employe
                                                 </th>
-                                                <th class="min-w-125px sorting" tabindex="1" style="width: 314.844px;">
+                                                <th class="min-w-125px sorting" tabindex="1"
+                                                    style="width: 314.844px;">
                                                     Designation</th>
-                                                <th class="min-w-125px sorting" tabindex="3" style="width: 314.844px;">
+                                                <th class="min-w-125px sorting" tabindex="3"
+                                                    style="width: 314.844px;">
                                                     Phone
                                                 </th>
-                                                <th class="min-w-125px sorting" tabindex="4" style="width: 314.844px;">
+                                                <th class="min-w-125px sorting" tabindex="4"
+                                                    style="width: 314.844px;">
                                                     Joining
                                                     Date</th>
-                                                <th class="min-w-125px sorting" tabindex="5" style="width: 314.844px;">
+                                                <th class="min-w-125px sorting" tabindex="5"
+                                                    style="width: 314.844px;">
                                                     Current
                                                     Address</th>
-                                                <th class="min-w-125px sorting" tabindex="6" style="width: 314.844px;">
+                                                <th class="min-w-125px sorting" tabindex="6"
+                                                    style="width: 314.844px;">
                                                     Actions
                                                 </th>
                                             </tr>
@@ -110,7 +120,8 @@
                                                             data-kt-menu-placement="bottom-end">Actions
                                                             <span class="svg-icon svg-icon-5 m-0">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    height="24" viewBox="0 0 24 24"
+                                                                    fill="none">
                                                                     <path
                                                                         d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                                                         fill="black"></path>
@@ -211,7 +222,8 @@
                                                 </td>
                                                 <td>{{ $leave->created_at }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                                    <a href="#"
+                                                        class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"
                                                         data-kt-menu-placement="bottom-end">{{ $leave->apporval->name }}
                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -254,4 +266,17 @@
             </div>
         </div>
     </div>
+
+    <x-drawer btnId="add_designation_btn" drawerId="add_designation_drawer" title="Add new designation">
+        <form method="post" action="{{ route('employees.designation.store') }}">
+            @csrf
+
+            <label class="form-label mt-2 mb-0">Designation
+                <x-utils.required />
+            </label>
+            <input type="text" class="form-control" name="name">
+
+            <button type="submit" class="my-3 btn btn-primary w-100">Submit</button>
+        </form>
+    </x-drawer>
 </x-app-layout>
