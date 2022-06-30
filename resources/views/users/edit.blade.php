@@ -60,8 +60,9 @@
                         </div>
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="joining_date">Joining Date</label>
-                            <input class="form-control form-control-solid" id="user_edit_joining_date_picker"
-                                name="joining_date" value="{{ date('yy-m-d', strtotime($user->joining_date)) }}" />
+
+                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="joining_date"
+                                value="{{ $user->joining_date }}" placeholder="DD-MM-YYYY">
                         </div>
 
                         <div class="fv-row mb-7">
