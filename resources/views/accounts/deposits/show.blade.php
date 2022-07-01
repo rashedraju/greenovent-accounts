@@ -1,15 +1,16 @@
 <x-app-layout>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        tr:nth-child(3) {
-            border: solid thin;
-        }
-    </style>
-    <div class="p-2 py-5">
-        <h1 class="text-center">Accounts</h1>
+    <div class="p-1 mt-sm-1 mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts.index') }}">Accounts</a></li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year', $year) }}">{{ $year }}</a></li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year.month', ['year' => $year, 'month' => $month]) }}">{{ now()->month($month)->format('F') }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">Deposits</li>
+            </ol>
+        </nav>
     </div>
 
     <x-accounts-navigation :year="$year" :month="$month" />
@@ -23,8 +24,7 @@
             {{-- Import and Export excel file --}}
 
             <div class="d-flex gap-3 justify-content-end">
-                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" data-bs-toggle="modal"
-                    data-bs-target="#add_deposit">
+                <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_deposit_btn">
                     <x-utils.add-icon /> Add
                 </button>
                 <a href="{{ route('accounts.deposits.export', [$year, $month]) }}"
@@ -98,8 +98,10 @@
                                                     @method('put')
 
                                                     <label class="form-label mt-2 mb-0">Date</label>
-                                                    <input type="text" class="form-control" name="date"
-                                                        value="{{ $deposit->date }}">
+
+                                                    <input type="date" pattern="\d{4}-\d{2}-\d{2}"
+                                                        class="form-control" name="date"
+                                                        value="{{ $deposit->date }}" placeholder="DD-MM-YYYY">
 
                                                     <label class="form-label mt-2 mb-0">Deposit By</label>
                                                     <select class="form-select" name="user_id">
@@ -195,7 +197,8 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" name="bank_name" list="depositBanksList">
+                                    <input type="text" class="form-control" name="bank_name"
+                                        list="depositBanksList">
                                     <datalist id="depositBanksList">
                                         @foreach ($depositBanksOfThisMonth as $bankName)
                                             <option value="{{ $bankName }}">
@@ -226,52 +229,40 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" id="add_deposit">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add new deposit record</h5>
-                </div>
+    <x-drawer btnId="add_deposit_btn" drawerId="add_deposit_drawer" title="Add new deposit record">
+        <form action="{{ route('accounts.deposits.store', ['year' => $year, 'month' => $month]) }}" method="post">
+            @csrf
 
-                <div class="modal-body">
-                    <form action="{{ route('accounts.deposits.store', ['year' => $year, 'month' => $month]) }}"
-                        method="post">
-                        @csrf
+            <label class="form-label mt-2 mb-0">Date</label>
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date"
+                placeholder="DD-MM-YYYY">
 
-                        <label class="form-label mt-2 mb-0">Date</label>
-                        <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+            <label class="form-label mt-2 mb-0">Deposit By</label>
+            <select class="form-select" data-control="select2" data-placeholder="Select" name="user_id">
+                <option></option>
+                @foreach ($depositPersons as $depositPersonId => $depositPersonName)
+                    <option value="{{ $depositPersonId }}">
+                        {{ $depositPersonName }}</option>
+                @endforeach
+            </select>
 
-                        <label class="form-label mt-2 mb-0">Deposit By</label>
-                        <select class="form-select" data-control="select2" data-placeholder="Select" name="user_id">
-                            <option></option>
-                            @foreach ($depositPersons as $depositPersonId => $depositPersonName)
-                                <option value="{{ $depositPersonId }}">
-                                    {{ $depositPersonName }}</option>
-                            @endforeach
-                        </select>
+            <label class="form-label mt-2 mb-0">Bank Name</label>
+            <input type="text" class="form-control" name="bank_name">
 
-                        <label class="form-label mt-2 mb-0">Bank Name</label>
-                        <input type="text" class="form-control" name="bank_name">
+            <label class="form-label mt-2 mb-0">Slip Number</label>
+            <input type="text" class="form-control" name="slip_number">
 
-                        <label class="form-label mt-2 mb-0">Slip Number</label>
-                        <input type="text" class="form-control" name="slip_number">
+            <label class="form-label mt-2 mb-0">Amount</label>
+            <input type="number" class="form-control" name="amount">
 
-                        <label class="form-label mt-2 mb-0">Amount</label>
-                        <input type="number" class="form-control" name="amount">
+            <label class="form-label mt-2 mb-0">Note</label>
+            <textarea type="text" class="form-control" name="note" rows="1"></textarea>
 
-                        <label class="form-label mt-2 mb-0">Note</label>
-                        <textarea type="text" class="form-control" name="note" rows="1"></textarea>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
-
-                </div>
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </div>
-        </div>
-    </div>
+        </form>
+    </x-drawer>
 
 </x-app-layout>

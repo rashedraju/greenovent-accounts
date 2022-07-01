@@ -9,15 +9,9 @@
             </ol>
         </nav>
     </div>
-    <div class="card mt-3">
-        <div class="card-body py-4">
-            <h3 class="pb-5 text-center">
-                {{ now()->month($data['month'])->format('F') }} - {{ $data['year'] }}
-            </h3>
 
-            <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
-        </div>
-    </div>
+    <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
+
     <div class="card mt-3">
         <div class="card-body py-4">
             <div class="d-flex flex-wrap gap-3">

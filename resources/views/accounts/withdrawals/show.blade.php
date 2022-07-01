@@ -5,19 +5,15 @@
                 <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts.index') }}">Accounts</a></li>
                 <li class="breadcrumb-item fs-4 active"><a
                         href="{{ route('accounts.show.year', $year) }}">{{ $year }}</a></li>
-                <li class="breadcrumb-item fs-4">{{ now()->month($month)->format('F') }}</li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year.month', ['year' => $year, 'month' => $month]) }}">{{ now()->month($month)->format('F') }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">Withdrawals</li>
             </ol>
         </nav>
     </div>
-    <div class="card mt-3">
-        <div class="card-body py-4">
-            <h3 class="pb-5 text-center">
-                {{ now()->month($month)->format('F') }} - {{ $year }}
-            </h3>
 
-            <x-accounts-navigation :year="$year" :month="$month" />
-        </div>
-    </div>
+    <x-accounts-navigation :year="$year" :month="$month" />
 
     <div class="card mt-3">
         <div class="card-body py-4">
@@ -104,8 +100,9 @@
                                                     @method('put')
 
                                                     <label class="form-label mt-2 mb-0">Date</label>
-                                                    <input type="text" class="form-control" name="date"
-                                                        value="{{ $withdrawal->date }}">
+                                                    <input type="date" pattern="\d{4}-\d{2}-\d{2}"
+                                                        class="form-control" name="date"
+                                                        value="{{ $withdrawal->date }}" placeholder="DD-MM-YYYY">
 
                                                     <label class="form-label mt-2 mb-0">Withdrawal By</label>
                                                     <select class="form-select" name="user_id">
@@ -189,7 +186,8 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <form action="{{ route('accounts.withdrawals.show', [$year, $month]) }}" method="GET">
+                            <form action="{{ route('accounts.withdrawals.show', [$year, $month]) }}"
+                                method="GET">
                                 <td></td>
                                 <td></td>
                                 <td>
@@ -248,7 +246,8 @@
                         @csrf
 
                         <label class="form-label mt-2 mb-0">Date</label>
-                        <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD">
+                        <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date"
+                            placeholder="DD-MM-YYYY">
 
                         <label class="form-label mt-2 mb-0">Withdrawal By</label>
                         <select class="form-select" data-control="select2" data-placeholder="Select" name="user_id">

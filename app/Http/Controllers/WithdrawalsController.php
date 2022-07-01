@@ -67,7 +67,7 @@ class WithdrawalsController extends Controller {
     }
 
     // update withdrawal to db
-    public function update( withdrawal $withdrawal, WithdrawalAddRequest $request ) {
+    public function update( $year, $month, withdrawal $withdrawal, WithdrawalAddRequest $request ) {
         $attributes = $request->validated();
 
         $attributes = array_merge( $attributes, [
@@ -83,7 +83,7 @@ class WithdrawalsController extends Controller {
     }
 
     // delete withdrawal
-    public function destory( Withdrawal $withdrawal ) {
+    public function destory( $year, $month, Withdrawal $withdrawal ) {
         if ( $withdrawal->delete() ) {
             return redirect()->back()->with( 'success', "withdrawal No:{$withdrawal->id} deleted." );
         }

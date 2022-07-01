@@ -59,7 +59,7 @@ class DepositsController extends Controller {
     }
 
     // update deposit to db
-    public function update( Deposit $deposit, DepositAddRequest $request ) {
+    public function update( $year, $month, Deposit $deposit, DepositAddRequest $request ) {
         $attributes = $request->validated();
 
         $attributes = array_merge( $attributes, [
@@ -75,7 +75,7 @@ class DepositsController extends Controller {
     }
 
     // delete deposit
-    public function destory( Deposit $deposit ) {
+    public function destory( $year, $month, Deposit $deposit ) {
         if ( $deposit->delete() ) {
             return redirect()->back()->with( 'success', "Deposit No:{$deposit->id} deleted." );
         }

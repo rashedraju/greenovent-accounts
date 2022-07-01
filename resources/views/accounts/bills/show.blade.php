@@ -1,14 +1,19 @@
 <x-app-layout>
-    <style>
-        th {
-            white-space: nowrap;
-        }
-    </style>
-    <div class="p-2 py-5">
-        <h1 class="text-center">Accounts</h1>
+    <div class="p-1 mt-sm-1 mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts.index') }}">Accounts</a></li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year', $year) }}">{{ $year }}</a></li>
+                <li class="breadcrumb-item fs-4 active"><a
+                        href="{{ route('accounts.show.year.month', ['year' => $year, 'month' => $month]) }}">{{ now()->month($month)->format('F') }}</a>
+                </li>
+                <li class="breadcrumb-item fs-4">Bills</li>
+            </ol>
+        </nav>
     </div>
 
-    <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
+    <x-accounts-navigation :year="$year" :month="$month" />
 
     <h3 class="py-5 text-center">Bill of {{ $data['client']->company_name }}</h3>
     <div class="d-flex gap-3 justify-content-end">
