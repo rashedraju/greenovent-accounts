@@ -96,7 +96,7 @@
                                                     class="badge badge-primary">{{ $project->status->name }}</span>
                                             </td>
                                             <td><a
-                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
+                                                    href="{{ route('accounts-manager.client', ['user' => $user, 'client' => $project->client]) }}">{{ $project->client->company_name }}</a>
                                             </td>
                                             <td>{{ $project->type->name }}</td>
                                             <td>
