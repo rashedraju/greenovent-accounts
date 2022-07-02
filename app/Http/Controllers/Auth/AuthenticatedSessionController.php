@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller {
             return redirect()->route( 'employees.index' );
         }
 
-        return redirect()->route( 'dashboard' );
+        return redirect()->route( 'employees.show', auth()->user() );
     }
 
     /**
