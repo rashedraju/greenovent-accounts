@@ -1,88 +1,22 @@
 <x-app-layout>
-    <div class="d-flex gap-3 justify-content-between">
-        <div class="card card-body w-75">
-            <h6 class="text-center mb-5">Finance Records of this year - {{ $data['year'] }}</h6>
-            <div id="net_profit_chart" style="height: 300px;"></div>
-        </div>
-        <div class="card card-body w-25">
-            <h6 class="text-center mb-5">Business Manager Contribution of this Month</h6>
-            <div id="business_manager_contribution_chart" style="height: 300px;"></div>
-        </div>
-    </div>
-    <div class="card card-body mt-5">
-        <div class="d-flex overflow-scroll">
-            <div class="bg-info p-5" style="border-radius: 2rem 0 0 0">
-                <p class="text-white">Sales</p>
-                <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($data['sales']) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5">
-                <p class="text-gray-700">Expense</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($data['expense']) }}
-                </h1>
-            </div>
-            <div class="bg-success p-5 text-white">
-                <p class="text-white">Net Profit</p>
-                <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($data['net_profit']) }}
-                </h1>
-            </div>
-
-            <div class="bg-primary p-5">
-                <p class="text-white">Current Balance</p>
-                <h1 class="text-white">
-                    <x-utils.currency />{{ number_format($data['balance']) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5 text-white border border-gray-300">
-                <p class="text-gray-700">Bank</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($data['bank_amount']) }}
-                </h1>
-            </div>
-
-            <div class="bg-light p-5 text-white border border-gray-300">
-                <p class="text-gray-700">Cash</p>
-                <h1 class="text-gray-700">
-                    <x-utils.currency />{{ number_format($data['cash_amount']) }}
-                </h1>
-            </div>
-        </div>
-    </div>
-
     <div class="card mt-5">
         <div class="card-header d-flex align-items-center">
-            <h3> Clients</h3>
+            <h3> Sales this Year</h3>
         </div>
         <div class="card-body">
-            <div id="clients_chart" style="height: 300px;"></div>
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead class="thead-light">
-                        <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
-                            <th class="px-2 py-5">SI</th>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="fw-bolder fs-6 bg-gray-100 text-dark border border-secondary">
                             <th class="px-2 py-5">Client Name</th>
-                            <th class="px-2 py-5">Sales this year</th>
-                            <th class="px-2 py-5">Total Sales</th>
-                            <th class="px-2 py-5">Total Project</th>
-                            <th class="px-2 py-5">Completed Projects</th>
-                            <th class="px-2 py-5">Ongoing Projects</th>
+                            <th class="px-2 py-5">Amount</th>
                         </tr>
                     </thead>
-                    <tbody class="border border-dark">
-                        @foreach ($data['clients'] as $client)
-                            <tr class="border border-dark fw-bold {{ $loop->iteration <= 3 ? 'table-primary' : '' }}">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $client->company_name }}</td>
-                                <td>{{ number_format($client->salesByYear(now()->year)) }}</td>
-                                <td>{{ number_format($client->totalSales()) }}</td>
-                                <td>{{ $client->projects->count() }}</td>
-                                <td>{{ $client->completedProjects()->count() }}</td>
-                                <td>{{ $client->inProgressProjects()->count() }}</td>
+                    <tbody class="border border-secondary">
+                        @foreach ($data['sales'] as $item)
+                            <tr class="fw-bold">
+                                <td class="px-2 py-5">{{ $item['client'] }}</td>
+                                <td class="px-2 py-5">{{ number_format($item['amount'], 2, ',') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -93,44 +27,39 @@
 
     <div class="card mt-5">
         <div class="card-header d-flex align-items-center">
-            <h3> Projects</h3>
+            <h3> Ongoing Projects</h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
-                        <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
-                            <th class="px-2 py-5">SI</th>
-                            <th class="px-2 py-5">Porject Name</th>
+                        <tr class="fw-bolder fs-6 bg-gray-100 text-dark border border-secondary">
                             <th class="px-2 py-5">Client Name</th>
-                            <th class="px-2 py-5">Bussiness Manger</th>
+                            <th class="px-2 py-5">Porject Name</th>
+                            <th class="px-2 py-5">Accounts Manger</th>
                             <th class="px-2 py-5">Project Type</th>
-                            <th class="px-2 py-5">Po Value</th>
-                            <th class="px-2 py-5">Bill Status</th>
                             <th class="px-2 py-5">Starting Date</th>
                             <th class="px-2 py-5">Closing Date</th>
                             <th class="px-2 py-5">Project Status</th>
                         </tr>
                     </thead>
-                    <tbody class="border border-dark">
-                        @foreach ($data['projects'] as $project)
-                            <tr class="border border-dark fw-bold">
-                                <td class="px-2 py-5">{{ $loop->iteration }}</td>
-                                <td class="px-2 py-5"><a
-                                        href="{{ route('projects.show', $project) }}">{{ $project->name }}</a>
-                                </td>
+                    <tbody class="border border-secondary">
+                        @foreach ($data['onGoingProjects'] as $project)
+                            <tr class="fw-bold">
                                 <td class="px-2 py-5">
-                                    <a href="{{ route('clients.show', $project->client) }}">
+                                    <a
+                                        href="{{ route('accounts-manager.client', ['user' => $project->client, 'client' => $project->client]) }}">
                                         {{ $project->client->company_name }}
                                     </a>
                                 </td>
                                 <td class="px-2 py-5"><a
-                                        href="{{ route('employees.show', $project->manager) }}">{{ $project->manager->name }}</a>
+                                        href="{{ route('projects.show', $project) }}">{{ $project->name }}</a>
+                                </td>
+
+                                <td class="px-2 py-5"><a
+                                        href="{{ route('accounts-manager.show', $project->manager) }}">{{ $project->manager->name }}</a>
                                 </td>
                                 <td class="px-2 py-5">{{ $project->type->name }}</td>
-                                <td class="px-2 py-5">{{ number_format($project->po_value) }}</td>
-                                <td class="px-2 py-5"><span
-                                        class="badge badge-primary">{{ $project->billStatus() }}</span></td>
                                 <td class="px-2 py-5">{{ $project->start_date }}</td>
                                 <td class="px-2 py-5">{{ $project->closing_date }}</td>
                                 <td class="px-2 py-5">
@@ -149,41 +78,51 @@
 
     <div class="card mt-5">
         <div class="card-header d-flex align-items-center">
-            <h3> Last 5 money disbursement by project </h3>
+            <h3> Last 5 Completed Projects</h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
-                        <tr class="fw-bolder fs-6 bg-gray-300 text-dark border border-dark">
-                            <th class="px-2 py-5">SI</th>
+                        <tr class="fw-bolder fs-6 bg-gray-100 text-dark border border-secondary">
+                            <th class="px-2 py-5">Client Name</th>
                             <th class="px-2 py-5">Porject Name</th>
+                            <th class="px-2 py-5">Accounts Manger</th>
+                            <th class="px-2 py-5">Project Type</th>
+                            <th class="px-2 py-5">Starting Date</th>
+                            <th class="px-2 py-5">Closing Date</th>
                             <th class="px-2 py-5">Project Status</th>
-                            <th class="px-2 py-5">Recived By</th>
-                            <th class="px-2 py-5">Amount</th>
-                            <th class="px-2 py-5">Transaction Type</th>
+                            <th class="px-2 py-5">PO Value</th>
+                            <th class="px-2 py-5">Gross Profit</th>
                         </tr>
                     </thead>
-                    <tbody class="border border-dark">
-                        @foreach ($data['project_expenses'] as $project_expense)
-                            <tr class="border border-dark fw-bold">
-                                <td class="px-2 py-5">{{ $loop->iteration }}</td>
-                                <td class="px-2 py-5">>{{ $project_expense->project->name }}</td>
+                    <tbody class="border border-secondary">
+                        @foreach ($data['completedProjects'] as $project)
+                            <tr class="fw-bold">
+                                <td class="px-2 py-5">
+                                    <a
+                                        href="{{ route('accounts-manager.client', ['user' => $project->client, 'client' => $project->client]) }}">
+                                        {{ $project->client->company_name }}
+                                    </a>
+                                </td>
+                                <td class="px-2 py-5"><a
+                                        href="{{ route('projects.show', $project) }}">{{ $project->name }}</a>
+                                </td>
+
+                                <td class="px-2 py-5"><a
+                                        href="{{ route('accounts-manager.show', $project->manager) }}">{{ $project->manager->name }}</a>
+                                </td>
+                                <td class="px-2 py-5">{{ $project->type->name }}</td>
+                                <td class="px-2 py-5">{{ $project->start_date }}</td>
+                                <td class="px-2 py-5">{{ $project->closing_date }}</td>
                                 <td class="px-2 py-5">
                                     <span class="text-white px-3 py-1 rounded"
-                                        style="background: {{ $project_expense->project->status->color }}">
-                                        {{ $project_expense->project->status->name }}
+                                        style="background: {{ $project->status->color }}">
+                                        {{ $project->status->name }}
                                     </span>
                                 </td>
-                                <td class="px-2 py-5">
-                                    {{ $project_expense->user->name }}
-                                </td>
-                                <td class="px-2 py-5">
-                                    {{ number_format($project_expense->amount) }}
-                                </td>
-                                <td class="px-2 py-5">
-                                    {{ $project_expense->transactionType->name }}
-                                </td>
+                                <td class="px-2 py-5">{{ number_format($project->po_value, 2, ',') }}</td>
+                                <td class="px-2 py-5">{{ number_format($project->grossProfit(), 2, ',') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -191,81 +130,4 @@
             </div>
         </div>
     </div>
-    <div class="card mt-5">
-        <div class="card-header d-flex align-items-center">
-            <h3> Snapshot of leave roster of this month</h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-secondary table-striped">
-                    <thead>
-                        <tr class="fw-bolder fs-6">
-                            <th class="px-2 py-5">SI</th>
-                            <th class="px-2 py-5">Name</th>
-                            <th class="px-2 py-5">Subject</th>
-                            <th class="px-2 py-5">Date</th>
-                            <th class="px-2 py-5">Approval Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data['leave_records'] as $leaveRecord)
-                            <tr>
-                                <td class="px-2 py-5">{{ $loop->iteration }}</td>
-                                <td class="px-2 py-5"><a
-                                        href="{{ route('employees.show', $leaveRecord->user) }}">{{ $leaveRecord->user->name }}</a>
-                                </td>
-                                <td class="px-2 py-5">{{ $leaveRecord->subject }}</td>
-                                <td class="px-2 py-5">
-                                    {{ $leaveRecord->created_at }}
-                                </td>
-                                <td class="px-2 py-5">
-                                    {{ $leaveRecord->apporval->name }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <x-slot name="script">
-        <script>
-            // net profit chart
-            const netPorfitChart = new Chartisan({
-                el: '#net_profit_chart',
-                url: "@chart('net_profit_by_year_month_chart')",
-                hooks: new ChartisanHooks()
-                    .legend()
-                    .colors()
-                    .tooltip()
-            });
-
-            // bussiness manager contribution chart
-            const businessManagerContributionChart = new Chartisan({
-                el: '#business_manager_contribution_chart',
-                url: "@chart('business_manager_contribution_chart')",
-                hooks: new ChartisanHooks()
-                    .legend()
-                    .colors()
-                    .tooltip()
-                    .axis(false)
-                    .datasets([{
-                        type: 'pie'
-                    }]),
-            });
-
-            // clients chart
-            var date = new Date();
-            const clientsChart = new Chartisan({
-                el: '#clients_chart',
-                url: "@chart('clients_chart')",
-                hooks: new ChartisanHooks()
-                    .legend()
-                    .colors()
-                    .tooltip()
-            });
-        </script>
-    </x-slot>
-
 </x-app-layout>

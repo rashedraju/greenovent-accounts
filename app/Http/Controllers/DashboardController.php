@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Accounts\Expenses\ProjectExpense;
 use App\Models\Client;
-use App\Models\EmployeeLeave;
 use App\Models\Project;
 use App\Services\AccountService;
 use App\Services\CreditService;
 use App\Services\ExpenseService;
 use App\Services\ProjectService;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
     public $accountService;
@@ -24,44 +23,38 @@ class DashboardController extends Controller {
         $this->projectService = $projectService;
     }
 
-    public function index() {
-        $clients = Client::orderBy( 'id', 'desc' )->get();
-        $projects = Project::orderBy( 'id', 'desc' )->get();
+    public function index( Request $request ) {
+        if ( auth()->user()->cannot( 'Dashboard' ) ) {
+            return redirect()->back()->with( 'failed', 'You don\'t have permission to access dashboard' );
+        }
 
-        // finance records
-        $year = now()->year;
+        // find client sales by year and month
+        $year = $request->year ?? now()->year;
+        $month = $request->month ?? null;
 
-        // sales, expenses, profit
-        $sales = $this->projectService->getTotalSalesByYear( $year );
-        $expense = $this->expenseService->getTotalExpenseAmount( ['year' => $year] );
-        $netProfit = $this->accountService->getNetProfitByYear( $year );
+        $sales = Client::all()->map( function ( $client ) use ( $year, $month ) {
+            $salesAmount = 0;
 
-        // total balance of this year
-        $balance = $this->accountService->getTotalBalance( ['year' => $year] );
+            if ( $month ) {
+                $salesAmount = $client->salesByYearAndMonth( $year, $month );
+            }
 
-        // total bank balance of this year
-        $bankAmount = $this->accountService->getTotalBankAmountByYear( $year );
+            $salesAmount = $client->salesByYear( $year );
 
-        // get total cash amount by year
-        $cashAmount = $this->accountService->getTotalCashAmountByYear( $year );
+            return [
+                'client' => $client->company_name,
+                'amount' => $salesAmount
+            ];
+        } )->filter( fn( $item ) => $item['amount'] > 0 );
 
-        // last 5 project expense
-        $projectExpenses = ProjectExpense::orderBy( 'id', 'desc' )->take( 5 )->get();
+        $onGoingProjects = Project::where( 'status_id', 2 )->orderBy( 'id', 'desc' )->get();
 
-        $leaveRecordsOfThisMonth = EmployeeLeave::whereMonth( 'created_at', now()->month )->get();
+        $completedProjects = Project::where( 'status_id', 1 )->orderBy( 'id', 'desc' )->take( 5 )->get();
 
         $data = [
-            'year'             => $year,
-            'clients'          => $clients,
-            'projects'         => $projects,
-            'sales'            => $sales,
-            'expense'          => $expense,
-            'net_profit'       => $netProfit,
-            'balance'          => $balance,
-            'bank_amount'      => $bankAmount,
-            'cash_amount'      => $cashAmount,
-            'project_expenses' => $projectExpenses,
-            'leave_records'    => $leaveRecordsOfThisMonth
+            'sales'             => $sales,
+            'onGoingProjects'   => $onGoingProjects,
+            'completedProjects' => $completedProjects
         ];
 
         return view( 'dashboard', ['data' => $data] );
