@@ -4,16 +4,16 @@
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item fs-4 active"><a href="{{ route('accounts.index') }}">Accounts</a></li>
                 <li class="breadcrumb-item fs-4 active"><a
-                        href="{{ route('accounts.show.year', $year) }}">{{ $year }}</a></li>
+                        href="{{ route('accounts.show.year', $data['year']) }}">{{ $data['year'] }}</a></li>
                 <li class="breadcrumb-item fs-4 active"><a
-                        href="{{ route('accounts.show.year.month', ['year' => $year, 'month' => $month]) }}">{{ now()->month($month)->format('F') }}</a>
+                        href="{{ route('accounts.show.year.month', ['year' => $data['year'], 'month' => $data['month']]) }}">{{ now()->month($data['month'])->format('F') }}</a>
                 </li>
                 <li class="breadcrumb-item fs-4">Bills</li>
             </ol>
         </nav>
     </div>
 
-    <x-accounts-navigation :year="$year" :month="$month" />
+    <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
     <h3 class="py-5 text-center">Bill of {{ $data['client']->company_name }}</h3>
     <div class="d-flex gap-3 justify-content-end">
