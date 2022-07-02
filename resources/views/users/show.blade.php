@@ -8,7 +8,6 @@
                 <div class="card-body">
                     <div class="d-flex gap-3 align-items-center justify-content-between">
                         <h3 class="mb-0">Employee Details</h3>
-                        <a href="{{ route('employees.edit', $user) }}" class="btn btn-primary btn-sm">Edit</a>
                     </div>
                     <div class="border p-3 mt-5">
                         <img src="{{ asset("/public/uploads/{$user->profile_image}") }}" alt="" srcset=""
