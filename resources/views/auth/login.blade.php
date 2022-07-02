@@ -1,7 +1,6 @@
 <x-guest-layout>
     <x-auth-card>
-        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}"
-            method="post">
+        <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}" method="post">
             @csrf
 
             <x-slot name="title">
@@ -16,8 +15,7 @@
             <div class="fv-row mb-10">
                 <div class="d-flex flex-stack mb-2">
                     <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-                    <a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">Forgot
-                        Password ?</a>
+
                 </div>
                 <input class="form-control form-control-lg form-control-solid" type="password" name="password"
                     autocomplete="off" required />
@@ -34,6 +32,10 @@
                     Login
                 </button>
             </div>
+
+            <small class="py-2">
+                <x-utils.required />Please contact with HR or IT team if you lost your password.
+            </small>
         </form>
     </x-auth-card>
 </x-guest-layout>

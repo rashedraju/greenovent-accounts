@@ -2,14 +2,14 @@
     <div class="d-flex flex-column flex-root">
         <div
             class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed">
-            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+            <div class="d-flex flex-center flex-column flex-column-fluid p-5">
                 <div class="text-center">
                     <a href="{{ URL::to('/') }}">
                         <img alt="Logo" src="{{ asset('/public/assets/media/logos/greenovent.png') }}"
                             class="w-75 w-sm-50 w-lg-25" />
                     </a>
                 </div>
-                <div class="w-75 w-lg-25 bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                <div class="w-75 w-lg-50 bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
                     <!-- Validation Errors -->
                     <div class="text-center mb-10">
                         <h1 class="text-dark mb-3"> {{ $title }}</h1>
@@ -25,7 +25,7 @@
                     {{ $slot }}
                 </div>
             </div>
-            <div class="d-flex flex-center flex-column-auto p-10">
+            <div class="d-flex flex-center flex-column-auto p-5">
                 <div class="d-flex align-items-center fw-bold fs-6">
                     <a href="#" class="text-muted text-hover-primary px-2">About</a>
                     <a href="mailto:rashed.greenovent@gmail.com" class="text-muted text-hover-primary px-2">Contact</a>

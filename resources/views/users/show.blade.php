@@ -74,7 +74,7 @@
             <div class="card my-3">
                 <div class="card-body">
                     <div class="d-flex gap-3 align-items-center justify-content-between">
-                        <h3 class="mb-0">Project Finance</h3>
+                        <h3 class="mb-0">Project Contribution</h3>
                     </div>
                     <div class="border p-3 mt-5">
                         <div class="table-responsive">
@@ -85,7 +85,7 @@
                                         <th>Status</th>
                                         <th>Client</th>
                                         <th>Type</th>
-                                        <th>PO Number</th>
+                                        <th>View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +100,6 @@
                                                     href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
                                             </td>
                                             <td>{{ $project->type->name }}</td>
-                                            <td>{{ $project->po_number }}</td>
                                             <td>
                                                 <a href="{{ route('projects.show', $project) }}"
                                                     class="btn btn-secondary btn-sm">
@@ -111,186 +110,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex gap-3 align-items-center justify-content-between">
-                        <h3 class="mb-0">In Progress Projects <span
-                                class="text-primary">({{ $user->inProgressProjects()->count() }})</span></h3>
-                    </div>
-                    <div class="border p-3 mt-5">
-                        <div class="table-responsive">
-                            <table class="table table-striped gy-7 gs-7">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Client</th>
-                                        <th>Type</th>
-                                        <th>PO Number</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($user->inProgressProjects() as $project)
-                                        <tr>
-                                            <td> <a href="{{ route('projects.show', $project) }}">
-                                                    {{ $project->name }} </a></td>
-                                            <td> <span
-                                                    class="badge badge-primary">{{ $project->status->name }}</span>
-                                            </td>
-                                            <td><a
-                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
-                                            </td>
-                                            <td>{{ $project->type->name }}</td>
-                                            <td>{{ $project->po_number }}</td>
-                                            <td>
-                                                <a href="{{ route('projects.show', $project) }}"
-                                                    class="btn btn-secondary btn-sm">
-                                                    View </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex gap-3 align-items-center justify-content-between">
-                        <h3 class="mb-0">Completed Projects <span
-                                class="text-primary">({{ $user->completedProjects()->count() }})</span></h3>
-                    </div>
-                    <div class="border p-3 mt-5">
-                        <div class="table-responsive">
-                            <table class="table table-striped gy-7 gs-7">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Client</th>
-                                        <th>Type</th>
-                                        <th>PO Number</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($user->completedProjects() as $project)
-                                        <tr>
-                                            <td> <a href="{{ route('projects.show', $project) }}">
-                                                    {{ $project->name }} </a></td>
-                                            <td> <span
-                                                    class="badge badge-primary">{{ $project->status->name }}</span>
-                                            </td>
-                                            <td><a
-                                                    href="{{ route('clients.index', $project->client) }}">{{ $project->client->company_name }}</a>
-                                            </td>
-                                            <td>{{ $project->type->name }}</td>
-                                            <td>{{ $project->po_number }}</td>
-                                            <td>
-                                                <a href="{{ route('projects.show', $project) }}"
-                                                    class="btn btn-secondary btn-sm">
-                                                    View </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex gap-3 align-items-center justify-content-between">
-                        <h3 class="mb-0">Work Calender</h3>
-                    </div>
-                    <div class="border p-3 mt-5">
-                        <div id="employee_work_calender"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex gap-3 align-items-center justify-content-between">
-                        <h3 class="mb-0">Office Attendance</h3>
-                    </div>
-                    <div class="border p-3 mt-5">
-                        <div class="table-responsive">
-                            <table class="table table-striped gy-7 gs-7">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                                        <th>Date</th>
-                                        <th>Day</th>
-                                        <th>Time In</th>
-                                        <th>Time Out</th>
-                                        <th>Total Hour</th>
-                                        <th> Status </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>12-03-2022</td>
-                                        <td>Saturday</td>
-                                        <td>10:05 AM</td>
-                                        <td>8:05 PM</td>
-                                        <td>10 Hours And 0 Minutes</td>
-                                        <td><span class="badge badge-success">Present</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>13-03-2022</td>
-                                        <td>Sunday</td>
-                                        <td>10:15 AM</td>
-                                        <td>8:00 PM</td>
-                                        <td>09 Hours And 45 Minutes</td>
-                                        <td><span class="badge badge-success">Present</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="d-flex gap-3 align-items-between justify-content-between">
-                        <h3 class="mb-0">Performances</h3>
-                        <button class="btn btn-sm btn-success" data-bs-toggle="modal"
-                            data-bs-target="#add_performance_modal">Add performance</button>
-                    </div>
-                    <div class="border p-3 mt-5">
-                        @foreach ($user->performancesByGroup() as $month => $monthlyPerformances)
-                            <h5 class="text-center py-2 bg-light">
-                                {{ $month }}
-                            </h5>
-                            <table class="table">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 ">
-                                        <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Score</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($monthlyPerformances as $performance)
-                                        <tr class="border-bottom">
-                                            <td> {{ ucfirst($performance->performanceName->name) }}</td>
-                                            <td>{{ $performance->performanceStatus->name }} </td>
-                                            <td>{{ $performance->performanceStatus->value }} </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            @php
-                                $avgScore = $monthlyPerformances->average(fn($p) => $p->performanceStatus->value);
-                            @endphp
-                            <div><strong> Average Score:
-                                    {{ number_format((float) $avgScore, 2, '.', '') }}</strong>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
@@ -310,8 +129,8 @@
                         @csrf
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">Month</label>
-                            <input class="form-control form-control-lg form-control-solid" type="text" name="created_at"
-                                autocomplete="off" value="{{ old('created_at') }}"
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="created_at" autocomplete="off" value="{{ old('created_at') }}"
                                 id="employee_performance_datepicker" placeholder="Select Month" />
                         </div>
 
