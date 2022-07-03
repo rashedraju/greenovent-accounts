@@ -20,7 +20,7 @@ class ProjectBillController extends Controller {
         $billSheets = [];
 
         foreach ( $bills as $bill ) {
-            if ( $bill->file ) {
+            if ( $bill->file && Storage::disk( 'uploads' )->exists( $bill->file->file ) ) {
                 $reader = new Xlsx();
                 $spreadsheet = $reader->load( 'public/uploads/' . $bill->file->file );
 

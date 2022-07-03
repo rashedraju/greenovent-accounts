@@ -15,7 +15,7 @@ class VendorController extends Controller {
         $sheetData = null;
         $sheetFooter = null;
 
-        if ( $project->vendor?->file ) {
+        if ( $project->vendor?->file && Storage::disk( 'uploads' )->exists( $project->vendor?->file->file ) ) {
             $reader = new Xlsx();
             $spreadsheet = $reader->load( 'public/uploads/' . $project->vendor->file->file );
 

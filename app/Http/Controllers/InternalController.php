@@ -15,7 +15,7 @@ class InternalController extends Controller {
         $sheetData = null;
         $sheetFooter = null;
 
-        if ( $project->internal?->file ) {
+        if ( $project->internal?->file && Storage::disk( 'uploads' )->exists( $project->internal?->file->file ) ) {
             $reader = new Xlsx();
             $spreadsheet = $reader->load( 'public/uploads/' . $project->internal->file->file );
 

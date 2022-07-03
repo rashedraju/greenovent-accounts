@@ -16,7 +16,7 @@ class ExternalController extends Controller {
         $sheetData = null;
         $sheetFooter = null;
 
-        if ( $project->external?->file ) {
+        if ( $project->external?->file && Storage::disk( 'uploads' )->exists( $project->external?->file->file ) ) {
             $reader = new Xlsx();
             $spreadsheet = $reader->load( 'public/uploads/' . $project->external->file->file );
 
