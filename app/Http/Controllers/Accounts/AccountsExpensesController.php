@@ -18,9 +18,10 @@ class AccountsExpensesController extends Controller {
     }
 
     public function index( $year, $month ) {
+
         if ( $year && $month ) {
             // get today expenses
-            $day = request()->day ?? 1;
+            $day = request()->day ?? now()->day;
             $expensesByDay = AccountsExpense::whereYear( 'date', $year )->whereMonth( 'date', $month )->whereDay( 'date', $day )->get();
             $expensesByDayAmount = $expensesByDay->sum( fn( $item ) => $item->amount );
 
@@ -46,39 +47,6 @@ class AccountsExpensesController extends Controller {
         }
 
         return back()->with( 'Not found!' );
-    }
-
-    public function showByYear( $year ) {
-        if ( $year ) {
-            $salaryExpenseAmount = $this->expenseService->getSalaryExpenseAmount( ['year' => $year] );
-            $dailyConveyanceExpenseAmount = $this->expenseService->getDailyConveyanceExpenseAmount( ['year' => $year] );
-            $projectExpenseAmount = $this->expenseService->getProjectExpenseAmount( ['year' => $year] );
-            $loanExpenseAmount = $this->expenseService->getLoanExpenseAmount( ['year' => $year] );
-            $investmentExpenseAmount = $this->expenseService->getInvestmentExpenseAmount( ['year' => $year] );
-            $totalExpenseAmount = $salaryExpenseAmount + $dailyConveyanceExpenseAmount + $projectExpenseAmount + $loanExpenseAmount + $investmentExpenseAmount;
-
-            $expenseData = [
-                'total'         => $totalExpenseAmount,
-                'expenseByType' => [
-                    [
-                        'name'   => 'Salary',
-                        'amount' => $salaryExpenseAmount
-                    ], [
-                        'name'   => 'Daily Conveyance',
-                        'amount' => $dailyConveyanceExpenseAmount
-                    ], [
-                        'name'   => 'Loan',
-                        'amount' => $loanExpenseAmount
-                    ], [
-                        'name'   => 'Investment',
-                        'amount' => $investmentExpenseAmount
-                    ]
-                ]
-            ];
-            return view( 'accounts.expenses.show-year', compact( ['year', 'expenseData'] ) );
-        }
-
-        return redirect()->route( 'accounts.expenses.index' )->with( 'failed', 'Records no found!' );
     }
 
     public function show( $year, $month, AccountsExpenseType $accountsExpenseType ) {
