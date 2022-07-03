@@ -43,7 +43,7 @@ class ProjectController extends Controller {
     // create new project
     public function create() {
         // get bussiness managers
-        $bussinessManagers = User::role( 'Bussiness Manager' )->get();
+        $bussinessManagers = User::role( 'Accounts Manager' )->get();
 
         // get clients
         $clients = Client::all();
@@ -73,7 +73,7 @@ class ProjectController extends Controller {
     // edit project details
     public function edit( Project $project ) {
         // get bussiness managers
-        $bussinessManagers = User::role( 'Bussiness Manager' )->get();
+        $bussinessManagers = User::role( 'Accounts Manager' )->get();
 
         // get clients
         $clients = Client::all();

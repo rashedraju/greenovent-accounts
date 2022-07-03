@@ -107,12 +107,12 @@
                         <label class="form-label">Phone</label>
                         <input type="text" class="form-control mb-2" name="phone" value="{{ old('phone') }}" />
 
-                        <div class="d-flex my-2 gap-3">
-                            <a href="javascript:;" data-repeater-delete class="btn btn-light-danger">
-                                Delete
+                        <div class="d-flex justify-content-end my-2 gap-3">
+                            <a href="javascript:;" data-repeater-delete class="btn btn-secondary">
+                                Delete contact person
                             </a>
-                            <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
-                                </i>Add
+                            <a href="javascript:;" data-repeater-create class="btn btn-secondary">
+                                </i>Add more contact person
                             </a>
                         </div>
                     </div>

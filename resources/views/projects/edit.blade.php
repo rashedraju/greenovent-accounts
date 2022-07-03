@@ -11,8 +11,8 @@
                 <div class="card-body">
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                    <form class="form w-100" novalidate="novalidate"
-                        action="{{ route('projects.update', $project) }}" method="post">
+                    <form class="form w-100" novalidate="novalidate" action="{{ route('projects.update', $project) }}"
+                        method="post">
                         @csrf
                         @method('put')
 
@@ -23,7 +23,7 @@
                                 value="{{ $project->name }}" />
                         </div>
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Bussiness Manager</label>
+                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Accounts Manager</label>
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
                                 data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true"
@@ -66,14 +66,14 @@
 
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">PO Number</label>
-                            <input class="form-control form-control-lg form-control-solid" type="text" name="po_number"
-                                value="{{ $project->po_number }}" />
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="po_number" value="{{ $project->po_number }}" />
                         </div>
 
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">PO Value</label>
-                            <input class="form-control form-control-lg form-control-solid" type="text" name="po_value"
-                                value="{{ $project->po_value }}" />
+                            <input class="form-control form-control-lg form-control-solid" type="text"
+                                name="po_value" value="{{ $project->po_value }}" />
                         </div>
 
                         <div class="fv-row mb-10">
@@ -84,8 +84,8 @@
 
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">BP</label>
-                            <input class="form-control form-control-lg form-control-solid" type="text"
-                                name="bp" value="{{ $project->bp }}" />
+                            <input class="form-control form-control-lg form-control-solid" type="text" name="bp"
+                                value="{{ $project->bp }}" />
                         </div>
 
                         <div class="fv-row mb-7">

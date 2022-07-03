@@ -25,7 +25,7 @@
                                 :value="old('name')" />
                         </div>
                         <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Bussiness Manager <span
+                            <label class="form-label fw-bolder text-dark fs-6" for="phone">Accounts Manager <span
                                     class="text-danger"> * </span></label>
 
                             <select class="form-select form-select-solid select2-hidden-accessible"
@@ -80,8 +80,8 @@
                             <label class="form-label fs-6 fw-bolder text-dark">PO Value
                                 <x-utils.required />
                             </label>
-                            <input class="form-control form-control-lg form-control-solid" type="number" name="po_value"
-                                :value="old('po_value')" />
+                            <input class="form-control form-control-lg form-control-solid" type="number"
+                                name="po_value" :value="old('po_value')" />
                         </div>
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">Advance Paid</label>
@@ -91,8 +91,8 @@
 
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">BP</label>
-                            <input class="form-control form-control-lg form-control-solid" type="number"
-                                name="bp" :value="old('bp')" />
+                            <input class="form-control form-control-lg form-control-solid" type="number" name="bp"
+                                :value="old('bp')" />
                         </div>
 
                         <div class="fv-row mb-7">
