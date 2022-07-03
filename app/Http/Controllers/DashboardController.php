@@ -25,7 +25,7 @@ class DashboardController extends Controller {
 
     public function index( Request $request ) {
         if ( auth()->user()->cannot( 'Dashboard' ) ) {
-            return redirect()->back()->with( 'failed', 'You don\'t have permission to access dashboard' );
+            abort( 403 );
         }
 
         // find client sales by year and month
