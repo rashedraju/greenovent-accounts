@@ -15,24 +15,26 @@ class AccountsEmployeeLoanController extends Controller {
 
     public function store( Request $request ) {
         $attrs = $request->validate( [
-            'date'    => 'required|date',
-            'user_id' => 'required|exists:users,id',
-            'amount'  => 'required|integer',
-            'paid'    => 'nullable'
+            'date'      => 'required|date',
+            'user_id'   => 'required|exists:users,id',
+            'amount'    => 'required|integer',
+            'paid'      => 'nullable|integer',
+            'paid_date' => 'nullable|date'
         ] );
 
-        AccountsEmployeeLoan::create( $attrs );
+        AccountsEmployeeLoan::create( array_merge( $attrs, ['paid' => $request->paid ?? 0] ) );
 
         return back()->with( 'success', 'Loan has been added.' );
     }
 
     public function update( $year, $month, AccountsEmployeeLoan $accountsEmployeeLoan, Request $request ) {
         $attrs = $request->validate( [
-            'amount' => 'nullable',
-            'paid'   => 'nullable'
+            'amount'    => 'required|integer',
+            'paid'      => 'nullable|integer',
+            'paid_date' => 'nullable|date'
         ] );
 
-        $accountsEmployeeLoan->update( $attrs );
+        $accountsEmployeeLoan->update( array_merge( $attrs, ['paid' => $request->paid ?? 0] ) );
         return back()->with( 'success', 'Loan has been updated.' );
     }
 

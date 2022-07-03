@@ -66,9 +66,10 @@
     <div class="card mt-3">
         <h3 class="border-bottom border-dark py-5 text-center">Employee Loans</h3>
         <div class="card-body py-4">
+            <x-validation-error />
             <div class="d-flex gap-3 justify-content-end">
                 <button type="button" class="btn btn-sm my-2 px-6 py-0 btn-success" id="add_load_drawer_btn">
-                    <x-utils.add-icon /> Add
+                    <x-utils.add-icon /> Add employee loan
                 </button>
             </div>
             <div class="table-responsive py-5">
@@ -78,8 +79,9 @@
                             <th scope="col" class="px-2 py-5">SL</th>
                             <th scope="col" class="px-2 py-5">Date</th>
                             <th scope="col" class="px-2 py-5">Employee Name</th>
-                            <th scope="col" class="px-2 py-5">Loan Amount</th>
+                            <th scope="col" class="px-2 py-5">Amount</th>
                             <th scope="col" class="px-2 py-5">Paid</th>
+                            <th scope="col" class="px-2 py-5">Paid Date</th>
                             <th scope="col" class="px-2 py-5">Due</th>
                             <th scope="col" class="px-2 py-5">Action</th>
                         </tr>
@@ -92,6 +94,7 @@
                                 <td class="px-2 py-5">{{ $loan->user->name }}</td>
                                 <td class="px-2 py-5">{{ number_format($loan->amount) }}</td>
                                 <td class="px-2 py-5">{{ number_format($loan->paid) }}</td>
+                                <td class="px-2 py-5">{{ date('M d, Y', strtotime($loan->paid_date)) }}</td>
                                 <td class="px-2 py-5">{{ number_format($loan->due()) }}</td>
                                 <td class="px-2 py-5 d-flex">
                                     <button type="button" class="btn btn-sm bg-transparent p-0 m-0"
@@ -123,6 +126,11 @@
                                             <input type="number" class="form-control" name="paid"
                                                 value="{{ $loan->paid }}">
 
+                                            <label class="form-label mt-2 mb-0">Paid Date</label>
+                                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control"
+                                                name="paid_date" value="{{ $loan->paid_date }}"
+                                                placeholder="DD-MM-YYYY">
+
                                             <div class="py-3">
                                                 <strong>Due: {{ number_format($loan->due()) }}</strong>
                                             </div>
@@ -147,22 +155,29 @@
             @csrf
 
             <label class="form-label mt-2 mb-0">Date</label>
-            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date"
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="date" :value="old('date')"
                 placeholder="DD-MM-YYYY">
 
             <label class="form-label mt-2 mb-0">Employee Name</label>
             <select class="form-select" name="user_id" data-control="select2" data-placeholder="Select">
                 <option></option>
                 @foreach ($users as $userId => $userName)
-                    <option value="{{ $userId }}">
+                    <option value="{{ $userId }}" {{ $userId == old('user_id') ? 'selected' : '' }}>
                         {{ $userName }}</option>
                 @endforeach
             </select>
 
             <label class="form-label mt-2 mb-0">Amount</label>
-            <input type="number" class="form-control" name="amount">
+            <input type="number" class="form-control" name="amount" :value="old('amount')">
 
-            <button type="submit" class="btn btn-primary mt-2">Add</button>
+            <label class="form-label mt-2 mb-0">Paid amount</label>
+            <input type="number" class="form-control" name="paid" :value="old('paid')">
+
+            <label class="form-label mt-2 mb-0">Paid Date</label>
+            <input type="date" pattern="\d{4}-\d{2}-\d{2}" class="form-control" name="paid_date"
+                placeholder="DD-MM-YYYY" :value="old('paid_date')">
+
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>
     </x-drawer>
     <!--end::View component-->
