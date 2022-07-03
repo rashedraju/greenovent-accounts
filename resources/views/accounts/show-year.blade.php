@@ -32,13 +32,6 @@
                 </div>
 
                 <div class="bg-light p-5 border border-gray-300 flex-grow-1">
-                    <p class="text-gray-700">Current Balance</p>
-                    <h1 class="text-black">
-                        <x-utils.currency />{{ number_format($data['balance']) }}
-                    </h1>
-                </div>
-
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Bank</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['bank_amount']) }}
@@ -55,11 +48,12 @@
 
             <ul class="list-unstyled">
                 @for ($i = 1; $i <= now()->month; $i++)
-                    <li class="p-5 bg-gray-300 m-3">
-                        <a href="{{ route('accounts.show.year.month', [$data['year'], $i]) }}" class="w-100 d-block">
+                    <a href="{{ route('accounts.show.year.month', [$data['year'], $i]) }}" class="w-100 d-block">
+                        <li class="p-5 bg-gray-300 m-3">
                             {{ now()->month($i)->format('F') }} -
-                            {{ $data['year'] }}</a>
-                    </li>
+                            {{ $data['year'] }}
+                        </li>
+                    </a>
                 @endfor
             </ul>
         </div>

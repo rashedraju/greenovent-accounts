@@ -36,13 +36,6 @@
                 </div>
 
                 <div class="bg-light p-5 border border-gray-300 flex-grow-1">
-                    <p class="text-gray-700">Current Balance</p>
-                    <h1 class="text-black">
-                        <x-utils.currency />{{ number_format($data['balance']) }}
-                    </h1>
-                </div>
-
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Bank</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['bank_amount']) }}

@@ -10,10 +10,11 @@
         <div class="card-body py-4">
             <ul class="list-unstyled">
                 @for ($i = now()->year; $i >= 2022; $i--)
-                    <li class="p-5 bg-gray-300 m-3">
-                        <a href="{{ route('accounts.show.year', $i) }}" class="w-100 d-block"> Year -
-                            {{ $i }}</a>
-                    </li>
+                    <a href="{{ route('accounts.show.year', $i) }}" class="w-100 d-block">
+                        <li class="p-5 bg-gray-300 m-3"> Year -
+                            {{ $i }}
+                        </li>
+                    </a>
                 @endfor
             </ul>
         </div>

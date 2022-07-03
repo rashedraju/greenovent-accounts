@@ -8,7 +8,6 @@ use App\Models\Accounts\AccountsExpense;
 use App\Models\TransactionType;
 use App\Services\ExpenseService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 class AccountsExpensesController extends Controller {
@@ -21,8 +20,9 @@ class AccountsExpensesController extends Controller {
     public function index( $year, $month ) {
         if ( $year && $month ) {
             // get today expenses
-            $todayExpenses = AccountsExpense::where( 'date', Carbon::today() )->get();
-            $totalExpensesTodayAmount = $todayExpenses->sum( fn( $item ) => $item->amount );
+            $day = request()->day ?? 1;
+            $expensesByDay = AccountsExpense::whereYear( 'date', $year )->whereMonth( 'date', $month )->whereDay( 'date', $day )->get();
+            $expensesByDayAmount = $expensesByDay->sum( fn( $item ) => $item->amount );
 
             $expenseTypes = AccountsExpenseType::all();
             $totalExpense = AccountsExpense::whereYear( 'date', $year )->whereMonth( 'date', $month )->get()->sum( fn( $item ) => $item->amount );
@@ -31,15 +31,15 @@ class AccountsExpensesController extends Controller {
             $endDate = now()->year( $year )->month( $month )->endOfMonth()->toDateString();
 
             $data = [
-                'year'                     => $year,
-                'month'                    => $month,
-                'startDate'                => $startDate,
-                'endDate'                  => $endDate,
-                'todayExpenses'            => $todayExpenses,
-                'totalExpensesTodayAmount' => $totalExpensesTodayAmount,
-                'totalExpense'             => $totalExpense,
-                'expenseTypes'             => $expenseTypes,
-                'transactionTypes'         => $transactionTypes
+                'year'                => $year,
+                'month'               => $month,
+                'startDate'           => $startDate,
+                'endDate'             => $endDate,
+                'expensesByDay'       => $expensesByDay,
+                'expensesByDayAmount' => $expensesByDayAmount,
+                'totalExpense'        => $totalExpense,
+                'expenseTypes'        => $expenseTypes,
+                'transactionTypes'    => $transactionTypes
             ];
 
             return view( 'accounts.expenses.index', ['data' => $data] );
