@@ -1,29 +1,5 @@
 <x-app-layout>
-    <div class="card mt-5">
-        <div class="card-header d-flex align-items-center">
-            <h3> Sales this Year</h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr class="fw-bolder fs-6 bg-gray-100 text-dark border border-secondary">
-                            <th class="px-2 py-5">Client Name</th>
-                            <th class="px-2 py-5">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody class="border border-secondary">
-                        @foreach ($data['sales'] as $item)
-                            <tr class="fw-bold">
-                                <td class="px-2 py-5">{{ $item['client'] }}</td>
-                                <td class="px-2 py-5">{{ number_format($item['amount'], 2, ',') }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    @include('components.sales-table')
 
     <div class="card mt-5">
         <div class="card-header d-flex align-items-center">

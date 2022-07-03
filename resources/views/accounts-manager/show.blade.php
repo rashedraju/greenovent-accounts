@@ -9,27 +9,6 @@
         </nav>
     </div>
 
-    <div class="card mt-3">
-        <div class="card-body py-4">
-            <div class="d-flex flex-wrap gap-3">
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
-                    <p class="text-gray-700">Sales Goal this month</p>
-                    <h1 class="text-black">
-                        <x-utils.currency />{{ number_format($data['accountsManager']->sales_goal) }}
-                    </h1>
-                </div>
-
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
-                    <p class="text-gray-700">Sales this month</p>
-                    <h1 class="text-black">
-                        <x-utils.currency />{{ number_format(0) }}
-                    </h1>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <div class="card mt-3 py-10">
         <div class="row">
             <div class="d-flex justify-content-between">
@@ -42,18 +21,20 @@
             <x-validation-error />
 
             <div class="col-12 col-sm-6 mx-auto">
-                @foreach ($data['clients'] as $client)
+                @foreach ($data['clients'] as $clientId => $clientName)
                     <div class="d-flex justify-content-between align-item-center my-2 border border-secondary ">
-                        <a href="{{ route('accounts-manager.client', ['user' => $data['accountsManager']->id, 'client' => $client->id]) }}"
+                        <a href="{{ route('accounts-manager.client', ['user' => $data['accountsManager']->id, 'client' => $clientId]) }}"
                             class="bg-hover-secondary align-self-center flex-grow-1 p-3"
                             style="margin-left: 0; margin-right: 0">
-                            {{ $client->company_name }}
+                            {{ $clientName }}
                         </a>
                     </div>
                 @endforeach
             </div>
         </div>
     </div>
+
+    @include('components.sales-table')
 
     <x-drawer btnId="add_client_btn" drawerId="add_client" title="Add new client">
         <form class="form w-100" novalidate="novalidate" action="{{ route('clients.store') }}" method="post">
