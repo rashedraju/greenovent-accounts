@@ -39,6 +39,26 @@ class Project extends Model {
         } );
     }
 
+    // filter deposit data
+    public function scopeFilter( $query, array $filters ) {
+
+        $query->when( $filters['year'] ?? false, fn( $query, $year ) => $query->whereYear( 'start_date', $year ) );
+        $query->when( $filters['month'] ?? false, fn( $query, $month ) => $query->whereMonth( 'start_date', $month ) );
+
+        $query->when( $filters['client'] ?? false, fn( $query, $client ) => $query
+                ->whereHas( 'client', fn( $query ) => $query
+                        ->where( 'client_id', $client )
+                )
+        );
+
+        $query->when( $filters['accounts_manager'] ?? false, fn( $query, $accountsManager ) => $query
+                ->whereHas( 'accountsManager', fn( $query ) => $query
+                        ->where( 'business_manager_id', $accountsManager )
+                )
+        );
+
+    }
+
     // project approvals
     public function approvals() {
         return $this->morphMany( Approval::class, 'approvalable' );

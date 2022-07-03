@@ -104,17 +104,9 @@
                             </select>
                         </div>
 
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="start_date">Start Date</label>
-                            <input class="form-control form-control-solid" id="project_start_date_picker"
-                                name="start_date" value="{{ $project->start_date }}" />
-                        </div>
-
-                        <div class="fv-row mb-7">
-                            <label class="form-label fw-bolder text-dark fs-6" for="closing_date">Closing Date</label>
-                            <input class="form-control form-control-solid" id="project_closing_date_picker"
-                                name="closing_date" value="{{ $project->closing_date }}" />
-                        </div>
+                        <x-input.date label="Start Date" name="start_date" value="{{ $project->start_date }}" />
+                        <x-input.date label="Closing Date" name="closing_date"
+                            value="{{ $project->closing_date }}" />
 
                         <div class="fv-row mb-7">
                             <label class="form-label fw-bolder text-dark fs-6" for="phone">Project Status</label>

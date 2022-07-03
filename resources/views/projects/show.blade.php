@@ -99,6 +99,14 @@
                                 <td>{{ $project->billStatus() }}</td>
                             </tr>
                             <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Start Date </th>
+                                <td>{{ $project->start_date }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">Closing Date </th>
+                                <td>{{ $project->closing_date }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
                                 <th class="px-2 py-5 fw-bolder fs-6">Project Status </th>
                                 <td>{{ $project->status->name }}</td>
                             </tr>
