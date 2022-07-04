@@ -27,10 +27,6 @@
         <a class="nav-link pb-4 {{ $active == 'bill' ? 'text-active-primary active' : '' }}"
             href="{{ route('projects.bill.index', $project) }}">Bill</a>
     </li>
-    <li class="nav-item ms-auto">
-        <a href="{{ route('projects.edit', $project) }}" class="av-link pb-4">Edit
-            Project Info</a>
-    </li>
 </ul>
 
 {{-- delete project confirmation modal --}}

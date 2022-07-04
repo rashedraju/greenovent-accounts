@@ -19,8 +19,14 @@
         <x-project.navigation :project="$project" active="overview" />
 
         <div class="card my-2">
-            <div class="card-header">
-                <h3 class="card-title">{{ $project->name }}</h3>
+            <div class="d-flex p-3 justify-content-between">
+                <div>
+                    <h2 class="card-title">{{ $project->name }}</h2>
+                    <small> Accounts Manger: {{ $project->accountsManager->name }}</small>
+                </div>
+                <button class="btn btn-sm btn-primary" id="edit_project_btn">
+                    <x-utils.edit-icon /> Edit Project Information
+                </button>
             </div>
             <div class="row justify-content-between">
                 <div class="col-12 col-sm-4">
@@ -50,6 +56,10 @@
                             <tr class="border border-secondary">
                                 <th class="px-2 py-5 fw-bolder fs-6">Client Advance </th>
                                 <td>{{ number_format((float) $project->advance_paid, 2, '.', ',') }}</td>
+                            </tr>
+                            <tr class="border border-secondary">
+                                <th class="px-2 py-5 fw-bolder fs-6">BP </th>
+                                <td>{{ number_format((float) $project->bp, 2, '.', ',') }}</td>
                             </tr>
                             <tr class="border border-secondary">
                                 <th class="px-2 py-5 fw-bolder fs-6">AIT ({{ $project->internal?->ait }}%)</th>
@@ -115,24 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="card mt-5 p-3">
-            <div class="d-flex gap-3 align-items-center mb-5">
-                <div class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-1">
-                    {{ $project->name }}
-                </div>
-                <button class="btn btn-sm btn-light-primary" id="edit_project_btn">Edit</button>
-            </div>
-            <div>
-                <div class="py-5 fs-6">
-                    <div class="fw-bolder mt-5">Business Manager</div>
-                    <div class="text-gray-600">
-                        <div class="text-gray-600 text-hover-primary">
-                            {{ $project->manager->name }}</div>
-                    </div>
-                    <hr />
-                </div>
-            </div>
-        </div>
+
         <div class="card my-2">
             <div class="card-body">
                 <div class="mb-5 d-flex gap-3 align-items-center">
@@ -239,17 +232,8 @@
                 </select>
             </div>
 
-            <div class="fv-row mb-7">
-                <label class="form-label fw-bolder text-dark fs-6" for="start_date">Start Date</label>
-                <input class="form-control form-control-solid" id="project_start_date_picker" name="start_date"
-                    value="{{ $project->start_date }}" />
-            </div>
-
-            <div class="fv-row mb-7">
-                <label class="form-label fw-bolder text-dark fs-6" for="closing_date">Closing Date</label>
-                <input class="form-control form-control-solid" id="project_closing_date_picker" name="closing_date"
-                    value="{{ $project->closing_date }}" />
-            </div>
+            <x-input.date label="Start Date" name="start_date" value="{{ $project->start_date }}" />
+            <x-input.date label="Closing Date" name="closing_date" value="{{ $project->closing_date }}" />
 
             <div class="fv-row mb-7">
                 <label class="form-label fw-bolder text-dark fs-6" for="phone">Project Status</label>
