@@ -3,11 +3,7 @@
         <h3> Sales </h3>
     </div>
     <div class="p-3 my-3">
-        <form action="{{ route('accounts.sales.index', ['year' => $data['year'], 'month' => $data['month']]) }}"
-            method="get">
-            @csrf
-            @method('get')
-
+        <form action="{{ $action }}" method="get">
             <div class="d-flex gap-3 align-items-center">
                 <div>
                     <label for="year">Year</label>
@@ -64,7 +60,7 @@
                 </div>
                 <div>
                     <div>&nbsp;</div>
-                    <button class="btn btn-secondary px-10">Filter</button>
+                    <button class="btn btn-secondary px-10">Sbumit</button>
                 </div>
             </div>
         </form>

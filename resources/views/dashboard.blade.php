@@ -1,5 +1,5 @@
 <x-app-layout>
-    @include('components.sales-table')
+    @include('components.sales-table', ['action' => route('dashboard')])
 
     <div class="card mt-5">
         <div class="card-header d-flex align-items-center">

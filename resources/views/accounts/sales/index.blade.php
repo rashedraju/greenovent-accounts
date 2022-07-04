@@ -21,5 +21,7 @@
 
     <x-accounts-navigation :year="$data['year']" :month="$data['month']" />
 
-    @include('components.sales-table')
+    @include('components.sales-table', [
+        'action' => route('accounts.sales.index', ['year' => $data['year'], 'month' => $data['month']]),
+    ])
 </x-app-layout>
