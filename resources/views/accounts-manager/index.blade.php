@@ -7,10 +7,29 @@
         </nav>
     </div>
 
-    <div class="d-flex bg-white p-1 justify-content-end">
-        <button class="btn btn-sm btn-primary" id="add_accounts_manager_btn">
-            <x-utils.add-icon /> Add New Accounts Manager
-        </button>
+    <div class="card mt-3 py-10">
+        <div class="row">
+            <div class="d-flex justify-content-between">
+                <h3 class="text-center mb-5 flex-grow-1">Accounts Manager</h3>
+                <button class="btn btn-sm btn-primary mx-2" id="add_accounts_manager_btn">
+                    <x-utils.add-icon /> Add New Accounts Manager
+                </button>
+            </div>
+
+            <x-validation-error />
+
+            <div class="col-12 col-sm-6 mx-auto">
+                @foreach ($data['accountsManagers'] as $accountsManagerId => $accountsManagerName)
+                    <div class="d-flex justify-content-between align-item-center my-2 border border-secondary ">
+                        <a href="{{ route('accounts-manager.show', ['user' => $accountsManagerId, 'accounts_manager' => $accountsManagerId]) }}"
+                            class="bg-hover-secondary align-self-center flex-grow-1 p-3"
+                            style="margin-left: 0; margin-right: 0">
+                            {{ $accountsManagerName }}
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 
     @include('components.sales-table', ['action' => route('accounts-manager.index')])

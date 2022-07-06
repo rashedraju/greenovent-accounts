@@ -32,10 +32,12 @@ class AccountsManagerController extends Controller {
 
     public function show( User $user ) {
         $clients = Client::all()->pluck( 'company_name', 'id' );
-        $data = [
+        $salesData = $this->salesService->sales();
+
+        $data = array_merge( [
             'accountsManager' => $user,
             'clients'         => $clients
-        ];
+        ], $salesData );
 
         return view( 'accounts-manager.show', ['data' => $data] );
     }

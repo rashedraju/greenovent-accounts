@@ -34,6 +34,8 @@
         </div>
     </div>
 
+    @include('components.sales-table', ['action' => route('accounts-manager.index')])
+
     <x-drawer btnId="add_client_btn" drawerId="add_client" title="Add new client">
         <form class="form w-100" novalidate="novalidate" action="{{ route('clients.store') }}" method="post">
             @csrf
