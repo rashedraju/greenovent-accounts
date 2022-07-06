@@ -24,15 +24,8 @@
                 @if ($project->external)
                     <div class="d-flex gap-3 justify-content-end">
                         <button type="button" class="btn px-10 py-2 btn-primary" id="edit_external_btn">
-                            <x-utils.upload /> Edit
+                            <x-utils.upload /> Edit external
                         </button>
-
-                        @if ($project->external->file)
-                            <a href="{{ asset("/public/uploads/{$project->external->file->file}") }}"
-                                class="btn px-10 py-2 btn-danger">
-                                <x-utils.download /> Export
-                            </a>
-                        @endif
                     </div>
 
                     <x-drawer btnId="edit_external_btn" drawerId="edit_external_drawer" title="Edit External">
@@ -59,9 +52,6 @@
                             <input class="form-control form-control" type="number" step="0.01" name="vat"
                                 value="{{ $project->external->vat }}" />
 
-                            <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                                Extimate File (.xlsx)
-                            </label>
                             <input type="file" class="form-control" name="file">
 
                             <label class="form-label mt-2">Note</label>
@@ -89,13 +79,13 @@
                                         <strong>Total:</strong>
                                     </div>
                                     <div class="border-bottom border-gray-500 px-5">
-                                        ASF {{ $project->external->asf }}%:
+                                        ASF ({{ $project->external->asf }}%):
                                     </div>
                                     <div class="px-5">
                                         <strong>Sub Total:</strong>
                                     </div>
                                     <div class="border-bottom border-gray-500 px-5">
-                                        VAT {{ $project->external->vat }}%:
+                                        VAT ({{ $project->external->vat }}%):
                                     </div>
                                     <div class="px-5">
                                         <strong>Grand Total:</strong>
@@ -125,17 +115,43 @@
                                 <div>Added: <strong>{{ $project->external->created_at }}</strong></div>
                                 <div>Last Edited: <strong>{{ $project->external->updated_at }}</strong></div>
                             </div>
+                            <div class="p-3 d-flex flex-column gap-3" style="border-left: 2px solid #ddd">
+                                <h5 class="py-3 mb-3">External File: </h5>
+                                @if ($project->external->file)
+                                    <div class="border p-2">
+                                        <div class="py-2"><strong>
+                                                {{ explode('/', $project->external->file->file)[1] }}
+                                            </strong></div>
+                                        <div class="d-flex gap-3">
+                                            <a href="{{ url("/public/uploads/{$project->external->file?->file}") }}"
+                                                download class="btn btn-sm mx-2 btn-secondary">
+                                                Download
+                                            </a>
+                                            <form
+                                                action="{{ route('projects.external.file.delete', ['project' => $project, 'file' => $project->external->file]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" download class="btn btn-sm btn-secondary mx">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="alert alert-warning fs-6" role="alert">
+                                        No external file added!
+                                    </div>
+                                    <button type="button" class="btn btn-sm px-10 py-1 btn-secondary"
+                                        id="add_external_file_btn">
+                                        <x-utils.upload /> Add file
+                                    </button>
+                                @endif
+                            </div>
                         </div>
                     @else
-                        <div class="alert alert-warning"> No estimate added to this project. </div>
+                        <div class="alert alert-warning"> No external added to this project. </div>
                     @endif
-                </div>
-            </div>
-            <div class="overflow-scroll">
-                <div style="width: 150vw">
-                    {!! $sheetHeader !!}
-                    {!! $sheetData !!}
-                    {!! $sheetFooter !!}
                 </div>
             </div>
         </div>
@@ -152,27 +168,44 @@
                 Total
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" step="0.01" name="total" :value="old('total')" />
+            <input class="form-control form-control" type="number" step="0.01" name="total"
+                :value="old('total')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 ASF(%)
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" step="0.01" name="asf" :value="old('asf')" />
+            <input class="form-control form-control" type="number" step="0.01" name="asf"
+                :value="old('asf')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
                 VAT(%)
                 <x-utils.required />
             </label>
-            <input class="form-control form-control" type="number" step="0.01" name="vat" :value="old('vat')" />
+            <input class="form-control form-control" type="number" step="0.01" name="vat"
+                :value="old('vat')" />
 
             <label class="form-label fs-6 fw-bolder text-dark mt-2">
-                Extimate File (.xlsx)
+                Extimate File
             </label>
             <input type="file" class="form-control" name="file" :value="old('file')">
 
             <label class="form-label mt-2">Note</label>
             <textarea type="text" class="form-control" name="note" rows="1"> </textarea>
+
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+    </x-drawer>
+
+    <x-drawer btnId="add_external_file_btn" drawerId="import_external_drawer" title="Add External File">
+        <form action="{{ route('projects.external.file.store', $project) }}" method="post" class="my-2"
+            enctype="multipart/form-data">
+            @csrf
+
+            <label class="form-label fs-6 fw-bolder text-dark mt-2">
+                Extimate File
+            </label>
+            <input type="file" class="form-control" name="file" :value="old('file')">
 
             <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>

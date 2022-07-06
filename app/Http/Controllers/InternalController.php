@@ -3,36 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InternalCostRequest;
+use App\Models\File;
 use App\Models\InternalCost;
 use App\Models\Project;
-use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File as FacadesFile;
 
 class InternalController extends Controller {
     // show internal costs
     public function index( Project $project ) {
-        $sheetHeader = null;
-        $sheetData = null;
-        $sheetFooter = null;
-
-        if ( $project->internal?->file && Storage::disk( 'uploads' )->exists( $project->internal?->file->file ) ) {
-            $reader = new Xlsx();
-            $spreadsheet = $reader->load( 'public/uploads/' . $project->internal->file->file );
-
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html( $spreadsheet );
-            $hdr = $writer->generateHTMLHeader();
-            $sty = $writer->generateStyles( false ); // do not write <style> and </style>
-            $newstyle = <<<EOF
-            <style type='text/css'>
-            $sty
-            </style>
-            EOF;
-            $sheetHeader = preg_replace( '@</head>@', "$newstyle\n</head>", $hdr );
-            $sheetData = $writer->generateHtmlAll();
-            $sheetFooter = $writer->generateHTMLFooter();
-        }
-
-        return view( 'projects.internal', ['project' => $project, 'sheetHeader' => $sheetHeader, 'sheetData' => $sheetData, 'sheetFooter' => $sheetFooter] );
+        return view( 'projects.internal', ['project' => $project] );
     }
 
     // Store internal cost
@@ -59,21 +39,6 @@ class InternalController extends Controller {
 
         $internalCost->update( $request->only( ['total', 'ait', 'note'] ) );
 
-        if ( $request->has( 'file' ) ) {
-            $fname = time() . "_" . $request->file->getClientOriginalName();
-
-            // store new file
-            $filePath = $request->file( 'file' )->storeAs( 'internal_files', $fname, 'uploads' );
-
-            // delete previous file
-            if ( isset( $internalCost->file->file ) && Storage::disk( 'uploads' )->exists( $internalCost->file->file ) ) {
-                Storage::disk( 'uploads' )->delete( $internalCost->file->file );
-            }
-
-            // save file path
-            $internalCost->file()->updateOrCreate( ['file' => $filePath] );
-        }
-
         return redirect()->route( 'projects.internal.index', ['project' => $project] )->with( 'success', 'internal cost updated' );
     }
 
@@ -82,5 +47,35 @@ class InternalController extends Controller {
         $internalCost->delete();
 
         return redirect()->route( 'projects.internal.index', ['project' => $project] )->with( 'success', 'internal cost deleted' );
+    }
+
+    // file management
+    public function fileStore( Project $project, Request $request ) {
+        $request->validate( [
+            'file' => 'required'
+        ] );
+
+        $fname = time() . "_" . $request->file->getClientOriginalName();
+        $filePath = $request->file( 'file' )->storeAs( 'internal_files', $fname, 'uploads' );
+
+        $project->internal->file()->create( ['file' => $filePath] );
+
+        return redirect()->back()->with( 'success', "Internal file added" );
+
+    }
+
+    // file management
+    public function fileDelete( Project $project, File $file, Request $request ) {
+
+        if ( FacadesFile::exists( public_path( "uploads/{$file->file}" ) ) ) {
+            FacadesFile::delete( public_path( "uploads/{$file->file}" ) );
+
+            $project->internal->file()->delete();
+
+            return redirect()->back()->with( 'success', "Internal file deleted" );
+        }
+
+        return redirect()->back()->with( 'success', "Internal file not found" );
+
     }
 }

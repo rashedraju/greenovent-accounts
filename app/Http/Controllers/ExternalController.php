@@ -5,35 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddCostRequest;
 use App\Http\Requests\EditCostRequest;
 use App\Models\ExternalCost;
+use App\Models\File;
 use App\Models\Project;
-use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File as FacadesFile;
 
 class ExternalController extends Controller {
     // show external costs
     public function index( Project $project ) {
-        $sheetHeader = null;
-        $sheetData = null;
-        $sheetFooter = null;
 
-        if ( $project->external?->file && Storage::disk( 'uploads' )->exists( $project->external?->file->file ) ) {
-            $reader = new Xlsx();
-            $spreadsheet = $reader->load( 'public/uploads/' . $project->external->file->file );
-
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html( $spreadsheet );
-            $hdr = $writer->generateHTMLHeader();
-            $sty = $writer->generateStyles( false ); // do not write <style> and </style>
-            $newstyle = <<<EOF
-            <style type='text/css'>
-            $sty
-            </style>
-            EOF;
-            $sheetHeader = preg_replace( '@</head>@', "$newstyle\n</head>", $hdr );
-            $sheetData = $writer->generateHtmlAll();
-            $sheetFooter = $writer->generateHTMLFooter();
-        }
-
-        return view( 'projects.external', ['project' => $project, 'sheetHeader' => $sheetHeader, 'sheetData' => $sheetData, 'sheetFooter' => $sheetFooter] );
+        return view( 'projects.external', ['project' => $project] );
     }
 
     // Store external cost
@@ -60,23 +41,6 @@ class ExternalController extends Controller {
 
         $externalCost->update( $request->only( ['total', 'asf', 'vat', 'note'] ) );
 
-        if ( $request->has( 'file' ) ) {
-            $fname = time() . "_" . $request->file->getClientOriginalName();
-
-            // store new file
-            $filePath = $request->file( 'file' )->storeAs( 'external_files', $fname, 'uploads' );
-
-            // delete previous file
-            if ( isset( $externalCost->file->file ) && Storage::disk( 'uploads' )->exists( $externalCost->file->file ) ) {
-                Storage::disk( 'uploads' )->delete( $externalCost->file->file );
-            }
-
-            // update file path
-            $externalCost->file()->updateOrCreate( ['file' => $filePath] );
-        } else {
-            return back()->with( 'failed', "External file did't fount" );
-        }
-
         return redirect()->route( 'projects.external.index', ['project' => $project] )->with( 'success', 'External cost updated' );
     }
 
@@ -85,5 +49,35 @@ class ExternalController extends Controller {
         $externalCost->delete();
 
         return redirect()->route( 'projects.external.index', ['project' => $project] )->with( 'success', 'External cost deleted' );
+    }
+
+    // file management
+    public function fileStore( Project $project, Request $request ) {
+        $request->validate( [
+            'file' => 'required'
+        ] );
+
+        $fname = time() . "_" . $request->file->getClientOriginalName();
+        $filePath = $request->file( 'file' )->storeAs( 'external_files', $fname, 'uploads' );
+
+        $project->external->file()->create( ['file' => $filePath] );
+
+        return redirect()->back()->with( 'success', "external file added" );
+
+    }
+
+    // file management
+    public function fileDelete( Project $project, File $file, Request $request ) {
+
+        if ( FacadesFile::exists( public_path( "uploads/{$file->file}" ) ) ) {
+            FacadesFile::delete( public_path( "uploads/{$file->file}" ) );
+
+            $project->external->file()->delete();
+
+            return redirect()->back()->with( 'success', "external file deleted" );
+        }
+
+        return redirect()->back()->with( 'success', "external file not found" );
+
     }
 }

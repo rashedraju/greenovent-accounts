@@ -83,13 +83,17 @@ Route::middleware( 'auth' )->group( function () {
         Route::put( '/{project}/external/{externalCost}', [ExternalController::class, 'update'] )->name( 'external.update' );
         Route::delete( '/{project}/external/{externalCost}', [ExternalController::class, 'delete'] )->name( 'external.delete' );
 
-        Route::post( '/{project}/external/upload', [ExternalController::class, 'upload'] )->name( 'external.upload' );
+        Route::post( '/{project}/external/file', [ExternalController::class, 'fileStore'] )->name( 'external.file.store' );
+        Route::delete( '/{project}/external/file/{file}', [ExternalController::class, 'fileDelete'] )->name( 'external.file.delete' );
 
         // Project Internal Cost
         Route::get( '/{project}/internal', [InternalController::class, 'index'] )->name( 'internal.index' );
         Route::post( '/{project}/internal', [InternalController::class, 'store'] )->name( 'internal.store' );
         Route::put( '/{project}/internal/{internalCost}', [InternalController::class, 'update'] )->name( 'internal.update' );
         Route::delete( '/{project}/internal/{internalCost}', [InternalController::class, 'delete'] )->name( 'internal.delete' );
+
+        Route::post( '/{project}/internal/file', [InternalController::class, 'fileStore'] )->name( 'internal.file.store' );
+        Route::delete( '/{project}/internal/file/{file}', [InternalController::class, 'fileDelete'] )->name( 'internal.file.delete' );
 
         // Project Internal Cost
         Route::get( '/{project}/vendor', [VendorController::class, 'index'] )->name( 'vendor.index' );
