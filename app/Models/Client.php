@@ -89,7 +89,7 @@ class Client extends Model {
 
     // bussiness manager from company who responsible for this client
     public function businessManager() {
-        return $this->belongsTo( User::class );
+        return $this->belongsTo( User::class, 'business_manager_id' );
     }
 
     // A client has many contact person

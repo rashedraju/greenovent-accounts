@@ -58,7 +58,7 @@ class User extends Authenticatable {
 
     // a user has many client
     public function clients() {
-        return $this->hasMany( Client::class );
+        return $this->hasMany( Client::class, 'business_manager_id' );
     }
 
     /**

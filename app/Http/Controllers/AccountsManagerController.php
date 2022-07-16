@@ -31,13 +31,13 @@ class AccountsManagerController extends Controller {
     }
 
     public function show( User $user ) {
-        $clients = Client::all()->pluck( 'company_name', 'id' );
+        $clients = Client::where( 'business_manager_id', $user->id )->get()->pluck( 'company_name', 'id' );
         $salesData = $this->salesService->sales();
 
-        $data = array_merge( [
+        $data = array_merge( $salesData, [
             'accountsManager' => $user,
             'clients'         => $clients
-        ], $salesData );
+        ] );
 
         return view( 'accounts-manager.show', ['data' => $data] );
     }

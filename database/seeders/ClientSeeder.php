@@ -16,22 +16,22 @@ class ClientSeeder extends Seeder {
             [
                 'company_name'        => "Anwar Group",
                 "office_address"      => "Baitul Hossain Building (13th floor), 27 Dilkusha C/A, Dhaka-1000",
-                'business_manager_id' => 4
+                'business_manager_id' => 3
             ],
             [
                 'company_name'        => "BAT",
                 "office_address"      => "Mohakhali, Dhaka",
-                'business_manager_id' => 4
+                'business_manager_id' => 3
             ],
             [
                 'company_name'        => "TVS bangladesh",
                 "office_address"      => "304, Industrial Area (2nd, 3rd & 4th Floor) Tejgaon, Dhaka- 1208.",
-                'business_manager_id' => 5
+                'business_manager_id' => 4
             ],
             [
                 'company_name'        => "Sun Pharma",
                 "office_address"      => "304, Industrial Area (2nd, 3rd & 4th Floor) Tejgaon, Dhaka- 1208.",
-                'business_manager_id' => 5
+                'business_manager_id' => 4
             ]
         ];
 
