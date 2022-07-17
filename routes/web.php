@@ -8,6 +8,7 @@ use App\Http\Controllers\Accounts\AccountsExpensesController;
 use App\Http\Controllers\Accounts\AccountsExpenseTypesController;
 use App\Http\Controllers\Accounts\AccountsRequisitoinController;
 use App\Http\Controllers\Accounts\AccountsSalesController;
+use App\Http\Controllers\Accounts\AccountsVendorController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ClientsController;
@@ -254,6 +255,13 @@ Route::middleware( 'auth' )->group( function () {
         Route::name( 'requisitions.' )->prefix( '/{year}/{month}/requisitions' )->group( function () {
             Route::get( '/', [AccountsRequisitoinController::class, 'index'] )->name( 'index' );
             Route::get( '/{project}', [AccountsRequisitoinController::class, 'show'] )->name( 'show' );
+        } );
+
+        Route::name( 'vendors.' )->prefix( '/{year}/{month}/vendors' )->group( function () {
+            Route::get( '/', [AccountsVendorController::class, 'index'] )->name( 'index' );
+            Route::post( '/create_vendor', [AccountsVendorController::class, 'createVendor'] )->name( 'createVendor' );
+            Route::post( '/', [AccountsVendorController::class, 'store'] )->name( 'store' );
+            Route::put( '/{accountsVendor}', [AccountsVendorController::class, 'update'] )->name( 'update' );
         } );
 
         // employee laod

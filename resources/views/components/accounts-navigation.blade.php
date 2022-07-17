@@ -36,6 +36,12 @@
                         </a>
                     </div>
                     <div class="menu-item me-lg-1">
+                        <a href="{{ route('accounts.vendors.index', ['year' => $year, 'month' => $month]) }}"
+                            class="menu-link py-3 {{ request()->routeIs('accounts.vendors.*') ? 'bg-primary text-white mx-1' : '' }}">
+                            <span class="menu-title">Vendors</span>
+                        </a>
+                    </div>
+                    <div class="menu-item me-lg-1">
                         <a href="{{ route('accounts.requisitions.index', ['year' => $year, 'month' => $month]) }}"
                             class="menu-link py-3 {{ request()->routeIs('accounts.requisitions.*') ? 'bg-primary text-white mx-1' : '' }}">
                             <span class="menu-title">Requisitions</span>
