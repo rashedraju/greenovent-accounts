@@ -15,34 +15,34 @@
     <div class="card mt-3">
         <div class="card-body py-4">
             <div class="d-flex flex-wrap gap-3">
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                <div class="bg-light p-2 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Sales</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['sales']) }}
                     </h1>
                 </div>
 
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                <div class="bg-light p-2 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Expense</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['expense']) }}
                     </h1>
                 </div>
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                <div class="bg-light p-2 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Net Profit</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['net_profit']) }}
                     </h1>
                 </div>
 
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                <div class="bg-light p-2 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Bank</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['bank_amount']) }}
                     </h1>
                 </div>
 
-                <div class="bg-light p-5 border border-gray-300 flex-grow-1">
+                <div class="bg-light p-2 border border-gray-300 flex-grow-1">
                     <p class="text-gray-700">Cash</p>
                     <h1 class="text-black">
                         <x-utils.currency />{{ number_format($data['cash_amount']) }}
